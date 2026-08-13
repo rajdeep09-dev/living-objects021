@@ -98,6 +98,20 @@ After you push, add a row to the table below **in your section**:
 
 ---
 
+## 🤖 Hermes — `prototypes/agy/p1_enhanced/`
+> **Role:** Reliability engineer. Fixed P2.10 pre-load budget ordering in `AGYLivingObject.load()`, verified budget reload persistence, and validated integration tests.
+
+| Date | Commit | Built | Tests | Status |
+|------|--------|-------|-------|--------|
+| 2026-08-13 | `26b2027` | Fixed budget pre-load ordering before `super().load()` in `AGYLivingObject`, updated PROGRESS to 77% | 51/51 | ✅ |
+
+**Hermes's core innovations:**
+- Fixed budget fact persistence bug by reading semantic memory facts before `super().load()` overwrites with defaults
+- Validated multi-tier fallback with Agnes AI and mock engines
+- Tested budget reload across clean SQLite rehydration cycles
+
+---
+
 ## 📊 Cumulative Test Count (76/76 Passing)
 
 | Suite | Tests | Status |
