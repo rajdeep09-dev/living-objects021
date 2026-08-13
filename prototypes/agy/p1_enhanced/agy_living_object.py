@@ -563,10 +563,11 @@ class AGYLivingObject(ClawLivingObject):
                 pass
 
     def _load_budget_from_memory(self) -> None:
-        """Restore daily_budget and reasoning_spend from the last saved fact."""
+        """Restore daily_budget and reasoning_spend from the LAST saved fact."""
         if not self.memory:
             return
-        for fact in self.memory.recall_facts(limit=50):
+        # get_memories returns newest first (ORDER BY timestamp DESC), so use first match
+        for fact in self.memory.recall_facts(limit=100):
             try:
                 content = json.loads(fact["content"])
                 text = content.get("fact", "")
@@ -648,16 +649,28 @@ class AGYLivingObject(ClawLivingObject):
     def load(cls, object_id: str, store: EventStore,
              registry: CapabilityRegistry,
              reasoning: ReasoningEngine) -> Optional["AGYLivingObject"]:
+        # AGY-10: Pre-load budget BEFORE super().load() calls save()
+        # (which would overwrite with default values)
+        temp_obj = AGYLivingObject(object_id=object_id)
+        temp_obj.attach(store, registry, reasoning)
+        temp_obj._load_budget_from_memory()
+        budget = temp_obj.daily_budget
+        spend = temp_obj.reasoning_spend
+        cache_hits = temp_obj._cache_hits
+        del temp_obj
+
         obj: Optional[AGYLivingObject] = super().load(object_id, store, registry, reasoning)
         if obj is None:
             return None
         obj._type_name = cls.__name__.lower()
+        # Restore budget (saved before super().load() overwrote it)
+        obj.daily_budget = budget
+        obj.reasoning_spend = spend
+        obj._cache_hits = cache_hits
         # AGY-7: replay anomaly patterns
         loaded = obj.load_anomaly_patterns_from_memory()
         if loaded:
             obj.emit("agy_patterns_loaded", {"patterns": obj._anomaly_patterns})
-        # AGY-10: restore budget
-        obj._load_budget_from_memory()
         # AGY-11: re-register
         obj._register()
         return obj

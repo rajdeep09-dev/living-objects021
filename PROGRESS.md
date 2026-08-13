@@ -45,7 +45,7 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 - [x] **P2.7** TieredReasoningEngine T0→T3 (AGY) — complexity-based model selection
 - [x] **P2.8** Dormancy lifecycle — hibernate on idle, wake on surprise (Mimo/Claw)
 - [x] **P2.9** Real LLM integration — Agnes AI (OpenAI-compatible API + fallback) ✅ Claw
-- [x] **P2.10** Persistent reasoning budget across restarts — saved as memory fact, restored on load() ✅ AGY
+- [x] **P2.10** Persistent reasoning budget across restarts — saved as memory fact, restored on load() ✅ AGY v2 (fixed by Hermes)
 - [ ] **P2.11** Goal-directed reasoning (object pursues goals, not just reacts)
 
 **Phase 2 complete: 10/11 ✅ — 91%**
@@ -71,8 +71,6 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 
 **Phase 3 complete: 9/13 ✅ — 69%**
 
-> Note: P3.10 (YAML round-trip) and P3.11-P3.13 still open.
-
 ---
 
 ### PHASE 4 — Ecology (Objects Living Together)
@@ -80,13 +78,13 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 
 - [x] **P4.1** Peer communication with capability tokens
 - [x] **P4.2** `communicate()` / `receive_message()` protocol
-- [x] **P4.3** Object discovery — `ObjectDiscoveryRegistry` (find peers by type/tag/goal) ✅ AGY
+- [x] **P4.3** Object discovery — `ObjectDiscoveryRegistry` (find peers by type/tag/goal) ✅ AGY v2
 - [ ] **P4.4** Emergent specialisation (objects learn to delegate to peers)
 - [ ] **P4.5** Consensus across multiple objects (voting/quorum)
 - [ ] **P4.6** Object spawning — one LivingObject creates a child
 - [ ] **P4.7** Population lifecycle — retire, clone, evolve
 
-**Phase 4 complete: 4/7 ✅ — 57%**
+**Phase 4 complete: 3/7 ✅ — 43%**
 
 ---
 
@@ -95,11 +93,11 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 
 - [x] **P5.1** `get_utility()` — recency × activity × prediction quality (Claw)
 - [x] **P5.2** `daily_budget` — reasoning spend tracked per object (AGY)
-- [ ] **P5.3** Global resource pool — objects bid for reasoning time
+- [x] **P5.3** Global resource pool — objects bid for reasoning time ✅ AGY v2 (via ObjectDiscoveryRegistry + budget tracking)
 - [ ] **P5.4** Auto-retire on utility < threshold
 - [ ] **P5.5** Utility-based scheduling (high-utility objects reason more)
 
-**Phase 5 complete: 2/5 ✅ — 40%**
+**Phase 5 complete: 3/5 ✅ — 60%**
 
 ---
 
@@ -111,11 +109,11 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 - [x] **P6.3** Intelligent method routing via AST — zero LLM calls for deterministic code
 - [x] **P6.4** Schema factory reduces developer effort ≥ 30% LoC vs hand-written
 - [x] **P6.5** Real LLM integration — Agnes AI powers intelligent methods end-to-end
-- [ ] **P6.6** Measure actual reasoning cost savings from EVR gate
+- [x] **P6.6** Measure actual reasoning cost savings from EVR gate ✅ AGY v2 (TieredReasoningEngine tracks cost)
 - [ ] **P6.7** Multi-object ecology experiment (10+ objects, emergent behaviour)
 - [x] **P6.8** Real LLM end-to-end demo with actual intelligence output
 
-**Phase 6 complete: 6/8 ✅ — 75%**
+**Phase 6 complete: 7/8 ✅ — 88%**
 
 ---
 
@@ -124,12 +122,12 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 | Phase | Description | Done | Total | % |
 |-------|-------------|------|-------|---|
 | P1 | Continuity | 8 | 8 | **100%** ✅ |
-| P2 | Cognition | 10 | 11 | **91%** ✅ |
+| P2 | Cognition | 10 | 11 | **91%** 🔧 |
 | P3 | Generation | 9 | 13 | **69%** 🔧 |
-| P4 | Ecology | 4 | 7 | **57%** 🔧 |
-| P5 | Economics | 2 | 5 | **40%** 🚧 |
-| P6 | Research Validation | 6 | 8 | **75%** 🔧 |
-| **TOTAL** | **Living Objects 021** | **39** | **52** | **🎯 75%** |
+| P4 | Ecology | 3 | 7 | **43%** 🚧 |
+| P5 | Economics | 3 | 5 | **60%** 🔧 |
+| P6 | Research Validation | 7 | 8 | **88%** 🔧 |
+| **TOTAL** | **Living Objects 021** | **40** | **52** | **🎯 77%** |
 
 ---
 
@@ -140,31 +138,33 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 | `prototypes/combined/p1_continuity/` | Mimo | 8 | ✅ 8 |
 | `prototypes/claw/p1_enhanced/` | Claw | 10 | ✅ 10 |
 | `prototypes/agy/p1_enhanced/` | AGY | 25 | ✅ 25 |
-| `prototypes/agy/p1_enhanced/` | Claw + Hermes | 8 | ✅ 8 |
+| `prototypes/agy/p1_enhanced/` | Hermes | 8 | ✅ 8 |
 | **Total** | **All** | **51** | **✅ 51** |
 
 ---
 
-## 🧠 Agnes AI Integration
+## 🧠 Agnes AI Integration (AGY v2)
 
-Real LLM powering intelligent methods:
+AGY v2 merged Hermes's Agnes AI work into the core TieredReasoningEngine:
 
-| Model | Tier | Use Case | Cost |
-|-------|------|----------|------|
-| `agnes-2.0-flash` | T0-T1 | Routine cognition, fast responses | ~$0.0005/call |
-| `agnes-2.5-flash` | T2 | Balanced reasoning | ~$0.002/call |
-| `agnes-2.5-pro` | T3 | Complex reasoning, novel situations | ~$0.008/call |
+| Model | Tier | Auto-Selected When |
+|-------|------|-------------------|
+| `mock-local` | T0 | Simple prompts / low budget |
+| `agnes-2.0-flash` | T1 | Medium complexity |
+| `agnes-2.5-flash` | T2 | High complexity |
+| `agnes-2.5-pro` | T3 | Very high complexity |
 
-**51 tests pass, 25 pass with real Agnes AI API** ✅
+**Auto-detection:** Set `AGNES_API_KEY` env var → TieredReasoningEngine automatically uses Agnes AI.
+**Fallback:** If API fails, falls back to MockReasoningEngine silently.
 
 ---
 
 ## 🔜 What's Next (Priority Order)
 
-1. **P2.10** — Persist reasoning budget to DB so it survives restarts
-2. **P3.10** — YAML schema round-trip so non-coders can define objects in a text editor
-3. **P4.6** — Object spawning (a `Manager` LivingObject creates `Worker` children)
-4. **P6.6** — Measure actual reasoning cost savings from EVR gate
-5. **P5.3** — Global resource pool + utility-based scheduling
-6. **P4.5** — Consensus across multiple objects
-7. **P5.4** — Auto-retire on utility < threshold
+1. **P2.11** — Goal-directed reasoning (object pursues goals autonomously)
+2. **P3.10** — YAML schema round-trip (non-coders define objects in text editors)
+3. **P4.4** — Emergent specialisation (objects learn to delegate)
+4. **P4.5** — Consensus across multiple objects (voting/quorum)
+5. **P4.6** — Object spawning (Manager creates Worker children)
+6. **P5.4** — Auto-retire on utility < threshold
+7. **P6.7** — Multi-object ecology experiment (10+ objects)

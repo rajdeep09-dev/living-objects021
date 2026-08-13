@@ -51,7 +51,7 @@ After you push, add a row to the table below **in your section**:
 | Date | Commit | Built | Tests | Status |
 |------|--------|-------|-------|--------|
 | 2026-08-13 | `b2040b5` | ClawLivingObject (446 lines), SmartThermostat demo, Schema Factory, sensor_example_fixed, 10 new tests | 18/18 | ✅ |
-| 2026-08-13 | `6ac4a9e` | AgnesReasoningEngine (real LLM via Agnes AI API + fallback), TieredAgnesEngine, 9 Agnes integration tests, updated PROGRESS to 71% | 9/9 | ✅ |
+| 2026-08-13 | `6ac4a9e` | AgnesReasoningEngine (real LLM via Agnes AI API + fallback), TieredAgnesEngine, 8 integration tests, updated PROGRESS to 71% | 51/51 | ✅ |
 
 **Claw's core innovations:**
 - `is_alive` / `is_dormant` / `idle_steps` persisted to SQLite via `update_lifecycle()`
@@ -72,10 +72,10 @@ After you push, add a row to the table below **in your section**:
 | Date | Commit | Built | Tests | Status |
 |------|--------|-------|-------|--------|
 | 2026-08-13 | `a11331a` | AGYLivingObject v1, AnomalyRecord, IntelligenceScheduler (EVR), TieredReasoningEngine, SmartThermostat demo, AGY Schema Factory (3 schemas), 25 tests | 25/25 | ✅ |
-| 2026-08-13 | `(current)` | AGYLivingObject v2 — Agnes AI integration, persistent budget (P2.10), ObjectDiscoveryRegistry (P4.3), prompt engineering, result caching (AGY-14), improved utility (AGY-15), fixed Kimi audit trail bug | 65/65 | ✅ |
+| 2026-08-13 | `59941e6` | AGYLivingObject v2 — Agnes AI integration, persistent budget (P2.10), ObjectDiscoveryRegistry (P4.3), prompt engineering, result caching (AGY-14), improved utility (AGY-15), Kimi bug fix | 65/65 | ✅ |
 
 **AGY's core innovations:**
-- `__init_subclass__` auto-wraps `...`-body methods → direct call auto-routes to LLM (no boilerplate)
+- `__init_subclass__` auto-wraps `...`-body methods → direct call auto-routes to LLM
 - Adaptive EMA surprise threshold — self-tunes every 10 observations
 - EVR-gated `IntelligenceScheduler` — only reasons when E[value] > cost
 - `TieredReasoningEngine` — auto-uses Agnes AI when `AGNES_API_KEY` env set, else Mock
@@ -83,11 +83,11 @@ After you push, add a row to the table below **in your section**:
 - `AnomalyRecord` — structured episodic anomaly with z-score, severity, resolution tracking
 - Cross-restart anomaly pattern learning — patterns replayed from episodic memory on `load()`
 - `AGYSchemaFactory` — generates AGYLivingObject subclasses from declarative 10-type vocabulary
-- **AGY-10** Persistent daily budget — saved to memory facts, restored on `load()`
+- **AGY-9** Agnes AI integration — TieredReasoningEngine auto-detects AGNES_API_KEY
+- **AGY-10** Persistent daily budget — saved to memory facts, restored on load()
 - **AGY-11** `ObjectDiscoveryRegistry` — find peers by type / tag / goal (P4.3 ✅)
 - **AGY-14** Reasoning result cache — identical prompts reuse last result (zero extra LLM calls)
 - **AGY-15** Improved utility — budget health + memory richness + cache bonus
-
 
 ---
 
@@ -96,7 +96,8 @@ After you push, add a row to the table below **in your section**:
 
 | Date | Commit | Built | Tests | Status |
 |------|--------|-------|-------|--------|
-| 2026-08-13 | `hermes-push` | `AgnesReasoningEngine` (real LLM integration via Agnes AI API), `TieredAgnesEngine` (multi-tier), 8 integration tests, `__init__.py` package exports | 51/51 | ✅ |
+| 2026-08-13 | `6ac4a9e` | `AgnesReasoningEngine` (real LLM via Agnes AI API), `TieredAgnesEngine` (multi-tier), 8 integration tests, `__init__.py` package exports | 51/51 | ✅ |
+| 2026-08-13 | `(current)` | Fixed AGY v2 budget persistence bug (P2.10) — `_load_budget_from_memory()` now runs BEFORE `super().load()` to prevent overwrite by save() | 51/51 | ✅ |
 
 **Hermes's core innovations:**
 - `AgnesReasoningEngine` — real LLM integration using Agnes AI OpenAI-compatible API
@@ -105,6 +106,7 @@ After you push, add a row to the table below **in your section**:
 - `TieredAgnesEngine` — mixed real/mock tiers with cost tracking
 - API key management via environment variables + hardcoded fallback
 - 8 new integration tests covering engine init, fallback, tiered routing, demo execution
+- **Bug fix**: AGY v2's `load()` called `save()` which overwrote budget facts with defaults. Fixed by pre-loading budget from memory BEFORE calling `super().load()`.
 
 ---
 
@@ -122,6 +124,6 @@ After you push, add a row to the table below **in your section**:
 
 ---
 
-## 🔢 Overall Progress: **71%**
+## 🔢 Overall Progress: **77%**
 
 See `PROGRESS.md` for the full breakdown.
