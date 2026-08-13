@@ -41,7 +41,10 @@ class EventStore:
                     created_at TEXT,
                     identity_signature TEXT,
                     current_state TEXT,
-                    state_version INTEGER DEFAULT 0
+                    state_version INTEGER DEFAULT 0,
+                    is_alive INTEGER DEFAULT 1,
+                    is_dormant INTEGER DEFAULT 0,
+                    idle_steps INTEGER DEFAULT 0
                 );
 
                 CREATE TABLE IF NOT EXISTS events (
@@ -120,6 +123,17 @@ class EventStore:
                 "UPDATE objects SET current_state = ?, state_version = ? WHERE object_id = ?",
                 (json.dumps(state), version, object_id),
             )
+
+    def update_lifecycle(self, object_id: str, is_alive=None, is_dormant=None, idle_steps=None) -> None:
+        """Update lifecycle flags."""
+        updates, params = [], []
+        if is_alive is not None: updates.append("is_alive=?"); params.append(is_alive)
+        if is_dormant is not None: updates.append("is_dormant=?"); params.append(is_dormant)
+        if idle_steps is not None: updates.append("idle_steps=?"); params.append(idle_steps)
+        if updates:
+            params.append(object_id)
+            with self._connect() as conn:
+                conn.execute(f"UPDATE objects SET {','.join(updates)} WHERE object_id=?", params)
 
     def delete_object(self, object_id: str) -> None:
         """Hard delete — for testing only."""

@@ -1,11 +1,13 @@
 """
-Example: Smart Sensor with Living Objects
+Fixed Example: Smart Sensor with Living Objects
 
 Demonstrates a persistent intelligent sensor that:
 - Records readings (deterministic)
 - Diagnoses anomalies (intelligent)
 - Learns from experience
 - Survives process restart
+
+This is the FIXED version of the original broken example.
 """
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
