@@ -157,8 +157,8 @@ class AutonomousSRE:
             name="LoadBalancer_Primary",
             initial_state={"isolated_nodes": []}
         )
-        self.lb._tags = ["loadbalancer"]
-        self.lb._goals = ["maximize_uptime"]
+        self.lb._tags = ["loadbalancer"]  # type: ignore
+        self.lb._goals = ["maximize_uptime"]  # type: ignore
 
         # Deploy servers
         for i in range(num_servers):
@@ -172,8 +172,8 @@ class AutonomousSRE:
                     "status": "healthy",
                 }
             )
-            server._tags = ["server", "compute"]
-            server._goals = ["maintain_performance"]
+            server._tags = ["server", "compute"]  # type: ignore
+            server._goals = ["maintain_performance"]  # type: ignore
             self.servers[server.object_id] = server
             server.boot()
 
