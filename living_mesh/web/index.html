@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LivingMesh — Autonomous Intelligence Operating System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="mesh-app">
+    <!-- TOP HEADER -->
+    <header class="mesh-header">
+      <div class="brand">
+        <div class="pulse-orb"></div>
+        <div class="brand-text">
+          <h1>LIVING<span class="highlight">MESH</span></h1>
+          <span class="subtitle">Autonomous Intelligence Operating System</span>
+        </div>
+      </div>
+
+      <div class="metrics-bar">
+        <div class="metric-pill">
+          <span class="label">POPULATION</span>
+          <span class="value" id="val-population">0 Nodes</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">RESOURCE POOL</span>
+          <span class="value" id="val-pool">10,000 Tokens</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">COMPUTE EFFICIENCY</span>
+          <span class="value highlight-green" id="val-evr">84.6% EVR Saved</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">MESH STATE</span>
+          <span class="status-badge live" id="val-mesh-status">● EQUILIBRIUM</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN COCKPIT -->
+    <main class="mesh-main">
+      <!-- LEFT: TOPOLOGY GRAPH CANVAS -->
+      <section class="panel topology-panel">
+        <div class="panel-header">
+          <h2>🌐 Living Object Topology</h2>
+          <div class="panel-actions">
+            <span class="hint">Click any node to inspect brain</span>
+          </div>
+        </div>
+        <div class="canvas-container">
+          <canvas id="topologyCanvas"></canvas>
+          <div class="topology-legend">
+            <span class="legend-item"><span class="dot active"></span> Active</span>
+            <span class="legend-item"><span class="dot dormant"></span> Dormant (0-Cost)</span>
+            <span class="legend-item"><span class="dot thinking"></span> Reasoning</span>
+            <span class="legend-item"><span class="dot anomaly"></span> Anomaly / Healing</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CENTER: LIVE COGNITIVE STREAM -->
+      <section class="panel stream-panel">
+        <div class="panel-header">
+          <h2>🧠 Live Cognitive Stream</h2>
+          <span class="badge" id="stream-count">Live Events</span>
+        </div>
+        <div class="terminal-container" id="cognitiveTerminal">
+          <!-- Live events streamed here -->
+        </div>
+      </section>
+
+      <!-- RIGHT: CHAOS & CONTROL DECK -->
+      <section class="panel control-panel">
+        <div class="panel-header">
+          <h2>⚡ Chaos & Fault Injection</h2>
+          <span class="badge red">Live Stressors</span>
+        </div>
+        <div class="chaos-deck">
+          <p class="deck-desc">Inject realistic failures to witness real-time autonomous self-healing, peer consensus, and cross-restart rehydration.</p>
+          
+          <div class="chaos-grid">
+            <button class="chaos-btn db" id="btn-chaos-db">
+              <span class="icon">⚡</span>
+              <span class="btn-title">DB Query Lock Surge</span>
+              <span class="btn-sub">Injects 280ms latency & unindexed scan</span>
+            </button>
+
+            <button class="chaos-btn service" id="btn-chaos-svc">
+              <span class="icon">🔌</span>
+              <span class="btn-title">Microservice Outage</span>
+              <span class="btn-sub">Injects 50% cascading error spike</span>
+            </button>
+
+            <button class="chaos-btn security" id="btn-chaos-sec">
+              <span class="icon">🚨</span>
+              <span class="btn-title">Brute-Force Intrusion</span>
+              <span class="btn-sub">Simulates high-entropy credential attack</span>
+            </button>
+
+            <button class="chaos-btn market" id="btn-chaos-mkt">
+              <span class="icon">📉</span>
+              <span class="btn-title">Market Liquidity Shock</span>
+              <span class="btn-sub">Triggers 0.88 drawdown volatility</span>
+            </button>
+
+            <button class="chaos-btn crash" id="btn-chaos-crash">
+              <span class="icon">💥</span>
+              <span class="btn-title">Simulate Process Crash</span>
+              <span class="btn-sub">Hard reboot & SQLite event rehydration</span>
+            </button>
+
+            <button class="chaos-btn consensus" id="btn-chaos-vote">
+              <span class="icon">🗳️</span>
+              <span class="btn-title">Trigger Quorum Vote</span>
+              <span class="btn-sub">Initiate emergency mesh consensus</span>
+            </button>
+
+            <button class="chaos-btn spawn" id="btn-chaos-spawn">
+              <span class="icon">🤖</span>
+              <span class="btn-title">Spawn Forensic Bot</span>
+              <span class="btn-sub">Commander spawns child worker</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- BOTTOM DRAWER: DEEP NODE INSPECTOR -->
+    <section class="node-inspector" id="nodeInspector">
+      <div class="inspector-header">
+        <div class="inspector-title">
+          <span class="type-tag" id="insp-type">Node</span>
+          <h3 id="insp-name">Select a node</h3>
+          <span class="id-tag" id="insp-id">UUID</span>
+        </div>
+        <div class="inspector-stats">
+          <span class="stat">Utility: <strong id="insp-utility">1.0</strong></span>
+          <span class="stat">Budget Left: <strong id="insp-budget">1.00</strong></span>
+          <span class="stat">Memories: <strong id="insp-memories">0</strong></span>
+        </div>
+      </div>
+      <div class="inspector-body">
+        <div class="insp-col">
+          <h4>State Variables</h4>
+          <pre id="insp-state">{}</pre>
+        </div>
+        <div class="insp-col">
+          <h4>Active Goals</h4>
+          <ul id="insp-goals"><li>None</li></ul>
+        </div>
+        <div class="insp-col">
+          <h4>Recent Anomalies</h4>
+          <pre id="insp-anomalies">None</pre>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

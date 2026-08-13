@@ -112,7 +112,7 @@ After you push, add a row to the table below **in your section**:
 
 ---
 
-## 📊 Cumulative Test Count (76/76 Passing)
+## 📊 Cumulative Test Count (85/85 Passing)
 
 | Suite | Tests | Status |
 |-------|-------|--------|
@@ -124,7 +124,8 @@ After you push, add a row to the table below **in your section**:
 | `prototypes/agy/p1_enhanced/` (Agnes AI Integration) | 8 | ✅ Passing |
 | `prototypes/agy/p1_enhanced/` (Advanced Schema & YAML) | 4 | ✅ Passing |
 | `prototypes/agy/p1_enhanced/` (Ecology & Economics) | 7 | ✅ Passing |
-| **Total Test Count** | **76** | **✅ 100% Green** |
+| `living_mesh/tests/` (Flagship Ecosystem System) | 9 | ✅ Passing |
+| **Total Test Count** | **85** | **✅ 100% Green** |
 
 ---
 

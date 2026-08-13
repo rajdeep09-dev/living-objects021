@@ -132,7 +132,7 @@ but objects with **persistent identity**, **episodic memory**, **intelligent cog
 
 ---
 
-## 🧪 Test Scoreboard (76/76 Passing)
+## 🧪 Test Scoreboard (85/85 Passing)
 
 | Suite | Scope | Tests | Passing |
 |-------|-------|-------|---------|
@@ -144,7 +144,8 @@ but objects with **persistent identity**, **episodic memory**, **intelligent cog
 | `prototypes/agy/p1_enhanced/` (Agnes) | Real LLM Inference & Multi-tier Fallback | 8 | ✅ 8 |
 | `prototypes/agy/p1_enhanced/` (Advanced Schema) | YAML Roundtrip, Registry & Migration | 4 | ✅ 4 |
 | `prototypes/agy/p1_enhanced/` (Ecology & Economics) | Goals, Delegation, Consensus, Spawning & Bidding | 7 | ✅ 7 |
-| **Total** | **All Test Suites** | **76** | **✅ 76** |
+| `living_mesh/tests/` | LivingMesh Self-Healing, Sentinel, Spawning & Rehydration | 9 | ✅ 9 |
+| **Total** | **All Test Suites** | **85** | **✅ 85** |
 
 ---
 

@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/rajdeep09-dev/living-objects021/actions/workflows/ci.yml/badge.svg)](https://github.com/rajdeep09-dev/living-objects021/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Tests: 76/76](https://img.shields.io/badge/tests-76%2F76%20passing-brightgreen.svg)](tests/)
+[![Tests: 85/85](https://img.shields.io/badge/tests-85%2F85%20passing-brightgreen.svg)](tests/)
 [![Progress: 100%](https://img.shields.io/badge/progress-100%25%20(52%2F52)-success.svg)](PROGRESS.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -12,7 +12,7 @@ A research project exploring a new programming paradigm where software objects a
 
 ---
 
-## ⚡ Quick Start
+## ⚡ Quick Start & Interactive Showcase
 
 ```bash
 # Clone & install
@@ -21,10 +21,19 @@ cd living-objects021
 pip install -e "."
 pip install pytest requests
 
-# Run all 76 unit and integration tests
-python3 -m pytest prototypes/ -v
+# 1. Run all 85 unit and integration tests across the repository
+python3 -m pytest prototypes/ living_mesh/tests/ -v
 
-# Run the research benchmarks
+# 2. Launch the Interactive Mission Control Web UI (Opens on http://localhost:8080)
+python3 -m living_mesh.server
+
+# 3. Or launch the Terminal CLI Cockpit
+python3 -m living_mesh.cli
+
+# 4. Or run the Automated Self-Healing Showcase Demo
+python3 -m living_mesh.demo
+
+# 5. Run the Research Benchmarks
 python3 benchmarks/evr_benchmark.py
 python3 benchmarks/ecology_simulation.py
 ```
