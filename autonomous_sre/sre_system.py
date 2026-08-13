@@ -136,7 +136,8 @@ class AutonomousSRE:
     def __init__(self, name: str = "SRE-Alpha"):
         self.name = name
         import tempfile
-        self.db_path = os.path.join(tempfile.mkdtemp(), f"sre_{name.lower()}.db")
+        self.db_dir = tempfile.mkdtemp()
+        self.db_path = os.path.join(self.db_dir, f"sre_{name.lower()}.db")
         self.store = EventStore(self.db_path)
         self.registry = CapabilityRegistry()
         self.engine = MockReasoningEngine()
