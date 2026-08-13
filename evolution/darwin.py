@@ -27,7 +27,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
 # Add project root to path
-_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, _ROOT)
 
 # Direct imports to avoid caching issues
@@ -249,8 +249,13 @@ class DarwinianOrganism(ClawLivingObject):
 # ============================================================================
 
 class DarwinianSystem:
-    def __init__(self, seed: Optional[int] = None):
+    def __init__(self, seed: Optional[int] = None, db_path: Optional[str] = None):
         self.rng = random.Random(seed or int(time.time() * 1000) % 2**32)
+        import tempfile
+        self.db_path = db_path or os.path.join(tempfile.mkdtemp(), "darwin_evolution.db")
+        self.store = EventStore(self.db_path)
+        self.registry = CapabilityRegistry()
+        self.engine = MockReasoningEngine()
         self.environment = {"resource_scarcity": 0.3, "competition_level": 0.5, "complexity": 0.5, "social_density": 0.5}
         self.organisms: Dict[str, DarwinianOrganism] = {}
         self.generation: int = 0
@@ -269,9 +274,9 @@ class DarwinianSystem:
                     setattr(genome, key, max(0.0, min(1.0, value)))
         
         organism = DarwinianOrganism.create(
-            store=EventStore(":memory:"),
-            registry=CapabilityRegistry(),
-            reasoning=MockReasoningEngine(),
+            store=self.store,
+            registry=self.registry,
+            reasoning=self.engine,
             name=name,
             initial_state={"genome": genome.to_dict(), "generation": generation, "energy": 100.0, "dead": False}
         )
