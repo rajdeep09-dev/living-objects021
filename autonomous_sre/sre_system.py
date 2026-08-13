@@ -31,7 +31,9 @@ _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.abspath(os.path.join(_SCRIPT_DIR, "..", ".."))
 sys.path.insert(0, _ROOT)
 
-from living_objects import EventStore, CapabilityRegistry, MockReasoningEngine
+from living_objects.core.event_store import EventStore
+from living_objects.security.capability import CapabilityRegistry
+from living_objects.core.reasoning import MockReasoningEngine
 from prototypes.agy.p1_enhanced.agy_living_object import (
     AGYLivingObject, ObjectDiscoveryRegistry, TieredReasoningEngine
 )
@@ -276,7 +278,8 @@ class LivingIncidentCommander(AGYLivingObject):
     def spawn_investigator(self, target_node_name: str, symptom: str) -> AGYLivingObject:
         """Spawn a dedicated investigation bot."""
         from prototypes.agy.p1_enhanced.agy_living_object import ObjectDiscoveryRegistry
-        from living_objects import EventStore, CapabilityRegistry
+        from living_objects.core.event_store import EventStore
+        from living_objects.security.capability import CapabilityRegistry
 
         # Find the target node
         all_nodes = ObjectDiscoveryRegistry.all()
