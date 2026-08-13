@@ -26,9 +26,10 @@ import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-# Add project root to path
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-sys.path.insert(0, ROOT)
+# Add project root to path (work from any directory)
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.abspath(os.path.join(_SCRIPT_DIR, "..", ".."))
+sys.path.insert(0, _ROOT)
 
 from living_objects import EventStore, CapabilityRegistry, MockReasoningEngine
 from prototypes.agy.p1_enhanced.agy_living_object import (
