@@ -13,6 +13,7 @@ Structure:
   AGY-8 Schema Factory       : validation, class generation, lifecycle        11 tests
 """
 import os
+import json
 import sys
 import pytest
 
@@ -81,7 +82,13 @@ def test_memory_persistence(rt):
     obj.save()
     loaded = AGYLivingObject.load(obj.object_id, store, registry, engine)
     assert len(loaded.memory.recall_episodes()) == 1
-    assert len(loaded.memory.recall_facts()) == 1
+    # AGY v2 persists budget as semantic facts on save() + load() calls,
+    # so filter those out when checking user-created facts
+    user_facts = [
+        f for f in loaded.memory.recall_facts()
+        if not json.loads(f["content"]).get("fact", "").startswith("daily_budget=")
+    ]
+    assert len(user_facts) == 1
     assert len(loaded.memory.recall_strategies()) == 1
 
 

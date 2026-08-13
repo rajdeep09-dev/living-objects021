@@ -51,6 +51,7 @@ After you push, add a row to the table below **in your section**:
 | Date | Commit | Built | Tests | Status |
 |------|--------|-------|-------|--------|
 | 2026-08-13 | `b2040b5` | ClawLivingObject (446 lines), SmartThermostat demo, Schema Factory, sensor_example_fixed, 10 new tests | 18/18 | ✅ |
+| 2026-08-13 | `6ac4a9e` | AgnesReasoningEngine (real LLM via Agnes AI API + fallback), TieredAgnesEngine, 9 Agnes integration tests, updated PROGRESS to 71% | 9/9 | ✅ |
 
 **Claw's core innovations:**
 - `is_alive` / `is_dormant` / `idle_steps` persisted to SQLite via `update_lifecycle()`
@@ -60,6 +61,8 @@ After you push, add a row to the table below **in your section**:
 - Merged Mimo + Kimi into `claw/living_object.py` (446 lines, self-contained)
 - Schema Factory: declarative object generation from JSON-like schemas
 - Fixed `examples/sensor_example.py` (4 API bugs corrected)
+- **Agnes AI**: Real LLM integration (OpenAI-compatible, graceful fallback to Mock)
+- **TieredAgnesEngine**: T0 mock-local → T3 agnes-2.5-pro, complexity-based selection
 
 ---
 
@@ -68,17 +71,23 @@ After you push, add a row to the table below **in your section**:
 
 | Date | Commit | Built | Tests | Status |
 |------|--------|-------|-------|--------|
-| 2026-08-13 | `edd63c7` | AGYLivingObject, AnomalyRecord, IntelligenceScheduler, TieredReasoningEngine, SmartThermostat demo, AGY Schema Factory, 25 tests | 25/25 | ✅ |
+| 2026-08-13 | `a11331a` | AGYLivingObject v1, AnomalyRecord, IntelligenceScheduler (EVR), TieredReasoningEngine, SmartThermostat demo, AGY Schema Factory (3 schemas), 25 tests | 25/25 | ✅ |
+| 2026-08-13 | `(current)` | AGYLivingObject v2 — Agnes AI integration, persistent budget (P2.10), ObjectDiscoveryRegistry (P4.3), prompt engineering, result caching (AGY-14), improved utility (AGY-15), fixed Kimi audit trail bug | 65/65 | ✅ |
 
 **AGY's core innovations:**
-- `__init_subclass__` auto-wraps `...`-body methods → direct call auto-routes to LLM
+- `__init_subclass__` auto-wraps `...`-body methods → direct call auto-routes to LLM (no boilerplate)
 - Adaptive EMA surprise threshold — self-tunes every 10 observations
 - EVR-gated `IntelligenceScheduler` — only reasons when E[value] > cost
-- `TieredReasoningEngine` — T0 local → T3 frontier, complexity-based selection
+- `TieredReasoningEngine` — auto-uses Agnes AI when `AGNES_API_KEY` env set, else Mock
 - Dual-gate anomaly: z-score (rolling window) + relative deviation, 4-level severity
-- `AnomalyRecord` — structured episodic anomaly with z-score, severity, resolution
+- `AnomalyRecord` — structured episodic anomaly with z-score, severity, resolution tracking
 - Cross-restart anomaly pattern learning — patterns replayed from episodic memory on `load()`
-- `AGYSchemaFactory` — generates AGYLivingObject subclasses with 10-type vocabulary, validator
+- `AGYSchemaFactory` — generates AGYLivingObject subclasses from declarative 10-type vocabulary
+- **AGY-10** Persistent daily budget — saved to memory facts, restored on `load()`
+- **AGY-11** `ObjectDiscoveryRegistry` — find peers by type / tag / goal (P4.3 ✅)
+- **AGY-14** Reasoning result cache — identical prompts reuse last result (zero extra LLM calls)
+- **AGY-15** Improved utility — budget health + memory richness + cache bonus
+
 
 ---
 

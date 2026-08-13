@@ -35,15 +35,18 @@ def test_memory_persistence(runtime):
     assert len(loaded.memory.recall_episodes()) == 1
 
 def test_event_audit_trail(runtime):
-    """BUG: expects 'loaded' without calling load()."""
+    """Fixed: calls load() so 'loaded' event exists before asserting."""
     store, registry, engine, _ = runtime
     obj = LivingObject.create(store, registry, engine, name="TestObj")
     obj.set_state("a", 1)
+    obj.save()
+    # Must call load() to generate the "loaded" event
+    LivingObject.load(obj.object_id, store, registry, engine)
     events = store.get_events(obj.object_id)
     event_types = [e.event_type for e in events]
     assert "created" in event_types
     assert "state_change" in event_types
-    assert "loaded" in event_types  # BUG: never called load()
+    assert "loaded" in event_types  # now valid — load() was called
 
 def test_intelligent_method_detection(runtime):
     store, registry, engine, _ = runtime

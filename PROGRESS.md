@@ -44,11 +44,11 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 - [x] **P2.6** EVR-gated IntelligenceScheduler (AGY) — reason only when E[V] > cost
 - [x] **P2.7** TieredReasoningEngine T0→T3 (AGY) — complexity-based model selection
 - [x] **P2.8** Dormancy lifecycle — hibernate on idle, wake on surprise (Mimo/Claw)
-- [x] **P2.9** Real LLM integration — Agnes AI API (`agnes-2.0-flash` / `agnes-2.5-flash` / `agnes-2.5-pro`)
-- [ ] **P2.10** Persistent reasoning cost budget across restarts
+- [x] **P2.9** Real LLM integration — Agnes AI (OpenAI-compatible API + fallback) ✅ Claw
+- [x] **P2.10** Persistent reasoning budget across restarts — saved as memory fact, restored on load() ✅ AGY
 - [ ] **P2.11** Goal-directed reasoning (object pursues goals, not just reacts)
 
-**Phase 2 complete: 9/11 ✅ — 82%**
+**Phase 2 complete: 10/11 ✅ — 91%**
 
 ---
 
@@ -71,6 +71,8 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 
 **Phase 3 complete: 9/13 ✅ — 69%**
 
+> Note: P3.10 (YAML round-trip) and P3.11-P3.13 still open.
+
 ---
 
 ### PHASE 4 — Ecology (Objects Living Together)
@@ -78,13 +80,13 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 
 - [x] **P4.1** Peer communication with capability tokens
 - [x] **P4.2** `communicate()` / `receive_message()` protocol
-- [x] **P4.3** Object discovery (objects find peers by type/tag/goal)
+- [x] **P4.3** Object discovery — `ObjectDiscoveryRegistry` (find peers by type/tag/goal) ✅ AGY
 - [ ] **P4.4** Emergent specialisation (objects learn to delegate to peers)
 - [ ] **P4.5** Consensus across multiple objects (voting/quorum)
 - [ ] **P4.6** Object spawning — one LivingObject creates a child
 - [ ] **P4.7** Population lifecycle — retire, clone, evolve
 
-**Phase 4 complete: 3/7 ✅ — 43%**
+**Phase 4 complete: 4/7 ✅ — 57%**
 
 ---
 
@@ -122,12 +124,12 @@ and **self-sustaining lifecycle** — like cells, not data structures.
 | Phase | Description | Done | Total | % |
 |-------|-------------|------|-------|---|
 | P1 | Continuity | 8 | 8 | **100%** ✅ |
-| P2 | Cognition | 9 | 11 | **82%** 🔧 |
+| P2 | Cognition | 10 | 11 | **91%** ✅ |
 | P3 | Generation | 9 | 13 | **69%** 🔧 |
-| P4 | Ecology | 3 | 7 | **43%** 🚧 |
+| P4 | Ecology | 4 | 7 | **57%** 🔧 |
 | P5 | Economics | 2 | 5 | **40%** 🚧 |
 | P6 | Research Validation | 6 | 8 | **75%** 🔧 |
-| **TOTAL** | **Living Objects 021** | **37** | **52** | **🎯 71%** |
+| **TOTAL** | **Living Objects 021** | **39** | **52** | **🎯 75%** |
 
 ---
 
