@@ -1,1057 +1,951 @@
-"""
-Lamarckian Living Objects — Evolutionary Intelligence System
-============================================================
+"""Runnable Lamarckian living objects with durable culture and meta-evolution.
 
-A concrete, testable implementation of 5 advanced evolutionary mechanisms
-built on top of the Living Objects paradigm:
+The module makes five engineering claims that are deliberately testable:
 
-1. LAMARCKIAN INHERITANCE
-   Strategies learned by a parent during its lifetime are directly inherited
-   by offspring — not just genes, but acquired knowledge.
+1. A strategy learned during a parent's lifetime is inherited by its child.
+2. ``mutation_rate`` is a mutable genome field and evolves over generations.
+3. Learned strategies are persisted in a SQLite memome and survive creator death.
+4. Novel behaviour descriptors accumulate, and contribute a bounded novelty signal
+   beside changing environmental performance rather than a single fixed objective.
+5. Behaviours are source code stored as state and safely replaced at runtime via
+   ``SelfModifyingObject`` delegation.
 
-2. META-EVOLUTION
-   mutation_rate is itself a genome trait. Evolution can speed up or slow
-   down its own rate of change. Populations with better-tuned mutation rates
-   outcompete those with poor ones.
+This is an artificial-life experiment, not a claim of biological equivalence or
+open-ended general intelligence.  It is deterministic when a seed is supplied,
+which makes the stated properties suitable for regression tests.
 
-3. CUMULATIVE CULTURE / MEMOME
-   A shared cultural store where organisms deposit learned strategies.
-   Strategies survive the death of their creators and are available to
-   organisms in future generations.
+Run directly:
 
-4. OPEN-ENDED NOVELTY
-   Instead of a fixed fitness function, organisms receive a "novelty bonus"
-   for behaviors that differ from the existing archive. This drives
-   exploration rather than convergence.
-
-5. PROGRAM SELF-MODIFICATION
-   Organisms can replace their own methods at runtime by storing Python code
-   as state and executing it via delegation. A failsafe catches errors and
-   reverts to the base behavior.
-
-Run the demo:
-    python evolution/lamarckian.py
-
-References:
-    - Lamarck (1809): Inheritance of acquired characteristics
-    - Dawkins (1976): Memes as cultural replication units
-    - Holland (1975): Genetic algorithms
-    - Lehman & Stanley (2011): Novelty search
-    - Ray (1992): Tierra — digital organisms with self-modifying code
+    python3 evolution/lamarckian.py
 """
 from __future__ import annotations
 
-import copy
 import hashlib
 import json
 import math
 import os
 import random
+import re
+import sqlite3
 import sys
-import textwrap
-import time
-import types
-from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Tuple
+import tempfile
+from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence
+
+_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if _ROOT not in sys.path:
+    sys.path.insert(0, _ROOT)
+
+from living_objects.core.reasoning import MockReasoningEngine
+from living_objects.security.capability import CapabilityRegistry
+from evolution.self_modifying import SelfModifyingObject
 
 
-# ============================================================================
-# SECTION 1: CULTURAL MEMOME — Shared knowledge store that outlives organisms
-# ============================================================================
+# ---------------------------------------------------------------------------
+# Small in-memory runtime adapter
+# ---------------------------------------------------------------------------
 
-class CulturalMemome:
+
+class _SimulationStore:
+    """EventStore-shaped in-memory adapter for high-turnover simulations.
+
+    The object lifecycle is kept in memory because hundreds of short-lived
+    organisms are created by a run.  The *cultural* asset that must outlive
+    organisms is not this runtime state; it is the separately SQLite-persisted
+    :class:`Memome` below.
     """
-    A global cultural memory store.
 
-    Organisms contribute strategies they learn during their lifetime.
-    Strategies persist after the creator dies — later organisms can
-    inherit, adapt, or recombine these memes.
+    def __init__(self) -> None:
+        self.objects: Dict[str, Dict[str, Any]] = {}
+        self.memories: List[Dict[str, Any]] = []
 
-    This is a concrete implementation of Dawkins' "meme" concept.
-    """
-
-    def __init__(self):
-        self._store: Dict[str, Dict[str, Any]] = {}  # name → meme record
-        self._lineage: List[Dict[str, Any]] = []     # ordered contribution history
-
-    def deposit(
+    def create_object(
         self,
-        strategy_name: str,
-        strategy_body: str,
-        creator_id: str,
-        fitness_at_deposit: float = 0.0,
-        generation: int = 0,
-    ) -> str:
-        """
-        Deposit a learned strategy into the shared cultural store.
-        Returns a unique meme_id for this strategy.
-        """
-        meme_id = hashlib.md5(
-            f"{strategy_name}:{creator_id}:{time.time()}".encode()
-        ).hexdigest()[:12]
-
-        record = {
-            "meme_id": meme_id,
-            "name": strategy_name,
-            "body": strategy_body,
-            "creator_id": creator_id,
-            "generation": generation,
-            "fitness_at_deposit": fitness_at_deposit,
-            "deposit_time": time.time(),
-            "usage_count": 0,
-            "creator_alive": True,  # Will be set to False when creator dies
+        object_id: str,
+        name: str,
+        identity_signature: str,
+        initial_state: Mapping[str, Any],
+    ) -> None:
+        self.objects[object_id] = {
+            "object_id": object_id,
+            "name": name,
+            "identity_signature": identity_signature,
+            "current_state": json.dumps(dict(initial_state)),
+            "state_version": 0,
+            "is_alive": 1,
+            "is_dormant": 0,
+            "idle_steps": 0,
         }
-        self._store[strategy_name] = record
-        self._lineage.append(record)
-        return meme_id
 
-    def retrieve(self, strategy_name: str) -> Optional[Dict[str, Any]]:
-        """Retrieve a strategy by name. Works even after creator dies."""
-        record = self._store.get(strategy_name)
-        if record:
-            record["usage_count"] += 1
-        return record
+    def update_state(self, object_id: str, state: Mapping[str, Any], version: int) -> None:
+        if object_id in self.objects:
+            self.objects[object_id]["current_state"] = json.dumps(dict(state))
+            self.objects[object_id]["state_version"] = version
 
-    def mark_creator_dead(self, creator_id: str) -> int:
-        """
-        Mark all strategies from a creator as 'creator_alive=False'.
-        Strategies remain in the store — this proves cultural persistence
-        beyond the death of the original creator.
-        """
-        count = 0
-        for record in self._store.values():
-            if record["creator_id"] == creator_id:
-                record["creator_alive"] = False
-                count += 1
-        return count
+    def update_lifecycle(
+        self,
+        object_id: str,
+        is_alive: Optional[int] = None,
+        is_dormant: Optional[int] = None,
+        idle_steps: Optional[int] = None,
+    ) -> None:
+        row = self.objects.get(object_id)
+        if row is None:
+            return
+        if is_alive is not None:
+            row["is_alive"] = is_alive
+        if is_dormant is not None:
+            row["is_dormant"] = is_dormant
+        if idle_steps is not None:
+            row["idle_steps"] = idle_steps
 
-    def list_all(self) -> List[Dict[str, Any]]:
-        return list(self._store.values())
+    def append_event(self, _: Any) -> None:
+        """The simulation retains state but does not persist per-action audit events."""
 
-    def count_surviving_dead_creator(self) -> int:
-        """Count strategies that survived their creator's death."""
-        return sum(
-            1 for r in self._store.values()
-            if not r["creator_alive"]
+    def store_memory(
+        self,
+        object_id: str,
+        memory_type: str,
+        content: Mapping[str, Any],
+        confidence: float = 1.0,
+        provenance: str = "",
+    ) -> str:
+        """Store the fallback episode API required by ``MemoryManager``."""
+        memory_id = f"memory-{len(self.memories) + 1}"
+        self.memories.append(
+            {
+                "memory_id": memory_id,
+                "object_id": object_id,
+                "memory_type": memory_type,
+                "content": json.dumps(dict(content)),
+                "confidence": confidence,
+                "provenance": provenance,
+            }
         )
+        return memory_id
 
-    def total_strategies(self) -> int:
-        return len(self._store)
-
-    def get_by_generation(self, generation: int) -> List[Dict[str, Any]]:
-        return [r for r in self._store.values() if r["generation"] == generation]
-
-    def clear(self):
-        self._store.clear()
-        self._lineage.clear()
-
-
-# Global singleton memome — shared across all organisms
-GLOBAL_MEMOME = CulturalMemome()
-
-
-# ============================================================================
-# SECTION 2: NOVELTY ARCHIVE — Drives open-ended exploration
-# ============================================================================
-
-@dataclass
-class BehaviorDescriptor:
-    """A compact fingerprint of an organism's behavioral repertoire."""
-    strategy_count: float = 0.0        # How many strategies it has
-    avg_performance: float = 0.0       # Mean performance across attempts
-    cultural_usage: float = 0.0        # How much ancestral knowledge it uses
-    mutation_rate: float = 0.1         # Its current mutation rate
-    specialization: float = 0.0        # Degree of behavioral specialization
-
-    def to_vector(self) -> List[float]:
-        return [
-            self.strategy_count,
-            self.avg_performance,
-            self.cultural_usage,
-            self.mutation_rate,
-            self.specialization,
+    def get_memories(
+        self,
+        object_id: str,
+        memory_type: Optional[str] = None,
+        limit: int = 50,
+    ) -> List[Dict[str, Any]]:
+        matches = [
+            memory
+            for memory in self.memories
+            if memory["object_id"] == object_id
+            and (memory_type is None or memory["memory_type"] == memory_type)
         ]
-
-    def distance_to(self, other: "BehaviorDescriptor") -> float:
-        """Euclidean distance in behavior space."""
-        v1 = self.to_vector()
-        v2 = other.to_vector()
-        return math.sqrt(sum((a - b) ** 2 for a, b in zip(v1, v2)))
+        return list(reversed(matches[-limit:]))
 
 
-class NoveltyArchive:
-    """
-    Tracks behavioral diversity across generations.
+# ---------------------------------------------------------------------------
+# Persistent cultural memory
+# ---------------------------------------------------------------------------
 
-    Instead of maximizing a fixed fitness, organisms get a "novelty score"
-    based on how different their behavior is from the existing archive.
-    This drives open-ended exploration rather than convergence.
-    """
 
-    def __init__(self, k_nearest: int = 5, archive_threshold: float = 0.1):
-        self.k = k_nearest
-        self.threshold = archive_threshold
-        self.archive: List[BehaviorDescriptor] = []
-        self.novelty_count: int = 0          # Total novel discoveries
-        self._novelty_history: List[int] = []  # Per-generation novel count
+@dataclass(frozen=True)
+class Strategy:
+    """A learned executable behaviour preserved in the population's memome."""
 
-    def compute_novelty(self, descriptor: BehaviorDescriptor) -> float:
-        """
-        Compute novelty score = avg distance to k-nearest archive neighbors.
-        If archive is empty, novelty = 1.0 (everything is novel).
-        """
-        if not self.archive:
-            return 1.0
+    strategy_id: str
+    name: str
+    source_code: str
+    descriptor: str
+    effectiveness: float
+    author_id: str
+    generation: int
+    parent_ids: tuple[str, ...] = ()
+    uses: int = 0
+    contributions: int = 1
+    created_at: str = ""
 
-        distances = sorted(
-            descriptor.distance_to(a) for a in self.archive
+    def to_state(self) -> Dict[str, Any]:
+        payload = asdict(self)
+        payload["parent_ids"] = list(self.parent_ids)
+        return payload
+
+    @classmethod
+    def from_state(cls, payload: Mapping[str, Any]) -> "Strategy":
+        return cls(
+            strategy_id=str(payload["strategy_id"]),
+            name=str(payload["name"]),
+            source_code=str(payload["source_code"]),
+            descriptor=str(payload["descriptor"]),
+            effectiveness=float(payload["effectiveness"]),
+            author_id=str(payload["author_id"]),
+            generation=int(payload["generation"]),
+            parent_ids=tuple(payload.get("parent_ids", [])),
+            uses=int(payload.get("uses", 0)),
+            contributions=int(payload.get("contributions", 1)),
+            created_at=str(payload.get("created_at", "")),
         )
-        k_nearest = distances[: self.k]
-        return sum(k_nearest) / max(len(k_nearest), 1)
 
-    def consider_adding(self, descriptor: BehaviorDescriptor) -> bool:
-        """
-        Add to archive if novelty score exceeds threshold.
-        Returns True if the descriptor was novel enough to be added.
-        """
-        novelty = self.compute_novelty(descriptor)
-        if novelty > self.threshold:
-            self.archive.append(descriptor)
-            self.novelty_count += 1
-            return True
-        return False
 
-    def record_generation(self, new_discoveries: int = 0):
-        self._novelty_history.append(new_discoveries)
+class Memome:
+    """SQLite-backed shared cultural memory.
+
+    A memome is independent from the organisms that contribute to it.  Closing
+    an organism or marking it dead has no effect on its deposited strategies;
+    later populations can retrieve and install those behaviours through normal
+    cultural transmission.
+    """
+
+    def __init__(self, database_path: os.PathLike[str] | str):
+        self.database_path = str(database_path)
+        self._connection = sqlite3.connect(self.database_path)
+        self._connection.row_factory = sqlite3.Row
+        self._create_schema()
+
+    def _create_schema(self) -> None:
+        self._connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS strategies (
+                strategy_id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                source_code TEXT NOT NULL,
+                descriptor TEXT NOT NULL,
+                effectiveness REAL NOT NULL,
+                author_id TEXT NOT NULL,
+                generation INTEGER NOT NULL,
+                parent_ids TEXT NOT NULL,
+                uses INTEGER NOT NULL DEFAULT 0,
+                contributions INTEGER NOT NULL DEFAULT 1,
+                created_at TEXT NOT NULL
+            )
+            """
+        )
+        self._connection.execute(
+            "CREATE INDEX IF NOT EXISTS idx_strategy_quality "
+            "ON strategies(effectiveness DESC, generation ASC)"
+        )
+        self._connection.execute(
+            "CREATE INDEX IF NOT EXISTS idx_strategy_name ON strategies(name)"
+        )
+        self._connection.commit()
+
+    @staticmethod
+    def _strategy_id(name: str, source_code: str, descriptor: str) -> str:
+        raw = f"{name}\x00{descriptor}\x00{source_code}".encode("utf-8")
+        return hashlib.sha256(raw).hexdigest()[:20]
+
+    @staticmethod
+    def _from_row(row: sqlite3.Row) -> Strategy:
+        return Strategy(
+            strategy_id=row["strategy_id"],
+            name=row["name"],
+            source_code=row["source_code"],
+            descriptor=row["descriptor"],
+            effectiveness=float(row["effectiveness"]),
+            author_id=row["author_id"],
+            generation=int(row["generation"]),
+            parent_ids=tuple(json.loads(row["parent_ids"])),
+            uses=int(row["uses"]),
+            contributions=int(row["contributions"]),
+            created_at=row["created_at"],
+        )
+
+    def contribute(
+        self,
+        *,
+        name: str,
+        source_code: str,
+        descriptor: str,
+        effectiveness: float,
+        author_id: str,
+        generation: int,
+        parent_ids: Sequence[str] = (),
+    ) -> Strategy:
+        """Persist a learned strategy and return its canonical cultural record."""
+        if not name or not source_code or not descriptor:
+            raise ValueError("name, source_code, and descriptor are required")
+        strategy_id = self._strategy_id(name, source_code, descriptor)
+        created_at = datetime.now(timezone.utc).isoformat()
+        self._connection.execute(
+            """
+            INSERT INTO strategies
+                (strategy_id, name, source_code, descriptor, effectiveness,
+                 author_id, generation, parent_ids, uses, contributions, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 1, ?)
+            ON CONFLICT(strategy_id) DO UPDATE SET
+                effectiveness = MAX(strategies.effectiveness, excluded.effectiveness),
+                contributions = strategies.contributions + 1
+            """,
+            (
+                strategy_id,
+                name,
+                source_code,
+                descriptor,
+                float(effectiveness),
+                author_id,
+                int(generation),
+                json.dumps(list(parent_ids)),
+                created_at,
+            ),
+        )
+        self._connection.commit()
+        found = self.get(strategy_id)
+        if found is None:  # pragma: no cover - defensive SQLite invariant
+            raise RuntimeError("persisted strategy could not be retrieved")
+        return found
+
+    # Compatibility with the earlier in-memory prototype's naming.
+    def store_strategy(
+        self,
+        name: str,
+        code: str,
+        effectiveness: float,
+        author_id: str,
+        generation: int,
+        descriptor: Optional[str] = None,
+    ) -> Strategy:
+        return self.contribute(
+            name=name,
+            source_code=code,
+            descriptor=descriptor or name,
+            effectiveness=effectiveness,
+            author_id=author_id,
+            generation=generation,
+        )
+
+    def get(self, strategy_id: str) -> Optional[Strategy]:
+        row = self._connection.execute(
+            "SELECT * FROM strategies WHERE strategy_id = ?", (strategy_id,)
+        ).fetchone()
+        return self._from_row(row) if row is not None else None
+
+    def retrieve_strategy(self, identifier: str) -> Optional[Strategy]:
+        """Retrieve by immutable identifier or latest strategy name and count use."""
+        row = self._connection.execute(
+            """
+            SELECT * FROM strategies
+            WHERE strategy_id = ? OR name = ?
+            ORDER BY CASE WHEN strategy_id = ? THEN 0 ELSE 1 END,
+                     effectiveness DESC, generation DESC
+            LIMIT 1
+            """,
+            (identifier, identifier, identifier),
+        ).fetchone()
+        if row is None:
+            return None
+        self._connection.execute(
+            "UPDATE strategies SET uses = uses + 1 WHERE strategy_id = ?",
+            (row["strategy_id"],),
+        )
+        self._connection.commit()
+        refreshed = self.get(row["strategy_id"])
+        return refreshed
+
+    def retrieve_proven(
+        self,
+        *,
+        limit: int = 8,
+        minimum_effectiveness: float = 0.0,
+    ) -> List[Strategy]:
+        """Return high-performing cultural knowledge and record its use."""
+        if limit <= 0:
+            return []
+        rows = self._connection.execute(
+            """
+            SELECT * FROM strategies
+            WHERE effectiveness >= ?
+            ORDER BY effectiveness DESC, contributions DESC, generation ASC
+            LIMIT ?
+            """,
+            (float(minimum_effectiveness), int(limit)),
+        ).fetchall()
+        ids = [row["strategy_id"] for row in rows]
+        if ids:
+            self._connection.executemany(
+                "UPDATE strategies SET uses = uses + 1 WHERE strategy_id = ?",
+                [(strategy_id,) for strategy_id in ids],
+            )
+            self._connection.commit()
+        return [self.get(strategy_id) for strategy_id in ids if self.get(strategy_id) is not None]  # type: ignore[list-item]
+
+    def all_strategies(self) -> List[Strategy]:
+        rows = self._connection.execute(
+            "SELECT * FROM strategies ORDER BY generation, strategy_id"
+        ).fetchall()
+        return [self._from_row(row) for row in rows]
 
     @property
-    def total_novel_discoveries(self) -> int:
-        return self.novelty_count
+    def strategy_count(self) -> int:
+        return int(self._connection.execute("SELECT COUNT(*) FROM strategies").fetchone()[0])
 
     @property
-    def archive_size(self) -> int:
-        return len(self.archive)
+    def novelty_count(self) -> int:
+        return int(
+            self._connection.execute("SELECT COUNT(DISTINCT descriptor) FROM strategies").fetchone()[0]
+        )
+
+    def cultural_complexity(self) -> float:
+        """A stable culture metric combining repertoire breadth and proven quality."""
+        row = self._connection.execute(
+            "SELECT AVG(effectiveness) AS average, COUNT(DISTINCT descriptor) AS variety FROM strategies"
+        ).fetchone()
+        if not row or not row["variety"]:
+            return 0.0
+        return float(row["average"]) * math.log1p(int(row["variety"]))
+
+    def get_summary(self) -> Dict[str, Any]:
+        return {
+            "strategies": self.strategy_count,
+            "novel_descriptors": self.novelty_count,
+            "cultural_complexity": round(self.cultural_complexity(), 4),
+            "top_strategies": [strategy.to_state() for strategy in self.retrieve_proven(limit=5)],
+        }
+
+    def close(self) -> None:
+        self._connection.close()
+
+    def __enter__(self) -> "Memome":
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.close()
 
 
-# ============================================================================
-# SECTION 3: LAMARCKIAN GENOME — Genes + acquired knowledge
-# ============================================================================
+# ---------------------------------------------------------------------------
+# Heritable genome and self-modifying organism
+# ---------------------------------------------------------------------------
 
-@dataclass
+
+@dataclass(frozen=True)
 class LamarckianGenome:
-    """
-    An organism's heritable information.
+    """Heritable parameters, including the rate at which the genome mutates."""
 
-    Unlike a Darwinian genome where only random mutations cross generations,
-    this genome carries BOTH random genetic traits AND strategies learned
-    during the organism's lifetime (Lamarckian inheritance).
-
-    Key: mutation_rate is itself a trait — META-EVOLUTION.
-    """
-    # Genetic traits (randomly inherited + mutated)
-    intelligence: float = 0.5
-    cooperation: float = 0.5
-    energy_efficiency: float = 0.5
-    adaptability: float = 0.5
-    resilience: float = 0.5
-
-    # META-EVOLUTION: mutation_rate is itself a heritable, evolvable trait
-    mutation_rate: float = 0.10       # How much offspring mutate
-    meta_mutation_rate: float = 0.02  # How much mutation_rate itself mutates
-
-    # LAMARCKIAN INHERITANCE: strategies learned during lifetime are inherited
-    inherited_strategies: List[str] = field(default_factory=list)
-
-    # Cultural meme references inherited from parent
-    inherited_memes: List[str] = field(default_factory=list)
+    learning_rate: float = 0.55
+    curiosity: float = 0.55
+    cooperation: float = 0.50
+    cultural_receptivity: float = 0.75
+    mutation_rate: float = 0.10
+    inheritance_rate: float = 1.00
 
     def mutate(self, rng: random.Random) -> "LamarckianGenome":
-        """
-        Produce a mutated copy of this genome.
+        """Produce a child genome whose mutation rate is itself heritable and mutable."""
+        def bounded(value: float, delta: float, low: float = 0.01, high: float = 1.0) -> float:
+            return max(low, min(high, value + delta))
 
-        - Continuous traits mutate with Gaussian noise scaled by mutation_rate
-        - mutation_rate ITSELF mutates (meta-evolution)
-        - inherited_strategies are PRESERVED in offspring (Lamarck)
-        """
-        def clamp(v: float, lo: float = 0.0, hi: float = 1.0) -> float:
-            return max(lo, min(hi, v))
-
-        mr = self.mutation_rate
-        mmr = self.meta_mutation_rate
-
-        child = LamarckianGenome(
-            intelligence=clamp(self.intelligence + rng.gauss(0, mr)),
-            cooperation=clamp(self.cooperation + rng.gauss(0, mr)),
-            energy_efficiency=clamp(self.energy_efficiency + rng.gauss(0, mr)),
-            adaptability=clamp(self.adaptability + rng.gauss(0, mr)),
-            resilience=clamp(self.resilience + rng.gauss(0, mr)),
-            # META-EVOLUTION: mutation_rate mutates by meta_mutation_rate
-            mutation_rate=clamp(self.mutation_rate + rng.gauss(0, mmr), 0.001, 0.5),
-            meta_mutation_rate=clamp(self.meta_mutation_rate + rng.gauss(0, 0.005), 0.001, 0.1),
-            # LAMARCKIAN: ALL acquired strategies are passed to offspring
-            inherited_strategies=list(self.inherited_strategies),
-            inherited_memes=list(self.inherited_memes),
+        # Mutation rate receives its own mutation. This is the meta-evolution hook.
+        next_rate = bounded(
+            self.mutation_rate,
+            rng.gauss(0.0, self.mutation_rate * 0.22 + 0.008),
+            low=0.01,
+            high=0.45,
         )
-        return child
-
-    def crossover(self, other: "LamarckianGenome", rng: random.Random) -> "LamarckianGenome":
-        """Sexual reproduction with Lamarckian strategy union."""
-        def pick(a, b):
-            return a if rng.random() < 0.5 else b
-
-        # Union of both parents' acquired strategies — cultural accumulation
-        combined_strategies = list(
-            set(self.inherited_strategies) | set(other.inherited_strategies)
-        )
-        combined_memes = list(
-            set(self.inherited_memes) | set(other.inherited_memes)
-        )
-
         return LamarckianGenome(
-            intelligence=pick(self.intelligence, other.intelligence),
-            cooperation=pick(self.cooperation, other.cooperation),
-            energy_efficiency=pick(self.energy_efficiency, other.energy_efficiency),
-            adaptability=pick(self.adaptability, other.adaptability),
-            resilience=pick(self.resilience, other.resilience),
-            mutation_rate=(self.mutation_rate + other.mutation_rate) / 2,
-            meta_mutation_rate=(self.meta_mutation_rate + other.meta_mutation_rate) / 2,
-            inherited_strategies=combined_strategies,
-            inherited_memes=combined_memes,
+            learning_rate=bounded(self.learning_rate, rng.gauss(0.0, next_rate * 0.22)),
+            curiosity=bounded(self.curiosity, rng.gauss(0.0, next_rate * 0.22)),
+            cooperation=bounded(self.cooperation, rng.gauss(0.0, next_rate * 0.18)),
+            cultural_receptivity=bounded(
+                self.cultural_receptivity, rng.gauss(0.0, next_rate * 0.18)
+            ),
+            mutation_rate=next_rate,
+            inheritance_rate=bounded(
+                self.inheritance_rate, rng.gauss(0.0, next_rate * 0.05), low=0.75, high=1.0
+            ),
         )
 
-    def fitness(self) -> float:
-        """Base genetic fitness score (0–1)."""
-        return (
-            self.intelligence * 0.35
-            + self.cooperation * 0.20
-            + self.energy_efficiency * 0.20
-            + self.adaptability * 0.15
-            + self.resilience * 0.10
-        )
-
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            "intelligence": self.intelligence,
-            "cooperation": self.cooperation,
-            "energy_efficiency": self.energy_efficiency,
-            "adaptability": self.adaptability,
-            "resilience": self.resilience,
-            "mutation_rate": self.mutation_rate,
-            "meta_mutation_rate": self.meta_mutation_rate,
-            "inherited_strategies": self.inherited_strategies,
-            "inherited_memes": self.inherited_memes,
-        }
+    def to_dict(self) -> Dict[str, float]:
+        return asdict(self)
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]) -> "LamarckianGenome":
-        return cls(**d)
+    def from_dict(cls, values: Mapping[str, Any]) -> "LamarckianGenome":
+        recognized = {field: values[field] for field in cls.__dataclass_fields__ if field in values}
+        return cls(**recognized)
+
+
+_SAFE_ACTION = re.compile(r"^[a-z][a-z0-9_]*$")
+
+
+def _strategy_source(action: str, effectiveness: float, generation: int) -> str:
+    """Create a narrow, auditable strategy template from learning evidence."""
+    if not _SAFE_ACTION.match(action):
+        raise ValueError("strategy names must use lowercase letters, digits, and underscores")
+    return (
+        f"def action_{action}(self):\n"
+        f"    # learned at generation {generation}; persisted in the memome\n"
+        f"    learned_value = {effectiveness:.6f}\n"
+        f"    return min(0.99, learned_value + 0.08 * self.genome.learning_rate)\n"
+    )
+
+
+class LamarckianOrganism(SelfModifyingObject):
+    """A self-modifying object that carries learned programs across generations."""
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.genome = LamarckianGenome()
+        self.generation = 0
+        self.energy = 100.0
+        self.dead = False
+        self._memome: Optional[Memome] = None
+        self.learned_strategies: Dict[str, Strategy] = {}
+        self.behavior_descriptors: Dict[str, str] = {}
+        self.parent_ids: tuple[str, ...] = ()
 
     @classmethod
-    def random(cls, rng: random.Random, mutation_rate: float = 0.10) -> "LamarckianGenome":
-        return cls(
-            intelligence=rng.uniform(0.3, 0.7),
-            cooperation=rng.uniform(0.2, 0.8),
-            energy_efficiency=rng.uniform(0.3, 0.7),
-            adaptability=rng.uniform(0.3, 0.7),
-            resilience=rng.uniform(0.3, 0.7),
-            mutation_rate=mutation_rate,
-            meta_mutation_rate=0.02,
-            inherited_strategies=[],
-            inherited_memes=[],
-        )
-
-
-# ============================================================================
-# SECTION 4: LAMARCKIAN ORGANISM — Self-improving, self-modifying agent
-# ============================================================================
-
-class LamarckianOrganism:
-    """
-    A Living Object that:
-
-    1. LEARNS strategies during its lifetime
-    2. PASSES those strategies to ALL offspring (Lamarckian inheritance)
-    3. CONTRIBUTES strategies to the shared cultural memome
-    4. CAN MODIFY ITS OWN METHODS at runtime (program self-modification)
-    5. EARNS novelty bonuses for producing unique behaviors
-    """
-
-    def __init__(
-        self,
-        organism_id: str,
+    def born(
+        cls,
+        *,
+        store: _SimulationStore,
+        registry: CapabilityRegistry,
+        reasoning: MockReasoningEngine,
+        memome: Memome,
         name: str,
-        genome: LamarckianGenome,
+        genome: Optional[LamarckianGenome] = None,
         generation: int = 0,
-        memome: CulturalMemome = None,
-        novelty_archive: NoveltyArchive = None,
-        rng: random.Random = None,
-    ):
-        self.organism_id = organism_id
-        self.name = name
-        self.genome = genome
-        self.generation = generation
-        self.memome = memome or GLOBAL_MEMOME
-        self.novelty_archive = novelty_archive
-        self.rng = rng or random.Random()
-
-        # Lifetime state
-        self.age: int = 0
-        self.energy: float = 100.0
-        self.alive: bool = True
-        self.fitness_score: float = 0.0
-        self.novelty_score: float = 0.0
-
-        # LAMARCKIAN: strategies learned this lifetime
-        self._learned_strategies: Dict[str, str] = {}
-
-        # Cultural knowledge accessed from ancestors
-        self._cultural_knowledge: Dict[str, Any] = {}
-
-        # PROGRAM SELF-MODIFICATION: code patches stored as state
-        self._method_patches: Dict[str, str] = {}
-
-        # Children spawned
-        self.offspring_ids: List[str] = []
-
-        # Performance history for novelty computation
-        self._performance_log: List[float] = []
-
-        # Boot: inherit strategies from genome (Lamarckian inheritance at birth)
-        self._bootstrap_from_genome()
-
-    def _bootstrap_from_genome(self):
-        """
-        At birth, load all strategies inherited from the parent.
-        This is the core of Lamarckian inheritance — offspring begin
-        their lives already knowing what their parent learned.
-        """
-        for strategy_name in self.genome.inherited_strategies:
-            # Look up the strategy in the cultural memome
-            record = self.memome.retrieve(strategy_name)
-            if record:
-                self._learned_strategies[strategy_name] = record["body"]
-                self._cultural_knowledge[strategy_name] = record
-
-        # Load any inherited meme references
-        for meme_name in self.genome.inherited_memes:
-            record = self.memome.retrieve(meme_name)
-            if record:
-                self._cultural_knowledge[meme_name] = record
-
-    # -------------------------------------------------------------------------
-    # FEATURE 1: LAMARCKIAN LEARNING
-    # -------------------------------------------------------------------------
-
-    def learn(self, strategy_name: str, strategy_body: str, performance: float = 0.5) -> str:
-        """
-        Learn a new strategy during lifetime.
-
-        This strategy will be:
-        - Stored in this organism's memory
-        - Deposited to the shared cultural memome
-        - Added to genome.inherited_strategies so offspring inherit it
-        - Returned as a meme_id for traceability
-        """
-        self._learned_strategies[strategy_name] = strategy_body
-        self._performance_log.append(performance)
-
-        # Deposit to cultural memome — now it outlives this organism
-        meme_id = self.memome.deposit(
-            strategy_name=strategy_name,
-            strategy_body=strategy_body,
-            creator_id=self.organism_id,
-            fitness_at_deposit=performance,
-            generation=self.generation,
+        parent_ids: Sequence[str] = (),
+    ) -> "LamarckianOrganism":
+        genome = genome or LamarckianGenome()
+        organism = cls.create(
+            store=store,
+            registry=registry,
+            reasoning=reasoning,
+            name=name,
+            initial_state={
+                "genome": genome.to_dict(),
+                "generation": generation,
+                "energy": 100.0,
+                "dead": False,
+                "parent_ids": list(parent_ids),
+                "learned_strategies": {},
+                "behavior_descriptors": {},
+            },
         )
+        organism.genome = genome
+        organism.generation = generation
+        organism.parent_ids = tuple(parent_ids)
+        organism._memome = memome
+        return organism
 
-        # LAMARCKIAN CORE: add to genome so offspring inherit it
-        if strategy_name not in self.genome.inherited_strategies:
-            self.genome.inherited_strategies.append(strategy_name)
-        if strategy_name not in self.genome.inherited_memes:
-            self.genome.inherited_memes.append(strategy_name)
+    def hydrate_lamarckian_state(self) -> None:
+        """Restore behavior and learned-strategy state after a persisted reload."""
+        self.load_behaviors_from_state()
+        genome = self.get_state("genome", {})
+        if isinstance(genome, Mapping):
+            self.genome = LamarckianGenome.from_dict(genome)
+        self.generation = int(self.get_state("generation", 0))
+        self.energy = float(self.get_state("energy", 100.0))
+        self.dead = bool(self.get_state("dead", False))
+        self.parent_ids = tuple(self.get_state("parent_ids", []))
+        stored = self.get_state("learned_strategies", {})
+        if isinstance(stored, Mapping):
+            self.learned_strategies = {
+                strategy_id: Strategy.from_state(payload)
+                for strategy_id, payload in stored.items()
+                if isinstance(payload, Mapping)
+            }
+        descriptors = self.get_state("behavior_descriptors", {})
+        self.behavior_descriptors = dict(descriptors) if isinstance(descriptors, Mapping) else {}
 
-        return meme_id
-
-    def knows(self, strategy_name: str) -> bool:
-        """Check if this organism knows a given strategy."""
-        return strategy_name in self._learned_strategies
-
-    def apply_strategy(self, strategy_name: str, *args, **kwargs) -> Any:
-        """
-        Apply a learned strategy. Returns the result.
-        Prioritizes self-modified methods over inherited ones.
-        """
-        if strategy_name in self._method_patches:
-            return self._run_patch(strategy_name, *args, **kwargs)
-        body = self._learned_strategies.get(strategy_name)
-        if body:
-            return {"strategy": strategy_name, "body": body, "result": "applied"}
-        return None
-
-    def count_strategies(self) -> int:
-        return len(self._learned_strategies)
-
-    # -------------------------------------------------------------------------
-    # FEATURE 2: META-EVOLUTION (mutation_rate as trait)
-    # -------------------------------------------------------------------------
+    def attach_memome(self, memome: Memome) -> None:
+        self._memome = memome
 
     @property
-    def mutation_rate(self) -> float:
-        return self.genome.mutation_rate
+    def complexity(self) -> int:
+        return len(self._behavior_genes)
 
-    def get_behavioral_descriptor(self) -> BehaviorDescriptor:
-        """Compute a compact description of this organism's behavior."""
-        avg_perf = (
-            sum(self._performance_log) / len(self._performance_log)
-            if self._performance_log
-            else 0.0
+    def _persist_lamarckian_state(self) -> None:
+        self.set_state("genome", self.genome.to_dict())
+        self.set_state("generation", self.generation)
+        self.set_state("energy", self.energy)
+        self.set_state("dead", self.dead)
+        self.set_state("parent_ids", list(self.parent_ids))
+        self.set_state(
+            "learned_strategies",
+            {strategy_id: strategy.to_state() for strategy_id, strategy in self.learned_strategies.items()},
         )
-        cultural_usage = len(self._cultural_knowledge)
-        specialization = (
-            max(self.genome.intelligence, self.genome.cooperation,
-                self.genome.energy_efficiency)
-            - min(self.genome.intelligence, self.genome.cooperation,
-                  self.genome.energy_efficiency)
+        self.set_state("behavior_descriptors", self.behavior_descriptors)
+
+    def learn(
+        self,
+        strategy_name: str,
+        source_code: Optional[str] = None,
+        *,
+        descriptor: Optional[str] = None,
+        effectiveness: float = 0.65,
+        parent_ids: Sequence[str] = (),
+    ) -> Strategy:
+        """Learn, install, and culturally publish a new executable strategy."""
+        if self._memome is None:
+            raise RuntimeError("A memome must be attached before learning")
+        if not _SAFE_ACTION.match(strategy_name):
+            raise ValueError("strategy_name must be a safe action identifier")
+        source = source_code or _strategy_source(strategy_name, effectiveness, self.generation)
+        if not self.set_behavior(strategy_name, source):
+            raise ValueError("learned strategy did not compile")
+        strategy = self._memome.contribute(
+            name=strategy_name,
+            source_code=source,
+            descriptor=descriptor or strategy_name,
+            effectiveness=effectiveness,
+            author_id=self.object_id,
+            generation=self.generation,
+            parent_ids=parent_ids,
         )
-        return BehaviorDescriptor(
-            strategy_count=float(self.count_strategies()),
-            avg_performance=avg_perf,
-            cultural_usage=float(cultural_usage),
-            mutation_rate=self.genome.mutation_rate,
-            specialization=specialization,
-        )
+        self.learned_strategies[strategy.strategy_id] = strategy
+        self.behavior_descriptors[strategy.name] = strategy.descriptor
+        self._persist_lamarckian_state()
+        return strategy
 
-    # -------------------------------------------------------------------------
-    # FEATURE 3: CULTURAL MEMOME USAGE
-    # -------------------------------------------------------------------------
-
-    def adopt_from_culture(self, strategy_name: str) -> bool:
-        """
-        Retrieve and adopt a strategy from the shared cultural memome.
-        Works even if the original creator is dead.
-        """
-        record = self.memome.retrieve(strategy_name)
-        if record:
-            self._learned_strategies[strategy_name] = record["body"]
-            self._cultural_knowledge[strategy_name] = record
-            # Lamarck: adoption updates genome so offspring also get it
-            if strategy_name not in self.genome.inherited_strategies:
-                self.genome.inherited_strategies.append(strategy_name)
-            return True
-        return False
-
-    # -------------------------------------------------------------------------
-    # FEATURE 5: PROGRAM SELF-MODIFICATION
-    # -------------------------------------------------------------------------
-
-    def self_modify(self, method_name: str, code_str: str) -> bool:
-        """
-        Replace a named method on this organism at runtime.
-
-        The code is:
-        - Stored as state (inspectable, serializable)
-        - Executed via exec() in a controlled namespace
-        - Wrapped in try/except with fallback to base behavior
-
-        This is how software objects can be their own programmers.
-        """
-        # Validate: basic safety check (no system calls in demo)
-        forbidden = ["import os", "import sys", "subprocess", "__import__"]
-        for forbidden_token in forbidden:
-            if forbidden_token in code_str:
-                return False
-
-        self._method_patches[method_name] = code_str
+    def install_strategy(self, strategy: Strategy) -> bool:
+        """Install a strategy obtained from a parent or a cultural ancestor."""
+        if not self.set_behavior(strategy.name, strategy.source_code):
+            return False
+        self.learned_strategies[strategy.strategy_id] = strategy
+        self.behavior_descriptors[strategy.name] = strategy.descriptor
+        self._persist_lamarckian_state()
         return True
 
-    def _run_patch(self, method_name: str, *args, **kwargs) -> Any:
-        """Execute a stored code patch with failsafe."""
-        code_str = self._method_patches.get(method_name)
-        if not code_str:
-            return None
+    def adopt_from_memome(self, *, limit: int = 2, minimum_effectiveness: float = 0.50) -> List[str]:
+        """Use knowledge contributed by any previous organism, including dead ones."""
+        if self._memome is None:
+            return []
+        adopted: List[str] = []
+        for strategy in self._memome.retrieve_proven(
+            limit=limit, minimum_effectiveness=minimum_effectiveness
+        ):
+            if strategy.strategy_id in self.learned_strategies:
+                continue
+            if self.install_strategy(strategy):
+                adopted.append(strategy.strategy_id)
+        return adopted
 
-        namespace: Dict[str, Any] = {
-            "self": self,
-            "args": args,
-            "kwargs": kwargs,
-            "result": None,
-        }
-        try:
-            exec(code_str, namespace)  # noqa: S102
-            return namespace.get("result")
-        except Exception:
-            # FAILSAFE: any error reverts to base behavior
-            del self._method_patches[method_name]
-            return self.apply_strategy(method_name, *args, **kwargs)
-
-    def get_patch(self, method_name: str) -> Optional[str]:
-        """Retrieve the stored code for a patched method."""
-        return self._method_patches.get(method_name)
-
-    def has_patch(self, method_name: str) -> bool:
-        return method_name in self._method_patches
-
-    # -------------------------------------------------------------------------
-    # LIFECYCLE: REPRODUCTION
-    # -------------------------------------------------------------------------
-
-    def reproduce(
-        self,
-        partner: Optional["LamarckianOrganism"] = None,
-        child_id: Optional[str] = None,
-    ) -> "LamarckianOrganism":
-        """
-        Produce one offspring.
-
-        - If partner provided: sexual crossover → mutation
-        - If alone: asexual cloning → mutation
-        - ALL learned strategies are passed to the child (Lamarck)
-        - Child is born already knowing everything the parent learned
-        """
-        if partner:
-            child_genome = self.genome.crossover(partner.genome, self.rng)
-        else:
-            child_genome = copy.deepcopy(self.genome)
-
-        # Apply mutation using this organism's current mutation_rate
-        child_genome = child_genome.mutate(self.rng)
-
-        cid = child_id or hashlib.md5(
-            f"{self.organism_id}:{time.time()}:{self.rng.random()}".encode()
-        ).hexdigest()[:12]
-
-        child = LamarckianOrganism(
-            organism_id=cid,
-            name=f"child_{self.name}_{len(self.offspring_ids)}",
+    def reproduce(self, rng: Optional[random.Random] = None) -> "LamarckianOrganism":
+        """Create a child inheriting learned lifetime behavior and evolved meta-traits."""
+        if self._memome is None or self._store is None or self._registry is None or self._reasoning is None:
+            raise RuntimeError("Organism must be attached to a runtime and memome before reproduction")
+        rng = rng or random.Random()
+        child_genome = self.genome.mutate(rng)
+        child = LamarckianOrganism.born(
+            store=self._store,  # type: ignore[arg-type]
+            registry=self._registry,
+            reasoning=self._reasoning,  # type: ignore[arg-type]
+            memome=self._memome,
+            name=f"{self.name}-g{self.generation + 1}",
             genome=child_genome,
             generation=self.generation + 1,
-            memome=self.memome,
-            novelty_archive=self.novelty_archive,
-            rng=random.Random(self.rng.randint(0, 2**31)),
+            parent_ids=(self.object_id,),
         )
 
-        self.offspring_ids.append(cid)
+        # Hard Lamarckian contract: pass strategies acquired during lifetime.
+        for strategy in self.learned_strategies.values():
+            if rng.random() <= self.genome.inheritance_rate:
+                child.install_strategy(strategy)
+        # Cultural transmission is not limited to direct biological ancestry.
+        if child.genome.cultural_receptivity >= 0.40:
+            child.adopt_from_memome(limit=2)
+        child._persist_lamarckian_state()
         return child
 
-    def die(self):
-        """
-        Kill this organism.
-        Cultural strategies it contributed PERSIST in the memome.
-        """
-        self.alive = False
-        self.energy = 0.0
-        # Mark all strategies this organism deposited as orphaned
-        # (creator_alive → False). The strategies themselves remain!
-        self.memome.mark_creator_dead(self.organism_id)
+    def execute_strategy(self, name: str) -> Any:
+        """Execute state-stored program code through the parent's safe delegate."""
+        return self.execute_behavior(name)
 
-    def compute_total_fitness(self) -> float:
-        """
-        Total fitness = genetic fitness + novelty bonus + cultural bonus.
-        Cultural bonus: extra fitness for using ancestral knowledge.
-        """
-        genetic = self.genome.fitness()
-        novelty = self.novelty_score * 0.3
-        cultural = min(len(self._cultural_knowledge) * 0.02, 0.2)
-        return min(1.0, genetic + novelty + cultural)
+    def behavior_quality(self) -> float:
+        """Measure the current repertoire without allowing broken code to terminate a run."""
+        if not self._behavior_genes:
+            return 0.0
+        values: List[float] = []
+        for action in self._behavior_genes:
+            result = self.execute_strategy(action)
+            if isinstance(result, (int, float)):
+                values.append(float(result))
+        return sum(values) / len(values) if values else 0.0
+
+    def die(self, cause: str = "lifecycle_complete") -> None:
+        """End an organism while preserving its previously published culture."""
+        self.dead = True
+        self.is_alive = False
+        self.set_state("death_cause", cause)
+        self._persist_lamarckian_state()
+        self.save()
 
 
-# ============================================================================
-# SECTION 5: LAMARCKIAN POPULATION — Runs the full evolutionary simulation
-# ============================================================================
+# ---------------------------------------------------------------------------
+# Evolutionary system and metrics
+# ---------------------------------------------------------------------------
 
-class LamarckianPopulation:
-    """
-    Manages a population of LamarckianOrganisms across generations.
 
-    Tracks:
-    - Average fitness (should rise over generations)
-    - Average mutation_rate (should evolve, not stay fixed)
-    - Cultural complexity (strategy count should grow)
-    - Novelty count (open-ended exploration metric)
-    """
+@dataclass(frozen=True)
+class GenerationMetrics:
+    generation: int
+    population: int
+    average_fitness: float
+    cultural_complexity: float
+    average_mutation_rate: float
+    novelty_count: int
+    archive_size: int
+    behaviors_per_organism: float
+
+    def as_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+class LamarckianEcosystem:
+    """A seeded, testable ecosystem with cultural and meta-evolution signals."""
 
     def __init__(
         self,
-        seed: int = 42,
-        memome: CulturalMemome = None,
-        k_nearest: int = 5,
-        novelty_threshold: float = 0.05,
-    ):
+        archive_path: os.PathLike[str] | str | None = None,
+        *,
+        seed: int = 21,
+        population_size: int = 20,
+    ) -> None:
+        if population_size < 2:
+            raise ValueError("population_size must be at least 2")
         self.rng = random.Random(seed)
-        self.memome = memome or CulturalMemome()
-        self.novelty_archive = NoveltyArchive(
-            k_nearest=k_nearest,
-            archive_threshold=novelty_threshold,
+        self.population_size = population_size
+        self.generation = 0
+        self.population: List[LamarckianOrganism] = []
+        self.history: List[GenerationMetrics] = []
+        self._seen_descriptors: set[str] = set()
+        self._temporary_directory: Optional[tempfile.TemporaryDirectory[str]] = None
+        if archive_path is None:
+            self._temporary_directory = tempfile.TemporaryDirectory(prefix="lamarckian-memome-")
+            archive_path = Path(self._temporary_directory.name) / "memome.sqlite"
+        else:
+            path = Path(archive_path)
+            path.parent.mkdir(parents=True, exist_ok=True)
+        self.memome = Memome(archive_path)
+        self.store = _SimulationStore()
+        self.registry = CapabilityRegistry()
+        self.reasoning = MockReasoningEngine()
+
+    def close(self) -> None:
+        self.memome.close()
+        if self._temporary_directory is not None:
+            self._temporary_directory.cleanup()
+            self._temporary_directory = None
+
+    def __enter__(self) -> "LamarckianEcosystem":
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.close()
+
+    def _founder_genome(self, index: int) -> LamarckianGenome:
+        # A narrow but non-uniform initial distribution makes meta-evolution observable.
+        return LamarckianGenome(
+            learning_rate=0.46 + 0.015 * (index % 5),
+            curiosity=0.45 + 0.020 * (index % 4),
+            cooperation=0.45 + 0.010 * (index % 6),
+            cultural_receptivity=0.65 + 0.020 * (index % 5),
+            mutation_rate=0.075 + 0.010 * (index % 5),
+            inheritance_rate=1.0,
         )
-        self.organisms: Dict[str, LamarckianOrganism] = {}
-        self.generation: int = 0
-        self._id_counter: int = 0
-
-        # Per-generation statistics
-        self.history: List[Dict[str, Any]] = []
-
-    def _new_id(self) -> str:
-        self._id_counter += 1
-        return f"org_{self._id_counter:05d}"
 
     def spawn(
         self,
-        name: Optional[str] = None,
+        name: str,
         genome: Optional[LamarckianGenome] = None,
-        generation: int = 0,
+        generation: Optional[int] = None,
     ) -> LamarckianOrganism:
-        """Create and register a new organism."""
-        oid = self._new_id()
-        if genome is None:
-            genome = LamarckianGenome.random(self.rng)
-        organism = LamarckianOrganism(
-            organism_id=oid,
-            name=name or f"org_{oid}",
-            genome=genome,
-            generation=generation,
+        organism = LamarckianOrganism.born(
+            store=self.store,
+            registry=self.registry,
+            reasoning=self.reasoning,
             memome=self.memome,
-            novelty_archive=self.novelty_archive,
-            rng=random.Random(self.rng.randint(0, 2**31)),
+            name=name,
+            genome=genome or self._founder_genome(len(self.population)),
+            generation=self.generation if generation is None else generation,
         )
-        self.organisms[oid] = organism
+        self.population.append(organism)
         return organism
 
-    def seed_population(self, size: int = 15) -> List[LamarckianOrganism]:
-        """Spawn an initial random population."""
-        return [self.spawn(generation=0) for _ in range(size)]
+    def spawn_population(self, size: Optional[int] = None) -> List[LamarckianOrganism]:
+        if self.population:
+            return list(self.population)
+        count = self.population_size if size is None else size
+        for index in range(count):
+            self.spawn(f"founder-{index:02d}", generation=0)
+        self._record_metrics()
+        return list(self.population)
 
-    def _simulate_lifetime(self, organism: LamarckianOrganism):
-        """
-        Simulate the organism's learning during its lifetime.
-
-        - High-intelligence organisms discover more strategies
-        - Organisms can adopt strategies from the cultural memome
-        - Novel behaviors earn novelty bonuses
-        """
-        # How many strategies can this organism discover?
-        discover_count = int(organism.genome.intelligence * 5) + 1
-
-        for i in range(discover_count):
-            # Generate a unique strategy name based on organism + iteration
-            strategy_name = f"strat_{organism.organism_id}_{i}"
-            strategy_body = (
-                f"return self.genome.intelligence * {self.rng.uniform(0.5, 1.5):.3f}"
-            )
-            performance = organism.genome.intelligence * self.rng.uniform(0.7, 1.0)
-            organism.learn(strategy_name, strategy_body, performance)
-
-        # Adopt strategies from cultural memome (ancestors' knowledge)
-        all_memes = self.memome.list_all()
-        if all_memes and organism.genome.cooperation > 0.4:
-            # Cooperative organisms use more cultural knowledge
-            sample_size = min(
-                int(organism.genome.cooperation * len(all_memes)),
-                len(all_memes),
-            )
-            for record in self.rng.sample(all_memes, sample_size):
-                organism.adopt_from_culture(record["name"])
-
-        # Compute novelty score
-        descriptor = organism.get_behavioral_descriptor()
-        novelty = self.novelty_archive.compute_novelty(descriptor)
-        organism.novelty_score = novelty
-        self.novelty_archive.consider_adding(descriptor)
-
-        # Compute total fitness
-        organism.fitness_score = organism.compute_total_fitness()
-
-    def _select_survivors(
-        self, n: int, tournament_size: int = 3
-    ) -> List[LamarckianOrganism]:
-        """
-        Tournament selection — fittest organisms are more likely to survive
-        and reproduce (but novelty is also rewarded).
-        """
-        alive = [o for o in self.organisms.values() if o.alive]
-        if len(alive) <= n:
-            return alive
-
-        selected = []
-        for _ in range(n):
-            candidates = self.rng.sample(alive, min(tournament_size, len(alive)))
-            winner = max(candidates, key=lambda o: o.fitness_score)
-            selected.append(winner)
-        return selected
-
-    def step(self) -> Dict[str, Any]:
-        """
-        Run one generation of evolution:
-        1. Simulate each organism's lifetime (learning + culture adoption)
-        2. Compute novelty scores
-        3. Kill low-fitness organisms
-        4. Reproduce survivors (with Lamarckian inheritance)
-        5. Record statistics
-        """
-        # Phase 1: Lifetime simulation
-        for organism in list(self.organisms.values()):
-            if organism.alive:
-                self._simulate_lifetime(organism)
-
-        # Phase 2: Selection — keep top 50%
-        alive = [o for o in self.organisms.values() if o.alive]
-        n_keep = max(2, len(alive) // 2)
-        survivors = self._select_survivors(n_keep)
-        survivor_ids = {o.organism_id for o in survivors}
-
-        # Kill the unfit
-        for org in alive:
-            if org.organism_id not in survivor_ids:
-                org.die()
-
-        # Phase 3: Reproduce survivors — deduplicate first
-        seen_ids: set = set()
-        unique_survivors = []
-        for s in survivors:
-            if s.organism_id not in seen_ids:
-                seen_ids.add(s.organism_id)
-                unique_survivors.append(s)
-        survivors = unique_survivors
-
-        new_organisms = []
-        for survivor in survivors:
-            # Each survivor produces one offspring
-            potential_partners = [
-                o for o in survivors if o.organism_id != survivor.organism_id
-            ]
-            if potential_partners:
-                partner = self.rng.choice(potential_partners)
-                child = survivor.reproduce(partner=partner)
-            else:
-                child = survivor.reproduce()
-            new_organisms.append(child)
-
-        for child in new_organisms:
-            self.organisms[child.organism_id] = child
-
-        # Phase 4: Record statistics
-        all_alive = [o for o in self.organisms.values() if o.alive]
-        stats = self._compute_stats(all_alive)
-        stats["generation"] = self.generation
-        self.history.append(stats)
-
-        self.generation += 1
-        return stats
-
-    def _compute_stats(self, organisms: List[LamarckianOrganism]) -> Dict[str, Any]:
-        if not organisms:
-            return {
-                "population": 0,
-                "avg_fitness": 0.0,
-                "avg_mutation_rate": 0.0,
-                "avg_strategies": 0.0,
-                "cultural_strategies": self.memome.total_strategies(),
-                "novelty_count": self.novelty_archive.total_novel_discoveries,
-                "survived_dead_creators": self.memome.count_surviving_dead_creator(),
-            }
-        avg_fitness = sum(o.fitness_score for o in organisms) / len(organisms)
-        avg_mr = sum(o.genome.mutation_rate for o in organisms) / len(organisms)
-        avg_strats = sum(o.count_strategies() for o in organisms) / len(organisms)
+    def _environment(self) -> Dict[str, float | str]:
+        """Changing context prevents any one static score from defining success."""
+        modes = ("resource", "social", "navigation", "shelter", "coordination")
         return {
-            "population": len(organisms),
-            "avg_fitness": avg_fitness,
-            "avg_mutation_rate": avg_mr,
-            "avg_strategies": avg_strats,
-            "cultural_strategies": self.memome.total_strategies(),
-            "novelty_count": self.novelty_archive.total_novel_discoveries,
-            "survived_dead_creators": self.memome.count_surviving_dead_creator(),
+            "mode": modes[self.generation % len(modes)],
+            "pressure": 0.35 + 0.45 * ((self.generation * 7) % 11) / 10,
+            "complexity": 0.30 + 0.50 * ((self.generation * 3) % 9) / 8,
         }
 
-    def run(self, generations: int = 50) -> List[Dict[str, Any]]:
-        """Run N generations and return the full history."""
-        for _ in range(generations):
-            self.step()
-        return self.history
+    def _adaptive_score(
+        self,
+        organism: LamarckianOrganism,
+        environment: Mapping[str, float | str],
+    ) -> float:
+        """Evaluate dynamic context, usable culture, and bounded novelty together."""
+        repertoire = organism.behavior_quality()
+        descriptors = set(organism.behavior_descriptors.values())
+        unseen = descriptors - self._seen_descriptors
+        novelty_bonus = min(0.16, 0.035 * len(unseen))
+        culture_bonus = min(0.22, 0.018 * organism.complexity)
+        environment_factor = (
+            0.04 * organism.genome.learning_rate
+            + 0.04 * organism.genome.curiosity
+            + 0.03 * float(environment["complexity"])
+        )
+        mutation_stability = 0.05 * (1.0 - abs(organism.genome.mutation_rate - 0.12) / 0.33)
+        return max(
+            0.0,
+            min(0.99, 0.35 + 0.35 * repertoire + culture_bonus + novelty_bonus + environment_factor + mutation_stability),
+        )
+
+    def _innovation_source(self, name: str, generation: int, effectiveness: float) -> str:
+        return _strategy_source(name, effectiveness, generation)
+
+    def _learn_from_lifetime(
+        self,
+        organism: LamarckianOrganism,
+        environment: Mapping[str, float | str],
+        innovation_index: int,
+    ) -> Strategy:
+        descriptor = f"{environment['mode']}:path:{self.generation:03d}:{innovation_index}"
+        action = f"learned_g{self.generation:03d}_{innovation_index}"
+        effectiveness = min(
+            0.94,
+            0.54
+            + 0.0055 * self.generation
+            + 0.08 * organism.genome.learning_rate
+            + 0.04 * organism.genome.curiosity,
+        )
+        ancestors = self.memome.retrieve_proven(limit=2, minimum_effectiveness=0.50)
+        parent_ids = tuple(strategy.strategy_id for strategy in ancestors)
+        return organism.learn(
+            action,
+            self._innovation_source(action, self.generation, effectiveness),
+            descriptor=descriptor,
+            effectiveness=effectiveness,
+            parent_ids=parent_ids,
+        )
+
+    def step(self) -> GenerationMetrics:
+        """Advance one generation through learning, cultural sharing, and selection."""
+        if not self.population:
+            self.spawn_population()
+        self.generation += 1
+        environment = self._environment()
+
+        # At least two organisms learn each generation.  Learning is lifetime
+        # acquisition, then culture makes it available beyond parentage.
+        innovators = sorted(self.population, key=lambda item: item.genome.curiosity, reverse=True)[:2]
+        for index, organism in enumerate(innovators):
+            if organism.complexity < 15:
+                self._learn_from_lifetime(organism, environment, index)
+
+        scored = sorted(
+            ((self._adaptive_score(organism, environment), organism) for organism in self.population),
+            key=lambda item: item[0],
+            reverse=True,
+        )
+        self._seen_descriptors.update(
+            descriptor for organism in self.population for descriptor in organism.behavior_descriptors.values()
+        )
+
+        elite_count = max(2, len(scored) // 3)
+        elites = [organism for _, organism in scored[:elite_count]]
+        next_population: List[LamarckianOrganism] = []
+        for index in range(self.population_size):
+            parent = elites[index % len(elites)]
+            child = parent.reproduce(self.rng)
+            child.generation = self.generation
+            child.set_state("generation", self.generation)
+            next_population.append(child)
+        for organism in self.population:
+            organism.die("replaced_after_reproduction")
+        self.population = next_population
+        return self._record_metrics(environment)
+
+    def _record_metrics(self, environment: Optional[Mapping[str, float | str]] = None) -> GenerationMetrics:
+        if not self.population:
+            raise RuntimeError("cannot record an empty population")
+        environment = environment or {"mode": "resource", "pressure": 0.5, "complexity": 0.5}
+        scores = [self._adaptive_score(organism, environment) for organism in self.population]
+        metric = GenerationMetrics(
+            generation=self.generation,
+            population=len(self.population),
+            average_fitness=sum(scores) / len(scores),
+            cultural_complexity=self.memome.cultural_complexity(),
+            average_mutation_rate=(
+                sum(organism.genome.mutation_rate for organism in self.population) / len(self.population)
+            ),
+            novelty_count=self.memome.novelty_count,
+            archive_size=self.memome.strategy_count,
+            behaviors_per_organism=(sum(organism.complexity for organism in self.population) / len(self.population)),
+        )
+        self.history.append(metric)
+        return metric
+
+    def get_statistics(self) -> Dict[str, Any]:
+        metric = self.history[-1] if self.history else self._record_metrics()
+        return metric.as_dict() | {"memome_summary": self.memome.get_summary()}
 
     def get_champion(self) -> Optional[LamarckianOrganism]:
-        alive = [o for o in self.organisms.values() if o.alive]
-        if not alive:
+        if not self.population:
             return None
-        return max(alive, key=lambda o: o.fitness_score)
+        environment = self._environment()
+        return max(self.population, key=lambda organism: self._adaptive_score(organism, environment))
 
-
-# ============================================================================
-# SECTION 6: STANDALONE DEMO
-# ============================================================================
-
-def run_lamarckian_demo():
-    print("""
-╔══════════════════════════════════════════════════════════════════════╗
-║                                                                      ║
-║   LAMARCKIAN LIVING OBJECTS — 5-Feature Evolution Demo               ║
-║                                                                      ║
-║   1. Lamarckian Inheritance  — learned strategies → offspring        ║
-║   2. Meta-Evolution          — mutation_rate evolves itself          ║
-║   3. Cultural Memome         — knowledge survives organism death     ║
-║   4. Open-Ended Novelty      — novelty bonus drives exploration      ║
-║   5. Program Self-Modification — organisms rewrite their own code    ║
-║                                                                      ║
-╚══════════════════════════════════════════════════════════════════════╝
-""")
-
-    memome = CulturalMemome()
-    pop = LamarckianPopulation(seed=42, memome=memome, novelty_threshold=0.03)
-
-    print("  🧬 Seeding initial population of 15 organisms...")
-    pop.seed_population(15)
-    initial_stats = pop._compute_stats([o for o in pop.organisms.values() if o.alive])
-    print(f"  Initial avg_mutation_rate: {initial_stats['avg_mutation_rate']:.4f}")
-    print(f"  Initial avg_fitness: {initial_stats['avg_fitness']:.4f}")
-
-    print("\n  ─── Running 50 generations ───")
-    print(f"  {'Gen':>4} │ {'Fitness':>8} │ {'Mut.Rate':>8} │ {'Strategies':>10} │ {'Novelty':>8} │ {'Cultural':>8}")
-    print(f"  {'────':>4}─┼─{'────────':>8}─┼─{'────────':>8}─┼─{'──────────':>10}─┼─{'────────':>8}─┼─{'────────':>8}")
-
-    history = []
-    for gen in range(50):
-        stats = pop.step()
-        history.append(stats)
-        if gen % 10 == 0 or gen == 49:
-            print(
-                f"  {gen:>4} │ {stats['avg_fitness']:>8.4f} │ "
-                f"{stats['avg_mutation_rate']:>8.4f} │ "
-                f"{stats['avg_strategies']:>10.1f} │ "
-                f"{stats['novelty_count']:>8} │ "
-                f"{stats['cultural_strategies']:>8}"
-            )
-
-    # ── Proof 1: Lamarckian Inheritance ───────────────────────────────────
-    print("\n\n  ═══ PROOF 1: LAMARCKIAN INHERITANCE ═══")
-    test_memome = CulturalMemome()
-    parent = LamarckianOrganism(
-        organism_id="demo_parent",
-        name="TestParent",
-        genome=LamarckianGenome.random(random.Random(1)),
-        memome=test_memome,
-    )
-    parent.learn("heat_avoidance", "return 'avoid hot environments'", performance=0.9)
-    parent.learn("social_foraging", "return 'hunt in groups'", performance=0.8)
-    print(f"  Parent learned: {list(parent._learned_strategies.keys())}")
-    print(f"  Parent genome.inherited_strategies: {parent.genome.inherited_strategies}")
-
-    child = parent.reproduce()
-    print(f"\n  Child knows 'heat_avoidance': {child.knows('heat_avoidance')}")
-    print(f"  Child knows 'social_foraging': {child.knows('social_foraging')}")
-    print(f"  ✅ Child inherited {child.count_strategies()} strategies from parent WITHOUT learning them independently!")
-
-    # ── Proof 2: Meta-Evolution ────────────────────────────────────────────
-    print("\n\n  ═══ PROOF 2: META-EVOLUTION ═══")
-    initial_mr = history[0]['avg_mutation_rate']
-    final_mr = history[-1]['avg_mutation_rate']
-    print(f"  Initial avg mutation_rate:  {initial_mr:.4f}")
-    print(f"  Final avg mutation_rate:    {final_mr:.4f}")
-    print(f"  Change: {abs(final_mr - initial_mr):.4f} ({'+' if final_mr > initial_mr else '-'}{abs(final_mr-initial_mr)/initial_mr*100:.1f}%)")
-    print(f"  ✅ mutation_rate EVOLVED across generations — it was not fixed by any human!")
-
-    # ── Proof 3: Cultural Memome ───────────────────────────────────────────
-    print("\n\n  ═══ PROOF 3: CUMULATIVE CULTURE / MEMOME ═══")
-    # Demonstrate: strategy survives organism death
-    proof_memome = CulturalMemome()
-    mortal = LamarckianOrganism(
-        organism_id="mortal_org",
-        name="Mortal",
-        genome=LamarckianGenome.random(random.Random(99)),
-        memome=proof_memome,
-    )
-    mortal.learn("fire_making", "return 'rub sticks together'", performance=0.95)
-    mortal.learn("tool_use", "return 'use sharp rock as knife'", performance=0.88)
-    print(f"  Mortal organism deposited: {list(mortal._learned_strategies.keys())}")
-
-    mortal.die()
-    print(f"  Mortal organism is now dead: alive={mortal.alive}")
-    print(f"  Cultural memome still contains {proof_memome.total_strategies()} strategies.")
-    surviving = proof_memome.count_surviving_dead_creator()
-    print(f"  Strategies surviving creator death: {surviving}")
-
-    # Future organism can access dead organism's knowledge
-    successor = LamarckianOrganism(
-        organism_id="successor_org",
-        name="Successor",
-        genome=LamarckianGenome.random(random.Random(77)),
-        memome=proof_memome,
-    )
-    adopted = successor.adopt_from_culture("fire_making")
-    print(f"\n  Successor adopts 'fire_making' from dead creator: {adopted}")
-    print(f"  Successor knows 'fire_making': {successor.knows('fire_making')}")
-    print(f"  ✅ Knowledge SURVIVED the death of its creator!")
-
-    # ── Proof 4: Open-Ended Novelty ───────────────────────────────────────
-    print("\n\n  ═══ PROOF 4: OPEN-ENDED NOVELTY ═══")
-    novelty_start = history[0]['novelty_count']
-    novelty_end = history[-1]['novelty_count']
-    print(f"  Novelty count at gen 0:   {novelty_start}")
-    print(f"  Novelty count at gen 49:  {novelty_end}")
-    print(f"  Total novel discoveries:  {pop.novelty_archive.total_novel_discoveries}")
-    print(f"  ✅ Novelty count MONOTONICALLY INCREASED — diversity never stopped growing!")
-
-    # ── Proof 5: Program Self-Modification ────────────────────────────────
-    print("\n\n  ═══ PROOF 5: PROGRAM SELF-MODIFICATION ═══")
-    modifier = LamarckianOrganism(
-        organism_id="self_mod_org",
-        name="SelfModifier",
-        genome=LamarckianGenome.random(random.Random(55)),
-        memome=CulturalMemome(),
-    )
-
-    # Install a custom 'evaluate' method at runtime
-    new_code = textwrap.dedent("""
-        result = {
-            "method": "evaluate",
-            "source": "runtime_patch",
-            "intelligence": self.genome.intelligence * 2.0,
-            "custom_logic": "I rewrote myself!"
+    def run_evolution(
+        self,
+        generations: int = 50,
+        population_size: Optional[int] = None,
+        *,
+        report: bool = True,
+    ) -> Dict[str, Any]:
+        """Run the requested proof demonstration and return its complete history."""
+        if generations < 0:
+            raise ValueError("generations must not be negative")
+        if population_size is not None:
+            if self.population:
+                raise ValueError("population size cannot change after initialization")
+            if population_size < 2:
+                raise ValueError("population_size must be at least 2")
+            self.population_size = population_size
+        self.spawn_population()
+        for _ in range(generations):
+            self.step()
+        if report:
+            self.print_progress()
+        return {
+            "history": [metric.as_dict() for metric in self.history],
+            "final_stats": self.get_statistics(),
+            "champion": self.get_champion(),
+            "memome_summary": self.memome.get_summary(),
         }
-    """).strip()
 
-    success = modifier.self_modify("evaluate", new_code)
-    print(f"  Organism patched 'evaluate' method: {success}")
-    print(f"  Patch stored as state: {modifier.has_patch('evaluate')}")
-    print(f"  Stored code:\n    {modifier.get_patch('evaluate')[:60]}...")
+    def print_progress(self) -> None:
+        """Print the 50-generation proof table requested by the task."""
+        print("Gen | Pop | Avg Fitness | Culture | Avg Mutation Rate | Novelties | Archive | Behaviors/Org")
+        print("----+-----+-------------+---------+-------------------+-----------+---------+--------------")
+        milestones = {0, 10, 20, 30, 40, 50}
+        for metric in self.history:
+            if metric.generation in milestones:
+                print(
+                    f"{metric.generation:>3} | {metric.population:>3} | {metric.average_fitness:>11.3f} |"
+                    f" {metric.cultural_complexity:>7.3f} | {metric.average_mutation_rate:>17.4f} |"
+                    f" {metric.novelty_count:>9} | {metric.archive_size:>7} | {metric.behaviors_per_organism:>12.1f}"
+                )
 
-    result = modifier._run_patch("evaluate")
-    print(f"\n  Execution result:")
-    print(f"    method:       {result['method']}")
-    print(f"    source:       {result['source']}")
-    print(f"    custom_logic: {result['custom_logic']}")
 
-    # Test failsafe
-    modifier.self_modify("broken_method", "raise ValueError('crash!')\nresult = 42")
-    safe_result = modifier._run_patch("broken_method")
-    print(f"\n  Intentionally broken method (failsafe test): result = {safe_result}")
-    print(f"  Broken patch auto-removed: {'broken_method' not in modifier._method_patches}")
-    print(f"  ✅ Program self-modification works with automatic failsafe!")
-
-    # ── Final Summary ─────────────────────────────────────────────────────
-    print("\n\n" + "═" * 70)
-    print("  🎯 ALL 5 FEATURES VERIFIED:")
-    print("═" * 70)
-    print("""
-  1. ✅ LAMARCKIAN INHERITANCE
-     Parent learns 2 strategies → child inherits BOTH at birth
-     (heat_avoidance, social_foraging)
-
-  2. ✅ META-EVOLUTION
-     mutation_rate is a genome trait that evolves across generations
-     Start → End value diverges through natural selection
-
-  3. ✅ CUMULATIVE CULTURE
-     Mortal organism deposits fire_making + tool_use
-     Organism dies → strategies persist in memome
-     Successor retrieves and uses ancestral knowledge
-
-  4. ✅ OPEN-ENDED NOVELTY
-     Novelty count increases monotonically over 50 generations
-     No fixed fitness ceiling — exploration never terminates
-
-  5. ✅ PROGRAM SELF-MODIFICATION
-     Organism rewrites 'evaluate' method at runtime via exec()
-     Stores code as state, executes with failsafe on errors
-""")
-    print("=" * 70 + "\n")
+def run_lamarckian_demo() -> None:
+    """Run a 50-generation, reproducible proof demonstration."""
+    print("\nLAMARCKIAN LIVING OBJECTS — 50-GENERATION PROOF RUN\n")
+    with LamarckianEcosystem(seed=21, population_size=20) as ecosystem:
+        results = ecosystem.run_evolution(generations=50, report=True)
+        initial = results["history"][0]
+        final = results["history"][-1]
+        print("\nVerified run deltas")
+        print(f"  Fitness: {initial['average_fitness']:.3f} -> {final['average_fitness']:.3f}")
+        print(f"  Culture: {initial['cultural_complexity']:.3f} -> {final['cultural_complexity']:.3f}")
+        print(f"  Mutation rate: {initial['average_mutation_rate']:.4f} -> {final['average_mutation_rate']:.4f}")
+        print(f"  Novel descriptors: {initial['novelty_count']} -> {final['novelty_count']}")
 
 
 if __name__ == "__main__":
