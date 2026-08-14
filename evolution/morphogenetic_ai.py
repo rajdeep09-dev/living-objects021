@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import copy
+import hashlib
+import json
 import random
 from typing import Literal, TypedDict
 
@@ -26,10 +28,29 @@ class MorphogeneticProgram:
             raise ValueError("steps must be non-negative")
         neurons = [copy.deepcopy(seed_neuron)]
         synapses: list[Synapse] = []
+        visited_states: set[bytes] = set()
         for _ in range(steps):
+            state = {
+                "neurons": [
+                    (int(neuron.neuron_id), round(float(neuron.potential), 9), int(neuron.last_spike))
+                    for neuron in neurons
+                ],
+                "synapses": [
+                    (int(edge.source), int(edge.target), round(float(edge.weight), 9))
+                    for edge in synapses
+                ],
+            }
+            state_hash = hashlib.sha256(json.dumps(state, sort_keys=True).encode("utf-8")).digest()
+            if state_hash in visited_states:
+                break
+            visited_states.add(state_hash)
             for instruction in self.instructions:
                 kind = instruction.get("type")
                 params = instruction.get("parameters", {})
+                if kind == "divide" and len(neurons) >= self.max_neurons:
+                    continue
+                if kind == "connect" and len(synapses) >= self.max_synapses:
+                    continue
                 if kind == "divide" and len(neurons) < self.max_neurons:
                     parent = neurons[-1]
                     neurons.append(LIFNeuron(len(neurons), parent.potential, parent.last_spike))

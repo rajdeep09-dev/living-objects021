@@ -1,0 +1,544 @@
+{
+  "candidate_count": 10,
+  "checkpoints": [
+    {
+      "archive_size": 0,
+      "champion_genome": {
+        "cooperation": 0.46,
+        "cultural_receptivity": 0.67,
+        "curiosity": 0.47000000000000003,
+        "inheritance_rate": 1.0,
+        "learning_rate": 0.47500000000000003,
+        "mutation_rate": 0.08499999999999999
+      },
+      "champion_id": "140c0607-fc29-493d-9c4c-6f357f9ecb36",
+      "champion_strategies": [
+        "prefer_recent_public_signal",
+        "prioritize_first_party"
+      ],
+      "culture": 0.0,
+      "fitness": 0.589789,
+      "generation": 0,
+      "label": "initial",
+      "mutation_rate": 0.09,
+      "novelty_count": 0,
+      "policy": {
+        "explicit_application": 0.260064,
+        "first_party": 0.26824,
+        "freshness": 0.19824,
+        "india_relevance": 0.104648,
+        "tech_fit": 0.168808
+      },
+      "search_quality": 0.951958,
+      "top_candidate": "Amazon India",
+      "top_score": 0.954855
+    },
+    {
+      "archive_size": 4,
+      "champion_genome": {
+        "cooperation": 0.44443119836175143,
+        "cultural_receptivity": 0.6545231327275136,
+        "curiosity": 0.45643054393482385,
+        "inheritance_rate": 1.0,
+        "learning_rate": 0.5029732695228366,
+        "mutation_rate": 0.0899457178128475
+      },
+      "champion_id": "19b5e35e-bb38-4f0e-a9f7-dc1785203ede",
+      "champion_strategies": [
+        "prefer_recent_public_signal",
+        "prioritize_first_party"
+      ],
+      "culture": 1.231461,
+      "fitness": 0.855692,
+      "generation": 1,
+      "label": "g1",
+      "mutation_rate": 0.082844,
+      "novelty_count": 4,
+      "policy": {
+        "explicit_application": 0.258218,
+        "first_party": 0.27363,
+        "freshness": 0.196769,
+        "india_relevance": 0.103177,
+        "tech_fit": 0.168206
+      },
+      "search_quality": 0.95295,
+      "top_candidate": "Amazon India",
+      "top_score": 0.955092
+    },
+    {
+      "archive_size": 22,
+      "champion_genome": {
+        "cooperation": 0.39229299273168106,
+        "cultural_receptivity": 0.5493260054000664,
+        "curiosity": 0.7156767798962276,
+        "inheritance_rate": 0.9874561707801559,
+        "learning_rate": 0.4107665902662465,
+        "mutation_rate": 0.10507983626825915
+      },
+      "champion_id": "ba828119-6cc1-43e0-8995-c482cd00228b",
+      "champion_strategies": [
+        "learned_g002_0",
+        "learned_g003_0",
+        "learned_g004_0",
+        "learned_g005_0",
+        "learned_g006_0",
+        "learned_g007_1",
+        "learned_g008_1",
+        "learned_g009_1",
+        "learned_g010_0",
+        "prefer_recent_public_signal",
+        "prioritize_first_party"
+      ],
+      "culture": 2.058902,
+      "fitness": 0.917732,
+      "generation": 10,
+      "label": "g10",
+      "mutation_rate": 0.133856,
+      "novelty_count": 22,
+      "policy": {
+        "explicit_application": 0.242963,
+        "first_party": 0.259039,
+        "freshness": 0.234304,
+        "india_relevance": 0.09795,
+        "tech_fit": 0.165744
+      },
+      "search_quality": 0.954064,
+      "top_candidate": "Amazon India",
+      "top_score": 0.951708
+    },
+    {
+      "archive_size": 162,
+      "champion_genome": {
+        "cooperation": 0.01,
+        "cultural_receptivity": 0.722002108734219,
+        "curiosity": 1.0,
+        "inheritance_rate": 0.9283150177162747,
+        "learning_rate": 0.08630559073980126,
+        "mutation_rate": 0.18076503671473793
+      },
+      "champion_id": "eee265dd-a641-49ec-ba56-933781423a66",
+      "champion_strategies": [
+        "learned_g057_1",
+        "learned_g058_0",
+        "learned_g064_0",
+        "learned_g074_1",
+        "learned_g079_1",
+        "learned_g080_0",
+        "learned_g081_0",
+        "learned_g084_1",
+        "learned_g093_1",
+        "learned_g094_0",
+        "learned_g097_1",
+        "learned_g099_0",
+        "learned_g100_0",
+        "prioritize_first_party"
+      ],
+      "culture": 4.347455,
+      "fitness": 0.965919,
+      "generation": 100,
+      "label": "g100",
+      "mutation_rate": 0.248057,
+      "novelty_count": 162,
+      "policy": {
+        "explicit_application": 0.28567,
+        "first_party": 0.214822,
+        "freshness": 0.290315,
+        "india_relevance": 0.059224,
+        "tech_fit": 0.149968
+      },
+      "search_quality": 0.971082,
+      "top_candidate": "Amazon India",
+      "top_score": 0.948473
+    },
+    {
+      "archive_size": 1635,
+      "champion_genome": {
+        "cooperation": 0.0104334924088894,
+        "cultural_receptivity": 0.9968055356768614,
+        "curiosity": 0.8503257972960201,
+        "inheritance_rate": 0.940460576768472,
+        "learning_rate": 0.9854123366856197,
+        "mutation_rate": 0.036884961629637586
+      },
+      "champion_id": "0b68b7d1-7b1b-45f6-836c-d82bfea9373b",
+      "champion_strategies": [
+        "learned_g058_0",
+        "learned_g962_1",
+        "learned_g966_1",
+        "learned_g975_0",
+        "learned_g984_1",
+        "learned_g993_0",
+        "learned_g994_0",
+        "learned_g995_0",
+        "learned_g996_0",
+        "learned_g997_1",
+        "learned_g999_1",
+        "prioritize_first_party"
+      ],
+      "culture": 6.892577,
+      "fitness": 0.987586,
+      "generation": 1000,
+      "label": "g1,000",
+      "mutation_rate": 0.021983,
+      "novelty_count": 1635,
+      "policy": {
+        "explicit_application": 0.27898,
+        "first_party": 0.319098,
+        "freshness": 0.225677,
+        "india_relevance": 0.04992,
+        "tech_fit": 0.126325
+      },
+      "search_quality": 0.981528,
+      "top_candidate": "Amazon India",
+      "top_score": 0.958484
+    },
+    {
+      "archive_size": 7717,
+      "champion_genome": {
+        "cooperation": 0.01,
+        "cultural_receptivity": 0.9938139732454474,
+        "curiosity": 0.9774405021664152,
+        "inheritance_rate": 0.9777622177188295,
+        "learning_rate": 1.0,
+        "mutation_rate": 0.012342174496055215
+      },
+      "champion_id": "f5fa49d7-567b-409b-8985-098884d67e11",
+      "champion_strategies": [
+        "learned_g058_0",
+        "learned_g4867_0",
+        "learned_g4894_0",
+        "learned_g4921_0",
+        "learned_g4925_0",
+        "learned_g4948_0",
+        "learned_g4957_1",
+        "learned_g4962_1",
+        "learned_g4975_1",
+        "learned_g4976_0",
+        "learned_g4977_0",
+        "learned_g4989_1",
+        "learned_g4991_0",
+        "learned_g4992_0",
+        "prioritize_first_party"
+      ],
+      "culture": 8.397975,
+      "fitness": 0.987637,
+      "generation": 5000,
+      "label": "g5,000",
+      "mutation_rate": 0.015479,
+      "novelty_count": 7717,
+      "policy": {
+        "explicit_application": 0.273706,
+        "first_party": 0.315738,
+        "freshness": 0.237449,
+        "india_relevance": 0.049008,
+        "tech_fit": 0.124099
+      },
+      "search_quality": 0.981645,
+      "top_candidate": "Amazon India",
+      "top_score": 0.95764
+    },
+    {
+      "archive_size": 11920,
+      "champion_genome": {
+        "cooperation": 0.010499751009490245,
+        "cultural_receptivity": 1.0,
+        "curiosity": 0.010111121844269138,
+        "inheritance_rate": 0.9903079610534027,
+        "learning_rate": 0.9901813144637897,
+        "mutation_rate": 0.022134162522880658
+      },
+      "champion_id": "db2c3019-1624-4422-ac55-85e4384d6020",
+      "champion_strategies": [
+        "learned_g058_0",
+        "learned_g9575_0",
+        "learned_g9861_1",
+        "learned_g9876_0",
+        "learned_g9893_0",
+        "learned_g9908_1",
+        "learned_g9912_0",
+        "learned_g9960_0",
+        "learned_g9963_1",
+        "learned_g9986_1",
+        "learned_g9988_1",
+        "learned_g9990_1",
+        "learned_g9991_0",
+        "prioritize_first_party"
+      ],
+      "culture": 8.811858,
+      "fitness": 0.989157,
+      "generation": 10000,
+      "label": "g10,000",
+      "mutation_rate": 0.028681,
+      "novelty_count": 11920,
+      "policy": {
+        "explicit_application": 0.31202,
+        "first_party": 0.357138,
+        "freshness": 0.134028,
+        "india_relevance": 0.05575,
+        "tech_fit": 0.141064
+      },
+      "search_quality": 0.98713,
+      "top_candidate": "Amazon India",
+      "top_score": 0.965438
+    }
+  ],
+  "experiment": "beast-influencer-signal-search",
+  "final_champion": {
+    "genome": {
+      "cooperation": 0.010499751009490245,
+      "cultural_receptivity": 1.0,
+      "curiosity": 0.010111121844269138,
+      "inheritance_rate": 0.9903079610534027,
+      "learning_rate": 0.9901813144637897,
+      "mutation_rate": 0.022134162522880658
+    },
+    "id": "db2c3019-1624-4422-ac55-85e4384d6020",
+    "strategies": [
+      "learned_g058_0",
+      "learned_g9575_0",
+      "learned_g9861_1",
+      "learned_g9876_0",
+      "learned_g9893_0",
+      "learned_g9908_1",
+      "learned_g9912_0",
+      "learned_g9960_0",
+      "learned_g9963_1",
+      "learned_g9986_1",
+      "learned_g9988_1",
+      "learned_g9990_1",
+      "learned_g9991_0",
+      "prioritize_first_party"
+    ]
+  },
+  "final_ranked_signals": [
+    {
+      "brand": "Amazon India",
+      "category": "Technology commerce",
+      "evidence": "India storefront says creators can sign up, build a personalized storefront, publish livestreams and shoppable media, and earn commissions; applications accept major social platforms.",
+      "explicit_application": 1.0,
+      "first_party": 1.0,
+      "freshness": 0.9,
+      "india_relevance": 1.0,
+      "route": "Amazon India Influencer sign-up",
+      "score": 0.965438,
+      "source_grade": "A",
+      "source_url": "https://affiliate-program.amazon.in/influencers",
+      "tech_fit": 0.85
+    },
+    {
+      "brand": "ClickUp",
+      "category": "AI productivity SaaS",
+      "evidence": "First-party affiliate page has a live Join Now portal, up to $25 per new free workspace, and instructions for blogs, comparisons, and social channels.",
+      "explicit_application": 1.0,
+      "first_party": 1.0,
+      "freshness": 0.92,
+      "india_relevance": 0.2,
+      "route": "PartnerStack Join Now portal",
+      "score": 0.944678,
+      "source_grade": "A",
+      "source_url": "https://clickup.com/partners/affiliates",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "Gamma",
+      "category": "AI presentations and content",
+      "evidence": "First-party help article dated October 10, 2025 says creators, educators, founders, and community builders can apply through a PartnerStack portal.",
+      "explicit_application": 1.0,
+      "first_party": 1.0,
+      "freshness": 0.82,
+      "india_relevance": 0.2,
+      "route": "https://gammaapp.partnerstack.com/?group=affiliates",
+      "score": 0.931275,
+      "source_grade": "A",
+      "source_url": "https://help.gamma.app/en/articles/11048092-how-do-i-join-the-gamma-affiliate-program",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "Creatify AI",
+      "category": "AI video creation",
+      "evidence": "First-party Partner with Creatify page offers a free-to-join affiliate program, 25% recurring commission, an application route, and possible brand collaborations.",
+      "explicit_application": 0.95,
+      "first_party": 1.0,
+      "freshness": 0.86,
+      "india_relevance": 0.2,
+      "route": "Affiliate application on Creatify",
+      "score": 0.921035,
+      "source_grade": "A",
+      "source_url": "https://creatify.ai/affiliate",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "MeetGeek",
+      "category": "AI meeting automation",
+      "evidence": "First-party help article updated this week describes a Refer & earn $50 flow, social/blog/newsletter sharing, and a marketing contact.",
+      "explicit_application": 0.88,
+      "first_party": 1.0,
+      "freshness": 1.0,
+      "india_relevance": 0.15,
+      "route": "Existing user referral widget; marketing@meetgeek.ai",
+      "score": 0.91517,
+      "source_grade": "A",
+      "source_url": "https://support.meetgeek.ai/en/articles/8046477-join-meetgeek-referral-program",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "DJI India",
+      "category": "Creator hardware",
+      "evidence": "India storefront exposes an Influencer Program page, but the public extraction did not reveal clear application terms or a visible offer.",
+      "explicit_application": 0.3,
+      "first_party": 0.95,
+      "freshness": 0.55,
+      "india_relevance": 1.0,
+      "route": "Influencer Program page; revalidate contact route",
+      "score": 0.703417,
+      "source_grade": "B",
+      "source_url": "https://djiindiashop.com/pages/influencer-program",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "AdCreative.ai",
+      "category": "AI advertising SaaS",
+      "evidence": "PartnerStack\u2019s June 2026 roundup lists a 30% recurring revenue-share program; this is a discovery signal rather than an independently checked brand-owned page.",
+      "explicit_application": 0.6,
+      "first_party": 0.45,
+      "freshness": 0.92,
+      "india_relevance": 0.15,
+      "route": "Validate through PartnerStack marketplace / brand site",
+      "score": 0.620656,
+      "source_grade": "B",
+      "source_url": "https://partnerstack.com/articles/ai-affiliate-programs-2026",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "Reclaim.AI",
+      "category": "AI scheduling SaaS",
+      "evidence": "PartnerStack\u2019s June 2026 roundup lists Reclaim.AI with a public recurring commission structure; brand-owned terms should be checked before outreach.",
+      "explicit_application": 0.6,
+      "first_party": 0.45,
+      "freshness": 0.92,
+      "india_relevance": 0.15,
+      "route": "Validate through PartnerStack marketplace / brand site",
+      "score": 0.620656,
+      "source_grade": "B",
+      "source_url": "https://partnerstack.com/articles/ai-affiliate-programs-2026",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "InterServer",
+      "category": "Web hosting",
+      "evidence": "Afluencer\u2019s March 2022 article says InterServer sought software and marketing influencers for pay-per-post sponsorship; the signal is stale and third-party.",
+      "explicit_application": 0.45,
+      "first_party": 0.15,
+      "freshness": 0.2,
+      "india_relevance": 0.1,
+      "route": "Revalidate independently before any outreach",
+      "score": 0.367424,
+      "source_grade": "C",
+      "source_url": "https://afluencer.com/blog/software-brands-looking-for-tech-influencers",
+      "tech_fit": 1.0
+    },
+    {
+      "brand": "Unity",
+      "category": "Game and 3D development",
+      "evidence": "Afluencer\u2019s March 2022 article describes an influencer application with early access and event/staff access; the signal is stale and third-party.",
+      "explicit_application": 0.45,
+      "first_party": 0.15,
+      "freshness": 0.2,
+      "india_relevance": 0.1,
+      "route": "Revalidate independently before any outreach",
+      "score": 0.367424,
+      "source_grade": "C",
+      "source_url": "https://afluencer.com/blog/software-brands-looking-for-tech-influencers",
+      "tech_fit": 1.0
+    }
+  ],
+  "generations": 10000,
+  "memome_summary": {
+    "cultural_complexity": 8.8119,
+    "novel_descriptors": 11920,
+    "strategies": 11920,
+    "top_strategies": [
+      {
+        "author_id": "935a1f68-a5ef-44b1-a325-efb80aac89d8",
+        "contributions": 1,
+        "created_at": "2026-08-14T09:27:11.104226+00:00",
+        "descriptor": "evidence:first_party",
+        "effectiveness": 0.94,
+        "generation": 0,
+        "name": "prioritize_first_party",
+        "parent_ids": [],
+        "source_code": "def action_prioritize_first_party(self):\n    # learned at generation 0; persisted in the memome\n    learned_value = 0.940000\n    return min(0.99, learned_value + 0.08 * self.genome.learning_rate)\n",
+        "strategy_id": "989252b9d93211b10e54",
+        "uses": 51919
+      },
+      {
+        "author_id": "77db90f7-6f3a-45f9-b523-ee34e7d65a09",
+        "contributions": 1,
+        "created_at": "2026-08-14T09:27:12.224648+00:00",
+        "descriptor": "shelter:path:058:0",
+        "effectiveness": 0.94,
+        "generation": 57,
+        "name": "learned_g058_0",
+        "parent_ids": [
+          "989252b9d93211b10e54",
+          "4be33e3a11d8d84dbb5c"
+        ],
+        "source_code": "def action_learned_g058_0(self):\n    # learned at generation 58; persisted in the memome\n    learned_value = 0.940000\n    return min(0.99, learned_value + 0.08 * self.genome.learning_rate)\n",
+        "strategy_id": "16ff6411925a56e5f698",
+        "uses": 51605
+      },
+      {
+        "author_id": "4b5b66ca-5f90-4698-bf37-a44f5bf671ec",
+        "contributions": 1,
+        "created_at": "2026-08-14T09:27:12.227068+00:00",
+        "descriptor": "shelter:path:058:1",
+        "effectiveness": 0.94,
+        "generation": 57,
+        "name": "learned_g058_1",
+        "parent_ids": [
+          "989252b9d93211b10e54",
+          "16ff6411925a56e5f698"
+        ],
+        "source_code": "def action_learned_g058_1(self):\n    # learned at generation 58; persisted in the memome\n    learned_value = 0.940000\n    return min(0.99, learned_value + 0.08 * self.genome.learning_rate)\n",
+        "strategy_id": "9e4c5a24ba8b0197fda4",
+        "uses": 1
+      },
+      {
+        "author_id": "3879f0ca-5a7f-4564-b905-49b465ca6afe",
+        "contributions": 1,
+        "created_at": "2026-08-14T09:27:12.245523+00:00",
+        "descriptor": "coordination:path:059:0",
+        "effectiveness": 0.94,
+        "generation": 58,
+        "name": "learned_g059_0",
+        "parent_ids": [
+          "989252b9d93211b10e54",
+          "16ff6411925a56e5f698"
+        ],
+        "source_code": "def action_learned_g059_0(self):\n    # learned at generation 59; persisted in the memome\n    learned_value = 0.940000\n    return min(0.99, learned_value + 0.08 * self.genome.learning_rate)\n",
+        "strategy_id": "547eca7fe351f527ec7d",
+        "uses": 1
+      },
+      {
+        "author_id": "6bcc027d-3cb0-418b-8111-f78fac7e9932",
+        "contributions": 1,
+        "created_at": "2026-08-14T09:27:12.248183+00:00",
+        "descriptor": "coordination:path:059:1",
+        "effectiveness": 0.94,
+        "generation": 58,
+        "name": "learned_g059_1",
+        "parent_ids": [
+          "989252b9d93211b10e54",
+          "16ff6411925a56e5f698"
+        ],
+        "source_code": "def action_learned_g059_1(self):\n    # learned at generation 59; persisted in the memome\n    learned_value = 0.940000\n    return min(0.99, learned_value + 0.08 * self.genome.learning_rate)\n",
+        "strategy_id": "cbc4184da8e175f749c1",
+        "uses": 1
+      }
+    ]
+  },
+  "population_size": 4,
+  "runtime_seconds": 454.917,
+  "seed": 20260814,
+  "source_notes": "research/organism-influencer-source-notes.md"
+}

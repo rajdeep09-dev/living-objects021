@@ -20,6 +20,7 @@ Run directly:
 """
 from __future__ import annotations
 
+import concurrent.futures
 import hashlib
 import json
 import math
@@ -29,7 +30,7 @@ import re
 import sqlite3
 import sys
 import tempfile
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence
@@ -398,6 +399,44 @@ class Memome:
             "top_strategies": [strategy.to_state() for strategy in self.retrieve_proven(limit=5)],
         }
 
+    def export_all(self) -> List[Dict[str, Any]]:
+        """Return a deterministic, portable cultural snapshot for checkpoints."""
+        return [strategy.to_state() for strategy in self.all_strategies()]
+
+    def import_all(self, strategies: Sequence[Mapping[str, Any]], *, replace_existing: bool = True) -> None:
+        """Restore a checkpointed cultural archive without re-running learning code."""
+        if replace_existing:
+            self._connection.execute("DELETE FROM strategies")
+        for payload in strategies:
+            strategy = Strategy.from_state(payload)
+            self._connection.execute(
+                """
+                INSERT INTO strategies
+                    (strategy_id, name, source_code, descriptor, effectiveness,
+                     author_id, generation, parent_ids, uses, contributions, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(strategy_id) DO UPDATE SET
+                    effectiveness = excluded.effectiveness,
+                    uses = excluded.uses,
+                    contributions = excluded.contributions,
+                    created_at = excluded.created_at
+                """,
+                (
+                    strategy.strategy_id,
+                    strategy.name,
+                    strategy.source_code,
+                    strategy.descriptor,
+                    strategy.effectiveness,
+                    strategy.author_id,
+                    strategy.generation,
+                    json.dumps(list(strategy.parent_ids)),
+                    strategy.uses,
+                    strategy.contributions,
+                    strategy.created_at,
+                ),
+            )
+        self._connection.commit()
+
     def close(self) -> None:
         self._connection.close()
 
@@ -423,8 +462,11 @@ class LamarckianGenome:
     cultural_receptivity: float = 0.75
     mutation_rate: float = 0.10
     inheritance_rate: float = 1.00
+    fitness: float = 0.50
+    fitness_variance: float = 0.0
+    generation_born: int = 0
 
-    def mutate(self, rng: random.Random) -> "LamarckianGenome":
+    def mutate(self, rng: random.Random, *, generation_born: Optional[int] = None) -> "LamarckianGenome":
         """Produce a child genome whose mutation rate is itself heritable and mutable."""
         def bounded(value: float, delta: float, low: float = 0.01, high: float = 1.0) -> float:
             return max(low, min(high, value + delta))
@@ -447,6 +489,9 @@ class LamarckianGenome:
             inheritance_rate=bounded(
                 self.inheritance_rate, rng.gauss(0.0, next_rate * 0.05), low=0.75, high=1.0
             ),
+            fitness=0.50,
+            fitness_variance=0.0,
+            generation_born=self.generation_born + 1 if generation_born is None else int(generation_born),
         )
 
     def to_dict(self) -> Dict[str, float]:
@@ -620,7 +665,7 @@ class LamarckianOrganism(SelfModifyingObject):
         if self._memome is None or self._store is None or self._registry is None or self._reasoning is None:
             raise RuntimeError("Organism must be attached to a runtime and memome before reproduction")
         rng = rng or random.Random()
-        child_genome = self.genome.mutate(rng)
+        child_genome = self.genome.mutate(rng, generation_born=self.generation + 1)
         child = LamarckianOrganism.born(
             store=self._store,  # type: ignore[arg-type]
             registry=self._registry,
@@ -665,6 +710,69 @@ class LamarckianOrganism(SelfModifyingObject):
         self._persist_lamarckian_state()
         self.save()
 
+    def to_checkpoint(self) -> Dict[str, Any]:
+        """Serialize data needed to reconstruct this organism deterministically."""
+        return {
+            "object_id": self.object_id,
+            "name": self.name,
+            "genome": self.genome.to_dict(),
+            "generation": self.generation,
+            "energy": self.energy,
+            "dead": self.dead,
+            "parent_ids": list(self.parent_ids),
+            "learned_strategies": {
+                strategy_id: strategy.to_state() for strategy_id, strategy in self.learned_strategies.items()
+            },
+            "behavior_descriptors": dict(self.behavior_descriptors),
+        }
+
+    @classmethod
+    def from_checkpoint(
+        cls,
+        payload: Mapping[str, Any],
+        *,
+        store: _SimulationStore,
+        registry: CapabilityRegistry,
+        reasoning: MockReasoningEngine,
+        memome: Memome,
+    ) -> "LamarckianOrganism":
+        """Restore from trusted local state; behavior source stays inert until normal execution."""
+        organism = cls.born(
+            store=store,
+            registry=registry,
+            reasoning=reasoning,
+            memome=memome,
+            name=str(payload["name"]),
+            genome=LamarckianGenome.from_dict(payload.get("genome", {})),
+            generation=int(payload.get("generation", 0)),
+            parent_ids=tuple(payload.get("parent_ids", [])),
+        )
+        restored_id = str(payload.get("object_id", organism.object_id))
+        if restored_id != organism.object_id:
+            transient_id = organism.object_id
+            row = store.objects.pop(transient_id, None)
+            if row is not None:
+                row["object_id"] = restored_id
+                store.objects[restored_id] = row
+            organism.object_id = restored_id
+        organism.energy = float(payload.get("energy", 100.0))
+        organism.dead = bool(payload.get("dead", False))
+        organism.is_alive = not organism.dead
+        stored = payload.get("learned_strategies", {})
+        if isinstance(stored, Mapping):
+            for strategy_payload in stored.values():
+                if not isinstance(strategy_payload, Mapping):
+                    continue
+                strategy = Strategy.from_state(strategy_payload)
+                if organism.set_behavior(strategy.name, strategy.source_code):
+                    organism.learned_strategies[strategy.strategy_id] = strategy
+                    organism.behavior_descriptors[strategy.name] = strategy.descriptor
+        descriptors = payload.get("behavior_descriptors", {})
+        if isinstance(descriptors, Mapping):
+            organism.behavior_descriptors.update({str(key): str(value) for key, value in descriptors.items()})
+        organism._persist_lamarckian_state()
+        return organism
+
 
 # ---------------------------------------------------------------------------
 # Evolutionary system and metrics
@@ -684,6 +792,101 @@ class GenerationMetrics:
 
     def as_dict(self) -> Dict[str, Any]:
         return asdict(self)
+
+
+class CheckpointManager:
+    """Atomically save and restore a trusted local ecosystem workspace."""
+
+    FORMAT_VERSION = 1
+
+    def __init__(self, path: os.PathLike[str] | str, interval: int = 1_000) -> None:
+        if interval <= 0:
+            raise ValueError("checkpoint interval must be positive")
+        self.path = Path(path)
+        self.path.mkdir(parents=True, exist_ok=True)
+        self.interval = int(interval)
+
+    @staticmethod
+    def _state_to_json(value: Any) -> Any:
+        if isinstance(value, tuple):
+            return {"__tuple__": [CheckpointManager._state_to_json(item) for item in value]}
+        if isinstance(value, list):
+            return [CheckpointManager._state_to_json(item) for item in value]
+        return value
+
+    @staticmethod
+    def _state_from_json(value: Any) -> Any:
+        if isinstance(value, Mapping) and set(value) == {"__tuple__"}:
+            return tuple(CheckpointManager._state_from_json(item) for item in value["__tuple__"])
+        if isinstance(value, list):
+            return [CheckpointManager._state_from_json(item) for item in value]
+        return value
+
+    def _checkpoint_path(self, generation: int) -> Path:
+        return self.path / f"checkpoint_{generation:07d}.json"
+
+    def save(self, ecosystem: "LamarckianEcosystem", generation: Optional[int] = None) -> Path:
+        generation = ecosystem.generation if generation is None else int(generation)
+        state = {
+            "format_version": self.FORMAT_VERSION,
+            "generation": generation,
+            "population_size": ecosystem.population_size,
+            "population": [organism.to_checkpoint() for organism in ecosystem.population],
+            "memome": ecosystem.memome.export_all(),
+            "history": [metric.as_dict() for metric in ecosystem.history],
+            "seen_descriptors": sorted(ecosystem._seen_descriptors),
+            "rng_state": self._state_to_json(ecosystem.rng.getstate()),
+        }
+        checkpoint = self._checkpoint_path(generation)
+        temporary = checkpoint.with_suffix(".json.tmp")
+        temporary.write_text(json.dumps(state, sort_keys=True, separators=(",", ":")), encoding="utf-8")
+        os.replace(temporary, checkpoint)
+        manifest = self.path / "latest.json"
+        manifest_temporary = manifest.with_suffix(".json.tmp")
+        manifest_temporary.write_text(
+            json.dumps({"generation": generation, "checkpoint": checkpoint.name}, sort_keys=True),
+            encoding="utf-8",
+        )
+        os.replace(manifest_temporary, manifest)
+        return checkpoint
+
+    def latest_path(self) -> Optional[Path]:
+        manifest = self.path / "latest.json"
+        if manifest.exists():
+            try:
+                candidate = self.path / str(json.loads(manifest.read_text(encoding="utf-8"))["checkpoint"])
+                if candidate.exists():
+                    return candidate
+            except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+                pass
+        checkpoints = sorted(self.path.glob("checkpoint_*.json"))
+        return checkpoints[-1] if checkpoints else None
+
+    def restore(self, ecosystem: "LamarckianEcosystem") -> int:
+        checkpoint = self.latest_path()
+        if checkpoint is None:
+            return 0
+        state = json.loads(checkpoint.read_text(encoding="utf-8"))
+        if int(state.get("format_version", 0)) != self.FORMAT_VERSION:
+            raise ValueError("unsupported checkpoint format")
+        ecosystem.population_size = int(state["population_size"])
+        ecosystem.generation = int(state["generation"])
+        ecosystem.rng.setstate(self._state_from_json(state["rng_state"]))
+        ecosystem.memome.import_all(state.get("memome", []), replace_existing=True)
+        ecosystem.store = _SimulationStore()
+        ecosystem.population = [
+            LamarckianOrganism.from_checkpoint(
+                payload,
+                store=ecosystem.store,
+                registry=ecosystem.registry,
+                reasoning=ecosystem.reasoning,
+                memome=ecosystem.memome,
+            )
+            for payload in state.get("population", [])
+        ]
+        ecosystem.history = [GenerationMetrics(**payload) for payload in state.get("history", [])]
+        ecosystem._seen_descriptors = set(str(item) for item in state.get("seen_descriptors", []))
+        return ecosystem.generation
 
 
 class LamarckianEcosystem:
@@ -797,6 +1000,16 @@ class LamarckianEcosystem:
             min(0.99, 0.35 + 0.35 * repertoire + culture_bonus + novelty_bonus + environment_factor + mutation_stability),
         )
 
+    def _evaluate_population(
+        self, environment: Mapping[str, float | str]
+    ) -> List[tuple[float, LamarckianOrganism]]:
+        """Evaluate through a replaceable seam while preserving deterministic ordering."""
+        return [(self._adaptive_score(organism, environment), organism) for organism in self.population]
+
+    @staticmethod
+    def _fitness_variance(organism: LamarckianOrganism, score: float) -> float:
+        return round(min(1.0, abs(score - organism.genome.fitness)), 6)
+
     def _innovation_source(self, name: str, generation: int, effectiveness: float) -> str:
         return _strategy_source(name, effectiveness, generation)
 
@@ -839,11 +1052,14 @@ class LamarckianEcosystem:
             if organism.complexity < 15:
                 self._learn_from_lifetime(organism, environment, index)
 
-        scored = sorted(
-            ((self._adaptive_score(organism, environment), organism) for organism in self.population),
-            key=lambda item: item[0],
-            reverse=True,
-        )
+        scored = sorted(self._evaluate_population(environment), key=lambda item: item[0], reverse=True)
+        for score, organism in scored:
+            organism.genome = replace(
+                organism.genome,
+                fitness=round(float(score), 6),
+                fitness_variance=self._fitness_variance(organism, float(score)),
+            )
+            organism._persist_lamarckian_state()
         self._seen_descriptors.update(
             descriptor for organism in self.population for descriptor in organism.behavior_descriptors.values()
         )
@@ -898,6 +1114,8 @@ class LamarckianEcosystem:
         population_size: Optional[int] = None,
         *,
         report: bool = True,
+        checkpoint_manager: Optional[CheckpointManager] = None,
+        resume: bool = False,
     ) -> Dict[str, Any]:
         """Run the requested proof demonstration and return its complete history."""
         if generations < 0:
@@ -908,9 +1126,15 @@ class LamarckianEcosystem:
             if population_size < 2:
                 raise ValueError("population_size must be at least 2")
             self.population_size = population_size
-        self.spawn_population()
-        for _ in range(generations):
+        resumed_generation = checkpoint_manager.restore(self) if resume and checkpoint_manager else 0
+        if not self.population:
+            self.spawn_population()
+        for _ in range(resumed_generation, generations):
             self.step()
+            if checkpoint_manager and self.generation % checkpoint_manager.interval == 0:
+                checkpoint_manager.save(self)
+        if checkpoint_manager:
+            checkpoint_manager.save(self)
         if report:
             self.print_progress()
         return {
@@ -932,6 +1156,30 @@ class LamarckianEcosystem:
                     f" {metric.cultural_complexity:>7.3f} | {metric.average_mutation_rate:>17.4f} |"
                     f" {metric.novelty_count:>9} | {metric.archive_size:>7} | {metric.behaviors_per_organism:>12.1f}"
                 )
+
+
+class ParallelEcosystem(LamarckianEcosystem):
+    """Bounded multi-thread evaluator with serial reproduction and SQLite writes."""
+
+    def __init__(self, *args: Any, workers: int = 4, **kwargs: Any) -> None:
+        if workers < 1:
+            raise ValueError("workers must be at least one")
+        super().__init__(*args, **kwargs)
+        self.workers = int(workers)
+        self._executor = concurrent.futures.ThreadPoolExecutor(max_workers=self.workers)
+
+    def _evaluate_population(
+        self, environment: Mapping[str, float | str]
+    ) -> List[tuple[float, LamarckianOrganism]]:
+        futures = [
+            (organism, self._executor.submit(self._adaptive_score, organism, environment))
+            for organism in self.population
+        ]
+        return [(float(future.result()), organism) for organism, future in futures]
+
+    def close(self) -> None:
+        self._executor.shutdown(wait=True, cancel_futures=True)
+        super().close()
 
 
 def run_lamarckian_demo() -> None:

@@ -49,6 +49,9 @@ Thumbs.db
 .coverage
 htmlcov/
 
+# Durable worker state is environment-specific; commit reproducible runners and reports instead.
+checkpoints/
+
 # Secrets (NEVER commit these)
 .env
 .secrets

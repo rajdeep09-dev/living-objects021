@@ -1,0 +1,38 @@
+services:
+  beast-v5-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      - python
+      - scripts/run_v5_benchmarks.py
+      - --task
+      - ${BEAST_V5_TASK:-general_research}
+      - --generations
+      - ${BEAST_V5_GENERATIONS:-100000}
+      - --population
+      - ${BEAST_V5_POPULATION:-12}
+      - --workers
+      - ${BEAST_V5_WORKERS:-4}
+      - --checkpoint-interval
+      - ${BEAST_V5_CHECKPOINT_INTERVAL:-1000}
+      - --workspace
+      - /state/checkpoints
+      - --reports-dir
+      - /state/reports
+    network_mode: none
+    read_only: true
+    user: "65532:65532"
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    volumes:
+      - beast-v5-state:/state
+    mem_limit: ${BEAST_V5_MEMORY_LIMIT:-1g}
+    cpus: ${BEAST_V5_CPU_LIMIT:-2.0}
+    pids_limit: 128
+    restart: "no"
+
+volumes:
+  beast-v5-state:

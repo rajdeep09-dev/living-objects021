@@ -24,20 +24,40 @@
 
 ## BEAST v4 expansion
 
-- [ ] Audit every v4 requirement against the committed v3 implementation and identify research-mode boundaries.
-- [ ] Patch constant-time credential comparison and production authentication regression coverage.
-- [ ] Make sandbox cleanup recursive and observable after timeout, kill, and subprocess failure paths.
-- [ ] Make token-wallet spending and market purchases atomic under concurrent access.
-- [ ] Add signed, expiring, nonce-protected diplomacy proposals with replay prevention.
-- [ ] Replace predictable quantum measurement randomness with a cryptographically strong source.
-- [ ] Add finite-value and hard-clamp guards to spiking neuron state transitions.
-- [ ] Validate archaeological resurrection through the sandbox before memome injection.
-- [ ] Normalize consciousness proxy metrics to the documented [0, 1] range.
-- [ ] Implement evolvable physics laws, invariant proofs, and branching parallel universes.
-- [ ] Implement bounded temporal revision with causal-cone recomputation and paradox rejection.
-- [ ] Implement universal computation through the existing isolated execution boundary.
-- [ ] Implement civilization memory, language/culture evolution, ethics, and coordination primitives.
-- [ ] Implement distributed federation, universe exchange, SDK ergonomics, and v4 API observability.
-- [ ] Add proof tests, threat-model documentation, benchmarks, CI quality gates, and contributor tooling.
-- [ ] Run the full legacy/v2/v3/v4 test suite, security checks, performance checks, and visual verification.
+- [x] Audit every v4 requirement against the committed v3 implementation and identify research-mode boundaries.
+- [x] Patch constant-time credential comparison and production authentication regression coverage.
+- [x] Make sandbox cleanup recursive and observable after timeout, kill, and subprocess failure paths.
+- [x] Make token-wallet spending and market purchases atomic under concurrent access.
+- [x] Add signed, expiring, nonce-protected diplomacy proposals with replay prevention.
+- [x] Replace predictable quantum measurement randomness with a cryptographically strong source.
+- [x] Add finite-value and hard-clamp guards to spiking neuron state transitions.
+- [x] Validate archaeological resurrection through the sandbox before memome injection.
+- [x] Normalize consciousness proxy metrics to the documented [0, 1] range.
+- [x] Implement evolvable physics laws, invariant proofs, and branching parallel universes.
+- [x] Implement bounded temporal revision with causal-cone recomputation and paradox rejection.
+- [x] Implement universal computation through the existing isolated execution boundary.
+- [x] Implement civilization memory, language/culture evolution, ethics, and coordination primitives.
+- [x] Implement distributed federation, universe exchange, SDK ergonomics, and v4 API observability.
+- [x] Add proof tests, threat-model documentation, benchmarks, CI quality gates, and contributor tooling.
+- [x] Run the full legacy/v2/v3/v4 test suite, security checks, performance checks, and visual verification.
 - [ ] Commit and push the completed BEAST v4 release to master.
+
+## Organism influencer-signal experiment
+
+- [x] Define a reproducible evidence rubric for public technology-brand influencer-marketing intent.
+- [x] Collect and source current public signals, prioritizing SaaS and AI-tool brands, with India-first coverage where available.
+- [x] Run the BEAST organism search strategy for exactly 10,000 generations and preserve the run configuration and metrics.
+- [x] Analyze candidate confidence, strategy evolution, convergence, false-positive risk, and limitations.
+- [x] Write and deliver a sourced experiment report with reproducibility instructions.
+
+## BEAST v5 autonomous organism workspace
+
+- [x] Audit BEAST_UPDATE_v5.md against the current v4 tree and define safe research-mode boundaries for long-running local evolution.
+- [x] Add stored genome fitness, variance, birth-generation metadata, and durable checkpoint/resume with atomic manifests.
+- [x] Patch v5 findings: isolated parallel-universe memomes, bounded temporal revision, morphogenetic cycle detection, translation fallbacks, and WASM export size limits.
+- [x] Implement local autonomous evolution workers that batch generations without per-generation API requests, with pause/resume/cancel, quotas, backpressure, and crash recovery.
+- [x] Implement user-defined organism goals, task registry, lifecycle state, progress events, lineage, memome, and artifact export APIs.
+- [x] Build the web flow for creating organisms from a short description, starting/stopping workers, and inspecting long-run evolution state.
+- [x] Add v5 task proof suites, security tests, persistence tests, 100k-generation smoke benchmarks, and reproducible report generation.
+- [x] Add deployment overlays and documentation for local-first execution, persistent hosting, resource limits, and the distinction between local computation and API traffic.
+- [x] Run full regression and visual verification, save a v5 WebDev checkpoint, and prepare the release commit.

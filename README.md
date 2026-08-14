@@ -82,6 +82,23 @@ pip install -e ".[production,test]"
 python3 -m pytest -q
 ```
 
+## BEAST v5: leave a bounded organism to evolve locally
+
+BEAST v5 adds the user flow behind the idea of “describe work, then return later.” A user supplies a short goal, selects a finite generation budget, starts a local worker, and later inspects lineage, fitness, cultural memory, novelty, checkpoints, and lifecycle events. The worker does **not** issue an API request for each generation: it evolves against a declared local task profile and checkpoints to a durable workspace.
+
+```bash
+# Run a checkpointed local task for up to 100,000 generations.
+python3 scripts/run_v5_benchmarks.py --task compress --generations 100000
+
+# Resume it after a stopped process.
+python3 scripts/run_v5_benchmarks.py --task compress --generations 100000 --resume
+
+# Run v5 proof coverage.
+python3 -m pytest -q evolution/test_v5.py
+```
+
+The browser observatory includes a **Create organism** workspace with start, pause, resume, cancel, and export actions. A user goal is routed to a fixed local task profile; it is not evaluated as code and the system must not claim that arbitrary natural-language goals are autonomously solved. One worker is capped at one million generations, 256 organisms, and 32 local scoring workers. For unattended work, use a persistent host and a durable checkpoint volume; autoscaled web processes can stop when idle. See [docs/v5-autonomous-workspace.md](docs/v5-autonomous-workspace.md), [docs/v5-security.md](docs/v5-security.md), and [docker-compose.v5.yml](docker-compose.v5.yml).
+
 ## BEAST v2: ten phases of cumulative software evolution
 
 BEAST v2 adds a second layer above individual Lamarckian organisms: the **rules, language, culture, defenses, goals, tools, and energy economics of the population can all be inspected and evolved**. Every phase has a named Python module and runnable proof coverage.

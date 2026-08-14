@@ -1,0 +1,22 @@
+# Organism Influencer-Signal Research Notes
+
+These notes record public evidence collected for the 10,000-generation organism experiment. They are inputs to the experiment, not endorsements or proof that a paid campaign is currently available to every applicant.
+
+## Verified sources
+
+| Brand | Public signal | Evidence captured | URL |
+|---|---|---|---|
+| Creatify AI | First-party affiliate and brand-ambassador invitation | The page says “Partner with Creatify,” offers a free-to-join affiliate program, advertises 25% recurring commission, provides an application link, and describes possible additional brand collaborations. | https://creatify.ai/affiliate |
+| DJI India / Ageless Digital Technologies Pvt. Ltd. | India-specific influencer-program landing page | The official India storefront exposes an “Influencer Program” policy link in its footer and states that it is operated by the authorized Indian importer/distributor. The page is a weaker signal because the extracted text does not expose application terms or a visible form. | https://djiindiashop.com/pages/influencer-program |
+| Creatify AI, ClickUp, Reclaim.AI, MeetGeek, Gamma, Castmagic, Logome.ai, Surfer, OmniSEO, AdCreative.ai, Smartli, GetResponse, and other listed vendors | Current partner-marketplace discovery signal | PartnerStack’s June 2026 roundup says it is highlighting 25 AI affiliate programs available through its Marketplace and publishes program-level commission structures for the named vendors. This is a strong discovery signal, but each brand’s own partner page should be checked before outreach. | https://partnerstack.com/articles/ai-affiliate-programs-2026 |
+| Sdigital, InterServer, Movavi, Iolo Technologies, Octobat, SaaS Mantra, MUVI, Unity, and others | Tech-influencer recruitment directory | Afluencer’s March 2022 article explicitly describes these software brands as looking for tech influencers and gives commission, sponsorship, or access details. Because the article is old and third-party, it is treated as a low-confidence lead until independently revalidated. | https://afluencer.com/blog/software-brands-looking-for-tech-influencers |
+| ClickUp | First-party affiliate recruitment with live application route | ClickUp’s current affiliate page explicitly says “Join ClickUp’s Affiliate Program,” links to a PartnerStack “Join Now” portal, offers up to $25 per new free-workspace referral, and instructs partners to promote through blogs, comparisons, and social channels. | https://clickup.com/partners/affiliates |
+| Gamma | First-party affiliate application workflow | Gamma’s help center article, dated October 10, 2025, says creators, educators, founders, and community builders can apply through a PartnerStack portal; it describes application review, approval, referral links, and promotional resources. | https://help.gamma.app/en/articles/11048092-how-do-i-join-the-gamma-affiliate-program |
+| Amazon India | First-party India-facing influencer recruitment | Amazon India’s influencer page says creators can sign up, build a personalized storefront, publish livestreams, shoppable photos and videos, recommend products through social media, and earn commissions. It accepts applications from influencers with YouTube, Instagram, Facebook, or TikTok accounts subject to review. | https://affiliate-program.amazon.in/influencers |
+| MeetGeek | First-party, recently updated referral-program invitation | MeetGeek’s help center says the referral guide was updated this week, invites users to share a unique link via social networks, websites, blogs, or newsletters, and pays $50 per subscribing customer. It also exposes a marketing contact for questions. | https://support.meetgeek.ai/en/articles/8046477-join-meetgeek-referral-program |
+
+## Rubric notes
+
+“Actively looking” is scored from public evidence rather than inferred from brand popularity. A first-party application, explicit partner invitation, active commission terms, or a current creator/ambassador page receives stronger weight than a directory article or an old social post. A page that merely contains an influencer-program link without clear recruitment details is retained as a weak lead and cannot by itself be labeled a high-confidence opportunity.
+
+Third-party roundups are useful for candidate generation, but they are not equivalent to a first-party current offer. The experiment therefore gives them lower evidence weight and reports them separately from verified first-party opportunities.

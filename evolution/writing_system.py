@@ -35,6 +35,16 @@ class StrategyIntent:
     parameters: dict[str, float] = field(default_factory=dict)
 
 
+class TranslationResult(str):
+    """String-compatible translation with explicit coverage diagnostics."""
+
+    def __new__(cls, text: str, quality: float, unknown_token_count: int) -> "TranslationResult":
+        result = str.__new__(cls, text)
+        result.quality = float(quality)
+        result.unknown_token_count = int(unknown_token_count)
+        return result
+
+
 @dataclass
 class Grammar:
     layers: tuple[str, ...] = ("phonetic", "semantic", "pragmatic")
@@ -103,16 +113,25 @@ class WritingSystem:
             return 1.0
         return round(len(left & right) / max(1, len(left | right)), 6)
 
-    def translate(self, text: str, target_system: "WritingSystem") -> str:
+    def translate(self, text: str, target_system: "WritingSystem") -> TranslationResult:
+        """Translate known concepts and mark divergent concepts without raising KeyError.
+
+        The target system is never mutated as a side effect of translation.  A
+        caller can explicitly teach an unknown concept later if desired.
+        """
         intent = self.read(text)
-        quality = self.mutual_intelligibility(target_system)
-        if quality == 0.0:
-            return "?"
-        return target_system.write(intent)
+        target_semantics = {symbol.semantic for symbol in target_system.symbols.values()}
+        if intent.action not in target_semantics:
+            return TranslationResult(f"[?{intent.action}]", 0.0, 1)
+        glyph = next(
+            glyph for glyph, symbol in target_system.symbols.items() if symbol.semantic == intent.action
+        )
+        suffix = "".join(f"{key}={value};" for key, value in sorted(intent.parameters.items()))
+        return TranslationResult(glyph + suffix, 1.0, 0)
 
     @property
     def vocabulary_size(self) -> int:
         return len(self.symbols)
 
 
-__all__ = ["Context", "Grammar", "MeaningShift", "StrategyIntent", "Symbol", "WritingSystem"]
+__all__ = ["Context", "Grammar", "MeaningShift", "StrategyIntent", "Symbol", "TranslationResult", "WritingSystem"]

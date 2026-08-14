@@ -24,11 +24,43 @@ class HardwareCircuit:
     synapse_count: int
 
 
+class ExportError(ValueError):
+    """Raised when a substrate artifact exceeds a declared safe export budget."""
+
+
+class WasmExportResult(bytes):
+    """Byte-compatible WASM export carrying bounded strategy metadata."""
+
+    def __new__(cls, binary: bytes, strategy_count: int) -> "WasmExportResult":
+        result = bytes.__new__(cls, binary)
+        result.binary = bytes(binary)
+        result.strategy_count = int(strategy_count)
+        return result
+
+
 class SubstrateExporter:
     _MINIMAL_WASM = bytes.fromhex("0061736d01000000" "0105016000017f" "03020100" "0707010372756e0000" "0a0601040041010b")
+    MAX_WASM_STRATEGIES = 20
+    MAX_WASM_SIZE_BYTES = 512_000
 
-    def export_wasm(self, organism: Any) -> bytes:
+    def _compile_to_wasm(self, strategies: list[Any]) -> bytes:
+        """Emit the bounded research-mode module; strategy source is never executed here."""
+        del strategies
         return self._MINIMAL_WASM
+
+    def export_wasm(self, organism: Any) -> WasmExportResult:
+        strategies = list(getattr(organism, "learned_strategies", {}).values())
+        top_strategies = sorted(
+            strategies,
+            key=lambda strategy: float(getattr(strategy, "effectiveness", 0.0)),
+            reverse=True,
+        )[: self.MAX_WASM_STRATEGIES]
+        wasm_bytes = self._compile_to_wasm(top_strategies)
+        if len(wasm_bytes) > self.MAX_WASM_SIZE_BYTES:
+            raise ExportError(
+                f"WASM export size {len(wasm_bytes)} exceeds limit {self.MAX_WASM_SIZE_BYTES}"
+            )
+        return WasmExportResult(wasm_bytes, len(top_strategies))
 
     def export_container(self, organism: Any) -> DockerSpec:
         organism_id = re.sub(r"[^a-z0-9-]", "-", str(getattr(organism, "object_id", "organism")).lower()).strip("-") or "organism"
@@ -56,4 +88,4 @@ class SubstrateExporter:
         return round(successful / len(available), 6)
 
 
-__all__ = ["DockerSpec", "HardwareCircuit", "SubstrateExporter"]
+__all__ = ["DockerSpec", "ExportError", "HardwareCircuit", "SubstrateExporter", "WasmExportResult"]

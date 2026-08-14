@@ -56,6 +56,41 @@ services:
     stdin_open: true
     tty: false
 
+  evolution-worker:
+    profiles: ["v5"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      - python
+      - scripts/run_v5_benchmarks.py
+      - --task
+      - ${BEAST_V5_TASK:-compress}
+      - --generations
+      - ${BEAST_V5_GENERATIONS:-100000}
+      - --population
+      - ${BEAST_V5_POPULATION:-12}
+      - --workers
+      - ${BEAST_V5_WORKERS:-4}
+      - --checkpoint-interval
+      - ${BEAST_V5_CHECKPOINT_INTERVAL:-1000}
+      - --workspace
+      - /app/state/v5-checkpoints
+      - --reports-dir
+      - /app/state/v5-reports
+    network_mode: "none"
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    volumes:
+      - living_objects_state:/app/state
+    mem_limit: ${BEAST_V5_MEMORY_LIMIT:-1g}
+    cpus: ${BEAST_V5_CPU_LIMIT:-2.0}
+    pids_limit: 128
+    restart: "no"
+
   prometheus:
     image: prom/prometheus:v3.5.0
     volumes:

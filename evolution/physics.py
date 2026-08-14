@@ -10,8 +10,10 @@ import copy
 import hashlib
 import json
 import math
+import shutil
 import uuid
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Mapping, Protocol, Sequence
 
 
@@ -142,6 +144,20 @@ class ParallelUniverse:
     divergence_score: float = 0.0
     universe_id: str = field(default_factory=lambda: f"univ-{uuid.uuid4().hex[:12]}")
     observers: list[dict[str, Any]] = field(default_factory=list)
+    memome_path: Path | None = None
+
+    def _branch_memome_path(self) -> Path | None:
+        """Snapshot a branch-local SQLite archive rather than sharing mutable state."""
+        if self.memome_path is None:
+            return None
+        parent_path = Path(self.memome_path)
+        child_path = parent_path.with_name(f"{parent_path.stem}-{uuid.uuid4().hex[:10]}{parent_path.suffix or '.sqlite'}")
+        child_path.parent.mkdir(parents=True, exist_ok=True)
+        if parent_path.exists():
+            shutil.copy2(parent_path, child_path)
+        else:
+            child_path.touch()
+        return child_path
 
     def branch(self, trigger_law: PhysicsLaw) -> "ParallelUniverse":
         child_physics = copy.deepcopy(self.physics)
@@ -150,7 +166,13 @@ class ParallelUniverse:
         parent_fp = self.physics.fingerprint()
         child_fp = child_physics.fingerprint()
         divergence = 0.0 if parent_fp == child_fp else 1.0 - sum(a == b for a, b in zip(parent_fp, child_fp)) / max(len(parent_fp), len(child_fp))
-        return ParallelUniverse(child_physics, self, self.branch_generation + 1, round(divergence, 6))
+        return ParallelUniverse(
+            physics=child_physics,
+            parent_universe=self,
+            branch_generation=self.branch_generation + 1,
+            divergence_score=round(divergence, 6),
+            memome_path=self._branch_memome_path(),
+        )
 
     def observe(self) -> dict[str, Any]:
         return {"universe_id": self.universe_id, "parent_id": self.parent_universe.universe_id if self.parent_universe else None, "branch_generation": self.branch_generation, "divergence_score": self.divergence_score, "physics_fingerprint": self.physics.fingerprint()}
