@@ -1,0 +1,28 @@
+groups:
+  - name: living-objects-platform
+    rules:
+      - alert: LivingObjectsFitnessDrop
+        expr: living_objects_average_fitness < 0.9 * avg_over_time(living_objects_average_fitness[10m])
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Average organism fitness dropped more than 10%
+          description: The current fitness is below 90% of its recent ten-minute average.
+      - alert: LivingObjectsArchiveCorruption
+        expr: increase(living_objects_archive_errors_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Memome archive errors detected
+          description: Archive queries or writes have reported an error in the last five minutes.
+      - alert: LivingObjectsNoProgress
+        expr: increase(living_objects_generations_total[10m]) == 0 and living_objects_organisms > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Evolution has stopped progressing
+          description: Organisms are present but no generation has completed in ten minutes.
+

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: living-objects-api
+  labels:
+    app.kubernetes.io/name: living-objects-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: living-objects-api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: living-objects-api
+    spec:
+      containers:
+        - name: api
+          image: living-objects:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: living-objects-secrets
+          env:
+            - name: APP_ENV
+              value: prod
+            - name: PORT
+              value: "8000"
+            - name: ORGANISM_LIMIT
+              value: "10000"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+

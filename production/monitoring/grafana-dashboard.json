@@ -1,0 +1,14 @@
+{
+  "uid": "living-objects",
+  "title": "Living Objects / Evolution Observatory",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "panels": [
+    {"id": 1, "type": "stat", "title": "Organisms", "gridPos": {"h": 5, "w": 6, "x": 0, "y": 0}, "targets": [{"expr": "living_objects_organisms"}]},
+    {"id": 2, "type": "timeseries", "title": "Fitness", "gridPos": {"h": 8, "w": 12, "x": 6, "y": 0}, "targets": [{"expr": "living_objects_average_fitness", "legendFormat": "avg fitness"}]},
+    {"id": 3, "type": "timeseries", "title": "Cultural complexity", "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}, "targets": [{"expr": "living_objects_cultural_complexity", "legendFormat": "culture"}]},
+    {"id": 4, "type": "timeseries", "title": "Novelty discoveries", "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}, "targets": [{"expr": "living_objects_novelty_total", "legendFormat": "novelty"}]},
+    {"id": 5, "type": "timeseries", "title": "Archive errors", "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}, "targets": [{"expr": "living_objects_archive_errors_total", "legendFormat": "errors"}]}
+  ]
+}

@@ -114,6 +114,15 @@ After you push, add a row to the table below **in your section**:
 
 ## 📊 Cumulative Test Count (85/85 Passing)
 
+## 🤖 Manus — `production/` + `evolution/` + `web/`
+> **Role:** Platform engineer. Added the authenticated control plane, durable state and memome storage, realtime evolution stream, Prometheus/Grafana observability, container/Kubernetes/Helm deployment inputs, scalable evolution engines, self-improvement policy adaptation, multi-species ecology, and Signal Loom operations UI.
+
+| Date | Commit | Built | Tests | Status |
+|------|--------|-------|-------|--------|
+| 2026-08-14 | `(pending)` | Production API, scaling/self-improvement/multi-species engines, deployment infrastructure, monitoring, control UI, and one-million-organism runbook | `(pending)` | 🔧 |
+
+---
+
 | Suite | Tests | Status |
 |-------|-------|--------|
 | `prototypes/combined/p1_continuity/` | 8 | ✅ Passing |

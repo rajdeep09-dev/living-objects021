@@ -1,0 +1,45 @@
+replicaCount: 3
+
+image:
+  repository: living-objects
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: "2"
+    memory: 1Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 32
+  cpuUtilization: 70
+  organismsPerReplica: 2500
+
+database:
+  url: ""
+redis:
+  url: "redis://living-objects-redis:6379/0"
+
+secrets:
+  jwtSecret: ""
+  existingSecret: ""
+
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  fsGroup: 10001
+

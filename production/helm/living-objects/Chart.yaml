@@ -1,0 +1,8 @@
+apiVersion: v2
+name: living-objects
+description: Production chart for the Living Objects evolution control plane
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+kubeVersion: ">=1.26.0-0"
+

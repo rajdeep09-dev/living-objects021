@@ -1,0 +1,26 @@
+app:
+  name: living-objects-platform
+  port: 8000
+  organism_limit: 10000
+  event_buffer_size: 500
+
+dev:
+  database_url: sqlite:///./state/living_objects.sqlite3
+  redis_url: redis://localhost:6379/0
+  jwt_secret_env: JWT_SECRET
+  cors_origins: ["http://localhost:3000", "http://localhost:8000"]
+
+staging:
+  database_url_env: DATABASE_URL
+  redis_url_env: REDIS_URL
+  jwt_secret_env: JWT_SECRET
+  cors_origins_env: CORS_ORIGINS
+
+prod:
+  database_url_env: DATABASE_URL
+  redis_url_env: REDIS_URL
+  jwt_secret_env: JWT_SECRET
+  cors_origins_env: CORS_ORIGINS
+  require_tls_at_ingress: true
+  workers_per_pod: 1
+

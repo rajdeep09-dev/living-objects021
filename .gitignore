@@ -58,3 +58,5 @@ htmlcov/
 # Research outputs
 research/*.pdf
 research/*.png
+web/node_modules/
+web/dist/

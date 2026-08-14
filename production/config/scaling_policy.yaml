@@ -1,0 +1,15 @@
+apiVersion: living-objects.dev/v1alpha1
+kind: ScalingPolicy
+metadata:
+  name: default-organism-policy
+spec:
+  targetOrganismsPerReplica: 2500
+  minReplicas: 3
+  maxReplicas: 32
+  scaleUpThreshold: 0.80
+  scaleDownThreshold: 0.35
+  cooldownSeconds: 300
+  batchSize: 1000
+  shardCapacity: 1000000
+  rule: "desired_replicas = ceil(organism_count / target_organisms_per_replica)"
+

@@ -1,0 +1,9 @@
+Living Objects {{ .Chart.Version }} is installed.
+
+API:
+  kubectl port-forward svc/{{ include "living-objects.fullname" . }} 8000:8000
+  Open http://localhost:8000/docs
+
+Before production use, provide a strong JWT secret and a PostgreSQL DATABASE_URL
+through --set secrets.jwtSecret=... and --set database.url=... or an existing secret.
+

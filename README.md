@@ -133,6 +133,9 @@ prototypes/mimo/p1_continuity/test_living_object.py ........ [100%]
 - [ATTENDANCE.md](ATTENDANCE.md) — Multi-agent contribution log (Kimi, Mimo, Claw, Hermes, AGY).
 - [PROGRESS.md](PROGRESS.md) — Detailed 52-point checklist.
 - [research/](research/) — 22 architectural and mathematical foundation papers.
+- [production/README.md](production/README.md) — production API, Docker Compose, Kubernetes, Helm, JWT, Redis, and monitoring runbook.
+- [docs/scale-to-1m-organisms.md](docs/scale-to-1m-organisms.md) — capacity model and staged path to one million organisms.
+- [web/README.md](web/README.md) — Signal Loom control-surface build and API wiring boundary.
 
 ---
 
