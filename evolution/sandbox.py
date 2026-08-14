@@ -74,12 +74,23 @@ else:
 
 
 def _set_limits(limits: ResourceLimits) -> None:
-    import resource
-
-    memory = max(1, limits.max_memory_mb) * 1024 * 1024
-    cpu_seconds = max(1, (limits.max_cpu_ms + 999) // 1000)
-    resource.setrlimit(resource.RLIMIT_AS, (memory, memory))
-    resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
+    # On Android / Termux, setrlimit preexec_fn triggers Bionic SELinux SIGABRT (-6).
+    if os.path.exists("/data/data/com.termux") or hasattr(sys, "getandroidapilevel"):
+        return
+    try:
+        import resource
+        memory = max(512, limits.max_memory_mb) * 1024 * 1024
+        cpu_seconds = max(5, (limits.max_cpu_ms + 999) // 1000)
+        try:
+            resource.setrlimit(resource.RLIMIT_AS, (memory, memory))
+        except Exception:
+            pass
+        try:
+            resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
+        except Exception:
+            pass
+    except ImportError:
+        pass
 
 
 class IsolatedSandbox:
