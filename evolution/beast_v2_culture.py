@@ -16,6 +16,7 @@ from typing import Any, Callable, Iterable, Mapping, Optional, Sequence
 
 from evolution.beast_v2 import DefenseLayer
 from evolution.lamarckian import LamarckianOrganism, Strategy
+from evolution.sandbox import IsolatedSandbox, ResourceLimits
 
 
 class FederatedMemome:
@@ -211,28 +212,34 @@ def _safe_python_exec(code: str) -> str:
     result = DefenseLayer().validate_strategy(code)
     if not result.accepted:
         raise ValueError(f"python rejected: {result.reason}")
-    tree = ast.parse(code)
-    allowed_builtins = {
-        "range": range,
-        "len": len,
-        "sum": sum,
-        "int": int,
-        "str": str,
-        "list": list,
-        "print": print,
-    }
-    namespace: dict[str, Any] = {"__builtins__": allowed_builtins}
-    output = io.StringIO()
-    with redirect_stdout(output):
-        exec(compile(tree, "<organism-python>", "exec"), namespace, namespace)
-    return output.getvalue().strip()
+    outcome = IsolatedSandbox(
+        ResourceLimits(max_cpu_ms=500, max_memory_mb=32, max_output_bytes=4096)
+    ).run(code)
+    if outcome.timed_out:
+        raise TimeoutError("python execution timed out")
+    if not outcome.ok:
+        raise PermissionError(outcome.stderr.strip() or "python execution rejected")
+    return outcome.stdout.strip()
 
 
 def _safe_shell_cmd(cmd: str) -> str:
     parts = cmd.strip().split()
     if not parts or parts[0] not in {"echo", "printf", "pwd"}:
         raise PermissionError("shell command is not allowlisted")
-    completed = subprocess.run(parts, capture_output=True, text=True, timeout=2, check=True)
+    import resource
+
+    def set_limits() -> None:
+        resource.setrlimit(resource.RLIMIT_AS, (32 * 1024 * 1024, 32 * 1024 * 1024))
+        resource.setrlimit(resource.RLIMIT_CPU, (1, 1))
+
+    completed = subprocess.run(
+        parts,
+        capture_output=True,
+        text=True,
+        timeout=2,
+        check=True,
+        preexec_fn=set_limits,
+    )
     return completed.stdout[:2000].strip()
 
 

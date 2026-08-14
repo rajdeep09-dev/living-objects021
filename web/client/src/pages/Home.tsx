@@ -24,7 +24,7 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
-import V2Panels from "../components/V2Panels";
+import V3Panels from "../components/V3Panels";
 
 type Species = "producer" | "consumer" | "decomposer";
 
@@ -52,6 +52,10 @@ function Sparkline({ data, color = "var(--cyan)", width = 340, height = 82 }: { 
       <circle cx={width} cy={Number(points.split(" ").at(-1)?.split(",")[1] ?? 0)} r="3.5" fill={color} />
     </svg>
   );
+}
+
+function GenerationRuler({ generation, label }: { generation: number; label: string }) {
+  return <div className="generation-ruler" aria-label={`${label}, generation ${generation}`}><span className="generation-ruler-label">{label}</span><div className="generation-ruler-track">{Array.from({ length: 14 }, (_, index) => <i key={index} className={index % 4 === 0 ? "major" : ""} />)}</div><span className="generation-ruler-readout">G{String(generation).padStart(4, "0")}</span></div>;
 }
 
 function Metric({ label, value, delta, color, data }: { label: string; value: string; delta: string; color: string; data: number[] }) {
@@ -104,8 +108,8 @@ export default function Home() {
   return (
     <main className="observatory-shell">
       <aside className="observatory-rail">
-        <div className="rail-brand"><div className="brand-mark"><img src="/manus-storage/signal-loom-mark_d0943cb1.png" alt="Living Objects" /></div><span>LO</span></div>
-        <div className="rail-label">SIGNAL<br />LOOM</div>
+        <div className="rail-brand"><div className="brand-mark"><img src="/manus-storage/signal-loom-mark_d0943cb1.png" alt="Signal Loom woven loop" /></div><span>LO</span></div>
+        <div className="rail-wordmark">SIGNAL<br /><strong>LOOM</strong></div>
         <nav className="rail-nav" aria-label="Observatory navigation">
           <a className="rail-link active" href="#observatory" aria-label="Observatory"><Activity size={17} /><span>OBS</span></a>
           <a className="rail-link" href="#lineage" aria-label="Lineage"><GitBranch size={17} /><span>LIN</span></a>
@@ -128,7 +132,7 @@ export default function Home() {
             <div className="readout-line"><strong>G{generationLabel}</strong><span className="readout-status"><span className="status-dot" />{running ? "ADVANCING" : "PAUSED"}</span></div>
             <h1>Memory is the<br /><em>advantage.</em></h1>
             <p className="hero-lede">A production substrate for agents that accumulate behavior across lifetimes—not just sessions.</p>
-            <div className="hero-actions"><button className="primary-button" onClick={() => setRunning((current) => !current)}>{running ? <CircleStop size={16} /> : <Play size={16} />}{running ? "Pause evolution" : "Resume evolution"}</button><button className="text-button" onClick={() => setApiConnected((current) => !current)}><Cable size={15} />{apiConnected ? "Disconnect API" : "Connect API"}<ArrowUpRight size={14} /></button></div>
+            <div className="hero-actions"><button className="primary-button" onClick={() => setRunning((current) => !current)}>{running ? <CircleStop size={16} /> : <Play size={16} />}{running ? "Pause controlled evolution" : "Resume controlled evolution"}</button><button className="text-button" onClick={() => setApiConnected((current) => !current)}><Cable size={15} />{apiConnected ? "Disconnect operator plane" : "Connect operator plane"}<ArrowUpRight size={14} /></button></div>
           </div>
           <div className="hero-pulse"><div className="pulse-kicker"><Radio size={14} /> LIVE EVOLUTION STREAM <span>●</span></div><div className="signal-table"><div><span>POPULATION</span><strong>10,000</strong><small>organisms / stable</small></div><div><span>THROUGHPUT</span><strong>1,000<span className="unit">/s</span></strong><small>batch reproduction</small></div><div><span>ARCHIVE</span><strong>12</strong><small>active shards / healthy</small></div></div><div className="pulse-foot"><span>3 species</span><span className="slash">/</span><span>1.4M memes</span><span className="slash">/</span><span>99.98% health</span></div><div className="orbit-graphic"><span className="orbit orbit-a" /><span className="orbit orbit-b" /><span className="orbit-core" /><span className="orbit-node node-a" /><span className="orbit-node node-b" /><span className="orbit-node node-c" /></div></div>
         </section>
@@ -144,9 +148,10 @@ export default function Home() {
         <div className="control-heading"><div className="section-index">01</div><div><div className="section-kicker">CONTROL SURFACE</div><h2>Runtime controls</h2></div></div>
         <div className="control-group"><span className="control-label">EVOLUTION SPEED</span><input aria-label="Evolution speed" type="range" min="1" max="3" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /><div className="speed-labels"><span>LEISURELY</span><span className={speed === 2 ? "selected" : ""}>NOMINAL</span><span className={speed === 3 ? "selected" : ""}>BURST</span></div></div>
         <div className="species-switcher"><span className="control-label">ACTIVE COHORT</span><div className="species-buttons">{(Object.keys(speciesMeta) as Species[]).map((item) => <button key={item} className={species === item ? "selected" : ""} onClick={() => setSpecies(item)}><span className="signal-dot" style={{ background: speciesMeta[item].color }} />{speciesMeta[item].label}</button>)}</div></div>
-        <div className="control-actions"><button className="secondary-button" onClick={nudgeEvolution}><Zap size={15} /> Step</button><button className={`stream-button ${live ? "live" : ""}`} onClick={() => setLive((current) => !current)}><span className="stream-ring" />{live ? "Live stream" : "Stream paused"}</button></div>
+        <div className="control-actions"><button className="secondary-button" onClick={nudgeEvolution}><Zap size={15} /> Advance one controlled generation</button><button className={`stream-button ${live ? "live" : ""}`} onClick={() => setLive((current) => !current)}><span className="stream-ring" />{live ? "Observe live stream" : "Resume live stream"}</button></div>
       </section>
 
+      <GenerationRuler generation={generation} label="02 / OBSERVATION WINDOW" />
       <section className="dashboard-grid">
         <article className="panel lineage-panel" id="lineage">
           <div className="panel-header"><div><div className="section-kicker">02 / PERFORMANCE TRACE</div><h2>Fitness across generations</h2></div><div className="panel-meta"><span className="live-chip"><Activity size={13} /> LIVE</span><span>G800 — G{generationLabel}</span></div></div>
@@ -175,7 +180,7 @@ export default function Home() {
         </article>
       </section>
 
-      <V2Panels generation={generation} onEvent={recordV2Event} />
+      <V3Panels generation={generation} onEvent={recordV2Event} />
 
         <footer className="footer-bar"><div><span className="footer-mark">LO</span><span>Signal Loom / Control Plane v1.0</span></div><div><span><ShieldCheck size={13} /> guarded runtime</span><span><Database size={13} /> archive synced</span><span><Layers3 size={13} /> {speciesMeta[species].label} selected</span></div><div className="footer-time">UTC 14:22:08</div></footer>
       </div>

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./v3.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -276,4 +277,28 @@
 /** Review amendment: Space Grotesk carries hierarchy; IBM Plex Mono carries evidence. */
 .panel h2, .panel h3, .panel-header h2 { font-family: "Space Grotesk", sans-serif !important; font-weight: 500; letter-spacing: -.04em; }
 .observatory-rail { box-shadow: 8px 0 28px rgba(0,0,0,.12); }.rail-brand .brand-mark { border-color: rgba(135,214,208,.7); box-shadow: 0 0 20px rgba(135,214,208,.1); }.v2-observatory { position: relative; background-image: linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), rgba(135,214,208,.07) 100%), repeating-linear-gradient(90deg, transparent 0, transparent 79px, rgba(238,240,232,.025) 80px); }
-.v2-panel { position: relative; overflow: hidden; background-color: #171d1b; background-image: linear-gradient(90deg, rgba(135,214,208,.035) 1px, transparent 1px), linear-gradient(rgba(238,240,232,.022) 1px, transparent 1px); background-size: 80px 100%, 100% 40px; }.v2-panel::after { content: ""; position: absolute; top: 0; right: 24px; width: 1px; height: 22px; background: linear-gradient(#d9784d, transparent); opacity: .8; }.v2-panel-heading { position: relative; }.v2-panel-heading::after { content: ""; position: absolute; left: 36px; bottom: -1px; width: 34px; height: 1px; background: #87d6d0; }
+.v2-panel { position: relative; overflow: hidden; background-color: #171d1b; background-image: linear-gradient(90deg, rgba(135,214,208,.035) 1px, transparent 1px), linear-gradient(rgba(238,240,232,.022) 1px, transparent 1px); background-size: 80px 100%, 100% 40px; }.v2-panel::after { content: ""; position: absolute; top: 0; right: 24px; width: 1px; height: 22px; background: linear-gradient(#d9784d, transparent); opacity: .8; }.v2-panel-heading { position: relative; }.v2-panel-heading::after
+{ content: ""; position: absolute; left: 36px; bottom: -1px; width: 34px; height: 1px; background: #87d6d0; }
+
+/* Signal Loom v3 visual contract: fixed observatory rail, woven identity, copper generation rulers, and safe-action telemetry. */
+.observatory-rail { width: 92px; z-index: 30; background: #0a0f0e; border-right: 1px solid rgba(135,214,208,.18); box-shadow: 10px 0 32px rgba(0,0,0,.24); }
+.observatory-body { margin-left: 92px; }
+.rail-brand { padding-top: 22px; }
+.rail-brand .brand-mark { width: 48px; height: 48px; border-color: rgba(135,214,208,.82); box-shadow: 0 0 24px rgba(135,214,208,.16); }
+.rail-brand .brand-mark img { width: 34px; height: 34px; object-fit: contain; }
+.rail-wordmark { margin: 20px 0 0; color: #edf0e8; font: 500 9px/1.05 "Space Grotesk", sans-serif; letter-spacing: .16em; writing-mode: vertical-rl; transform: rotate(180deg); }
+.rail-wordmark strong { color: #d9784d; font-weight: 600; }
+.generation-ruler { display: grid; grid-template-columns: max-content minmax(80px,1fr) max-content; gap: 15px; align-items: center; margin: 0 4.5vw 22px; padding: 10px 0 8px; border-top: 1px solid rgba(217,120,77,.38); border-bottom: 1px solid rgba(238,240,232,.08); color: #76837b; }
+.compact-ruler { margin: 0 0 18px; }
+.generation-ruler-label, .generation-ruler-readout { font: 500 8px "DM Mono", monospace; letter-spacing: .12em; white-space: nowrap; }
+.generation-ruler-readout { color: #d9784d; }
+.generation-ruler-track { display: grid; grid-template-columns: repeat(14, 1fr); gap: 7px; align-items: end; height: 13px; background: linear-gradient(90deg, rgba(135,214,208,.35), rgba(135,214,208,0) 78%); }
+.generation-ruler-track i { display: block; height: 5px; border-left: 1px solid rgba(135,214,208,.48); }
+.generation-ruler-track i.major { height: 13px; border-color: #d9784d; }
+.v3-observatory { background-color: #0f1513; }
+.v3-observatory .v2-panels-grid { box-shadow: inset 0 0 0 1px rgba(135,214,208,.08); }
+.v3-frontier-panel { position: relative; background: linear-gradient(135deg, rgba(23,29,27,.98), rgba(14,20,18,.98)); }
+.v3-frontier-panel::after { content: ""; position: absolute; right: 16px; bottom: 14px; width: 38px; height: 1px; background: rgba(217,120,77,.6); box-shadow: -10px -5px 0 rgba(135,214,208,.32), -20px -10px 0 rgba(135,214,208,.18); }
+@media (max-width: 760px) { .observatory-rail { width: 58px; }.observatory-body { margin-left: 58px; }.rail-wordmark { display: none; }.rail-brand .brand-mark { width: 38px; height: 38px; }.rail-brand .brand-mark img { width: 27px; height: 27px; }.generation-ruler { grid-template-columns: 1fr max-content; gap: 8px; margin-left: 6vw; margin-right: 6vw; }.generation-ruler-track { grid-column: 1 / -1; grid-row: 2; }.compact-ruler { margin-left: 0; margin-right: 0; } }
+.v3-frontier-panel:nth-child(1), .v3-frontier-panel:nth-child(2), .v3-frontier-panel:nth-child(3), .v3-frontier-panel:nth-child(4), .v3-frontier-panel:nth-child(5), .v3-frontier-panel:nth-child(6) { grid-column: span 6; }
+@media (max-width: 700px) { .v3-frontier-panel:nth-child(1), .v3-frontier-panel:nth-child(2), .v3-frontier-panel:nth-child(3), .v3-frontier-panel:nth-child(4), .v3-frontier-panel:nth-child(5), .v3-frontier-panel:nth-child(6) { grid-column: span 12; } }

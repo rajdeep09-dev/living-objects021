@@ -7,7 +7,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
 from evolution.beast_v2 import EnvironmentState, EvolutionConstitution, RedTeamOrganism
@@ -26,6 +26,7 @@ from production.api.v2.websocket import (
     StrategyAdoptedEvent,
 )
 from production.store_v2 import StrategyRecord, V2Store
+from production.middleware.rate_limit import rate_limit_dependency
 
 
 class ConstitutionPatch(BaseModel):
@@ -39,19 +40,19 @@ class ConstitutionPatch(BaseModel):
 
 
 class SpawnRequest(BaseModel):
-    organism_id: str = Field(min_length=1, max_length=96)
+    organism_id: str = Field(min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
     parent_ids: list[str] = Field(default_factory=list)
 
 
 class StrategyPublishRequest(BaseModel):
-    name: str = Field(min_length=1, max_length=96)
+    name: str = Field(min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
     source_code: str = Field(min_length=1, max_length=20_000)
     descriptor: str = Field(min_length=1, max_length=256)
     effectiveness: float = Field(ge=0.0, le=1.0)
-    author_id: str = Field(min_length=1, max_length=96)
+    author_id: str = Field(min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
     generation: int = Field(default=0, ge=0)
     parent_ids: list[str] = Field(default_factory=list)
-    node_id: str = Field(default="local", min_length=1, max_length=96)
+    node_id: str = Field(default="local", min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
 
 
 class GossipRequest(BaseModel):
@@ -60,11 +61,11 @@ class GossipRequest(BaseModel):
 
 
 class AdoptRequest(BaseModel):
-    organism_id: str = Field(min_length=1, max_length=96)
+    organism_id: str = Field(min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
 
 
 class AttackRequest(BaseModel):
-    attacker_id: str = Field(default="red-team", min_length=1, max_length=96)
+    attacker_id: str = Field(default="red-team", min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
     attack_power: float = Field(default=0.5, ge=0.0, le=1.0)
 
 
@@ -83,7 +84,7 @@ class ToolCallRequest(BaseModel):
 
 
 class EnergyMeasureRequest(BaseModel):
-    organism_id: str = Field(min_length=1, max_length=96)
+    organism_id: str = Field(min_length=1, max_length=96, pattern=r"^[a-zA-Z0-9_.-]+$")
     quality: float = Field(ge=0.0, le=1.0)
     operations: int = Field(default=1, ge=1, le=1_000_000)
     memory_allocated: int = Field(default=0, ge=0, le=1_000_000_000)
@@ -115,6 +116,7 @@ class V2ControlState:
 
 control_state = V2ControlState()
 router = APIRouter(prefix="/v2", tags=["v2"])
+write_dependencies = [Depends(rate_limit_dependency("60/minute"))]
 
 
 @router.get("/constitution")
@@ -122,7 +124,7 @@ def get_constitution() -> dict[str, Any]:
     return control_state.constitution.to_dict()
 
 
-@router.patch("/constitution")
+@router.patch("/constitution", dependencies=write_dependencies)
 def patch_constitution(payload: ConstitutionPatch) -> dict[str, Any]:
     before = control_state.constitution.to_dict()
     values = {**before, **payload.model_dump(exclude_none=True)}
@@ -135,7 +137,7 @@ def patch_constitution(payload: ConstitutionPatch) -> dict[str, Any]:
     return after
 
 
-@router.post("/constitution/mutate")
+@router.post("/constitution/mutate", dependencies=write_dependencies)
 def mutate_constitution(seed: int | None = None) -> dict[str, Any]:
     before = control_state.constitution.to_dict()
     control_state.constitution = control_state.constitution.mutate(random.Random(seed))
@@ -144,7 +146,7 @@ def mutate_constitution(seed: int | None = None) -> dict[str, Any]:
     return {"before": before, "after": after, "code": control_state.constitution.to_code()}
 
 
-@router.post("/organisms", status_code=status.HTTP_201_CREATED)
+@router.post("/organisms", status_code=status.HTTP_201_CREATED, dependencies=write_dependencies)
 def spawn_organism(payload: SpawnRequest) -> dict[str, Any]:
     if payload.organism_id in control_state.organisms:
         raise HTTPException(status_code=409, detail="v2 organism already exists")
@@ -172,7 +174,7 @@ def inspect_v2_organism(organism_id: str) -> dict[str, Any]:
     return control_state.get_organism(organism_id).to_state()
 
 
-@router.post("/organisms/{organism_id}/reproduce", status_code=status.HTTP_201_CREATED)
+@router.post("/organisms/{organism_id}/reproduce", status_code=status.HTTP_201_CREATED, dependencies=write_dependencies)
 def reproduce_v2_organism(organism_id: str, seed: int | None = None) -> dict[str, Any]:
     parent = control_state.get_organism(organism_id)
     child = parent.reproduce(random.Random(seed))
@@ -194,13 +196,13 @@ def list_strategies(q: str = Query(default="", max_length=200), limit: int = Que
     return {"items": [record.to_dict() for record in records], "count": len(records)}
 
 
-@router.post("/strategies", status_code=status.HTTP_201_CREATED)
+@router.post("/strategies", status_code=status.HTTP_201_CREATED, dependencies=write_dependencies)
 def publish_strategy(payload: StrategyPublishRequest) -> dict[str, Any]:
     record = control_state.store.publish_fields(**payload.model_dump())
     return record.to_dict()
 
 
-@router.post("/strategies/{strategy_id}/adopt")
+@router.post("/strategies/{strategy_id}/adopt", dependencies=write_dependencies)
 def adopt_strategy(strategy_id: str, payload: AdoptRequest) -> dict[str, Any]:
     record = control_state.store.get(strategy_id)
     if record is None:
@@ -221,7 +223,7 @@ def adopt_strategy(strategy_id: str, payload: AdoptRequest) -> dict[str, Any]:
     return {"adopted": True, "strategy": record.to_dict(), "event": event}
 
 
-@router.post("/memome/gossip")
+@router.post("/memome/gossip", dependencies=write_dependencies)
 def gossip(payload: GossipRequest) -> dict[str, Any]:
     exchanged = 0
     for incoming in payload.strategies:
@@ -241,7 +243,7 @@ def memome_lineage() -> dict[str, Any]:
     return {"edges": control_state.store.lineage()}
 
 
-@router.post("/red-team/attack")
+@router.post("/red-team/attack", dependencies=write_dependencies)
 def red_team_attack(target_id: str, payload: AttackRequest) -> dict[str, Any]:
     target = control_state.get_organism(target_id)
     attacker = RedTeamOrganism(payload.attacker_id, payload.attack_power)
@@ -264,7 +266,7 @@ def list_tools() -> dict[str, Any]:
     return {"items": [{"name": name, "description": description} for name, (_, description) in EmbodiedOrganism.TOOL_REGISTRY.items()]}
 
 
-@router.post("/organisms/{organism_id}/tools/{tool_name}")
+@router.post("/organisms/{organism_id}/tools/{tool_name}", dependencies=write_dependencies)
 def use_tool(organism_id: str, tool_name: str, payload: ToolCallRequest) -> dict[str, Any]:
     organism = control_state.get_organism(organism_id)
     embodied = EmbodiedOrganism(organism_id, allowed_root=Path.cwd())
@@ -276,12 +278,12 @@ def use_tool(organism_id: str, tool_name: str, payload: ToolCallRequest) -> dict
     return {"tool": tool_name, "result": str(result)[:2000], "fitness": organism.fitness, "history": embodied.tool_history}
 
 
-@router.post("/dsl/express")
+@router.post("/dsl/express", dependencies=write_dependencies)
 def express_dsl(payload: DSLExpressRequest) -> dict[str, Any]:
     return {"source": control_state.dsl.express(payload.model_dump()), "vocabulary": list(control_state.dsl.vocabulary)}
 
 
-@router.post("/dsl/parse")
+@router.post("/dsl/parse", dependencies=write_dependencies)
 def parse_dsl(payload: DSLParseRequest) -> dict[str, Any]:
     try:
         return {"intent": control_state.dsl.parse(payload.source)}
@@ -289,7 +291,7 @@ def parse_dsl(payload: DSLParseRequest) -> dict[str, Any]:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
-@router.post("/dsl/mutate")
+@router.post("/dsl/mutate", dependencies=write_dependencies)
 def mutate_dsl() -> dict[str, Any]:
     control_state.dsl = control_state.dsl.mutate(random.Random())
     return {"vocabulary": list(control_state.dsl.vocabulary), "grammar_rules": list(control_state.dsl.grammar_rules)}
@@ -316,7 +318,7 @@ def ancestry(organism_id: str) -> dict[str, Any]:
     return {"champion": organism.to_state(), "ancestors": chain, "strategy_edges": control_state.store.lineage()}
 
 
-@router.post("/energy/measure")
+@router.post("/energy/measure", dependencies=write_dependencies)
 def measure_energy(payload: EnergyMeasureRequest) -> dict[str, Any]:
     organism = control_state.get_organism(payload.organism_id)
     organism.energy = organism.energy or 100.0

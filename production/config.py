@@ -7,8 +7,11 @@ the same image can run in Compose, Kubernetes, or a managed cloud service.
 from __future__ import annotations
 
 import os
+import warnings
 from dataclasses import dataclass
 from pathlib import Path
+
+from production.middleware.cors import CORSConfig
 
 
 @dataclass(frozen=True)
@@ -18,7 +21,7 @@ class Settings:
     port: int = 8000
     database_url: str = "sqlite:///./state/living_objects.sqlite3"
     redis_url: str = ""
-    jwt_secret: str = "change-me-in-production"
+    jwt_secret: str = "dev-only-insecure-default-secret-do-not-use"
     jwt_ttl_seconds: int = 3600
     operator_username: str = "operator"
     operator_password: str = "living-objects"
@@ -41,17 +44,32 @@ class Settings:
             for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
             if origin.strip()
         )
+        environment = os.getenv("APP_ENV", "dev")
+        jwt_secret = os.getenv("JWT_SECRET", "")
+        if len(jwt_secret) < 32:
+            if environment.lower() in {"production", "prod"}:
+                raise RuntimeError(
+                    "JWT_SECRET must be set to a random string of at least 32 chars in production. "
+                    "Generate with: python -c \"import secrets; print(secrets.token_hex(32))\""
+                )
+            warnings.warn(
+                "Using insecure default JWT_SECRET. Never deploy this to production.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+            jwt_secret = cls.jwt_secret
+        cors_origins = CORSConfig(environment).validate_origins(origins)
         return cls(
-            environment=os.getenv("APP_ENV", "dev"),
+            environment=environment,
             host=os.getenv("HOST", "0.0.0.0"),
             port=int(os.getenv("PORT", "8000")),
             database_url=raw_database_url,
             redis_url=os.getenv("REDIS_URL", ""),
-            jwt_secret=os.getenv("JWT_SECRET", cls.jwt_secret),
+            jwt_secret=jwt_secret,
             jwt_ttl_seconds=int(os.getenv("JWT_TTL_SECONDS", "3600")),
             operator_username=os.getenv("LO_OPERATOR_USERNAME", cls.operator_username),
             operator_password=os.getenv("LO_OPERATOR_PASSWORD", cls.operator_password),
-            cors_origins=origins,
+            cors_origins=cors_origins,
             organism_limit=int(os.getenv("ORGANISM_LIMIT", "10000")),
             event_buffer_size=int(os.getenv("EVENT_BUFFER_SIZE", "500")),
         )

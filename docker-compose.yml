@@ -38,7 +38,23 @@ services:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
-      retries: 10
+    retries: 10
+
+  sandbox-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "production/sandbox_worker.py"]
+    read_only: true
+    network_mode: "none"
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    mem_limit: 64m
+    cpus: 0.25
+    stdin_open: true
+    tty: false
 
   prometheus:
     image: prom/prometheus:v3.5.0
@@ -66,4 +82,3 @@ volumes:
   living_objects_state:
   living_objects_redis:
   living_objects_grafana:
-

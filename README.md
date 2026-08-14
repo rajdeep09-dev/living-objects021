@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/rajdeep09-dev/living-objects021/actions/workflows/ci.yml/badge.svg)](https://github.com/rajdeep09-dev/living-objects021/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://img.shields.io/badge/tests-101%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-269%20passing-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Living Objects is an open research and engineering platform for **persistent, evolving software organisms**. The idea is simple:
@@ -291,6 +291,26 @@ That is the bet: not a smarter prompt, but a software ecosystem where useful beh
 | [PROGRESS.md](PROGRESS.md) | Earlier continuity, cognition, ecology, economics, and research milestones. |
 | [ATTENDANCE.md](ATTENDANCE.md) | Repository contribution record. |
 | [research/](research/) | Architecture, implementation, and research notes. |
+
+## BEAST v3: guarded frontier experiments
+
+BEAST v3 extends the v2 civilization engine with eight research modules: **formal safety witnesses, a strategy token market, quantum-inspired uncertainty, spiking strategy genomes, civilization archaeology, cross-ecosystem diplomacy, self-directed benchmark generation, and measurable awareness proxies**. The Signal Loom observatory now uses an operator token to call the v3 control plane and shows explicit disconnected/error states instead of fabricating live data.
+
+The important security distinction is simple: generated code is untrusted. The v3 path runs it in a bounded subprocess and a no-network worker, rejects unsafe syntax, validates identifiers, limits mutation endpoints, hardens production CORS, and refuses weak production JWT secrets. This is a research-grade defense-in-depth layer, **not a claim that a plain subprocess is a complete kernel sandbox**; use a hardened container, seccomp/AppArmor, cgroups, and preferably a microVM for hostile multi-tenant execution.
+
+### v3 quick start
+
+```bash
+export ENVIRONMENT=development
+export APP_ENV=development
+pytest -q
+python3 scripts/run_v3_benchmarks.py > docs/v3-benchmark-results.md
+uvicorn production.api.main:app --reload --port 8000
+```
+
+Open the Signal Loom dashboard, paste an operator JWT into the v3 connection bar, and use the six frontier instruments. For production, set `ENVIRONMENT=production`, provide a random `JWT_SECRET` of at least 32 characters, configure HTTPS `CORS_ORIGINS`, and provision shared Redis for rate-limit state.
+
+The v3 proof suite and security suite are `evolution/test_v3.py`, `evolution/test_v3_contracts.py`, `evolution/test_security_v3.py`, `evolution/test_security.py`, and `production/test_v3_api.py`. The current full regression result is **269 passed** with 12 non-fatal legacy/development warnings; regenerate it in CI rather than treating it as a permanent guarantee. Read [docs/v3-security.md](docs/v3-security.md), [docs/v3-architecture.md](docs/v3-architecture.md), [docs/api-v3-reference.md](docs/api-v3-reference.md), and [docs/v3-benchmark-results.md](docs/v3-benchmark-results.md) before exposing the frontier API.
 
 ## License
 

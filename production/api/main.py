@@ -28,6 +28,9 @@ from production.metrics import (
 )
 from production.store import OrganismRecord, RedisCache, StateStore, utc_now
 from production.api.v2.routes import control_state, router as v2_router
+from production.api.v3.routes import router as v3_router, state as v3_state
+from production.middleware.cors import CORSConfig
+from production.middleware.rate_limit import configure_rate_limiter, rate_limit_dependency
 
 
 class OrganismCreate(BaseModel):
@@ -115,6 +118,10 @@ class Runtime:
 
 
 settings = Settings.from_env()
+configure_rate_limiter(
+    settings.redis_url,
+    enabled=settings.environment.lower() in {"production", "prod", "staging"},
+)
 runtime = Runtime(settings)
 bearer = HTTPBearer(auto_error=False)
 
@@ -133,7 +140,7 @@ app = FastAPI(
 )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=list(settings.cors_origins),
+    allow_origins=list(CORSConfig(settings.environment).validate_origins(settings.cors_origins)),
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE"],
     allow_headers=["Authorization", "Content-Type"],
@@ -149,7 +156,14 @@ def current_user(credentials: HTTPAuthorizationCredentials | None = Depends(bear
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)) from exc
 
 
-app.include_router(v2_router, dependencies=[Depends(current_user)])
+def require_operator(user: dict[str, Any] = Depends(current_user)) -> dict[str, Any]:
+    if user.get("role") != "operator":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="operator role required")
+    return user
+
+
+app.include_router(v2_router, dependencies=[Depends(require_operator)])
+app.include_router(v3_router, dependencies=[Depends(require_operator)])
 
 
 @app.get("/health")
@@ -162,7 +176,7 @@ def metrics() -> Response:
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
-@app.post("/auth/token")
+@app.post("/auth/token", dependencies=[Depends(rate_limit_dependency("5/minute"))])
 def issue_token(request: TokenRequest) -> dict[str, Any]:
     expected_user = request.username == settings.operator_username
     expected_password = request.password == settings.operator_password
@@ -307,3 +321,39 @@ async def v2_evolution_stream(websocket: WebSocket, token: str = Query(default="
             await asyncio.sleep(0.25)
     except WebSocketDisconnect:
         return
+
+
+_V3_WS_CONNECTIONS: dict[str, int] = {}
+
+
+@app.websocket("/ws/v3/evolution")
+async def v3_evolution_stream(websocket: WebSocket, token: str = Query(default="")) -> None:
+    """Stream v3 frontier events, capped at ten concurrent connections per IP."""
+    try:
+        decode_jwt(token, settings.jwt_secret)
+    except JWTError:
+        await websocket.close(code=1008, reason="valid token required")
+        return
+    address = websocket.client.host if websocket.client else "unknown"
+    if _V3_WS_CONNECTIONS.get(address, 0) >= 10:
+        await websocket.close(code=1013, reason="connection limit reached")
+        return
+    _V3_WS_CONNECTIONS[address] = _V3_WS_CONNECTIONS.get(address, 0) + 1
+    await websocket.accept()
+    cursor = 0
+    try:
+        while True:
+            events = v3_state.events
+            if cursor < len(events):
+                for event in events[cursor:]:
+                    await websocket.send_json(event)
+                cursor = len(events)
+            await asyncio.sleep(0.25)
+    except WebSocketDisconnect:
+        return
+    finally:
+        remaining = _V3_WS_CONNECTIONS.get(address, 1) - 1
+        if remaining <= 0:
+            _V3_WS_CONNECTIONS.pop(address, None)
+        else:
+            _V3_WS_CONNECTIONS[address] = remaining

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -73,7 +74,15 @@ class V2Store:
         self.connection.commit()
 
     @staticmethod
-    def strategy_id(name: str, source_code: str, descriptor: str) -> str:
+    def _validate_identifier(value: str, field_name: str) -> str:
+        if not isinstance(value, str) or not re.fullmatch(r"[a-zA-Z0-9_.-]{1,128}", value):
+            raise ValueError(f"Invalid {field_name}: {value!r}")
+        return value
+
+    @classmethod
+    def strategy_id(cls, name: str, source_code: str, descriptor: str) -> str:
+        cls._validate_identifier(name, "strategy name")
+        cls._validate_identifier(descriptor, "descriptor")
         raw = f"{name}\x00{descriptor}\x00{source_code}".encode("utf-8")
         return hashlib.sha256(raw).hexdigest()[:20]
 
@@ -93,6 +102,12 @@ class V2Store:
         )
 
     def publish(self, record: StrategyRecord) -> StrategyRecord:
+        self._validate_identifier(record.strategy_id, "strategy_id")
+        self._validate_identifier(record.name, "strategy name")
+        self._validate_identifier(record.author_id, "author_id")
+        self._validate_identifier(record.node_id, "node_id")
+        for parent_id in record.parent_ids:
+            self._validate_identifier(parent_id, "parent_id")
         current = self.get(record.strategy_id)
         if current is not None and current.effectiveness > record.effectiveness:
             return current
@@ -152,6 +167,7 @@ class V2Store:
         )
 
     def get(self, strategy_id: str) -> Optional[StrategyRecord]:
+        self._validate_identifier(strategy_id, "strategy_id")
         row = self.connection.execute(
             "SELECT * FROM v2_strategies WHERE strategy_id = ?", (strategy_id,)
         ).fetchone()
@@ -171,6 +187,7 @@ class V2Store:
         return [self._from_row(row) for row in rows]
 
     def influence_score(self, strategy_name: str) -> float:
+        self._validate_identifier(strategy_name, "strategy name")
         rows = self.connection.execute(
             "SELECT COUNT(DISTINCT node_id) AS nodes FROM v2_strategies WHERE name = ?",
             (strategy_name,),
