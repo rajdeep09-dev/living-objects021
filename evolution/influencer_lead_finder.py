@@ -447,25 +447,25 @@ class InfluencerLeadEvolution:
         """Run one generation of evolution."""
         self.generation += 1
         
-        # Evaluate all organisms
+        # Evaluate all organisms (fast path)
         scored = []
         for org in self.organisms:
-            # Test against multiple queries
+            # Quick fitness: test on 2 queries only
             total_fitness = 0.0
-            for query in self.test_queries:
+            for query in self.test_queries[:2]:
                 org.set_query(query)
                 fitness = org.evaluate()
                 total_fitness += fitness
             
-            avg_fitness = total_fitness / len(self.test_queries)
+            avg_fitness = total_fitness / 2
             org._fitness_history.append(avg_fitness)
             scored.append((avg_fitness, org))
         
         # Sort by fitness
         scored.sort(key=lambda x: x[0], reverse=True)
         
-        # Select top 20% as parents
-        elite_count = max(5, len(scored) // 5)
+        # Select top 30% as parents
+        elite_count = max(3, len(scored) // 3)
         parents = [org for _, org in scored[:elite_count]]
         
         # Create new generation
@@ -483,7 +483,7 @@ class InfluencerLeadEvolution:
             )
             child.set_world(self.world)
             child.generation = self.generation
-            child._fitness_history = []  # Initialize
+            child._fitness_history = []
             child._rng = self.rng
             
             # Inherit parent's behaviors (Lamarckian)
@@ -491,8 +491,8 @@ class InfluencerLeadEvolution:
                 child.set_behavior(name, source)
                 child.behavior_niches[name] = parent.behavior_niches.get(name, "general")
             
-            # Mutate: add new strategy or modify existing
-            if self.rng.random() < 0.3:  # 30% mutation rate
+            # Mutate: add new strategy or modify existing (20% chance)
+            if self.rng.random() < 0.2:
                 self._mutate_strategy(child)
             
             new_organisms.append(child)
