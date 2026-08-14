@@ -1,0 +1,115 @@
+{
+  "configuration": {
+    "llm_calls_in_generation_loop": 0,
+    "network_calls_in_generation_loop": 0,
+    "population_size": 8,
+    "runtime": "typed AST interpreter only",
+    "seed": 901,
+    "steps": 10,
+    "task_domain": "sorting"
+  },
+  "events": [
+    {
+      "avg_fitness": 0.0,
+      "best_fitness": 0.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_1(x):\n    try:\n        input = x\n        return input\n    except Exception:\n        return None",
+      "champion_size_nodes": 1,
+      "event_type": "gp_generation_completed",
+      "generation": 1,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.043750000000000004,
+      "best_fitness": 0.05,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_2(x):\n    try:\n        input = x\n        return input\n    except Exception:\n        return None",
+      "champion_size_nodes": 1,
+      "event_type": "gp_generation_completed",
+      "generation": 2,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.1625,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_3(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 3,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.64375,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_4(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 4,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.75,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_5(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 5,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 1.0,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_6(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 6,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.75,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_7(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 7,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.875,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_8(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 8,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.88125,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_9(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 9,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    },
+    {
+      "avg_fitness": 0.75,
+      "best_fitness": 1.0,
+      "champion_code": "import math\n\ndef evolved_sorting_generation_10(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+      "champion_size_nodes": 2,
+      "event_type": "gp_generation_completed",
+      "generation": 10,
+      "run_id": "v7-39ab1f0e467242a4a2e5",
+      "task_domain": "sorting"
+    }
+  ],
+  "schema": "beast-v7-live-gp-stream-capture-v1",
+  "status": "captured-real-generation-events"
+}

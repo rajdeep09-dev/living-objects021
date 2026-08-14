@@ -104,7 +104,7 @@
 - [x] Add evolvable cellular action capabilities from a bounded action universe, mutation rules, and a reproducible cellular v7 evidence report.
 - [x] Replace any synthetic evolution-stream path with real GP population generation events and actual champion-source evidence.
 - [x] Add polyglot runtime-equivalence tests and complete full-population save/load continuity tests.
-- [ ] Build a bounded, resumable sorting-marathon runner with declared milestones and machine-verifiable reports; do not claim an unmeasured 100,000-generation result. Runner and artifact regression are implemented; the measured bounded execution is pending.
-- [ ] Extend the authenticated observatory only with stream and checkpoint data that the verified engine actually produces.
-- [ ] Document the persistent-compute, scheduling, WebSocket, Redis, and advanced-research roadmap separately from completed local evidence.
-- [ ] Run full regression, independent review, and release verification before checkpointing the v7 foundation release.
+- [x] Build a bounded, resumable sorting-marathon runner with declared milestones and machine-verifiable reports; do not claim an unmeasured 100,000-generation result. A 1,000-generation measured bounded execution with checkpoints, four milestones, and machine-readable curve/result artifacts is complete; it explicitly does not claim the unrun 100,000-generation public marathon.
+- [x] Extend the authenticated observatory only with stream and checkpoint data that the verified engine actually produces.
+- [x] Document the persistent-compute, scheduling, WebSocket, Redis, and advanced-research roadmap separately from completed local evidence.
+- [ ] Run full regression, independent review, and release verification before checkpointing the v7 foundation release. Full engine regression passed (435); security review is recorded in `docs/v7-security.md`; final observatory checkpoint and engine push remain.

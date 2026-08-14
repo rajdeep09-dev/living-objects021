@@ -1,0 +1,14 @@
+{
+  "fresh_suite": {
+    "cases": 100,
+    "cases_passed": 100,
+    "correctness": 1.0,
+    "seed": 900500
+  },
+  "generation": 500,
+  "program_depth": 1,
+  "program_nodes": 2,
+  "source_code": "import math\n\ndef sorting_champion_generation_500(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+  "source_sha256": "964f37cb9e07a43b89a37ba04cfaf79f612a06936d56fe8f0cff57acca8ecf37",
+  "training_fitness": 1.0
+}

@@ -1,0 +1,8010 @@
+[
+  {
+    "average_fitness": 0.024,
+    "best_fitness": 1.0,
+    "best_program_size": 5,
+    "generation": 0,
+    "median_fitness": 0.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.08,
+    "best_fitness": 1.0,
+    "best_program_size": 5,
+    "generation": 1,
+    "median_fitness": 0.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.418,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 2,
+    "median_fitness": 0.05,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7879999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 3,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.569,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 4,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 5,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 6,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 7,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 8,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.769,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 9,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 10,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.635,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 11,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.765,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 12,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7290000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 13,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.77,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 14,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7509999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 15,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 16,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7559999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 17,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 18,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 19,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 20,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 21,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.628,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 22,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 23,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 24,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 25,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.713,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 26,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 27,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7929999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 28,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 29,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.615,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 30,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 31,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 32,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.693,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 33,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7140000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 34,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 35,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.767,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 36,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 37,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.75,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 38,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 39,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 40,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 41,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.753,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 42,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 43,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 44,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.716,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 45,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 46,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.708,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 47,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6559999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 48,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 49,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 50,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8140000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 51,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 52,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 53,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.631,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 54,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 55,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 56,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7490000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 57,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.746,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 58,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.616,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 59,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 60,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 61,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 62,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6759999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 63,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 64,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 65,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 66,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.754,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 67,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 68,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 69,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 70,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.769,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 71,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 72,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.826,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 73,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 74,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.741,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 75,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7979999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 76,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 77,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 78,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.675,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 79,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 80,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 81,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 82,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.632,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 83,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 84,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6759999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 85,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 86,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 87,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7190000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 88,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 89,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.674,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 90,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 91,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.649,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 92,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 93,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7190000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 94,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 95,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 96,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.653,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 97,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6709999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 98,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.652,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 99,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 100,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 101,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.664,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 102,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 103,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 104,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.696,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 105,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 106,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.731,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 107,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 108,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 109,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 110,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 111,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.815,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 112,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 113,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 114,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 115,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 116,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.765,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 117,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 118,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.5579999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 119,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 120,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 121,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 122,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 123,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6920000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 124,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8640000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 125,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.682,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 126,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 127,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 128,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6890000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 129,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6940000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 130,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 131,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 132,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6709999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 133,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 134,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 135,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 136,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 137,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 138,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 139,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 140,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8079999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 141,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7090000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 142,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 143,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 144,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 145,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 146,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 147,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.71,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 148,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 149,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 150,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 151,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.557,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 152,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 153,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7559999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 154,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 155,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 156,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8270000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 157,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 158,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.58,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 159,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 160,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6920000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 161,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.635,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 162,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.728,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 163,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 164,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 165,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 166,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 167,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 168,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.675,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 169,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.639,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 170,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 171,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 172,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 173,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 174,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 175,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 176,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 177,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 178,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6940000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 179,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 180,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 181,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 182,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.52,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 183,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 184,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.88,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 185,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.614,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 186,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 187,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 188,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8270000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 189,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 190,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.557,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 191,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.742,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 192,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 193,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 194,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.711,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 195,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 196,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 197,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 198,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 199,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6920000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 200,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 201,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7190000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 202,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.841,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 203,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 204,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 205,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 206,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 207,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 208,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.696,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 209,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.632,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 210,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 211,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 212,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 213,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.769,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 214,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 215,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 216,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 217,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.69,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 218,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 219,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.58,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 220,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.748,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 221,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6990000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 222,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 223,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 224,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 225,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 226,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 227,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 228,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.764,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 229,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 230,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 231,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 232,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 233,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.785,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 234,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 235,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.752,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 236,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6759999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 237,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8059999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 238,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 239,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 240,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 241,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.741,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 242,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.787,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 243,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 244,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7559999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 245,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 246,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 247,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 248,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.56,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 249,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.715,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 250,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.653,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 251,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8059999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 252,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 253,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6679999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 254,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 255,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 256,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 257,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.81,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 258,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.754,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 259,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.75,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 260,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 261,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.75,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 262,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 263,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 264,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.765,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 265,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 266,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 267,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.655,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 268,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 269,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.715,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 270,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.79,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 271,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 272,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7140000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 273,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 274,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 275,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 276,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.701,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 277,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.809,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 278,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.693,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 279,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 280,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 281,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 282,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.675,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 283,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.711,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 284,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.727,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 285,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 286,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.688,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 287,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 288,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 289,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 290,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 291,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.77,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 292,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 293,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 294,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 295,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 296,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.728,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 297,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 298,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6759999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 299,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6829999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 300,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 301,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 302,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 303,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.701,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 304,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7340000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 305,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.731,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 306,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 307,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.677,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 308,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 309,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 310,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7509999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 311,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 312,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 313,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7659999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 314,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 315,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.581,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 316,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 317,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8009999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 318,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 319,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.69,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 320,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 321,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 322,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 323,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 324,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8009999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 325,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 326,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 327,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.836,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 328,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 329,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 330,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 331,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 332,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 333,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 334,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 335,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.799,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 336,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 337,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 338,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 339,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.652,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 340,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 341,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 342,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 343,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 344,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.789,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 345,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.748,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 346,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 347,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 348,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 349,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 350,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 351,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8009999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 352,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.846,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 353,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 354,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.601,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 355,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.65,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 356,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 357,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.81,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 358,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 359,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 360,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 361,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.682,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 362,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.855,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 363,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6709999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 364,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 365,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 366,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 367,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 368,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 369,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 370,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 371,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 372,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.838,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 373,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 374,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 375,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.56,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 376,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 377,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 378,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.722,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 379,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 380,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 381,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7879999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 382,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 383,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6559999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 384,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 385,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 386,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 387,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7879999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 388,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 389,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6970000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 390,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 391,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6409999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 392,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7140000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 393,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 394,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 395,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 396,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.58,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 397,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 398,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.752,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 399,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 400,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 401,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 402,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 403,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.81,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 404,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 405,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 406,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 407,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 408,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 409,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7929999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 410,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 411,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7759999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 412,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 413,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.655,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 414,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 415,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.595,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 416,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8270000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 417,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 418,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 419,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 420,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 421,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 422,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.768,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 423,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 424,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 425,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 426,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 427,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.653,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 428,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 429,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.823,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 430,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 431,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 432,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 433,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 434,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 435,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.805,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 436,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 437,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 438,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.633,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 439,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 440,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.618,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 441,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.816,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 442,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.782,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 443,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.633,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 444,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 445,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.652,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 446,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 447,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.807,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 448,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 449,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.867,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 450,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7340000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 451,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 452,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 453,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 454,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 455,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 456,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 457,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.738,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 458,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 459,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8270000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 460,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 461,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 462,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 463,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 464,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7509999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 465,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 466,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.693,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 467,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 468,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.701,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 469,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.613,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 470,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 471,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 472,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.741,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 473,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.731,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 474,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 475,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 476,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 477,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 478,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 479,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6629999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 480,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 481,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.866,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 482,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7240000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 483,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 484,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 485,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 486,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 487,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 488,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 489,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 490,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 491,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 492,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.733,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 493,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.785,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 494,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 495,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.58,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 496,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.755,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 497,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.71,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 498,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 499,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 500,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 501,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 502,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.769,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 503,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 504,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.701,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 505,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 506,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 507,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 508,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 509,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 510,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.687,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 511,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 512,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.782,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 513,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 514,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 515,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 516,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 517,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 518,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 519,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 520,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 521,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 522,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.735,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 523,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7120000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 524,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 525,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 526,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.722,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 527,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 528,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.662,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 529,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.775,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 530,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.762,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 531,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.58,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 532,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 533,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.696,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 534,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.713,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 535,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.731,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 536,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.56,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 537,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.789,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 538,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 539,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 540,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.778,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 541,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.636,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 542,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 543,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 544,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 545,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 546,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.608,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 547,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 548,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 549,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 550,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.71,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 551,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 552,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7040000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 553,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.825,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 554,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 555,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 556,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.86,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 557,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 558,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 559,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7340000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 560,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 561,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.695,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 562,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 563,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 564,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 565,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 566,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 567,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 568,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.688,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 569,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7090000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 570,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 571,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.86,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 572,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 573,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 574,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.753,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 575,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 576,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 577,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 578,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 579,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8079999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 580,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 581,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 582,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.579,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 583,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 584,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.615,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 585,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.69,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 586,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 587,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 588,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.726,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 589,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7959999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 590,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 591,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.614,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 592,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.838,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 593,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 594,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 595,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 596,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 597,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.807,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 598,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 599,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 600,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 601,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 602,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.767,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 603,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 604,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 605,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 606,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 607,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 608,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 609,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 610,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 611,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 612,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 613,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7290000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 614,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 615,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.785,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 616,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 617,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 618,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 619,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.748,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 620,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.652,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 621,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 622,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.731,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 623,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.736,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 624,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 625,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.669,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 626,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.86,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 627,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 628,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.708,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 629,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.674,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 630,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 631,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 632,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 633,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.748,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 634,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6409999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 635,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.812,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 636,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.792,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 637,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 638,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 639,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 640,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 641,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7829999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 642,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.642,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 643,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.687,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 644,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 645,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 646,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 647,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.789,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 648,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.596,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 649,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.768,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 650,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 651,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 652,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 653,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 654,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.769,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 655,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.731,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 656,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 657,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.682,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 658,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.682,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 659,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 660,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 661,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.866,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 662,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 663,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.703,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 664,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 665,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 666,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 667,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 668,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 669,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 670,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 671,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 672,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 673,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 674,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 675,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 676,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7140000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 677,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 678,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 679,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 680,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 681,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 682,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 683,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 684,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8009999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 685,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 686,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.695,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 687,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 688,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 689,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 690,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 691,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 692,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 693,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 694,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.56,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 695,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 696,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 697,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 698,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.58,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 699,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.54,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 700,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 701,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 702,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 703,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 704,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 705,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 706,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 707,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.67,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 708,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 709,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7559999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 710,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.677,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 711,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 712,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.775,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 713,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 714,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 715,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6920000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 716,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 717,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.667,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 718,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7490000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 719,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 720,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.762,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 721,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 722,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 723,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 724,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 725,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.713,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 726,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.611,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 727,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 728,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 729,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 730,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 731,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.75,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 732,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 733,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 734,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 735,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 736,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.71,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 737,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.802,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 738,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 739,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 740,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 741,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 742,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 743,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 744,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.653,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 745,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.753,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 746,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 747,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 748,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 749,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 750,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8440000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 751,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6709999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 752,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.816,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 753,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 754,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 755,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 756,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 757,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7340000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 758,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 759,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 760,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 761,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 762,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 763,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 764,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 765,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.813,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 766,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 767,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 768,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 769,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 770,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.611,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 771,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 772,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 773,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 774,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 775,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 776,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.784,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 777,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 778,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 779,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 780,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.736,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 781,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 782,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.768,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 783,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 784,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 785,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 786,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 787,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 788,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.693,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 789,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 790,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 791,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 792,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.711,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 793,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 794,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.688,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 795,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.741,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 796,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.866,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 797,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 798,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 799,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 800,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 801,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 802,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 803,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 804,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7909999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 805,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 806,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.585,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 807,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 808,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 809,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7829999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 810,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 811,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.787,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 812,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 813,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 814,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 815,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 816,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 817,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.631,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 818,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7170000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 819,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.747,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 820,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 821,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 822,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 823,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.73,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 824,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.614,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 825,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.713,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 826,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 827,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 828,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.69,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 829,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 830,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.687,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 831,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.79,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 832,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 833,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6409999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 834,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 835,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.752,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 836,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 837,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 838,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.804,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 839,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 840,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 841,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 842,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 843,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.784,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 844,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.774,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 845,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 846,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.67,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 847,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 848,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 849,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 850,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 851,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7609999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 852,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 853,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 854,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.805,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 855,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.708,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 856,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.721,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 857,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 858,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.695,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 859,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 860,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 861,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.713,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 862,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 863,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 864,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.792,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 865,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 866,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 867,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 868,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 869,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 870,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.713,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 871,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 872,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 873,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.79,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 874,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 875,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 876,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 877,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 878,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.86,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 879,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.807,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 880,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7340000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 881,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 882,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 883,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 884,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7859999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 885,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 886,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 887,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 888,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 889,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 890,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 891,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 892,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 893,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.75,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 894,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.647,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 895,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.693,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 896,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.675,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 897,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 898,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 899,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.738,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 900,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 901,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 902,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 903,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 904,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 905,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 906,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 907,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 908,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 909,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.82,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 910,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.653,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 911,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 912,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.695,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 913,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 914,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.616,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 915,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.764,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 916,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 917,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 918,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 919,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 920,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 921,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.795,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 922,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 923,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.706,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 924,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 925,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 926,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.826,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 927,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 928,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 929,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7340000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 930,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 931,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.86,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 932,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 933,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 934,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 935,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.696,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 936,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 937,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.768,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 938,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 939,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.69,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 940,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.65,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 941,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.733,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 942,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 943,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.835,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 944,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.84,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 945,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 946,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 947,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 948,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.655,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 949,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7809999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 950,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 951,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 952,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 953,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 954,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 955,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.691,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 956,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 957,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 958,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 959,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 960,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.774,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 961,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 962,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.674,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 963,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 964,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 965,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 966,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.732,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 967,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.77,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 968,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 969,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.769,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 970,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.66,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 971,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7090000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 972,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7020000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 973,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.72,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 974,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.62,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 975,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.728,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 976,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 977,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.818,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 978,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 979,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.67,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 980,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 981,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.68,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 982,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 983,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.8,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 984,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.672,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 985,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 986,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 987,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 988,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 989,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 990,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7490000000000001,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 991,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 992,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.6729999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 993,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.76,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 994,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.74,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 995,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.674,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 996,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.7509999999999999,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 997,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.71,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 998,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.64,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 999,
+    "median_fitness": 1.0,
+    "population_size": 50
+  },
+  {
+    "average_fitness": 0.78,
+    "best_fitness": 1.0,
+    "best_program_size": 2,
+    "generation": 1000,
+    "median_fitness": 1.0,
+    "population_size": 50
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "checkpoint": "checkpoints/sorting_marathon/population.json",
+  "claimed_public_100k_marathon_completed": false,
+  "configuration": {
+    "crossover_rate": 0.85,
+    "elitism_count": 5,
+    "llm_calls_in_generation_loop": 0,
+    "max_depth": 8,
+    "mutation_rate": 0.12,
+    "network_calls_in_generation_loop": 0,
+    "population_size": 50,
+    "runtime": "typed AST interpreter only",
+    "seed": 42,
+    "task": "sorting",
+    "tournament_size": 7,
+    "train_seed_rule": "generation + 17"
+  },
+  "curve": "reports/sorting_marathon/fitness_curve.json",
+  "elapsed_seconds_this_invocation": 19.317895863001468,
+  "final": {
+    "fresh_suite": {
+      "cases": 100,
+      "cases_passed": 100,
+      "correctness": 1.0,
+      "seed": 901000
+    },
+    "generation": 1000,
+    "program_depth": 1,
+    "program_nodes": 2,
+    "source_code": "import math\n\ndef sorting_champion_generation_1000(x):\n    try:\n        input = x\n        return sorted(list(input))\n    except Exception:\n        return None",
+    "source_sha256": "04a5bbc9d16260963d7228909d2e6877d672f420ea8c0904db7dc99cd3498fe7",
+    "training_fitness": 1.0
+  },
+  "git_hash": "be7d22c2dd94d115bdede0678ff602417cf3cd3f",
+  "report": "reports/sorting_marathon/BOUNDED_RUN_FINAL_REPORT.md",
+  "schema": "beast-v7-sorting-marathon-result-v1",
+  "status": "completed"
+}
