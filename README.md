@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/rajdeep09-dev/living-objects021/actions/workflows/ci.yml/badge.svg)](https://github.com/rajdeep09-dev/living-objects021/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://img.shields.io/badge/tests-269%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-356%20passing-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Living Objects is an open research and engineering platform for **persistent, evolving software organisms**. The idea is simple:
@@ -311,6 +311,19 @@ uvicorn production.api.main:app --reload --port 8000
 Open the Signal Loom dashboard, paste an operator JWT into the v3 connection bar, and use the six frontier instruments. For production, set `ENVIRONMENT=production`, provide a random `JWT_SECRET` of at least 32 characters, configure HTTPS `CORS_ORIGINS`, and provision shared Redis for rate-limit state.
 
 The v3 proof suite and security suite are `evolution/test_v3.py`, `evolution/test_v3_contracts.py`, `evolution/test_security_v3.py`, `evolution/test_security.py`, and `production/test_v3_api.py`. The current full regression result is **269 passed** with 12 non-fatal legacy/development warnings; regenerate it in CI rather than treating it as a permanent guarantee. Read [docs/v3-security.md](docs/v3-security.md), [docs/v3-architecture.md](docs/v3-architecture.md), [docs/api-v3-reference.md](docs/api-v3-reference.md), and [docs/v3-benchmark-results.md](docs/v3-benchmark-results.md) before exposing the frontier API.
+
+## BEAST v4: the quantum civilization engine
+
+BEAST v4 is the next research layer on top of the guarded v3 control plane. It adds **evolving digital physics, branching universe lineages, bounded temporal revision, universal computation, civilization immunity, epistemic uncertainty, memory palaces, adversarial tournaments, morphogenetic development, emergent writing systems, and substrate export**. The Signal Loom observatory now exposes ten authenticated v4 instruments, and the repository includes a small standard-library SDK, a benchmark harness, an isolated substrate worker, CI quality gates, and v4 deployment overlays.
+
+```bash
+export ENVIRONMENT=development APP_ENV=development
+pytest -q
+python3 scripts/run_v4_benchmarks.py --output docs/v4-benchmark-results.md
+uvicorn production.api.main:app --reload --port 8000
+```
+
+Read [docs/v4-architecture.md](docs/v4-architecture.md), [docs/v4-security.md](docs/v4-security.md), [docs/v4-api-reference.md](docs/v4-api-reference.md), [docs/v4-developer-guide.md](docs/v4-developer-guide.md), and [CONTRIBUTING.md](CONTRIBUTING.md) before extending the platform. These mechanisms are bounded research software; they are not claims of physical universe creation, subjective consciousness, or a complete hostile-code sandbox.
 
 ## License
 

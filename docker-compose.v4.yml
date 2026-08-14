@@ -1,0 +1,43 @@
+services:
+  api-v4:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["uvicorn", "production.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      ENVIRONMENT: production
+      APP_ENV: production
+      JWT_SECRET: ${JWT_SECRET:?set a strong JWT_SECRET}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://localhost}
+    ports:
+      - "8000:8000"
+    depends_on:
+      redis:
+        condition: service_started
+      substrate-worker:
+        condition: service_started
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+  substrate-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "production/substrate_worker.py"]
+    network_mode: none
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    mem_limit: 64m
+    cpus: 0.25
+    stdin_open: true

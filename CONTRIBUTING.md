@@ -82,3 +82,18 @@ Open an issue with the `question` label.
 - Critique ideas, not people
 - Negative results are as valuable as positive ones
 - Share credit generously
+
+## BEAST v4 platform work
+
+BEAST v4 additions must remain bounded research software. Add a runnable proof for each new mechanism, a negative test for each new write or execution path, and a short note describing what the measurement does not establish. Use `sdk.BeastV4Client` for examples instead of copying raw HTTP calls into applications.
+
+Before opening a pull request that touches v4:
+
+```bash
+pytest -q
+python -m compileall -q evolution production sdk
+python scripts/run_v4_benchmarks.py --output /tmp/v4-benchmark.md
+cd web && pnpm exec tsc --noEmit && pnpm run build
+```
+
+Never add direct `exec`, `eval`, shell, network, or filesystem access to organism-facing code. Route untrusted behavior through the isolated execution boundary and include provenance, limits, and operator attribution in new API events.

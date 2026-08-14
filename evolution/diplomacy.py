@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import hashlib
+import hmac
 import json
+import secrets
+import time
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -28,6 +31,10 @@ class ExchangeProposal:
     our_offer: tuple[str, ...]
     our_request: tuple[str, ...]
     status: str = "escrowed"
+    nonce: str = ""
+    created_at: float = 0.0
+    expires_at: float = 0.0
+    signature: str = ""
 
 
 @dataclass(frozen=True)
@@ -48,10 +55,38 @@ class CompatibilityReport:
 
 
 class DiplomacyProtocol:
-    def __init__(self) -> None:
+    def __init__(self, signing_key: bytes | str | None = None, proposal_ttl_seconds: int = 300) -> None:
         self.proposals: dict[str, ExchangeProposal] = {}
         self._ecosystems: dict[str, Ecosystem] = {}
         self.audit_log: list[dict[str, Any]] = []
+        self._signing_key = signing_key.encode("utf-8") if isinstance(signing_key, str) else (signing_key or secrets.token_bytes(32))
+        self.proposal_ttl_seconds = max(1, int(proposal_ttl_seconds))
+
+    @staticmethod
+    def _signing_payload(proposal: ExchangeProposal) -> bytes:
+        return json.dumps(
+            {
+                "proposal_id": proposal.proposal_id,
+                "our_ecosystem_id": proposal.our_ecosystem_id,
+                "their_ecosystem_id": proposal.their_ecosystem_id,
+                "our_offer": proposal.our_offer,
+                "our_request": proposal.our_request,
+                "status": proposal.status,
+                "nonce": proposal.nonce,
+                "created_at": proposal.created_at,
+                "expires_at": proposal.expires_at,
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+
+    def _sign(self, proposal: ExchangeProposal) -> str:
+        return hmac.new(self._signing_key, self._signing_payload(proposal), hashlib.sha256).hexdigest()
+
+    def _valid(self, proposal: ExchangeProposal) -> bool:
+        if not proposal.signature or not hmac.compare_digest(proposal.signature, self._sign(proposal)):
+            return False
+        return proposal.expires_at >= time.time()
 
     def propose_exchange(self, our_ecosystem: Ecosystem, their_ecosystem: Ecosystem, our_offer: list[str], our_request: list[str]) -> ExchangeProposal:
         if our_ecosystem.ecosystem_id == their_ecosystem.ecosystem_id:
@@ -60,7 +95,20 @@ class DiplomacyProtocol:
         if any(item not in our_names for item in our_offer):
             raise ValueError("every offered strategy must exist in the offering ecosystem")
         proposal_id = hashlib.sha256(json.dumps([our_ecosystem.ecosystem_id, their_ecosystem.ecosystem_id, sorted(our_offer), sorted(our_request)]).encode()).hexdigest()[:20]
-        proposal = ExchangeProposal(proposal_id, our_ecosystem.ecosystem_id, their_ecosystem.ecosystem_id, tuple(our_offer), tuple(our_request))
+        created_at = time.time()
+        proposal = ExchangeProposal(
+            proposal_id,
+            our_ecosystem.ecosystem_id,
+            their_ecosystem.ecosystem_id,
+            tuple(our_offer),
+            tuple(our_request),
+            "escrowed",
+            secrets.token_urlsafe(18),
+            created_at,
+            created_at + self.proposal_ttl_seconds,
+            "",
+        )
+        proposal = ExchangeProposal(**{**proposal.__dict__, "signature": self._sign(proposal)})
         self.proposals[proposal_id] = proposal
         self._ecosystems[our_ecosystem.ecosystem_id] = our_ecosystem
         self._ecosystems[their_ecosystem.ecosystem_id] = their_ecosystem
@@ -71,6 +119,8 @@ class DiplomacyProtocol:
         stored = self.proposals.get(proposal.proposal_id)
         if stored is None or stored.status != "escrowed":
             return ExchangeResult(proposal.proposal_id, False, reason="proposal is not escrowed")
+        if not self._valid(stored) or not self._valid(proposal) or not hmac.compare_digest(proposal.signature, stored.signature):
+            return ExchangeResult(proposal.proposal_id, False, reason="invalid or expired proposal signature")
         ours = self._ecosystems[stored.our_ecosystem_id]
         theirs = self._ecosystems[stored.their_ecosystem_id]
         received_ours: list[str] = []
@@ -86,28 +136,38 @@ class DiplomacyProtocol:
             if strategy is not None:
                 theirs.memome.contribute(strategy)
                 received_theirs.append(name)
-        self.proposals[stored.proposal_id] = ExchangeProposal(
+        accepted = ExchangeProposal(
             proposal_id=stored.proposal_id,
             our_ecosystem_id=stored.our_ecosystem_id,
             their_ecosystem_id=stored.their_ecosystem_id,
             our_offer=stored.our_offer,
             our_request=stored.our_request,
             status="accepted",
+            nonce=stored.nonce,
+            created_at=stored.created_at,
+            expires_at=stored.expires_at,
+            signature="",
         )
+        self.proposals[stored.proposal_id] = ExchangeProposal(**{**accepted.__dict__, "signature": self._sign(accepted)})
         self.audit_log.append({"type": "accepted", "proposal_id": stored.proposal_id})
         return ExchangeResult(stored.proposal_id, True, tuple(received_ours), tuple(received_theirs))
 
     def reject(self, proposal: ExchangeProposal, reason: str) -> None:
         stored = self.proposals.get(proposal.proposal_id)
         if stored is not None:
-            self.proposals[stored.proposal_id] = ExchangeProposal(
+            rejected = ExchangeProposal(
                 proposal_id=stored.proposal_id,
                 our_ecosystem_id=stored.our_ecosystem_id,
                 their_ecosystem_id=stored.their_ecosystem_id,
                 our_offer=stored.our_offer,
                 our_request=stored.our_request,
                 status="rejected",
+                nonce=stored.nonce,
+                created_at=stored.created_at,
+                expires_at=stored.expires_at,
+                signature="",
             )
+            self.proposals[stored.proposal_id] = ExchangeProposal(**{**rejected.__dict__, "signature": self._sign(rejected)})
             self.audit_log.append({"type": "rejected", "proposal_id": stored.proposal_id, "reason": reason})
 
     def assess_compatibility(self, ecosystem_a: Ecosystem, ecosystem_b: Ecosystem) -> CompatibilityReport:

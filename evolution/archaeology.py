@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import textwrap
 from dataclasses import dataclass, field
 from typing import Any
 
 from evolution.beast_v2_culture import FederatedMemome
 from evolution.lamarckian import Strategy
+from evolution.sandbox import IsolatedSandbox
 
 
 @dataclass(frozen=True)
@@ -30,9 +32,23 @@ class ArchaeologyReport:
 
 
 class KnowledgeArchaeologist:
-    def __init__(self, relevance_threshold: float = 0.55) -> None:
+    def __init__(self, relevance_threshold: float = 0.55, sandbox: IsolatedSandbox | None = None) -> None:
         self.relevance_threshold = relevance_threshold
         self.resurrection_log: list[dict[str, Any]] = []
+        self.sandbox = sandbox or IsolatedSandbox()
+
+    def _validate_source(self, source_code: str) -> tuple[bool, str]:
+        source = source_code.strip()
+        candidates = [source]
+        if source.startswith("return"):
+            candidates.append("def __strategy__():\n" + textwrap.indent(source, "    "))
+        last_error = ""
+        for candidate in candidates:
+            result = self.sandbox.run(candidate)
+            if result.ok:
+                return True, ""
+            last_error = result.stderr
+        return False, last_error
 
     def excavate(self, memome: FederatedMemome, cutoff_generation: int) -> list[ExtinctStrategy]:
         return [
@@ -52,6 +68,10 @@ class KnowledgeArchaeologist:
         return max(0.0, min(1.0, strategy.strategy.effectiveness - 0.02 * age + 0.25))
 
     def resurrect(self, strategy: ExtinctStrategy, target: Any) -> bool:
+        valid, reason = self._validate_source(strategy.strategy.source_code)
+        if not valid:
+            self.resurrection_log.append({"strategy": strategy.name, "target": getattr(target, "object_id", "unknown"), "resurrected": False, "reason": reason or "sandbox validation failed"})
+            return False
         installer = getattr(target, "install_strategy", None)
         if not callable(installer) or not installer(strategy.strategy):
             return False

@@ -10,12 +10,17 @@ read-only root filesystem around this worker.
 from __future__ import annotations
 
 import ast
+import logging
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
 from typing import Any
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -139,10 +144,9 @@ class IsolatedSandbox:
             return SandboxResult(stdout="", stderr=f"{type(exc).__name__}: {exc}", exit_code=1, timed_out=False)
         finally:
             try:
-                os.unlink(code_path)
-                os.rmdir(temp_dir)
-            except OSError:
-                pass
+                shutil.rmtree(temp_dir)
+            except OSError as exc:
+                logger.warning("orphaned sandbox directory %s: %s", temp_dir, exc)
 
 
 __all__ = ["IsolatedSandbox", "ResourceLimits", "SandboxResult"]

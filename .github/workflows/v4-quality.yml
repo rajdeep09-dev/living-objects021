@@ -1,0 +1,48 @@
+name: BEAST v4 quality gates
+
+on:
+  push:
+    branches: [master, main, dev]
+  pull_request:
+    branches: [master, main, dev]
+
+jobs:
+  python-platform:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install test dependencies
+        run: python -m pip install -e ".[production,test,dev]"
+      - name: Compile all platform modules
+        run: python -m compileall -q evolution production sdk
+      - name: Run BEAST regression suite
+        run: pytest -q
+      - name: Run v4 benchmark
+        run: python scripts/run_v4_benchmarks.py --output /tmp/v4-benchmark.md
+      - name: Check repository secrets are not present in tracked files
+        run: '! git grep -nE "ghp_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}" -- . ":!*.lock"'
+
+  web-platform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec tsc --noEmit
+      - run: pnpm run build

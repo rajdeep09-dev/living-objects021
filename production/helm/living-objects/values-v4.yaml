@@ -1,0 +1,16 @@
+substrate:
+  enabled: true
+  image:
+    repository: living-objects
+    tag: "v4"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 32Mi
+    limits:
+      cpu: 250m
+      memory: 64Mi
+
+universeIsolation:
+  enabled: true
+  namespaceLabel: beast.living-objects.dev/universe

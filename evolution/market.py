@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import threading
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -20,24 +21,31 @@ class TokenWallet:
     balance: float = 100.0
     income_history: list[Transaction] = field(default_factory=list)
     expense_history: list[Transaction] = field(default_factory=list)
+    _lock: threading.Lock = field(init=False, repr=False, compare=False)
+
+    def __post_init__(self) -> None:
+        self._lock = threading.Lock()
 
     def earn(self, amount: float, reason: str, counterparty: str = "") -> None:
         if amount < 0:
             raise ValueError("amount must be non-negative")
-        self.balance += amount
-        self.income_history.append(Transaction(amount, reason, counterparty))
+        with self._lock:
+            self.balance += amount
+            self.income_history.append(Transaction(amount, reason, counterparty))
 
     def spend(self, amount: float, reason: str, counterparty: str = "") -> bool:
         if amount < 0:
             raise ValueError("amount must be non-negative")
-        if amount > self.balance + 1e-9:
-            return False
-        self.balance -= amount
-        self.expense_history.append(Transaction(amount, reason, counterparty))
-        return True
+        with self._lock:
+            if amount > self.balance + 1e-9:
+                return False
+            self.balance -= amount
+            self.expense_history.append(Transaction(amount, reason, counterparty))
+            return True
 
     def net_worth(self) -> float:
-        return round(self.balance, 6)
+        with self._lock:
+            return round(self.balance, 6)
 
 
 @dataclass

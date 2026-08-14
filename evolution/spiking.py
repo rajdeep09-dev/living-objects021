@@ -3,8 +3,16 @@
 from __future__ import annotations
 
 import copy
+import math
 import random
 from dataclasses import dataclass, field
+
+
+def _safe_float(value: float, default: float = 0.0, minimum: float = -1_000_000.0, maximum: float = 1_000_000.0) -> float:
+    value = float(value)
+    if not math.isfinite(value):
+        return default
+    return max(minimum, min(maximum, value))
 
 
 @dataclass
@@ -37,17 +45,22 @@ class SpikingStrategyGenome:
         if not self.neurons:
             return []
         fired: list[int] = []
+        threshold = _safe_float(self.spike_threshold, 1.0, 1e-6)
+        decay = _safe_float(self.decay_rate, 0.9, 0.0, 1.0)
         for timestep in range(timesteps):
             for index, value in enumerate(inputs):
                 if index < len(self.neurons):
-                    self.neurons[index].potential += float(value)
+                    neuron = self.neurons[index]
+                    neuron.potential = _safe_float(neuron.potential) + _safe_float(value)
             for synapse in self.synapses:
+                if not (0 <= synapse.source < len(self.neurons) and 0 <= synapse.target < len(self.neurons)):
+                    continue
                 source = self.neurons[synapse.source]
                 if source.last_spike:
-                    self.neurons[synapse.target].potential += synapse.weight
+                    self.neurons[synapse.target].potential = _safe_float(self.neurons[synapse.target].potential + _safe_float(synapse.weight))
             for neuron in self.neurons:
-                neuron.potential *= self.decay_rate
-                neuron.last_spike = int(neuron.potential >= self.spike_threshold)
+                neuron.potential = _safe_float(neuron.potential * decay)
+                neuron.last_spike = int(neuron.potential >= threshold)
                 if neuron.last_spike:
                     fired.append(neuron.neuron_id)
                     neuron.potential = 0.0
@@ -81,4 +94,4 @@ class SpikingStrategyGenome:
         return round(len(self.last_spike_pattern) + 0.05 * len(self.synapses), 6)
 
 
-__all__ = ["LIFNeuron", "SpikingStrategyGenome", "Synapse"]
+__all__ = ["LIFNeuron", "SpikingStrategyGenome", "Synapse", "_safe_float"]

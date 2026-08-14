@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import hmac
 import time
 from contextlib import asynccontextmanager
 from typing import Any, AsyncIterator, Optional
@@ -29,6 +30,7 @@ from production.metrics import (
 from production.store import OrganismRecord, RedisCache, StateStore, utc_now
 from production.api.v2.routes import control_state, router as v2_router
 from production.api.v3.routes import router as v3_router, state as v3_state
+from production.api.v4.routes import router as v4_router, state as v4_state
 from production.middleware.cors import CORSConfig
 from production.middleware.rate_limit import configure_rate_limiter, rate_limit_dependency
 
@@ -164,6 +166,7 @@ def require_operator(user: dict[str, Any] = Depends(current_user)) -> dict[str, 
 
 app.include_router(v2_router, dependencies=[Depends(require_operator)])
 app.include_router(v3_router, dependencies=[Depends(require_operator)])
+app.include_router(v4_router, dependencies=[Depends(require_operator)])
 
 
 @app.get("/health")
@@ -178,8 +181,8 @@ def metrics() -> Response:
 
 @app.post("/auth/token", dependencies=[Depends(rate_limit_dependency("5/minute"))])
 def issue_token(request: TokenRequest) -> dict[str, Any]:
-    expected_user = request.username == settings.operator_username
-    expected_password = request.password == settings.operator_password
+    expected_user = hmac.compare_digest(request.username, settings.operator_username)
+    expected_password = hmac.compare_digest(request.password, settings.operator_password)
     if not (expected_user and expected_password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     token = encode_jwt({"sub": request.username, "role": "operator"}, settings.jwt_secret, settings.jwt_ttl_seconds)
@@ -357,3 +360,39 @@ async def v3_evolution_stream(websocket: WebSocket, token: str = Query(default="
             _V3_WS_CONNECTIONS.pop(address, None)
         else:
             _V3_WS_CONNECTIONS[address] = remaining
+
+
+_V4_WS_CONNECTIONS: dict[str, int] = {}
+
+
+@app.websocket("/ws/v4/evolution")
+async def v4_evolution_stream(websocket: WebSocket, token: str = Query(default="")) -> None:
+    """Stream BEAST v4 universe, computation, civilization, and substrate events."""
+    try:
+        decode_jwt(token, settings.jwt_secret)
+    except JWTError:
+        await websocket.close(code=1008, reason="valid token required")
+        return
+    address = websocket.client.host if websocket.client else "unknown"
+    if _V4_WS_CONNECTIONS.get(address, 0) >= 10:
+        await websocket.close(code=1013, reason="connection limit reached")
+        return
+    _V4_WS_CONNECTIONS[address] = _V4_WS_CONNECTIONS.get(address, 0) + 1
+    await websocket.accept()
+    cursor = 0
+    try:
+        while True:
+            events = v4_state.events
+            if cursor < len(events):
+                for event in events[cursor:]:
+                    await websocket.send_json(event)
+                cursor = len(events)
+            await asyncio.sleep(0.25)
+    except WebSocketDisconnect:
+        return
+    finally:
+        remaining = _V4_WS_CONNECTIONS.get(address, 1) - 1
+        if remaining <= 0:
+            _V4_WS_CONNECTIONS.pop(address, None)
+        else:
+            _V4_WS_CONNECTIONS[address] = remaining

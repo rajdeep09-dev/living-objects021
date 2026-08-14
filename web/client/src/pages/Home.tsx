@@ -25,6 +25,7 @@ import {
   Zap,
 } from "lucide-react";
 import V3Panels from "../components/V3Panels";
+import V4Panels from "../components/V4Panels";
 
 type Species = "producer" | "consumer" | "decomposer";
 
@@ -181,6 +182,7 @@ export default function Home() {
       </section>
 
       <V3Panels generation={generation} onEvent={recordV2Event} />
+      <V4Panels generation={generation} onEvent={(text, tone) => recordV2Event(text, tone)} />
 
         <footer className="footer-bar"><div><span className="footer-mark">LO</span><span>Signal Loom / Control Plane v1.0</span></div><div><span><ShieldCheck size={13} /> guarded runtime</span><span><Database size={13} /> archive synced</span><span><Layers3 size={13} /> {speciesMeta[species].label} selected</span></div><div className="footer-time">UTC 14:22:08</div></footer>
       </div>

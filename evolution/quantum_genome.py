@@ -3,10 +3,54 @@
 from __future__ import annotations
 
 import random
+import secrets
+import math
 from dataclasses import dataclass, field
 from typing import Dict
 
 from evolution.lamarckian import LamarckianGenome
+
+
+class QuantumRNG:
+    """Cryptographically strong weighted sampling for production measurements."""
+
+    @staticmethod
+    def uniform(lo: float = 0.0, hi: float = 1.0) -> float:
+        if hi < lo:
+            raise ValueError("hi must be greater than or equal to lo")
+        return lo + (secrets.randbits(53) / (1 << 53)) * (hi - lo)
+
+    @staticmethod
+    def choice(population: list[str]) -> str:
+        if not population:
+            raise IndexError("cannot choose from an empty population")
+        return population[secrets.randbelow(len(population))]
+
+    @staticmethod
+    def gauss(mu: float = 0.0, sigma: float = 1.0) -> float:
+        if sigma < 0:
+            raise ValueError("sigma must be non-negative")
+        u1 = QuantumRNG.uniform(1e-10, 1.0)
+        u2 = QuantumRNG.uniform(0.0, 1.0)
+        z = math.sqrt(-2.0 * math.log(u1)) * math.cos(2.0 * math.pi * u2)
+        return mu + sigma * z
+
+    def choices(self, population: list[str], weights: list[float], k: int = 1) -> list[str]:
+        if len(population) != len(weights) or not population or k < 0:
+            raise ValueError("population and weights must be non-empty and have equal length")
+        total = sum(max(0.0, float(weight)) for weight in weights)
+        if total <= 0.0:
+            raise ValueError("weights must contain a positive value")
+        cumulative: list[float] = []
+        running = 0.0
+        for weight in weights:
+            running += max(0.0, float(weight))
+            cumulative.append(running)
+        result: list[str] = []
+        for _ in range(k):
+            needle = QuantumRNG.uniform(0.0, total)
+            result.append(population[next(index for index, boundary in enumerate(cumulative) if needle <= boundary)])
+        return result
 
 
 @dataclass
@@ -23,12 +67,12 @@ class QuantumGenome:
             raise ValueError("quantum genome must contain a non-zero amplitude")
         return states, [weight / total for weight in weights]
 
-    def measure(self, rng: random.Random) -> LamarckianGenome:
+    def measure(self, rng: random.Random | QuantumRNG | None = None) -> LamarckianGenome:
         states, weights = self._normalized_weights()
         if self._correlation and self._correlation.get("state"):
             selected = self._correlation["state"]
         else:
-            selected = rng.choices(states, weights=weights, k=1)[0]
+            selected = (rng or QuantumRNG()).choices(states, weights=weights, k=1)[0]
             if self._correlation is not None:
                 self._correlation["state"] = selected
         self.measurement_history.append(selected)
@@ -67,4 +111,4 @@ class QuantumGenome:
         return QuantumGenome(result)
 
 
-__all__ = ["QuantumGenome"]
+__all__ = ["QuantumGenome", "QuantumRNG"]
