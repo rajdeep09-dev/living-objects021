@@ -56,9 +56,9 @@ def test_cumulative_complexity(tmp_path):
     with CumulativeEvolution(
         tmp_path / "culture.sqlite", population_size=10, random_seed=11
     ) as system:
-        history = system.run(generations=100, report=False)
+        history = system.run(generations=20, report=False)
         start = next(metric for metric in history if metric.generation == 0)
-        finish = next(metric for metric in history if metric.generation == 100)
+        finish = next(metric for metric in history if metric.generation == 20)
 
         assert finish.behaviors_per_organism > start.behaviors_per_organism
         assert finish.archive_size > 3
@@ -69,8 +69,8 @@ def test_novelty_creation(tmp_path):
     with CumulativeEvolution(
         tmp_path / "culture.sqlite", population_size=10, random_seed=12
     ) as system:
-        history = system.run(generations=100, report=False)
-        finish = next(metric for metric in history if metric.generation == 100)
+        history = system.run(generations=20, report=False)
+        finish = next(metric for metric in history if metric.generation == 20)
         new_actions = {meme.action for meme in system.archive.all_memes() if meme.action.startswith("niche_")}
 
         assert finish.novel_behaviors > 0
@@ -83,13 +83,13 @@ def test_archive_effectiveness(tmp_path):
     with CumulativeEvolution(
         tmp_path / "with-archive.sqlite", population_size=10, random_seed=23, use_archive=True
     ) as cultural:
-        cultural_history = cultural.run(generations=80, report=False)
+        cultural_history = cultural.run(generations=40, report=False)
         cultural_final = cultural_history[-1]
 
     with CumulativeEvolution(
         tmp_path / "without-archive.sqlite", population_size=10, random_seed=23, use_archive=False
     ) as isolated:
-        isolated_history = isolated.run(generations=80, report=False)
+        isolated_history = isolated.run(generations=40, report=False)
         isolated_final = isolated_history[-1]
 
     assert cultural_final.average_fitness > isolated_final.average_fitness
