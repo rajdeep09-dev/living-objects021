@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "baseline_training_fitness": 0.05,
+      "best_training_fitness": 1.0,
+      "checkpoint": "/tmp/beast-v6-measured-1000/absolute-difference.json",
+      "description": "Compose abs(left - right)",
+      "generations": 1000,
+      "held_out_cases_passed": 20,
+      "held_out_cases_total": 20,
+      "held_out_correctness": 1.0,
+      "last_generation": {
+        "average_fitness": 0.3776041666666667,
+        "best_fitness": 1.0,
+        "best_program_size": 4,
+        "generation": 1000,
+        "median_fitness": 0.0,
+        "population_size": 96
+      },
+      "population_size": 96,
+      "program_depth": 2,
+      "program_size": 4,
+      "runtime_seconds": 40.83535860700067,
+      "seed": 20260814,
+      "source_export": "import math\n\ndef champion_absolute_difference_gen1000(x):\n    try:\n        return abs((left - right))\n    except Exception:\n        return None",
+      "state": "completed",
+      "task": "absolute-difference"
+    }
+  ]
+}

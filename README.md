@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/rajdeep09-dev/living-objects021/actions/workflows/ci.yml/badge.svg)](https://github.com/rajdeep09-dev/living-objects021/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://img.shields.io/badge/tests-356%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-413%20passing-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Living Objects is an open research and engineering platform for **persistent, evolving software organisms**. The idea is simple:
@@ -98,6 +98,23 @@ python3 -m pytest -q evolution/test_v5.py
 ```
 
 The browser observatory includes a **Create organism** workspace with start, pause, resume, cancel, and export actions. A user goal is routed to a fixed local task profile; it is not evaluated as code and the system must not claim that arbitrary natural-language goals are autonomously solved. One worker is capped at one million generations, 256 organisms, and 32 local scoring workers. For unattended work, use a persistent host and a durable checkpoint volume; autoscaled web processes can stop when idle. See [docs/v5-autonomous-workspace.md](docs/v5-autonomous-workspace.md), [docs/v5-security.md](docs/v5-security.md), and [docker-compose.v5.yml](docker-compose.v5.yml).
+
+## BEAST v6: evolve programs, not pretend answers
+
+BEAST v6 replaces template-only strategy scoring with a **bounded typed genetic-programming engine**. Each candidate is an arithmetic abstract syntax tree interpreted by a deliberately small evaluator. Fitness is measured from explicit correctness cases, and candidate promotion can require a separate holdout set. The browser workspace now shows the current program lineage, audit-source export, node count, held-out correctness, and validation status.
+
+```bash
+# Measure the compositional absolute-difference task locally.
+python3 scripts/run_v6_benchmarks.py \
+  --tasks absolute-difference --generations 1000 --population-size 96 --seed 20260814
+
+# Verify the GP core, evaluation, validation, checkpoint, and benchmark contracts.
+python3 -m pytest -q \
+  evolution/test_gp_engine.py evolution/test_fitness.py evolution/test_gp_population.py \
+  evolution/test_gp_safety.py evolution/test_v6_benchmarks.py
+```
+
+The measured release run begins at **0.050** training correctness and reached **1.000** on a separate 20-case holdout for one compact four-node program in 1,000 local generations. This is evidence for that finite task, seed, interpreter, and test suite—not evidence of general problem solving. Generated source is an audit artifact only; it is never `exec`’d in the main process. The v6 engine does not trade, make production changes, scrape live markets, or make external requests per generation. See [docs/v6-benchmark-results.md](docs/v6-benchmark-results.md) for the raw measurement.
 
 ## BEAST v2: ten phases of cumulative software evolution
 

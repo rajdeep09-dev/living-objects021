@@ -61,3 +61,35 @@
 - [x] Add v5 task proof suites, security tests, persistence tests, 100k-generation smoke benchmarks, and reproducible report generation.
 - [x] Add deployment overlays and documentation for local-first execution, persistent hosting, resource limits, and the distinction between local computation and API traffic.
 - [x] Run full regression and visual verification, save a v5 WebDev checkpoint, and prepare the release commit.
+
+## BEAST v6 evidence-first genetic programming
+
+- [x] Audit BEAST_UPDATE_v6.md against the v5 baseline, identifying executable requirements, unsupported claims, and prohibited autonomous external actions.
+- [x] Replace template strategy generation with bounded typed AST genetic programs, deterministic mutation/crossover, and real interpreter-based execution.
+- [x] Add correctness-based task evaluators, repeated-trial fitness estimation, program bloat limits, and honest failure reporting.
+- [x] Add static validation, runtime resource limits, checkpointable GP populations, and safe self-improvement gates without arbitrary code execution.
+- [x] Implement the feasible local benchmark registry and proof suites required by v6, explicitly excluding live market trades, production write actions, and unsupervised external tool use.
+- [x] Extend authenticated APIs and the Signal Loom organism workspace to expose evolved program lineage, source, validation status, and measured fitness.
+- [x] Add v6 architecture, security, benchmark, and operational documentation with reproducibility commands and non-extrapolation caveats.
+- [x] Run full regressions, security checks, bounded benchmark measurements, full-stack builds, and responsive visual verification before checkpointing.
+
+## BEAST cellular foundation
+
+- [x] Define a bounded cell state model with energy, sensors, action channels, memory, lineage, and an independent truth-layer environment.
+- [x] Implement adaptive cells with deterministic sensing, metabolism, learned memory, repair, constrained reproduction, and explicit failure states.
+- [x] Implement evaluator cells that generate and rank test probes while an immutable external verifier measures actual task outcomes.
+- [x] Implement tissue-scale communication, division of labour, and collective adaptation over a bounded grid environment.
+- [x] Add proof tests showing energy-constrained survival, inherited learned policy, evaluator disagreement handling, and independently verified tissue gains.
+- [x] Produce a reproducible cellular experiment report and architecture/security documentation that distinguishes measured adaptation from consciousness claims.
+- [ ] Add authenticated observatory controls for cell/tissue experiments, lineage inspection, and external-verifier evidence.
+- [x] Run full regression, bounded cellular benchmarks, full-stack build, and responsive visual verification before checkpointing.
+
+## Core non-LLM evolutionary proof benchmark
+
+- [x] Define a falsifiable benchmark contract: random initial programs, objective scoring, disjoint hidden holdout, fixed resource bounds, and explicit non-LLM execution boundary.
+- [x] Implement immutable benchmark manifests that capture baseline programs, seeds, configuration, champion artifacts, and independent rerun instructions.
+- [x] Run multiple fixed-seed evolution trials that measure generation-zero, train, and disjoint holdout correctness without source execution or LLM calls.
+- [x] Add proof tests for baseline capture, interpreter-only execution, deterministic reruns, independent promotion, and failure reporting.
+- [x] Publish the full raw artifacts and a precise evidence report describing the claim that the benchmark supports and the stronger claims it does not support.
+- [x] Show the proof protocol, baseline-versus-champion delta, and independent rerun status in the authenticated observatory.
+- [x] Re-run the complete Python and observatory verification suites before the proof-release checkpoint.

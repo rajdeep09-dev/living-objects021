@@ -32,6 +32,7 @@ from production.api.v2.routes import control_state, router as v2_router
 from production.api.v3.routes import router as v3_router, state as v3_state
 from production.api.v4.routes import router as v4_router, state as v4_state
 from production.api.v5.routes import router as v5_router, state as v5_state
+from production.api.v6.routes import router as v6_router, state as v6_state
 from production.middleware.cors import CORSConfig
 from production.middleware.rate_limit import configure_rate_limiter, rate_limit_dependency
 
@@ -169,6 +170,7 @@ app.include_router(v2_router, dependencies=[Depends(require_operator)])
 app.include_router(v3_router, dependencies=[Depends(require_operator)])
 app.include_router(v4_router, dependencies=[Depends(require_operator)])
 app.include_router(v5_router, dependencies=[Depends(require_operator)])
+app.include_router(v6_router, dependencies=[Depends(require_operator)])
 
 
 @app.get("/health")
@@ -434,3 +436,39 @@ async def v5_evolution_stream(websocket: WebSocket, token: str = Query(default="
             _V5_WS_CONNECTIONS.pop(address, None)
         else:
             _V5_WS_CONNECTIONS[address] = remaining
+
+
+_V6_WS_CONNECTIONS: dict[str, int] = {}
+
+
+@app.websocket("/ws/v6/evolution")
+async def v6_evolution_stream(websocket: WebSocket, token: str = Query(default="")) -> None:
+    """Stream bounded v6 interpreted-program evidence events."""
+    try:
+        decode_jwt(token, settings.jwt_secret)
+    except JWTError:
+        await websocket.close(code=1008, reason="valid token required")
+        return
+    address = websocket.client.host if websocket.client else "unknown"
+    if _V6_WS_CONNECTIONS.get(address, 0) >= 10:
+        await websocket.close(code=1013, reason="connection limit reached")
+        return
+    _V6_WS_CONNECTIONS[address] = _V6_WS_CONNECTIONS.get(address, 0) + 1
+    await websocket.accept()
+    cursor = 0
+    try:
+        while True:
+            events = v6_state.events
+            if cursor < len(events):
+                for event in events[cursor:]:
+                    await websocket.send_json(event)
+                cursor = len(events)
+            await asyncio.sleep(0.25)
+    except WebSocketDisconnect:
+        return
+    finally:
+        remaining = _V6_WS_CONNECTIONS.get(address, 1) - 1
+        if remaining <= 0:
+            _V6_WS_CONNECTIONS.pop(address, None)
+        else:
+            _V6_WS_CONNECTIONS[address] = remaining

@@ -1,0 +1,49 @@
+{
+  "all_trials_promoted": true,
+  "configuration": {
+    "audit_cases": 128,
+    "generations": 300,
+    "minimum_holdout_delta": 0.1,
+    "population_size": 128
+  },
+  "trial_set": {
+    "seeds": [
+      20260814,
+      20260815,
+      20260816
+    ],
+    "selection_after_results": false
+  },
+  "trials": [
+    {
+      "artifact": "/tmp/non-llm-proof-release/trial-20260814.json",
+      "baseline_exact_correctness": 0.0,
+      "baseline_holdout_objective": 0.7782552083333334,
+      "final_exact_correctness": 1.0,
+      "final_holdout_objective": 1.0,
+      "holdout_delta": 0.2217447916666666,
+      "promoted": true,
+      "seed": 20260814
+    },
+    {
+      "artifact": "/tmp/non-llm-proof-release/trial-20260815.json",
+      "baseline_exact_correctness": 0.0,
+      "baseline_holdout_objective": 0.7684204343294175,
+      "final_exact_correctness": 1.0,
+      "final_holdout_objective": 1.0,
+      "holdout_delta": 0.23157956567058247,
+      "promoted": true,
+      "seed": 20260815
+    },
+    {
+      "artifact": "/tmp/non-llm-proof-release/trial-20260816.json",
+      "baseline_exact_correctness": 0.0078125,
+      "baseline_holdout_objective": 0.8359375,
+      "final_exact_correctness": 1.0,
+      "final_holdout_objective": 1.0,
+      "holdout_delta": 0.1640625,
+      "promoted": true,
+      "seed": 20260816
+    }
+  ]
+}
