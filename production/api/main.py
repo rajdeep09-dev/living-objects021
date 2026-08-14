@@ -27,6 +27,7 @@ from production.metrics import (
     generate_latest,
 )
 from production.store import OrganismRecord, RedisCache, StateStore, utc_now
+from production.api.v2.routes import control_state, router as v2_router
 
 
 class OrganismCreate(BaseModel):
@@ -146,6 +147,9 @@ def current_user(credentials: HTTPAuthorizationCredentials | None = Depends(bear
         return decode_jwt(credentials.credentials, settings.jwt_secret)
     except JWTError as exc:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)) from exc
+
+
+app.include_router(v2_router, dependencies=[Depends(current_user)])
 
 
 @app.get("/health")
@@ -281,3 +285,25 @@ async def evolution_stream(websocket: WebSocket, token: str = Query(default=""))
         pass
     finally:
         await runtime.broker.unsubscribe(queue)
+
+
+@app.websocket("/ws/v2/evolution")
+async def v2_evolution_stream(websocket: WebSocket, token: str = Query(default="")) -> None:
+    """Stream v2 organism, culture, constitution, and red-team events."""
+    try:
+        decode_jwt(token, settings.jwt_secret)
+    except JWTError:
+        await websocket.close(code=1008, reason="valid token required")
+        return
+    await websocket.accept()
+    cursor = 0
+    try:
+        while True:
+            events = control_state.events
+            if cursor < len(events):
+                for event in events[cursor:]:
+                    await websocket.send_json(event)
+                cursor = len(events)
+            await asyncio.sleep(0.25)
+    except WebSocketDisconnect:
+        return

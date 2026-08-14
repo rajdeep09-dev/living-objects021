@@ -82,6 +82,32 @@ pip install -e ".[production,test]"
 python3 -m pytest -q
 ```
 
+## BEAST v2: ten phases of cumulative software evolution
+
+BEAST v2 adds a second layer above individual Lamarckian organisms: the **rules, language, culture, defenses, goals, tools, and energy economics of the population can all be inspected and evolved**. Every phase has a named Python module and runnable proof coverage.
+
+| Phase | Beginner translation | Module |
+|---|---|---|
+| Evolving constitutions | The population can change its own rulebook. | `evolution/constitution.py` |
+| Morphogenetic code growth | Organisms grow new Python modules from templates. | `evolution/morphogenome.py` |
+| Red-team defense | Attackers try to break strategies; defenses adapt. | `evolution/red_team.py` |
+| Goal synthesis | Organisms discover intrinsic value from environmental observations. | `evolution/goal_synthesis.py` |
+| Federated memome | Independent nodes gossip strategies and preserve lineage. | `evolution/federated_memome.py` |
+| Embodied tools | Organisms use restricted tools and record outcomes. | `evolution/embodied.py` |
+| Ancestry credit | Descendants can credit ancestor strategies that still matter. | `evolution/ancestry_credit.py` |
+| Emergent DSL | Strategies gain a compact, evolving notation. | `evolution/dsl.py` |
+| Thermodynamic fitness | Useful work per operation matters, not only raw quality. | `evolution/thermodynamic.py` |
+| Observatory v2 | Humans can inspect, edit, attack, and translate the live system. | `web/` and `living-objects-platform-ui/` |
+
+Run the v2 proof suite and regenerate its evidence table:
+
+```bash
+python3 -m pytest -q evolution/test_beast_v2.py evolution/test_v2.py production/test_v2_api.py
+python3 scripts/run_v2_benchmarks.py --output docs/benchmark-results.md
+```
+
+The current deterministic run records seven constitutional fields diverging after 100 generations, an 11× DSL vocabulary expansion after 50 mutations, a 9.4× operation reduction in the thermodynamic harness, and adaptive immune strength under 10-prey/3-attacker pressure. These are **mechanism benchmarks**, not universal claims about intelligence or production throughput. See [docs/v2-architecture.md](docs/v2-architecture.md), [docs/api-v2-reference.md](docs/api-v2-reference.md), [docs/benchmark-results.md](docs/benchmark-results.md), and [research/dsl-emergence-notes.md](research/dsl-emergence-notes.md).
+
 ## The five core ideas
 
 ### 1. Learning becomes inheritable

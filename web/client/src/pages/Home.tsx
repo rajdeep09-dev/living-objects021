@@ -24,6 +24,7 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
+import V2Panels from "../components/V2Panels";
 
 type Species = "producer" | "consumer" | "decomposer";
 
@@ -94,6 +95,10 @@ export default function Home() {
       { time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }), kind: "manual", text: `manual step / ${speciesMeta[species].label.toLowerCase()} cohort`, tone: "copper" },
       ...current.slice(0, 2),
     ]);
+  };
+
+  const recordV2Event = (text: string, tone = "cyan") => {
+    setEvents((current) => [{ time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }), kind: "v2 control", text, tone }, ...current.slice(0, 2)]);
   };
 
   return (
@@ -169,6 +174,8 @@ export default function Home() {
           <button className="event-footer">Open event log <ArrowUpRight size={14} /></button>
         </article>
       </section>
+
+      <V2Panels generation={generation} onEvent={recordV2Event} />
 
         <footer className="footer-bar"><div><span className="footer-mark">LO</span><span>Signal Loom / Control Plane v1.0</span></div><div><span><ShieldCheck size={13} /> guarded runtime</span><span><Database size={13} /> archive synced</span><span><Layers3 size={13} /> {speciesMeta[species].label} selected</span></div><div className="footer-time">UTC 14:22:08</div></footer>
       </div>
