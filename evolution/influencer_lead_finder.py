@@ -226,20 +226,23 @@ class LeadFindingOrganism(CulturalOrganism):
         Returns result with quality score.
         """
         if not self.world:
-            return {"error": "no world connected"}
+            return {"error": "no world connected", "score": 0.0}
         
         # Get the strategy code
         source = self._behavior_genes.get(strategy_name)
         if not source:
-            return {"error": f"no strategy: {strategy_name}"}
+            return {"error": f"no strategy: {strategy_name}", "score": 0.0}
         
-        # Build namespace with required references
+        # Build namespace with all needed references
         namespace = {
             'organism': self,
             'self': self,
             'query': self.query,
             'random': random,
             'math': math,
+            'find_leads_v1': self.find_leads_v1,
+            'find_leads_v2': self.find_leads_v2,
+            'find_leads_v3': self.find_leads_v3,
         }
         
         # Execute with safe fallback
@@ -248,7 +251,7 @@ class LeadFindingOrganism(CulturalOrganism):
             func = namespace.get(f"strategy_{strategy_name}")
             if func and callable(func):
                 result = func()
-                if isinstance(result, dict) and "score" in result:
+                if isinstance(result, dict):
                     return result
                 return {"score": float(result) if result else 0.0}
         except Exception as e:
