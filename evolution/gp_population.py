@@ -58,12 +58,14 @@ class RunSummary:
 class GPPopulation:
     """Tournament-selected GP organisms with immutable parent isolation.
 
-    The population never executes generated source.  Fitness calls the bounded
+    The population never executes generated source. Fitness calls the bounded
     interpreter in :mod:`evolution.gp_engine`, and the hall keeps at most 100
     frozen champions to prevent high-generation memory growth.
     """
 
     HALL_OF_FAME_MAX = 100
+    BLOAT_MAX_NODES = 64
+    TRAIN_SEED_OFFSET = 17
 
     def __init__(self, evaluator: FitnessEvaluator, primitives=None, terminals=None, population_size: int = 50, seed: int = 42, tournament_size: int = 5, crossover_rate: float = 0.8, mutation_rate: float = 0.15, elitism_count: int = 3, max_depth: int = 7, bloat_penalty: float = 0.001) -> None:
         if not 2 <= population_size <= 512:
@@ -89,6 +91,7 @@ class GPPopulation:
             depth = 2 + (index % max(1, self.max_depth - 1))
             tree = self.builder.random_tree(depth, "full" if index % 2 == 0 else "grow", self.evaluator.output_type)
             self.population.append(GPOrganism(organism_id=self._new_id(), genome=GPGenome(tree=tree), generation=0))
+        self._apply_bloat_brake()
         self._evaluate_current()
 
     def step(self) -> GenerationStats:
@@ -116,6 +119,7 @@ class GPPopulation:
             ))
         self.generation += 1
         self.population = next_population
+        self._apply_bloat_brake()
         self._evaluate_current()
         return self.history[-1]
 
@@ -173,8 +177,9 @@ class GPPopulation:
         if "rng_state" in payload:
             population.rng.setstate(_restore_tuple_state(payload["rng_state"]))
         if population.population:
+            population._apply_bloat_brake()
             results = population.evaluator.batch_evaluate(
-                [organism.genome for organism in population.population], seed=population.generation + 17
+                [organism.genome for organism in population.population], seed=population._training_seed()
             )
             for organism, result in zip(population.population, results):
                 organism.fitness_result = result
@@ -199,7 +204,9 @@ class GPPopulation:
         )
 
     def _evaluate_current(self) -> None:
-        results = self.evaluator.batch_evaluate([organism.genome for organism in self.population], seed=self.generation + 17)
+        results = self.evaluator.batch_evaluate(
+            [organism.genome for organism in self.population], seed=self._training_seed()
+        )
         for organism, result in zip(self.population, results):
             organism.fitness_result = result
             organism.genome.fitness = result.score
@@ -211,6 +218,34 @@ class GPPopulation:
             generation=self.generation, best_fitness=values[-1], average_fitness=sum(values) / len(values),
             median_fitness=values[len(values) // 2], best_program_size=self.champion.genome.complexity(), population_size=len(values),
         ))
+
+    def _training_seed(self) -> int:
+        """Return the single deterministic training suite seed for this generation."""
+        return self.generation + self.TRAIN_SEED_OFFSET
+
+    def _apply_bloat_brake(self) -> None:
+        """Hoist oversized descendants to their largest typed valid subtree.
+
+        This is a deterministic post-reproduction safety sweep, not a mutation:
+        it does not alter parentage, consume RNG state, or add a mutation event.
+        Restricting replacement candidates to the original root result type keeps
+        the typed interpreter/evaluator contract intact.
+        """
+        for organism in self.population:
+            tree = organism.genome.tree
+            if tree.size() <= self.BLOAT_MAX_NODES:
+                continue
+            same_type_subtrees = [
+                node for _, _, node in self.builder._collect_nodes(tree)
+                if node.result_type == tree.result_type and node.size() <= self.BLOAT_MAX_NODES
+            ]
+            if not same_type_subtrees:
+                raise RuntimeError("oversized typed GP tree has no valid hoist target")
+            hoisted = max(same_type_subtrees, key=lambda node: node.size()).copy()
+            organism.genome.tree = hoisted
+            organism.genome.primitives_used = sorted({
+                node.primitive.name for _, _, node in self.builder._collect_nodes(hoisted) if node.primitive
+            })
 
     def _selection_score(self, organism: GPOrganism) -> float:
         return organism.fitness - (self.bloat_penalty * organism.genome.complexity())

@@ -14,7 +14,6 @@ from dataclasses import dataclass, field, replace
 from typing import Dict, Iterable, Optional, Sequence
 
 from evolution.cellular import (
-    BASE_ACTIONS,
     ActionOutcome,
     AdaptiveCell,
     CellAction,
@@ -22,12 +21,6 @@ from evolution.cellular import (
     CellWorld,
     MOVEMENT,
     Position,
-)
-
-
-TISSUE_ACTIONS: tuple[CellAction, ...] = BASE_ACTIONS + (
-    CellAction.BROADCAST,
-    CellAction.SHARE,
 )
 
 
@@ -140,10 +133,16 @@ class Tissue:
             signal_direction=self._direction(cell.position, signal.position),
         )
 
-    def _publish(self, cell: AdaptiveCell) -> bool:
+    def _publish(self, cell: AdaptiveCell, *, required_kind: str | None = None) -> bool:
         resource = self.world.resource_map.get(cell.position, 0)
         hazard = self.world.hazard_map.get(cell.position, 0)
-        if resource:
+        if required_kind == "hazard" and hazard:
+            kind, strength = "hazard", hazard
+        elif required_kind == "resource" and resource:
+            kind, strength = "resource", resource
+        elif required_kind is not None:
+            return False
+        elif resource:
             kind, strength = "resource", resource
         elif hazard:
             kind, strength = "hazard", hazard
@@ -211,7 +210,7 @@ class Tissue:
 
     def _step_cell(self, cell: AdaptiveCell, rng: random.Random) -> ActionOutcome:
         sensors = self.sense(cell)
-        allowed = TISSUE_ACTIONS if self.enable_communication else BASE_ACTIONS
+        allowed = cell.allowed_actions(include_communication=self.enable_communication)
         action = cell.reason(sensors, rng, allowed_actions=allowed)
         pending = self._pending_credit.pop(cell.cell_id, 0.0)
         outcome = self.world.apply(cell, action)
@@ -220,6 +219,16 @@ class Tissue:
                 outcome = replace(outcome, accepted=True, note="signal_published")
             else:
                 outcome = replace(outcome, accepted=False, reward=outcome.reward - 0.20, note="no_local_signal")
+        elif self.enable_communication and action == CellAction.SIGNAL_ALARM:
+            if self._publish(cell, required_kind="hazard"):
+                outcome = replace(outcome, accepted=True, note="hazard_alarm_published")
+            else:
+                outcome = replace(outcome, accepted=False, reward=outcome.reward - 0.20, note="no_local_hazard")
+        elif self.enable_communication and action == CellAction.COORDINATE_WITH_NEIGHBOUR:
+            if self._publish(cell):
+                outcome = replace(outcome, accepted=True, note="coordination_signal_published")
+            else:
+                outcome = replace(outcome, accepted=False, reward=outcome.reward - 0.20, note="nothing_to_coordinate")
         elif self.enable_communication and action == CellAction.SHARE:
             amount = self._share_energy(cell)
             if amount:
@@ -230,7 +239,7 @@ class Tissue:
         self._credit_signal_source(cell, outcome)
         total_reward = outcome.reward + pending
         after = self.sense(cell)
-        cell.policy.learn(sensors.key(), action, total_reward, after.key(), cell.genome)
+        cell.policy.learn(sensors.key(), action, total_reward, after.key(), cell.genome, allowed_actions=allowed)
         cell.outcome_memory.append(replace(outcome, reward=round(total_reward, 6)))
         if len(cell.outcome_memory) > cell.max_outcomes:
             del cell.outcome_memory[: len(cell.outcome_memory) - cell.max_outcomes]

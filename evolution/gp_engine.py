@@ -356,17 +356,27 @@ class GPTreeBuilder:
     def _within_limits(self, tree: GPNode) -> bool:
         return tree.depth() <= self.MAX_DEPTH and tree.size() <= self.MAX_SIZE
 
-    def to_python_function(self, tree: GPNode, func_name: str, args: Sequence[str]) -> str:
-        safe_name = re.sub(r"[^A-Za-z0-9_]", "_", func_name)
+    def to_python_function(
+        self, tree: GPNode, name: str, args: Sequence[str], aliases: Mapping[str, str] | None = None,
+    ) -> str:
+        safe_name = re.sub(r"[^A-Za-z0-9_]", "_", name)
         if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", safe_name):
             safe_name = "evolved_fn"
         valid_args = [arg for arg in args if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", arg)]
+        alias_lines = [
+            f"        {alias} = {target}"
+            for alias, target in (aliases or {}).items()
+            if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", alias)
+            and target in valid_args and alias not in valid_args
+        ]
+        bindings = "\n".join(alias_lines)
         source = textwrap.dedent(
             f"""
             import math
 
             def {safe_name}({", ".join(valid_args)}):
                 try:
+            {bindings if bindings else '        pass'}
                     return {tree.to_python()}
                 except Exception:
                     return None
@@ -398,8 +408,23 @@ class GPGenome:
             self.primitives_used = sorted({node.primitive.name for _, _, node in _nodes(self.tree) if node.primitive})
 
     def to_python(self, func_name: str = "evolved_fn", args: Sequence[str] | None = None) -> str:
-        terminals = [Terminal(name=name, value_type=FLOAT) for name in (args or ["x"])]
-        return GPTreeBuilder(DEFAULT_PRIMITIVES, terminals, random.Random(0)).to_python_function(self.tree, func_name, list(args or ["x"]))
+        terminal_names = sorted({
+            node.terminal_name for _, _, node in _nodes(self.tree)
+            if node.is_terminal and node.terminal_name and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", node.terminal_name)
+        })
+        compatibility_aliases = {"input", "data"}
+        if args is None:
+            exported_args = ["x"] if set(terminal_names).issubset({"x", *compatibility_aliases}) else terminal_names or ["x"]
+        else:
+            exported_args = [arg for arg in args if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", arg)] or ["x"]
+        aliases = {
+            name: "x" for name in terminal_names
+            if name in compatibility_aliases and "x" in exported_args
+        }
+        terminals = [Terminal(name=name, value_type=FLOAT) for name in exported_args]
+        return GPTreeBuilder(DEFAULT_PRIMITIVES, terminals, random.Random(0)).to_python_function(
+            self.tree, func_name, exported_args, aliases=aliases,
+        )
 
     def execute(self, context: Mapping[str, Any]) -> Any:
         return self.tree.evaluate(context)

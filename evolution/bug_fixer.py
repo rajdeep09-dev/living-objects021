@@ -32,37 +32,82 @@ class FixCandidate:
     edit_distance: int
     generation: int
     mutation: str
+    assertions_passed: int = 0
+    assertions_total: int = 0
     sandbox_stdout: str = ""
     sandbox_stderr: str = ""
 
 
 class CandidateOnlyBugFixer:
-    """Enumerate small AST edits and return the smallest passing proposal."""
+    """Bounded candidate-only AST repair with partial-test survivor selection.
+
+    Every source candidate remains a proposal only and is evaluated exclusively
+    in :class:`IsolatedSandbox`. A failed round retains only a small number of
+    candidates that satisfy the most individual assertions, allowing a two-step
+    repair to be discovered without permission to alter a repository, install
+    code, or invoke external services.
+    """
 
     MAX_SOURCE_BYTES = 16_384
     MAX_CANDIDATES = 64
+    MAX_ROUNDS = 4
+    MAX_SURVIVORS = 4
 
     def __init__(self, sandbox: IsolatedSandbox | None = None) -> None:
         self._sandbox = sandbox or IsolatedSandbox(ResourceLimits(max_cpu_ms=350, max_memory_mb=32))
 
     def propose(self, report: BugReport) -> FixCandidate | None:
         self._validate_report(report)
-        candidates = list(self._mutations(report.broken_source))[: self.MAX_CANDIDATES]
-        passing: list[FixCandidate] = []
-        for mutation, source in candidates:
-            result = self._sandbox.run(f"{source}\n\n{report.assertion_test}\n", timeout_ms=350)
-            candidate = FixCandidate(
-                source=source,
-                test_passed=result.ok,
-                edit_distance=self._edit_distance(report.broken_source, source),
-                generation=1,
-                mutation=mutation,
-                sandbox_stdout=result.stdout,
-                sandbox_stderr=result.stderr,
+        assertions = self._assertion_sources(report.assertion_test)
+        survivors: list[FixCandidate] = [
+            FixCandidate(
+                source=report.broken_source,
+                test_passed=False,
+                edit_distance=0,
+                generation=0,
+                mutation="seed",
+                assertions_passed=0,
+                assertions_total=len(assertions),
             )
-            if candidate.test_passed:
-                passing.append(candidate)
-        return min(passing, key=lambda item: (item.edit_distance, item.mutation)) if passing else None
+        ]
+        evaluated_sources = {report.broken_source}
+        budget_remaining = self.MAX_CANDIDATES
+
+        for generation in range(1, self.MAX_ROUNDS + 1):
+            round_candidates: list[FixCandidate] = []
+            for seed in survivors:
+                for mutation, source in self._mutations(seed.source):
+                    if budget_remaining <= 0:
+                        break
+                    if source in evaluated_sources:
+                        continue
+                    evaluated_sources.add(source)
+                    budget_remaining -= 1
+                    result = self._sandbox.run(f"{source}\n\n{report.assertion_test}\n", timeout_ms=350)
+                    assertions_passed = len(assertions) if result.ok else self._count_passing_assertions(source, assertions)
+                    round_candidates.append(FixCandidate(
+                        source=source,
+                        test_passed=result.ok,
+                        edit_distance=self._edit_distance(report.broken_source, source),
+                        generation=generation,
+                        mutation=mutation if seed.generation == 0 else f"{seed.mutation}->{mutation}",
+                        assertions_passed=assertions_passed,
+                        assertions_total=len(assertions),
+                        sandbox_stdout=result.stdout,
+                        sandbox_stderr=result.stderr,
+                    ))
+                if budget_remaining <= 0:
+                    break
+            passing = [candidate for candidate in round_candidates if candidate.test_passed]
+            if passing:
+                return min(passing, key=lambda item: (item.edit_distance, item.mutation))
+            if not round_candidates or budget_remaining <= 0:
+                break
+            survivors = sorted(
+                round_candidates,
+                key=lambda item: (-item.assertions_passed, item.edit_distance, item.mutation, item.source),
+            )[: self.MAX_SURVIVORS]
+        return None
 
     def _validate_report(self, report: BugReport) -> None:
         if not report.bug_id or len(report.broken_source.encode("utf-8")) > self.MAX_SOURCE_BYTES:
@@ -110,6 +155,19 @@ class CandidateOnlyBugFixer:
                     assert isinstance(target, ast.Constant)
                     target.value += delta
                     yield "off_by_one", self._unparse(clone)
+
+    def _count_passing_assertions(self, source: str, assertions: tuple[str, ...]) -> int:
+        """Measure assertion-level progress in isolated, independent runs."""
+        return sum(
+            self._sandbox.run(f"{source}\n\n{assertion}\n", timeout_ms=350).ok
+            for assertion in assertions
+        )
+
+    @staticmethod
+    def _assertion_sources(assertion_test: str) -> tuple[str, ...]:
+        """Normalize each pre-validated assertion into an isolated test script."""
+        tree = ast.parse(assertion_test, mode="exec")
+        return tuple(ast.unparse(node) for node in tree.body)
 
     @staticmethod
     def _unparse(tree: ast.AST) -> str:

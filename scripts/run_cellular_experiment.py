@@ -15,7 +15,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Sequence
 
-from evolution.cellular import AdaptiveCell, CellGenome, CellWorld, evaluate_cell, run_lifetime
+from evolution.cellular import ACTION_UNIVERSE, AdaptiveCell, CellGenome, CellWorld, evaluate_cell, run_lifetime
 from evolution.cellular_eval import CellImprovementGate, EvaluatorPopulation, ExternalTruthLayer
 
 
@@ -27,6 +27,9 @@ class CellularGeneration:
     champion_holdout_score: float
     average_mutation_rate: float
     average_policy_states: float
+    average_action_capability_count: float
+    distinct_action_repertoires: int
+    action_capability_mutations: int
     evaluator_mutation_rate: float
     evaluator_calibration: float
     promoted: bool
@@ -46,6 +49,7 @@ def _fresh_population(*, size: int, rng: random.Random) -> list[AdaptiveCell]:
             mutation_rate=round(rng.uniform(0.04, 0.18), 6),
             inheritance_rate=round(rng.uniform(0.65, 1.0), 6),
             repair_bias=round(rng.uniform(0.0, 0.35), 6),
+            action_capabilities=frozenset(rng.sample(sorted(ACTION_UNIVERSE), rng.randint(4, 6))),
         )
         cells.append(AdaptiveCell(genome=genome, max_age=80))
     return cells
@@ -109,19 +113,6 @@ def run_experiment(
         if decision.promoted:
             promoted_champion = AdaptiveCell.from_state(champion.to_state())
 
-        history.append(
-            CellularGeneration(
-                generation=generation,
-                average_train_score=round(_mean(scores), 6),
-                champion_train_score=round(champion_train, 6),
-                champion_holdout_score=decision.measurement.candidate_score,
-                average_mutation_rate=round(_mean([cell.genome.mutation_rate for cell in population]), 6),
-                average_policy_states=round(_mean([len(cell.policy.values) for cell in population]), 6),
-                evaluator_mutation_rate=evaluator_population.average_mutation_rate,
-                evaluator_calibration=decision.evaluator_calibration,
-                promoted=decision.promoted,
-            )
-        )
         evaluator_population.evolve({evaluator.evaluator_id: decision.evaluator_calibration}, rng)
 
         elite_count = max(2, population_size // 5)
@@ -132,9 +123,28 @@ def run_experiment(
             )
         elites = survivors[:elite_count]
         next_population = [AdaptiveCell.from_state(cell.to_state()) for cell in elites]
+        capability_mutations = 0
         while len(next_population) < population_size:
             parent = elites[len(next_population) % len(elites)]
-            next_population.append(parent.reproduce(rng, home=(0, 0)))
+            child = parent.reproduce(rng, home=(0, 0))
+            capability_mutations += int(child.genome.action_capabilities != parent.genome.action_capabilities)
+            next_population.append(child)
+        history.append(
+            CellularGeneration(
+                generation=generation,
+                average_train_score=round(_mean(scores), 6),
+                champion_train_score=round(champion_train, 6),
+                champion_holdout_score=decision.measurement.candidate_score,
+                average_mutation_rate=round(_mean([cell.genome.mutation_rate for cell in population]), 6),
+                average_policy_states=round(_mean([len(cell.policy.values) for cell in population]), 6),
+                average_action_capability_count=round(_mean([len(cell.genome.action_capabilities) for cell in population]), 6),
+                distinct_action_repertoires=len({cell.genome.action_capabilities for cell in population}),
+                action_capability_mutations=capability_mutations,
+                evaluator_mutation_rate=evaluator_population.average_mutation_rate,
+                evaluator_calibration=decision.evaluator_calibration,
+                promoted=decision.promoted,
+            )
+        )
         population = next_population
 
     final_measurement = truth.measure(candidate=promoted_champion, baseline=initial_champion)
@@ -147,6 +157,7 @@ def run_experiment(
             "seed": seed,
             "ticks": ticks,
         },
+        "action_universe": sorted(ACTION_UNIVERSE),
         "history": [asdict(metric) for metric in history],
         "initial_holdout_score": truth.measure(candidate=initial_champion, baseline=initial_champion).candidate_score,
         "promoted_holdout_score": final_measurement.candidate_score,

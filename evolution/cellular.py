@@ -40,6 +40,31 @@ class CellAction(str, Enum):
     BROADCAST = "broadcast"
     SHARE = "share"
     WAIT = "wait"
+    SIGNAL_ALARM = "signal_alarm"
+    COORDINATE_WITH_NEIGHBOUR = "coordinate_with_neighbour"
+    CACHE_RESOURCE = "cache_resource"
+    PREDICT_HAZARD = "predict_hazard"
+
+
+# Action names are declarative data. A cell can evolve a subset of this finite
+# universe, but cannot register a callback, load source, or gain an action that
+# the world has not already implemented and bounded.
+ACTION_UNIVERSE: frozenset[str] = frozenset(action.value for action in CellAction)
+MIN_ACTION_CAPABILITIES = 4
+DEFAULT_ACTION_CAPABILITIES: frozenset[str] = frozenset({
+    CellAction.MOVE_NORTH.value,
+    CellAction.MOVE_SOUTH.value,
+    CellAction.MOVE_WEST.value,
+    CellAction.MOVE_EAST.value,
+    CellAction.HARVEST.value,
+    CellAction.WAIT.value,
+})
+COMMUNICATION_ACTIONS: frozenset[CellAction] = frozenset({
+    CellAction.BROADCAST,
+    CellAction.SHARE,
+    CellAction.SIGNAL_ALARM,
+    CellAction.COORDINATE_WITH_NEIGHBOUR,
+})
 
 
 MOVEMENT: Mapping[CellAction, Position] = {
@@ -71,14 +96,29 @@ class CellGenome:
     inheritance_rate: float = 0.90
     repair_bias: float = 0.10
     cooperation: float = 0.50
+    action_capabilities: frozenset[str] = DEFAULT_ACTION_CAPABILITIES
     generation_born: int = 0
+
+    def __post_init__(self) -> None:
+        normalized = frozenset(
+            item.value if isinstance(item, CellAction) else str(item)
+            for item in self.action_capabilities
+        )
+        unknown = normalized - ACTION_UNIVERSE
+        if unknown:
+            raise ValueError(f"unknown action capabilities: {sorted(unknown)}")
+        if not MIN_ACTION_CAPABILITIES <= len(normalized) <= len(ACTION_UNIVERSE):
+            raise ValueError(
+                f"action_capabilities must contain {MIN_ACTION_CAPABILITIES}..{len(ACTION_UNIVERSE)} actions"
+            )
+        object.__setattr__(self, "action_capabilities", normalized)
 
     @staticmethod
     def _clamp(value: float, lower: float, upper: float) -> float:
         return max(lower, min(upper, value))
 
     def mutate(self, rng: random.Random, *, generation_born: Optional[int] = None) -> "CellGenome":
-        """Create a child genome, including mutation of mutation-rate itself."""
+        """Create a child genome including one bounded structural action mutation."""
 
         next_mutation_rate = self._clamp(
             self.mutation_rate + rng.gauss(0.0, self.mutation_rate * 0.20 + 0.008),
@@ -89,6 +129,14 @@ class CellGenome:
         def shifted(value: float, low: float, high: float, scale: float = 1.0) -> float:
             return self._clamp(value + rng.gauss(0.0, next_mutation_rate * scale), low, high)
 
+        capabilities = set(self.action_capabilities)
+        unavailable = sorted(ACTION_UNIVERSE - capabilities)
+        removable = sorted(capabilities) if len(capabilities) > MIN_ACTION_CAPABILITIES else []
+        if unavailable and (not removable or rng.random() < 0.5):
+            capabilities.add(rng.choice(unavailable))
+        elif removable:
+            capabilities.remove(rng.choice(removable))
+
         return CellGenome(
             learning_rate=shifted(self.learning_rate, 0.05, 0.90, 0.45),
             discount=shifted(self.discount, 0.05, 0.95, 0.35),
@@ -97,11 +145,14 @@ class CellGenome:
             inheritance_rate=shifted(self.inheritance_rate, 0.05, 1.0, 0.20),
             repair_bias=shifted(self.repair_bias, 0.0, 0.80, 0.35),
             cooperation=shifted(self.cooperation, 0.0, 1.0, 0.35),
+            action_capabilities=frozenset(capabilities),
             generation_born=self.generation_born + 1 if generation_born is None else generation_born,
         )
 
-    def to_state(self) -> Dict[str, float | int]:
-        return asdict(self)
+    def to_state(self) -> Dict[str, object]:
+        state: Dict[str, object] = asdict(self)
+        state["action_capabilities"] = sorted(self.action_capabilities)
+        return state
 
     @classmethod
     def from_state(cls, payload: Mapping[str, object]) -> "CellGenome":
@@ -209,11 +260,16 @@ class CellPolicy:
         reward: float,
         next_state: StateKey,
         genome: CellGenome,
+        *,
+        allowed_actions: Optional[Sequence[CellAction]] = None,
     ) -> None:
         """Apply one temporal-difference update from observed evidence."""
 
         row = self._row(state)
-        next_best = max(self._row(next_state).values())
+        actions = tuple(allowed_actions or tuple(CellAction(capability) for capability in sorted(genome.action_capabilities)))
+        if action not in actions:
+            raise ValueError("attempted to learn an action absent from the genome capability repertoire")
+        next_best = max(self._row(next_state)[candidate] for candidate in actions)
         target = float(reward) + genome.discount * next_best
         row[action] += genome.learning_rate * (target - row[action])
 
@@ -341,6 +397,8 @@ class CellWorld:
             return 0.75
         if action in {CellAction.HARVEST, CellAction.REPAIR}:
             return 0.90
+        if action in {CellAction.CACHE_RESOURCE, CellAction.PREDICT_HAZARD}:
+            return 0.55
         return 0.35
 
     def apply(self, cell: "AdaptiveCell", action: CellAction) -> ActionOutcome:
@@ -348,6 +406,8 @@ class CellWorld:
 
         if not cell.alive:
             return ActionOutcome(action, reward=-1.0, accepted=False, energy_delta=0.0, note="dead")
+        if action.value not in cell.genome.action_capabilities:
+            return ActionOutcome(action, reward=-0.5, accepted=False, energy_delta=0.0, note="capability_unavailable")
 
         self.tick_count += 1
         before_energy = cell.energy
@@ -394,6 +454,28 @@ class CellWorld:
                 accepted = False
                 reward -= 0.25
                 note = "no_hazard"
+        elif action == CellAction.CACHE_RESOURCE:
+            if cell.carried_resource:
+                cell.carried_resource -= 1
+                self.resource_map[cell.position] = self.resource_map.get(cell.position, 0) + 1
+                reward += 0.12
+                note = "resource_cached"
+            else:
+                accepted = False
+                reward -= 0.20
+                note = "no_resource_to_cache"
+        elif action == CellAction.PREDICT_HAZARD:
+            if self.local_hazard(cell.position):
+                reward += 0.16
+                note = "hazard_observed"
+            else:
+                accepted = False
+                reward -= 0.12
+                note = "no_hazard_observed"
+        elif action in COMMUNICATION_ACTIONS:
+            accepted = False
+            reward -= 0.10
+            note = "requires_tissue"
 
         if cell.position == self.home and cell.carried_resource:
             delivered = cell.carried_resource
@@ -461,7 +543,15 @@ class AdaptiveCell:
 
         if not self.alive:
             return CellAction.WAIT
-        return self.policy.choose(sensors.key(), self.genome, rng, allowed_actions=allowed_actions)
+        actions = tuple(allowed_actions) if allowed_actions is not None else self.allowed_actions()
+        return self.policy.choose(sensors.key(), self.genome, rng, allowed_actions=actions)
+
+    def allowed_actions(self, *, include_communication: bool = True) -> tuple[CellAction, ...]:
+        """Return only bounded world actions explicitly present in this genome."""
+        actions = tuple(CellAction(capability) for capability in sorted(self.genome.action_capabilities))
+        if include_communication:
+            return actions
+        return tuple(action for action in actions if action not in COMMUNICATION_ACTIONS)
 
     def step(self, world: CellWorld, rng: random.Random) -> ActionOutcome:
         """Sense, reason, act, and learn from the world-owned outcome."""
@@ -469,10 +559,14 @@ class AdaptiveCell:
         if not self.alive:
             return ActionOutcome(CellAction.WAIT, -1.0, False, 0.0, note="dead")
         before = self.sense(world)
-        action = self.reason(before, rng)
+        allowed = self.allowed_actions(include_communication=False)
+        action = self.reason(before, rng, allowed_actions=allowed)
         outcome = world.apply(self, action)
         after = self.sense(world)
-        self.policy.learn(before.key(), action, outcome.reward, after.key(), self.genome)
+        self.policy.learn(
+            before.key(), action, outcome.reward, after.key(), self.genome,
+            allowed_actions=allowed,
+        )
         self.outcome_memory.append(outcome)
         if len(self.outcome_memory) > self.max_outcomes:
             del self.outcome_memory[: len(self.outcome_memory) - self.max_outcomes]

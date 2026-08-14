@@ -25,6 +25,7 @@ class ProgramOffer:
     genome: dict[str, Any]
     task: str
     held_out: FitnessResult
+    held_out_seed: int
     tree_validation: ValidationReport
     source_validation: ValidationReport
     price_credits: int
@@ -40,6 +41,7 @@ class VerifiedProgramMarket:
     """
 
     MAX_PRICE_CREDITS = 10_000
+    HELD_OUT_SEED = 9_973
 
     def __init__(self, validator: ProgramValidator | None = None) -> None:
         self._validator = validator or ProgramValidator()
@@ -79,8 +81,10 @@ class VerifiedProgramMarket:
         source_validation = self._validator.validate_source(genome.to_python())
         if not tree_validation.valid or not source_validation.valid:
             raise ValueError("program fails validation")
-        # Deterministic data disjoint from the population's usual seed=42 suite.
-        held_out = evaluator.batch_evaluate([genome], seed=9_973)[0]
+        # This fixed verifier-owned suite is intentionally not caller-supplied.
+        # It is disjoint from GPPopulation's generation + TRAIN_SEED_OFFSET train
+        # channel for the bounded generation ranges supported by this component.
+        held_out = evaluator.batch_evaluate([genome], seed=self.HELD_OUT_SEED)[0]
         if held_out.correctness <= 0.0:
             raise ValueError("program has no demonstrated held-out correctness")
         offer = ProgramOffer(
@@ -89,6 +93,7 @@ class VerifiedProgramMarket:
             genome=genome.to_dict(),
             task=task,
             held_out=held_out,
+            held_out_seed=self.HELD_OUT_SEED,
             tree_validation=tree_validation,
             source_validation=source_validation,
             price_credits=price_credits,

@@ -7,6 +7,15 @@ from evolution.gp_engine import DEFAULT_PRIMITIVES, FLOAT, GPGenome, GPNode
 from evolution.program_market import VerifiedProgramMarket
 
 
+class RecordingAbsoluteDifferenceEvaluator(AbsoluteDifferenceEvaluator):
+    def __init__(self) -> None:
+        self.batch_seeds: list[int] = []
+
+    def batch_evaluate(self, genomes, seed: int, n: int = 20):
+        self.batch_seeds.append(seed)
+        return super().batch_evaluate(genomes, seed, n)
+
+
 def _absolute_difference() -> GPGenome:
     primitives = {item.name: item for item in DEFAULT_PRIMITIVES}
     left = GPNode(terminal_name="left", value_type=FLOAT)
@@ -35,6 +44,7 @@ def test_verified_market_uses_non_monetary_credits_and_detached_genomes() -> Non
 def test_market_rejects_unverified_or_unfunded_exchange() -> None:
     market = VerifiedProgramMarket()
     incorrect = GPGenome(GPNode(terminal_value=0.0, value_type=FLOAT))
+    incorrect.fitness = 1.0  # Caller-controlled metadata cannot verify an offer.
     with pytest.raises(ValueError, match="no demonstrated"):
         market.list_program(
             seller_id="seller", offer_id="wrong", genome=incorrect,
@@ -47,3 +57,21 @@ def test_market_rejects_unverified_or_unfunded_exchange() -> None:
     )
     with pytest.raises(ValueError, match="insufficient"):
         market.acquire(buyer_id="buyer", offer_id="right")
+
+
+def test_verified_market_derives_held_out_fitness_and_rejects_caller_score_argument() -> None:
+    market = VerifiedProgramMarket()
+    evaluator = RecordingAbsoluteDifferenceEvaluator()
+    offer = market.list_program(
+        seller_id="seller", offer_id="derived-score", genome=_absolute_difference(),
+        evaluator=evaluator, task="absolute_difference", price_credits=1,
+    )
+    assert evaluator.batch_seeds == [VerifiedProgramMarket.HELD_OUT_SEED]
+    assert offer.held_out_seed == VerifiedProgramMarket.HELD_OUT_SEED
+    assert offer.held_out.correctness == 1.0
+    with pytest.raises(TypeError):
+        market.list_program(
+            seller_id="seller", offer_id="caller-score", genome=_absolute_difference(),
+            evaluator=evaluator, task="absolute_difference", price_credits=1,
+            fitness=1.0,
+        )

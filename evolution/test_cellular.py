@@ -6,6 +6,7 @@ import random
 import pytest
 
 from evolution.cellular import (
+    ACTION_UNIVERSE,
     AdaptiveCell,
     CellAction,
     CellGenome,
@@ -49,6 +50,32 @@ def test_cell_learns_from_actual_harvest_outcome_and_inherits_policy_memory():
     assert child.parent_id == parent.cell_id
     assert state in child.policy.values
     assert child.policy.values[state] == parent.policy.values[state]
+
+
+def test_cell_action_capabilities_are_bounded_mutable_and_inherited():
+    required = {"signal_alarm", "coordinate_with_neighbour", "cache_resource", "predict_hazard"}
+    assert len(ACTION_UNIVERSE) >= 10
+    assert required.issubset(ACTION_UNIVERSE)
+    parent = AdaptiveCell(genome=CellGenome(action_capabilities=frozenset({
+        "move_north", "move_south", "move_west", "move_east",
+    })))
+    children = [parent.reproduce(random.Random(seed), home=(0, 0)) for seed in range(20, 35)]
+    assert all(child.genome.action_capabilities <= ACTION_UNIVERSE for child in children)
+    assert all(
+        len(child.genome.action_capabilities.symmetric_difference(parent.genome.action_capabilities)) == 1
+        for child in children
+    )
+    assert any(child.genome.action_capabilities != parent.genome.action_capabilities for child in children)
+
+
+def test_world_rejects_action_that_is_absent_from_cell_capabilities():
+    world = CellWorld(seed=18, width=5, height=5, resource_sites=0, hazard_sites=0)
+    world.hazard_map = {(1, 1): 1}
+    cell = AdaptiveCell(position=(1, 1))
+    assert CellAction.REPAIR.value not in cell.genome.action_capabilities
+    outcome = world.apply(cell, CellAction.REPAIR)
+    assert not outcome.accepted
+    assert outcome.note == "capability_unavailable"
 
 
 def test_cell_world_enforces_energy_and_lifetime_bounds():
@@ -101,7 +128,12 @@ def test_tissue_signal_produces_delayed_credit_only_after_real_neighbor_harvest(
 
     world = CellWorld(seed=13, width=5, height=5, resource_sites=0, hazard_sites=0)
     world.resource_map = {(2, 1): 1}
-    deterministic_genome = CellGenome(exploration_rate=0.0)
+    deterministic_genome = CellGenome(
+        exploration_rate=0.0,
+        action_capabilities=frozenset({
+            "move_north", "move_south", "move_west", "move_east", "harvest", "broadcast",
+        }),
+    )
     broadcaster = AdaptiveCell(
         cell_id="a-broadcaster", position=(2, 1), genome=deterministic_genome
     )

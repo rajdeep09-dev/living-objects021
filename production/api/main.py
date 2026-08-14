@@ -455,18 +455,16 @@ async def v6_evolution_stream(websocket: WebSocket, token: str = Query(default="
         return
     _V6_WS_CONNECTIONS[address] = _V6_WS_CONNECTIONS.get(address, 0) + 1
     await websocket.accept()
-    cursor = 0
+    queue = await v6_state.live_gp.subscribe()
     try:
+        for event in v6_state.live_gp.history[-20:]:
+            await websocket.send_json(event)
         while True:
-            events = v6_state.events
-            if cursor < len(events):
-                for event in events[cursor:]:
-                    await websocket.send_json(event)
-                cursor = len(events)
-            await asyncio.sleep(0.25)
+            await websocket.send_json(await queue.get())
     except WebSocketDisconnect:
         return
     finally:
+        await v6_state.live_gp.unsubscribe(queue)
         remaining = _V6_WS_CONNECTIONS.get(address, 1) - 1
         if remaining <= 0:
             _V6_WS_CONNECTIONS.pop(address, None)

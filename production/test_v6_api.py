@@ -64,9 +64,20 @@ def test_v6_evolves_interpreted_program_and_rejects_source_submission(client: Te
     assert boundary.json()["accepted"] is False
 
 
-def test_v6_stream_replays_bounded_program_events(client: TestClient, auth_headers: dict[str, str]) -> None:
+def test_v6_stream_emits_ten_real_population_generations_with_champion_code(
+    client: TestClient, auth_headers: dict[str, str]
+) -> None:
     token = auth_headers["Authorization"].split()[-1]
     with client.websocket_connect(f"/ws/v6/evolution?token={token}") as websocket:
-        v6_routes.state.emit(v6_routes.ProgramRejectedEvent(run_id="boundary", reason="named tasks only"))
-        event = websocket.receive_json()
-        assert event["event_type"] == "program_rejected"
+        response = client.post(
+            "/v6/runs",
+            headers=auth_headers,
+            json={"task": "sorting", "population_size": 8, "generations": 10, "seed": 901},
+        )
+        assert response.status_code == 201
+        messages = [websocket.receive_json() for _ in range(10)]
+    assert [message["generation"] for message in messages] == list(range(1, 11))
+    assert all(message["event_type"] == "gp_generation_completed" for message in messages)
+    assert all(message["task_domain"] == "sorting" for message in messages)
+    assert all(message["champion_code"].strip() for message in messages)
+    assert all(1 <= message["champion_size_nodes"] <= 64 for message in messages)

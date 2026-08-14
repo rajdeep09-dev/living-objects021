@@ -93,3 +93,18 @@
 - [x] Publish the full raw artifacts and a precise evidence report describing the claim that the benchmark supports and the stronger claims it does not support.
 - [x] Show the proof protocol, baseline-versus-champion delta, and independent rerun status in the authenticated observatory.
 - [x] Re-run the complete Python and observatory verification suites before the proof-release checkpoint.
+
+## BEAST v7 foundation — strict dependency order
+
+- [x] Audit VULN-V6-01 through VULN-V6-08 against current code and record the evidence matrix, including requirements already implemented in bounded form.
+- [x] Repair candidate-only bug fixer survivor selection and add a regression proving multi-step partial fixes can be promoted as proposals only.
+- [x] Add and test a post-reproduction GP bloat sweep that constrains every organism to the documented node limit over sustained runs.
+- [x] Verify and enforce generation-rotating evaluator seeds with within-generation consistency and disjoint holdout protection.
+- [x] Remove caller-controlled market fitness from every API boundary and require safe evaluator-derived verification before listing.
+- [x] Add evolvable cellular action capabilities from a bounded action universe, mutation rules, and a reproducible cellular v7 evidence report.
+- [x] Replace any synthetic evolution-stream path with real GP population generation events and actual champion-source evidence.
+- [x] Add polyglot runtime-equivalence tests and complete full-population save/load continuity tests.
+- [ ] Build a bounded, resumable sorting-marathon runner with declared milestones and machine-verifiable reports; do not claim an unmeasured 100,000-generation result. Runner and artifact regression are implemented; the measured bounded execution is pending.
+- [ ] Extend the authenticated observatory only with stream and checkpoint data that the verified engine actually produces.
+- [ ] Document the persistent-compute, scheduling, WebSocket, Redis, and advanced-research roadmap separately from completed local evidence.
+- [ ] Run full regression, independent review, and release verification before checkpointing the v7 foundation release.

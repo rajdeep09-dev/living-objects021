@@ -10,12 +10,12 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from evolution.fitness import AbsoluteDifferenceEvaluator, FitnessEvaluator, SortingEvaluator
 from evolution.gp_population import GPPopulation
-from production.api.v6.websocket import ProgramEvolvedEvent, ProgramRejectedEvent
+from production.api.v6.websocket import LiveGPPopulationBroadcaster, ProgramRejectedEvent
 
 
 TaskName = Literal["absolute_difference", "sorting"]
@@ -38,6 +38,7 @@ def _evaluator_for(task: TaskName) -> FitnessEvaluator:
 class V6ControlState:
     events: list[dict[str, Any]] = field(default_factory=list)
     runs: list[dict[str, Any]] = field(default_factory=list)
+    live_gp: LiveGPPopulationBroadcaster = field(default_factory=LiveGPPopulationBroadcaster)
 
     def emit(self, event: BaseModel) -> dict[str, Any]:
         payload = event.model_dump()
@@ -58,7 +59,7 @@ router = APIRouter(prefix="/v6", tags=["v6"])
 def snapshot() -> dict[str, Any]:
     return {
         "run_count": len(state.runs),
-        "event_count": len(state.events),
+        "event_count": len(state.live_gp.history),
         "allowed_tasks": ["absolute_difference", "sorting"],
         "execution_boundary": "typed AST interpreter only; user-provided source is never accepted or executed",
     }
@@ -70,21 +71,26 @@ def list_runs() -> dict[str, Any]:
 
 
 @router.post("/runs", status_code=201)
-def evolve_program(payload: ProgramRunRequest) -> dict[str, Any]:
+async def evolve_program(payload: ProgramRunRequest) -> dict[str, Any]:
     evaluator = _evaluator_for(payload.task)
-    population = GPPopulation(
-        evaluator=evaluator,
-        population_size=payload.population_size,
-        seed=payload.seed,
-    )
-    population.run(payload.generations)
+    try:
+        generation_events = await state.live_gp.advance(
+            task_domain=payload.task,
+            evaluator=evaluator,
+            population_size=payload.population_size,
+            seed=payload.seed,
+            steps=payload.generations,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    population = state.live_gp.population_for(payload.task)
     champion = population.champion
-    run_id = f"v6-{uuid.uuid4().hex[:20]}"
-    source_code = champion.genome.to_python(f"evolved_{run_id}")
+    event = generation_events[-1]
+    source_code = str(event["champion_code"])
     source_sha256 = hashlib.sha256(source_code.encode("utf-8")).hexdigest()
-    holdout = evaluator.batch_evaluate([champion.genome], seed=payload.seed + 10_000)[0]
+    holdout = population.evaluator.batch_evaluate([champion.genome], seed=payload.seed + 10_000)[0]
     item = {
-        "run_id": run_id,
+        "run_id": event["run_id"],
         "task": payload.task,
         "generation": population.generation,
         "training_fitness": champion.fitness,
@@ -100,14 +106,6 @@ def evolve_program(payload: ProgramRunRequest) -> dict[str, Any]:
         },
     }
     state.record_run(item)
-    event = state.emit(ProgramEvolvedEvent(
-        run_id=run_id,
-        task=payload.task,
-        generation=population.generation,
-        training_fitness=champion.fitness,
-        holdout_correctness=holdout.correctness,
-        source_sha256=source_sha256,
-    ))
     return {"run": item, "event": event}
 
 
