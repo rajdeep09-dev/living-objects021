@@ -85,6 +85,19 @@ LIST_PRIMITIVES: tuple[Primitive, ...] = (
     Primitive("unique", 1, lambda values: list(dict.fromkeys(values)), LIST, (LIST,)),
 )
 
+# Generic list controls are registered for lossless checkpoint decoding but are
+# deliberately excluded from DEFAULT_PRIMITIVES. Task profiles must opt in.
+GENERIC_LIST_CONTROL_PRIMITIVES: tuple[Primitive, ...] = (
+    Primitive(
+        "choose_list", 3,
+        lambda condition, truthy, falsy: list(truthy) if float(condition) > 0 else list(falsy),
+        LIST, (FLOAT, LIST, LIST),
+    ),
+    Primitive(
+        "concat_lists", 2, lambda left, right: [*list(left), *list(right)], LIST, (LIST, LIST),
+    ),
+)
+
 STRING_PRIMITIVES: tuple[Primitive, ...] = (
     Primitive("concat", 2, lambda a, b: str(a) + str(b), STRING, (STRING, STRING)),
     Primitive("upper1", 1, lambda value: str(value).upper(), STRING, (STRING,)),
@@ -98,6 +111,7 @@ STRING_PRIMITIVES: tuple[Primitive, ...] = (
 )
 
 DEFAULT_PRIMITIVES = ARITHMETIC_PRIMITIVES + BOOLEAN_PRIMITIVES + LIST_PRIMITIVES + STRING_PRIMITIVES
+ALL_REGISTERED_PRIMITIVES = DEFAULT_PRIMITIVES + GENERIC_LIST_CONTROL_PRIMITIVES
 
 
 @dataclass(frozen=True)
@@ -198,15 +212,20 @@ class GPNode:
         }
 
     @classmethod
-    def from_dict(cls, payload: Mapping[str, Any], primitives: Iterable[Primitive] = DEFAULT_PRIMITIVES) -> "GPNode":
+    def from_dict(cls, payload: Mapping[str, Any], primitives: Iterable[Primitive] = ALL_REGISTERED_PRIMITIVES) -> "GPNode":
         by_name = {primitive.name: primitive for primitive in primitives}
         primitive_name = payload.get("primitive")
         primitive = by_name.get(str(primitive_name)) if primitive_name is not None else None
+        if primitive_name is not None and primitive is None:
+            raise ValueError(f"checkpoint references an unregistered primitive: {primitive_name}")
+        value_type = str(payload.get("value_type", primitive.return_type if primitive else FLOAT))
+        if primitive is not None and value_type != primitive.return_type:
+            raise ValueError(f"checkpoint type mismatch for primitive: {primitive.name}")
         return cls(
             primitive=primitive,
             terminal_value=payload.get("terminal_value"),
             terminal_name=str(payload.get("terminal_name", "")),
-            value_type=str(payload.get("value_type", primitive.return_type if primitive else FLOAT)),
+            value_type=value_type,
             children=[cls.from_dict(child, primitives) for child in payload.get("children", [])],
         )
 
@@ -447,9 +466,9 @@ class GPGenome:
         }
 
     @classmethod
-    def from_dict(cls, payload: Mapping[str, Any]) -> "GPGenome":
+    def from_dict(cls, payload: Mapping[str, Any], primitives: Iterable[Primitive] = ALL_REGISTERED_PRIMITIVES) -> "GPGenome":
         return cls(
-            tree=GPNode.from_dict(payload["tree"]),
+            tree=GPNode.from_dict(payload["tree"], primitives=primitives),
             primitives_used=list(payload.get("primitives_used", [])),
             generation_created=int(payload.get("generation_created", 0)),
             parent_ids=list(payload.get("parent_ids", [])),

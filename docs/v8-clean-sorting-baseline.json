@@ -1,0 +1,136 @@
+{
+  "audit": {
+    "baseline": {
+      "best_fitness": 0.05,
+      "evaluation_seed": 17,
+      "mean_fitness": 0.0097,
+      "median_fitness": 0.0,
+      "perfect_programs": 0,
+      "population_size": 500,
+      "seed": 2026
+    },
+    "decision": "Eligible for a separately preregistered benchmark only after reviewing near-direct compositions.",
+    "direct_solution_matches": [],
+    "one_operation_candidates_tested": 21,
+    "profile": {
+      "audit_cases_per_seed": 50,
+      "audit_seeds": [
+        101,
+        211,
+        307
+      ],
+      "primitive_count": 14,
+      "primitive_names": [
+        "head",
+        "tail",
+        "cons",
+        "length",
+        "add",
+        "sub",
+        "neg",
+        "min2",
+        "max2",
+        "gt",
+        "lt",
+        "eq",
+        "choose_list",
+        "concat_lists"
+      ],
+      "terminal_count": 3
+    },
+    "schema": "beast-v8-contamination-audit-v1",
+    "status": "NO_ONE_OPERATION_MATCH_OBSERVED",
+    "task_id": "clean-sorting-v1"
+  },
+  "pre_registration": {
+    "direct_solution_gate": "no one-operation direct candidate may pass all three evaluator-owned audit suites",
+    "profile_transition_generations": [
+      0,
+      200,
+      1000
+    ],
+    "random_baseline_gate": "no perfect program in the seeded 500-organism initial population and best fitness < 0.20"
+  },
+  "primitive_manifest": {
+    "all_primitive_names": [
+      "head",
+      "tail",
+      "cons",
+      "length",
+      "add",
+      "sub",
+      "neg",
+      "min2",
+      "max2",
+      "gt",
+      "lt",
+      "eq",
+      "choose_list",
+      "concat_lists"
+    ],
+    "explicitly_prohibited_names": [
+      "sort1",
+      "map_sq",
+      "filter_pos",
+      "unique",
+      "reverse1",
+      "sum1"
+    ],
+    "phases": [
+      {
+        "name": "structural",
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length"
+        ],
+        "purpose": "Expose list decomposition and reconstruction only.",
+        "starts_at_generation": 0
+      },
+      {
+        "name": "ordering",
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length",
+          "add",
+          "sub",
+          "neg",
+          "min2",
+          "max2",
+          "gt",
+          "lt",
+          "eq",
+          "choose_list"
+        ],
+        "purpose": "Add arithmetic comparisons and generic conditional list selection.",
+        "starts_at_generation": 200
+      },
+      {
+        "name": "composition",
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length",
+          "add",
+          "sub",
+          "neg",
+          "min2",
+          "max2",
+          "gt",
+          "lt",
+          "eq",
+          "choose_list",
+          "concat_lists"
+        ],
+        "purpose": "Add generic list concatenation for larger compositional programs.",
+        "starts_at_generation": 1000
+      }
+    ],
+    "profile": "clean-sorting-v1"
+  },
+  "schema": "beast-v8-clean-sorting-baseline-v1"
+}

@@ -5,12 +5,12 @@ import copy
 import json
 import random
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
 from evolution.fitness import FitnessEvaluator, FitnessResult
-from evolution.gp_engine import DEFAULT_PRIMITIVES, GPGenome, GPNode, GPTreeBuilder
+from evolution.gp_engine import ALL_REGISTERED_PRIMITIVES, DEFAULT_PRIMITIVES, GPGenome, GPNode, GPTreeBuilder
 
 
 @dataclass
@@ -34,6 +34,7 @@ class GPOrganism:
             "program_depth": self.genome.depth(), "source_code": self.genome.to_python(f"evolved_gen{self.generation}"),
             "parents": self.parent_ids, "age": self.age,
             "cultural_strategies": self.cultural_strategies, "genome": self.genome.to_dict(),
+            "fitness_result": asdict(self.fitness_result) if self.fitness_result else None,
         }
 
 
@@ -94,6 +95,18 @@ class GPPopulation:
         self._apply_bloat_brake()
         self._evaluate_current()
 
+    def set_primitive_profile(self, primitives) -> None:
+        """Apply a declared curriculum profile to future variation operations.
+
+        Existing organisms remain immutable historical programs. The shared RNG
+        is retained, so a profile transition does not reseed or otherwise hide
+        deterministic population state.
+        """
+        primitive_tuple = tuple(primitives)
+        if not primitive_tuple:
+            raise ValueError("a primitive profile must contain at least one primitive")
+        self.builder = GPTreeBuilder(primitive_tuple, self.evaluator.terminals, self.rng)
+
     def step(self) -> GenerationStats:
         if not self.population:
             self.initialize()
@@ -150,7 +163,7 @@ class GPPopulation:
     def checkpoint_payload(self) -> dict[str, Any]:
         """Return a JSON-compatible bounded snapshot for an atomic caller-owned write."""
         return {
-            "version": 1,
+            "version": 2,
             "configuration": {
                 "population_size": self.population_size, "tournament_size": self.tournament_size,
                 "crossover_rate": self.crossover_rate, "mutation_rate": self.mutation_rate,
@@ -158,6 +171,7 @@ class GPPopulation:
                 "bloat_penalty": self.bloat_penalty,
             },
             "rng_state": _json_safe_state(self.rng.getstate()),
+            "primitive_profile": [primitive.name for primitive in self.builder.primitives],
             "generation": self.generation, "population": [organism.to_dict() for organism in self.population],
             "history": [stat.__dict__ for stat in self.history[-1000:]],
             "hall_of_fame": [organism.to_dict() for organism in self.hall_of_fame],
@@ -166,9 +180,17 @@ class GPPopulation:
     @classmethod
     def from_checkpoint_payload(cls, evaluator: FitnessEvaluator, payload: Mapping[str, Any], primitives=None, terminals=None) -> "GPPopulation":
         """Restore a JSON checkpoint without deserializing executable code."""
-        if int(payload.get("version", 0)) != 1:
+        version = int(payload.get("version", 0))
+        if version not in (1, 2):
             raise ValueError("unsupported GP checkpoint version")
         config = dict(payload.get("configuration", {}))
+        if primitives is None and version >= 2:
+            known = {primitive.name: primitive for primitive in ALL_REGISTERED_PRIMITIVES}
+            profile_names = [str(name) for name in payload.get("primitive_profile", [])]
+            missing = [name for name in profile_names if name not in known]
+            if missing:
+                raise ValueError(f"checkpoint primitive profile is unavailable: {', '.join(missing)}")
+            primitives = tuple(known[name] for name in profile_names)
         population = cls(evaluator=evaluator, primitives=primitives, terminals=terminals, **config)
         population.generation = int(payload.get("generation", 0))
         population.population = [population._organism_from_payload(item) for item in payload.get("population", [])]
@@ -176,8 +198,10 @@ class GPPopulation:
         population.history = [GenerationStats(**item) for item in payload.get("history", [])][-1000:]
         if "rng_state" in payload:
             population.rng.setstate(_restore_tuple_state(payload["rng_state"]))
-        if population.population:
-            population._apply_bloat_brake()
+        if version == 1 and population.population:
+            # Legacy v1 checkpoints omitted full fitness-result state. Preserve
+            # backward readability, but v1 is not eligible for v8 exact-resume
+            # claims because this evaluator refresh is necessarily approximate.
             results = population.evaluator.batch_evaluate(
                 [organism.genome for organism in population.population], seed=population._training_seed()
             )
@@ -192,11 +216,12 @@ class GPPopulation:
         payload = json.loads(Path(path).read_text(encoding="utf-8"))
         return cls.from_checkpoint_payload(evaluator=evaluator, payload=payload, primitives=primitives, terminals=terminals)
 
-    @staticmethod
-    def _organism_from_payload(payload: Mapping[str, Any]) -> GPOrganism:
+    def _organism_from_payload(self, payload: Mapping[str, Any]) -> GPOrganism:
+        fitness_payload = payload.get("fitness_result")
         return GPOrganism(
             organism_id=str(payload["organism_id"]),
-            genome=GPGenome.from_dict(payload["genome"]),
+            genome=GPGenome.from_dict(payload["genome"], primitives=self.builder.primitives),
+            fitness_result=FitnessResult(**fitness_payload) if fitness_payload else None,
             generation=int(payload.get("generation", 0)),
             parent_ids=list(payload.get("parents", [])),
             age=int(payload.get("age", 0)),
@@ -240,8 +265,15 @@ class GPPopulation:
                 if node.result_type == tree.result_type and node.size() <= self.BLOAT_MAX_NODES
             ]
             if not same_type_subtrees:
-                raise RuntimeError("oversized typed GP tree has no valid hoist target")
-            hoisted = max(same_type_subtrees, key=lambda node: node.size()).copy()
+                # Some task terminal profiles intentionally omit a terminal for
+                # a result type (for example BOOL).  A fully expanded tree can
+                # then have no same-type descendant below the size cap. Keep
+                # the post-reproduction safety guarantee total with the same
+                # deterministic type-correct fallback the interpreter uses for
+                # malformed nodes; this consumes no RNG and is not a mutation.
+                hoisted = GPNode(terminal_value=tree.fallback(), value_type=tree.result_type)
+            else:
+                hoisted = max(same_type_subtrees, key=lambda node: node.size()).copy()
             organism.genome.tree = hoisted
             organism.genome.primitives_used = sorted({
                 node.primitive.name for _, _, node in self.builder._collect_nodes(hoisted) if node.primitive

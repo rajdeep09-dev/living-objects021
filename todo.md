@@ -108,3 +108,15 @@
 - [x] Extend the authenticated observatory only with stream and checkpoint data that the verified engine actually produces.
 - [x] Document the persistent-compute, scheduling, WebSocket, Redis, and advanced-research roadmap separately from completed local evidence.
 - [x] Run full regression, independent review, and release verification before checkpointing the v7 foundation release. Full engine regression passed (435); security review is recorded in `docs/v7-security.md`; the v7 engine history is pushed to `origin/master`, while the separate observatory checkpoint remains to be saved.
+
+## BEAST v8 contamination-correction release
+
+- [x] Audit every v8 mandate against the actual v7 implementation, preserving guide discrepancies and scientifically invalid prior-result labels.
+- [x] Build and run contamination audits for every implemented task, recording baseline populations, primitive exclusions, and validity decisions.
+- [x] Replace the sorting task’s answer-encoding primitives with a bounded clean primitive set and curriculum, then prove baseline contamination gates.
+- [x] Prove exact recursive GP-tree checkpoint serialization and deterministic checkpoint-resume behavior without source reparsing.
+- [ ] Run only contamination-free bounded sorting and extended Manhattan experiments with checkpointed, reproducible evidence; never rebrand invalid prior runs.
+- [ ] Publish the primitive-specification standard, discovery protocol, and contamination-adjusted benchmark evidence.
+- [ ] Add contamination status and valid-result boundaries to the authenticated observatory using persisted artifacts only.
+- [ ] Document unimplemented curriculum, persistent deployment, and advanced research directives as explicit gated work rather than completed features.
+- [ ] Run complete release verification, save an observatory checkpoint, and push the v8 evidence release.
