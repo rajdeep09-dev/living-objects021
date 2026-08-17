@@ -129,4 +129,4 @@
 - [x] Publish an honest claims registry, an evidence-linked README, and a reproducible Manhattan paper manuscript with limitations.
 - [x] Expand targeted regressions and report the actual full-suite total without fabricating a 1,000-test completion claim.
 - [x] Preregister the 100,000-generation clean-sorting campaign and document the compute, scheduling, deployment, and authorization gates.
-- [ ] Run complete v9 verification, push the verified engine release, and retain all v8 retractions and negative results.
+- [x] Run complete v9 verification, push the verified engine release, and retain all v8 retractions and negative results.
