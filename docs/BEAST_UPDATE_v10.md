@@ -28,11 +28,21 @@ Everything else — the docs, the architecture diagrams, the paradigm names, the
 
 ## SECTION 2: THE FULL HONESTY AUDIT OF v9
 
-### THING 1 — The SDK Exists and Works (REAL)
+### THING 1 — The SDK Exists and Works, But the API Is Not What the Docs Say (REAL WITH BUG)
 
-`living_objects/sdk.py` exists. The `evolve()` function is importable. It wraps the real `GPPopulation` engine. The test suite for the SDK (`living_objects/test_sdk.py`) has real tests. This is the first time in the project's history that a user can do `from living_objects import evolve` and get a result.
+`living_objects/sdk.py` exists. The `evolve()` function is importable. It wraps the real `GPPopulation` engine. 
 
-**Verdict: REAL and USEFUL.**
+| Check | Result | Notes |
+| :--- | :--- | :--- |
+| `evolve('manhattan', generations=50)` runs | ✅ Real | Works — returns `EvolutionResult` |
+| `result.fitness` (as documented) | ❌ **BROKEN** — `AttributeError` | Must use `result.champion.fitness` instead |
+| `result.source_code` (as documented) | ❌ **BROKEN** — `AttributeError` | Must use `result.champion.source_code` instead |
+
+The result object does NOT have `.fitness` or `.source_code` as top-level attributes. The real shape (confirmed by live run) is: `result.champion.fitness`, `result.champion.source_code`. The documented API in the README, tests, and the v9-paper say `result.fitness` — that crashes with `AttributeError`.
+
+The champion is nested one level deeper than any documentation says. A new user following the docs will immediately hit `AttributeError: 'EvolutionResult' object has no attribute 'fitness'`.
+
+**Verdict: REAL AND WORKING but the public API shape is wrong in every piece of documentation. Must be fixed before PyPI publish.**
 
 ### THING 2 — The 1,731 "Collected Cases" in the Test Inventory (FAKE COUNT — REAL TESTS)
 
