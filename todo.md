@@ -119,4 +119,4 @@
 - [x] Publish the primitive-specification standard, discovery protocol, and contamination-adjusted benchmark evidence.
 - [x] Add contamination status and valid-result boundaries to the authenticated observatory using persisted artifacts only.
 - [x] Document unimplemented curriculum, persistent deployment, and advanced research directives as explicit gated work rather than completed features.
-- [ ] Run complete release verification, save an observatory checkpoint, and push the v8 evidence release.
+- [x] Run complete release verification, save an observatory checkpoint, and push the v8 evidence release.
