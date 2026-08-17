@@ -133,3 +133,10 @@
 - [x] Audit the 473-test post-v9 baseline and map at least 527 meaningful new cases to real engine, API, SDK, artifact, and security behaviors.
 - [x] Add non-duplicative parameterized behavior and boundary regressions until the full engine suite collects and passes at least 1,000 tests.
 - [x] Publish an exact 1,000-test verification record, correct any public text that labels the 473-test v9 release complete, and push the verified coverage release.
+- [x] Publish a v10 user-perspective audit that verifies each defect claim and classifies all five final mandates as local work, external authorization, or unmeasured research.
+- [x] Repair and test top-level `EvolutionResult.fitness` and `EvolutionResult.source_code` compatibility accessors, then reconcile every public SDK example with the executable contract.
+- [x] Build and validate Python 3.10–3.12 distributable package artifacts and document the blocked PyPI publication workflow without claiming a live package.
+- [x] Assemble an arXiv-ready manuscript package and submission checklist without claiming an arXiv identifier before user-authorized submission.
+- [x] Build and test a minimal real-data observatory deployment package, preserving explicit no-live-URL and no-continuous-worker boundaries until deployment is authorized.
+- [x] Record the exact persistent-compute authorization and milestone gate for the unlaunched 100,000-generation clean-sorting campaign.
+- [ ] Run final v10 verification, revise the README and claims registry to exact reality, push verified engine changes, and retain all negative and retracted results.

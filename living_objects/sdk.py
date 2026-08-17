@@ -20,7 +20,7 @@ from evolution.polyglot_export import PolyglotCompiler
 from evolution.v9_sorting_curriculum import FiveStageSortingCurriculum, STAGES, V9CleanSortingEvaluator
 
 
-SDK_VERSION = "0.2.0"
+SDK_VERSION = "0.3.0"
 RUN_SCHEMA = "living-objects-sdk-run-v1"
 _ROOT = Path(__file__).resolve().parents[1]
 _TASK_ALIASES = {
@@ -49,6 +49,25 @@ class EvolutionResult:
     curriculum_events: list[dict[str, Any]]
     execution_boundary: dict[str, Any]
     artifact_path: str | None = None
+
+    @property
+    def fitness(self) -> float:
+        """Return the champion's persisted training fitness for SDK compatibility.
+
+        The value is an evaluator result from the bounded run, not an assertion of
+        general program quality.  Fresh correctness remains available under
+        ``champion[\"fresh\"]`` with its declared seed and case count.
+        """
+        return float(self.champion["training_fitness"])
+
+    @property
+    def source_code(self) -> str:
+        """Return the champion's source-only Python audit export.
+
+        This convenience accessor preserves the interpreter-only boundary: the SDK
+        does not execute the returned text.
+        """
+        return str(self.champion["source_audit_export"])
 
     def to_dict(self) -> dict[str, Any]:
         """Return deterministic scientific fields, excluding local file placement."""

@@ -6,7 +6,7 @@ BEAST is not a general autonomous programmer, a conscious system, or a live self
 
 > Can a population of non-LLM typed programs improve from its initial population on a task with an objective evaluator, while the result remains inspectable and reproducible?
 
-The current evidence answers **yes for one bounded Manhattan-distance synthesis task**, and **no result for the current clean-sorting profile**. Both outcomes are retained. See the [claims registry](docs/v9-claims-registry.md) before reusing any statement from this repository.
+The current evidence answers **yes for one bounded Manhattan-distance synthesis task**, and **no eligible result for the current clean-sorting profile**. Both outcomes are retained. See the [claims registry](docs/v9-claims-registry.md) before reusing any statement from this repository.
 
 ## What the evidence currently supports
 
@@ -15,13 +15,13 @@ The current evidence answers **yes for one bounded Manhattan-distance synthesis 
 | Manhattan distance | **5/5 eligible fixed-seed runs**; fresh correctness was **1.000** on each recorded 1,000-case suite | Typed AST interpreter, fixed evaluator, population 128, up to 10,000 generations; not arbitrary program synthesis or general intelligence | [v8 results](docs/v8-experiment-results.md), [trial summary](reports/v8/manhattan-distance/summary.json) |
 | Clean sorting | **0/5 eligible runs** at 10,000 generations; retained negative result | Applies only to `clean-sorting-v1`; no numerical success expectation is implied | [v8 results](docs/v8-experiment-results.md), [trial summary](reports/v8/clean-sorting/summary.json) |
 | v7 sorting marathon | **Retracted** | `sort1` made generation-zero perfection possible; its score is not sorting discovery evidence | [contamination audit](docs/v8-contamination-audit.md), [benchmark ledger](docs/v8-benchmark-ledger.json) |
-| v9 SDK and CLI | **Implemented and locally tested** | Bounded local workflows only; evolved source remains an audit export and is not executed as the evolved runtime | [`living_objects.sdk`](living_objects/sdk.py), [`living-objects` CLI](living_objects/cli.py) |
+| v10 SDK and local package artifacts | **Implemented, locally built, and tested** | Version `0.3.0` wheel/source artifacts were locally smoke-tested on Python 3.10–3.12; no PyPI project has been uploaded | [package release record](docs/v10-package-release.md), [`living_objects.sdk`](living_objects/sdk.py) |
 | Five-stage sorting curriculum | **Implemented and tested, not yet measured in the planned long campaign** | No 100,000-generation result or expected success rate has been claimed | [curriculum module](evolution/v9_sorting_curriculum.py), [research roadmap](docs/v9-advanced-research-roadmap.md) |
 | Signed discovery exchange | **Local verification MVP implemented and tested** | It signs and verifies persisted evidence locally; it is not a deployed federation or transport network | [federation module](evolution/v9_federation.py) |
 
 ## Install and run bounded workflows
 
-The package is currently a repository-installable research SDK. It is **not** represented as a published package registry release.
+The package is a repository-installable research SDK. Version `0.3.0` local wheel and source artifacts were built and smoke-tested on Python 3.10, 3.11, and 3.12. It is **not** represented as a published package registry release: a PyPI upload requires the publishing owner’s credentials and explicit confirmation. See the [v10 package-release record](docs/v10-package-release.md) for artifact checksums and the handoff gate.
 
 ```bash
 git clone https://github.com/rajdeep09-dev/living-objects021.git
@@ -42,7 +42,24 @@ living-objects --artifact-dir .living-objects/runs reproduce <run-id>
 living-objects --artifact-dir .living-objects/runs export <run-id> python
 ```
 
+To test the locally produced wheel rather than an editable checkout, build or obtain the audited `0.3.0` artifact and install it in a clean environment:
+
+```bash
+python -m pip install dist/living_objects-0.3.0-py3-none-any.whl
+```
+
 The evolution runtime is a typed AST interpreter. No language-model call is used in evaluation, selection, mutation, scoring, curriculum promotion, or discovery-import verification. Exported Python, JavaScript, Rust, and Go text is **not** the runtime for evolved behavior and should not be treated as safe executable code.
+
+The programmatic SDK exposes compatibility accessors for the audited champion record. `fitness` is the persisted **training** fitness; it is not a general-quality score. `source_code` is a source-only Python audit export and is never executed by the SDK.
+
+```python
+from living_objects import evolve
+
+result = evolve("manhattan", generations=100, seed=20260814)
+print(result.fitness)
+print(result.champion["fresh"]["correctness"])
+print(result.source_code)  # review-only audit text; not the runtime
+```
 
 ## Reproduce the v8 five-seed evidence
 
@@ -70,7 +87,21 @@ Timing telemetry is host-dependent and excluded from deterministic artifact comp
 - **Negative results stay visible:** the clean-sorting 0/5 outcome is part of the release record.
 - **No live-service claim:** the observatory is locally/preview verified and **not a public deployment**; publishing it and operating a continuous worker require a separate authorization and operations decision.
 - **No long-run claim:** the clean-sorting 100,000-generation campaign is pre-execution work gated on declared hardware, durable checkpoints, compute budget, and operator oversight.
-- **No publication claim:** the manuscript is reviewable preparation material, **not submitted**, and not peer reviewed.
+- **No publication claim:** the LaTeX manuscript bundle is locally compiled review material, **not submitted** and not peer reviewed; the `0.3.0` package is locally built, **not uploaded to PyPI**.
+
+## v10 readiness record
+
+Version 10 repairs the SDK’s top-level `EvolutionResult.fitness` and `EvolutionResult.source_code` compatibility accessors, builds distribution artifacts, prepares an arXiv-ready source bundle, and adds an authenticated Observatory status disclosure. It does not convert externally controlled actions into local claims.
+
+| Prepared or verified item | v10 reality | Evidence |
+|---|---|---|
+| SDK contract | `fitness` and source-only `source_code` accessors are regression-tested in SDK version `0.3.0` | [foundation audit](docs/v10-foundation-audit.md), [`living_objects/test_sdk.py`](living_objects/test_sdk.py) |
+| Distribution | Wheel/source artifacts locally validated on Python 3.10–3.12 | [package release record](docs/v10-package-release.md) |
+| Manuscript | Submission-ready LaTeX source package and locally compiled review PDF preparation | [arXiv package](docs/v10-arxiv-submission-package/README.md), [submission checklist](docs/v10-arxiv-submission-checklist.md) |
+| Observatory | Artifact-backed authenticated evidence route, explicit `NOT_DEPLOYED` and `NOT_CONFIGURED` operational state | [deployment package](docs/v10-observatory-deployment-package.md) |
+| Long campaign | Exact owner authorization, 10,000-generation pilot, restore, and milestone gate documented | [campaign launch gate](docs/v10-campaign-launch-gate.md) |
+
+> No arXiv identifier, PyPI package URL, public Observatory URL, continuous worker, or 100,000-generation campaign result exists at this release point.
 
 ## Repository map
 
@@ -81,9 +112,11 @@ Timing telemetry is host-dependent and excluded from deterministic artifact comp
 | [`evolution/v9_sorting_curriculum.py`](evolution/v9_sorting_curriculum.py) | Five-stage clean curriculum and auditable mastery events |
 | [`evolution/v9_federation.py`](evolution/v9_federation.py) | Local signed evidence-exchange MVP |
 | [`production/api/v9/`](production/api/v9/) | Local authenticated bounded API contracts |
-| [`docs/v9-paper.md`](docs/v9-paper.md) | Reviewable manuscript and reproduction appendix |
+| [`docs/v10-arxiv-submission-package/`](docs/v10-arxiv-submission-package/) | Locally compiled arXiv-ready source bundle; external submission remains gated |
 | [`docs/v9-claims-registry.md`](docs/v9-claims-registry.md) | Allowed claim wording and update rules |
-| [`docs/v9-advanced-research-roadmap.md`](docs/v9-advanced-research-roadmap.md) | Explicit gates for long-running and deployment work |
+| [`docs/v10-package-release.md`](docs/v10-package-release.md) | Local distribution evidence and PyPI handoff gate |
+| [`docs/v10-observatory-deployment-package.md`](docs/v10-observatory-deployment-package.md) | Real-data observatory path and no-live-operation boundary |
+| [`docs/v10-campaign-launch-gate.md`](docs/v10-campaign-launch-gate.md) | Persistent-compute authorization, pilot, recovery, and milestone gate |
 
 ## Development verification
 
@@ -91,7 +124,7 @@ Timing telemetry is host-dependent and excluded from deterministic artifact comp
 APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest -q
 ```
 
-The exact collected/passed count is recorded for each release verification. Do not substitute a badge or a historical count for a fresh test run.
+The exact collected/passed count is recorded for each release verification. The v10 release record must describe the **1,731 collected parameterized cases** as a collection count, not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
 
 ## License
 

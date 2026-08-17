@@ -12,6 +12,9 @@ def test_sdk_evolve_persists_real_bounded_run_and_declares_interpreter_boundary(
 
     assert result.task == "manhattan-distance"
     assert result.champion["generation"] == 3
+    assert result.fitness == result.champion["training_fitness"]
+    assert result.source_code == result.champion["source_audit_export"]
+    assert "def beast_3" in result.source_code
     assert result.execution_boundary == {
         "runtime": "typed AST interpreter only",
         "llm_calls": 0,
@@ -21,6 +24,17 @@ def test_sdk_evolve_persists_real_bounded_run_and_declares_interpreter_boundary(
     assert result.artifact_path is not None
     persisted = json.loads((tmp_path / f"{result.run_id}.json").read_text(encoding="utf-8"))
     assert persisted["result"]["champion"]["tree_sha256"] == result.champion["tree_sha256"]
+
+
+def test_sdk_compatibility_accessors_remain_available_after_artifact_round_trip(tmp_path) -> None:
+    result = evolve("manhattan", generations=2, seed=713, population_size=12, artifact_dir=tmp_path)
+    persisted = json.loads((tmp_path / f"{result.run_id}.json").read_text(encoding="utf-8"))["result"]
+
+    restored = type(result)(**(persisted | {"artifact_path": result.artifact_path}))
+
+    assert restored.fitness == float(persisted["champion"]["training_fitness"])
+    assert restored.source_code == persisted["champion"]["source_audit_export"]
+    assert "def beast_" in restored.source_code
 
 
 def test_sdk_reproduce_reruns_the_saved_deterministic_configuration(tmp_path) -> None:
