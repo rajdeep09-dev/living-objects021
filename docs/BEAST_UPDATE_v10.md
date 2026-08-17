@@ -7,6 +7,13 @@
 > Not as a developer. Not as someone who built it.
 > As a user who just found the repository and is deciding whether to trust it.
 >
+> **Live-confirmed numbers as of this document:**
+> - Test suite: **1,558 passed, 3 skipped** in 24 minutes — confirmed by running the full suite
+> - SDK `evolve('manhattan', generations=50)` — runs and returns a result object
+> - SDK `result.fitness` — **crashes with AttributeError** — confirmed by live run
+> - Observatory live URL — **does not exist** — confirmed by null value in evidence JSON
+> - `pip install living-objects` — **fails** — package not on PyPI
+>
 > At the end of this document is a single YES or NO.
 > Is this ready to submit to the world?
 
