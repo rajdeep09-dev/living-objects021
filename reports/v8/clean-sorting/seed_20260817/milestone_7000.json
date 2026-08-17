@@ -1,0 +1,33 @@
+{
+  "curriculum_stage_index": 0,
+  "curriculum_stage_length": 2,
+  "depth": 0,
+  "fresh": {
+    "cases": 1000,
+    "correctness": 0.508,
+    "passed": 508,
+    "seed": 21167817
+  },
+  "generation": 7000,
+  "nodes": 1,
+  "source_audit_export": "import math\n\ndef cleansortingevaluator_g7000(x):\n    try:\n        input = x\n        return input\n    except Exception:\n        return None",
+  "training_fitness": 0.5,
+  "tree": {
+    "evaluations": 136660,
+    "fitness": 0.5,
+    "fitness_variance": 0.5,
+    "generation_created": 7000,
+    "parent_ids": [
+      "gp-006998-b44eb5d6b766"
+    ],
+    "primitives_used": [],
+    "tree": {
+      "children": [],
+      "primitive": null,
+      "terminal_name": "input",
+      "terminal_value": null,
+      "value_type": "list"
+    }
+  },
+  "tree_sha256": "8b427a861daa1d42d9cf69c9d17d37de2445590dadcd84eb2e7e33e4b3eda736"
+}

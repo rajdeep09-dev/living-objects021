@@ -1,0 +1,127 @@
+{
+  "claim_boundary": "These records describe evaluator-specific compositional solutions only.",
+  "records": [
+    {
+      "first_perfect_training_generation": 38,
+      "fresh_suite": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 21250814
+      },
+      "generation": 10000,
+      "initial_tree_contains_final": false,
+      "node_count": 17,
+      "pre_registration_id": "BEAST-V8-PREREG-20260816-A",
+      "primitives_used": [
+        "abs1",
+        "max2",
+        "sub"
+      ],
+      "promotion_eligible": true,
+      "record_id": "BEAST-V8-MANHATTAN-20260814",
+      "seed": 20260814,
+      "task": "manhattan-distance",
+      "tree_sha256": "8799cf18bb5d505206b418b7c6569faccfe8844a9669a04661fd17ead7ab219e",
+      "trial_artifact": "reports/v8/manhattan-distance/seed_20260814/trial.json"
+    },
+    {
+      "first_perfect_training_generation": 35,
+      "fresh_suite": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 21250815
+      },
+      "generation": 10000,
+      "initial_tree_contains_final": false,
+      "node_count": 9,
+      "pre_registration_id": "BEAST-V8-PREREG-20260816-A",
+      "primitives_used": [
+        "abs1",
+        "add",
+        "sub"
+      ],
+      "promotion_eligible": true,
+      "record_id": "BEAST-V8-MANHATTAN-20260815",
+      "seed": 20260815,
+      "task": "manhattan-distance",
+      "tree_sha256": "59987b5ab8adae2bc065e072e19daec4a1d584adb9c350e02d2b66a508d7ed96",
+      "trial_artifact": "reports/v8/manhattan-distance/seed_20260815/trial.json"
+    },
+    {
+      "first_perfect_training_generation": 11,
+      "fresh_suite": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 21250816
+      },
+      "generation": 10000,
+      "initial_tree_contains_final": false,
+      "node_count": 9,
+      "pre_registration_id": "BEAST-V8-PREREG-20260816-A",
+      "primitives_used": [
+        "abs1",
+        "add",
+        "sub"
+      ],
+      "promotion_eligible": true,
+      "record_id": "BEAST-V8-MANHATTAN-20260816",
+      "seed": 20260816,
+      "task": "manhattan-distance",
+      "tree_sha256": "732520d5ed23977eee99387bca71fbfbf476ab4ddcb0ae070044086c413da338",
+      "trial_artifact": "reports/v8/manhattan-distance/seed_20260816/trial.json"
+    },
+    {
+      "first_perfect_training_generation": 76,
+      "fresh_suite": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 21250817
+      },
+      "generation": 10000,
+      "initial_tree_contains_final": false,
+      "node_count": 9,
+      "pre_registration_id": "BEAST-V8-PREREG-20260816-A",
+      "primitives_used": [
+        "abs1",
+        "add",
+        "sub"
+      ],
+      "promotion_eligible": true,
+      "record_id": "BEAST-V8-MANHATTAN-20260817",
+      "seed": 20260817,
+      "task": "manhattan-distance",
+      "tree_sha256": "2490fa4a585c0c5ac24d0ded71ebb4e69748020746ebdd6a77dfad1e930e5aa4",
+      "trial_artifact": "reports/v8/manhattan-distance/seed_20260817/trial.json"
+    },
+    {
+      "first_perfect_training_generation": 61,
+      "fresh_suite": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 21250818
+      },
+      "generation": 10000,
+      "initial_tree_contains_final": false,
+      "node_count": 9,
+      "pre_registration_id": "BEAST-V8-PREREG-20260816-A",
+      "primitives_used": [
+        "abs1",
+        "add",
+        "sub"
+      ],
+      "promotion_eligible": true,
+      "record_id": "BEAST-V8-MANHATTAN-20260818",
+      "seed": 20260818,
+      "task": "manhattan-distance",
+      "tree_sha256": "e5f5b1657d9d225e25e512ffa5c08d938805cdd456597dc8992dc157f9338b98",
+      "trial_artifact": "reports/v8/manhattan-distance/seed_20260818/trial.json"
+    }
+  ],
+  "schema": "beast-v8-discovery-log-v1",
+  "status": "eligible-measured-records"
+}

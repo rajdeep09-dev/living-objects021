@@ -1,0 +1,62 @@
+{
+  "complete": true,
+  "completed_seeds": [
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818
+  ],
+  "declared_seeds": [
+    20260814,
+    20260815,
+    20260816,
+    20260817,
+    20260818
+  ],
+  "discovery_log_eligible": true,
+  "eligible_successes": 5,
+  "missing_seeds": [],
+  "multi_seed_discovery_threshold": "at least 4 of 5 eligible successes",
+  "pre_registration_id": "BEAST-V8-PREREG-20260816-A",
+  "schema": "beast-v8-multiseed-summary-v1",
+  "task": "manhattan-distance",
+  "trial_count": 5,
+  "trials": [
+    {
+      "first_perfect_training_generation": 38,
+      "fresh_correctness": 1.0,
+      "initial_tree_contains_final": false,
+      "promotion_eligible": true,
+      "seed": 20260814
+    },
+    {
+      "first_perfect_training_generation": 35,
+      "fresh_correctness": 1.0,
+      "initial_tree_contains_final": false,
+      "promotion_eligible": true,
+      "seed": 20260815
+    },
+    {
+      "first_perfect_training_generation": 11,
+      "fresh_correctness": 1.0,
+      "initial_tree_contains_final": false,
+      "promotion_eligible": true,
+      "seed": 20260816
+    },
+    {
+      "first_perfect_training_generation": 76,
+      "fresh_correctness": 1.0,
+      "initial_tree_contains_final": false,
+      "promotion_eligible": true,
+      "seed": 20260817
+    },
+    {
+      "first_perfect_training_generation": 61,
+      "fresh_correctness": 1.0,
+      "initial_tree_contains_final": false,
+      "promotion_eligible": true,
+      "seed": 20260818
+    }
+  ]
+}

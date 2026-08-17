@@ -1,0 +1,96 @@
+{
+  "depth": 3,
+  "fresh": {
+    "cases": 1000,
+    "correctness": 1.0,
+    "passed": 1000,
+    "seed": 21168816
+  },
+  "generation": 8000,
+  "nodes": 9,
+  "source_audit_export": "import math\n\ndef manhattandistanceevaluator_g8000(x1, x2, y1, y2):\n    try:\n        pass\n        return (abs((x2 - x1)) + abs((y1 - y2)))\n    except Exception:\n        return None",
+  "training_fitness": 1.0,
+  "tree": {
+    "evaluations": 159660,
+    "fitness": 1.0,
+    "fitness_variance": 0.0,
+    "generation_created": 8000,
+    "parent_ids": [
+      "gp-007998-3acc35b4a8d1"
+    ],
+    "primitives_used": [
+      "abs1",
+      "add",
+      "sub"
+    ],
+    "tree": {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [],
+                  "primitive": null,
+                  "terminal_name": "x2",
+                  "terminal_value": null,
+                  "value_type": "float"
+                },
+                {
+                  "children": [],
+                  "primitive": null,
+                  "terminal_name": "x1",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "sub",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "abs1",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [],
+                  "primitive": null,
+                  "terminal_name": "y1",
+                  "terminal_value": null,
+                  "value_type": "float"
+                },
+                {
+                  "children": [],
+                  "primitive": null,
+                  "terminal_name": "y2",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "sub",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "abs1",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        }
+      ],
+      "primitive": "add",
+      "terminal_name": "",
+      "terminal_value": null,
+      "value_type": "float"
+    }
+  },
+  "tree_sha256": "567bec8d7c249b77c7a0d033400392498510c49dfc26434b0456d8dbac9706c0"
+}

@@ -66,6 +66,27 @@ def _sha256(payload: Mapping[str, Any]) -> str:
     return hashlib.sha256(_canonical_json(payload).encode("utf-8")).hexdigest()
 
 
+def _without_timing_telemetry(value: Any) -> Any:
+    """Copy an artifact field while removing host-noise from fitness telemetry.
+
+    Fitness selection uses objective correctness rather than latency.  The
+    population artifact retains ``wall_time_ms`` and the derived efficiency for
+    operational inspection, but another process cannot reproduce either value
+    bit-for-bit because scheduler and host load are not controlled.  Independent
+    proof verification must therefore compare the deterministic evolution
+    contract, not incidental timing samples.
+    """
+    if isinstance(value, list):
+        return [_without_timing_telemetry(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: _without_timing_telemetry(item)
+            for key, item in value.items()
+            if key not in {"efficiency", "wall_time_ms"}
+        }
+    return value
+
+
 def _program_record(genome: Any, score: float) -> dict[str, Any]:
     tree = genome.to_dict()
     return {
@@ -192,11 +213,17 @@ def verify_proof_artifact(artifact_path: str | Path) -> dict[str, Any]:
         "task", "config", "audit_suites", "initial_population", "initial_champion", "final_champion",
         "initial_audits", "final_audits", "history", "decision",
     )
-    mismatches = [path for path in paths if stored.get(path) != rerun.get(path)]
+    mismatches = [
+        path
+        for path in paths
+        if _without_timing_telemetry(stored.get(path))
+        != _without_timing_telemetry(rerun.get(path))
+    ]
     return {
         "artifact": str(artifact_path),
         "verified": not mismatches,
         "mismatches": mismatches,
         "rerun_decision": rerun["decision"],
         "execution_boundary": rerun["task"],
+        "excluded_host_timing_telemetry": ["fitness_result.efficiency", "fitness_result.wall_time_ms"],
     }

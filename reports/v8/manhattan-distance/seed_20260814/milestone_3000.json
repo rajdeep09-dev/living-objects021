@@ -1,0 +1,156 @@
+{
+  "depth": 5,
+  "fresh": {
+    "cases": 1000,
+    "correctness": 1.0,
+    "passed": 1000,
+    "seed": 21163814
+  },
+  "generation": 3000,
+  "nodes": 17,
+  "source_audit_export": "import math\n\ndef manhattandistanceevaluator_g3000(x1, x2, y1, y2):\n    try:\n        pass\n        return max((y2 - (y1 - abs((x2 - x1)))), (y1 - (y2 - abs((x2 - x1)))))\n    except Exception:\n        return None",
+  "training_fitness": 1.0,
+  "tree": {
+    "evaluations": 58700,
+    "fitness": 1.0,
+    "fitness_variance": 0.0,
+    "generation_created": 3000,
+    "parent_ids": [
+      "gp-002998-19ec641df040"
+    ],
+    "primitives_used": [
+      "abs1",
+      "max2",
+      "sub"
+    ],
+    "tree": {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [],
+              "primitive": null,
+              "terminal_name": "y2",
+              "terminal_value": null,
+              "value_type": "float"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "primitive": null,
+                  "terminal_name": "y1",
+                  "terminal_value": null,
+                  "value_type": "float"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x1",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "sub",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "abs1",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "sub",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "sub",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "primitive": null,
+              "terminal_name": "y1",
+              "terminal_value": null,
+              "value_type": "float"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "primitive": null,
+                  "terminal_name": "y2",
+                  "terminal_value": null,
+                  "value_type": "float"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x1",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "sub",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "abs1",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "sub",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "sub",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        }
+      ],
+      "primitive": "max2",
+      "terminal_name": "",
+      "terminal_value": null,
+      "value_type": "float"
+    }
+  },
+  "tree_sha256": "5e4167e1bf382862ddd489402d19ae03f82722772d73d0ee807ec3b413b775d9"
+}

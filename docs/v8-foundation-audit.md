@@ -67,6 +67,16 @@ Checkpoint schema version 2 now preserves the active primitive-profile names, re
 
 `pytest -q evolution/test_checkpoint_fidelity.py evolution/test_clean_sorting.py evolution/test_gp_population.py` completed with **16 passed**. Legacy v1 checkpoints remain readable through explicit evaluator refresh for compatibility, but their missing saved `FitnessResult` data means they are excluded from v8 exact-resume claims.
 
+## Completed preregistered experiments
+
+The five-seed 10,000-generation experiment suite is complete. The clean-sorting profile has **0/5 eligible successes** and is retained as a negative result; it does not support an algorithm-discovery claim. The Manhattan-distance evaluator has **5/5 eligible successes**, first perfect training generations 38, 35, 11, 76, and 61, and fresh correctness 1.000 on every terminal trial. The complete protocol, tables, and claim boundary are published in [`v8-experiment-results.md`](v8-experiment-results.md). Machine-readable source records are [`../reports/v8/clean-sorting/summary.json`](../reports/v8/clean-sorting/summary.json) and [`../reports/v8/manhattan-distance/summary.json`](../reports/v8/manhattan-distance/summary.json).
+
+## Standards and adjusted evidence
+
+The v8 primitive standard specifies immutable profile identifiers, required direct and near-direct exclusions, multi-suite enumeration, baseline metrics, and explicit claim categories in [`v8-primitive-specification-standard.md`](v8-primitive-specification-standard.md). The discovery-log protocol requires pre-registration completion, independent fresh-suite success, initial-population absence, and a retained artifact path in [`v8-discovery-log-protocol.md`](v8-discovery-log-protocol.md).
+
+`python3 scripts/build_v8_evidence_ledger.py` derived the current [`v8-benchmark-ledger.json`](v8-benchmark-ledger.json) and [`v8-discovery-log.json`](v8-discovery-log.json) directly from the persisted audit and trial results. Its focused derivation regression passed (**1 passed**). The ledger keeps historical sorting retracted, records clean sorting as a negative result, and admits only the five evaluator-specific Manhattan records.
+
 ## Dependency order
 
 1. Construct the measurement and adversarial enumeration harness.

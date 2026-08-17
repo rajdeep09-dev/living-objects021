@@ -42,6 +42,24 @@ def test_proof_artifact_independently_reruns_exactly(tmp_path: Path) -> None:
     assert verification["verified"] is True
     assert verification["mismatches"] == []
     assert verification["execution_boundary"]["llm_calls"] == 0
+    assert verification["excluded_host_timing_telemetry"] == [
+        "fitness_result.efficiency",
+        "fitness_result.wall_time_ms",
+    ]
+
+
+def test_proof_verification_excludes_host_timing_telemetry(tmp_path: Path) -> None:
+    path = tmp_path / "trial.json"
+    run_proof_benchmark(_small_config(seed=734), path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["initial_population"][0]["fitness_result"]["efficiency"] = -1.0
+    payload["initial_population"][0]["fitness_result"]["wall_time_ms"] = 9_999.0
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    verification = verify_proof_artifact(path)
+
+    assert verification["verified"] is True
+    assert verification["mismatches"] == []
 
 
 def test_tampered_proof_artifact_is_reported_as_a_verification_failure(tmp_path: Path) -> None:
