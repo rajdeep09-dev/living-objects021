@@ -85,6 +85,7 @@ class GPPopulation:
         self.population: list[GPOrganism] = []
         self.hall_of_fame: list[GPOrganism] = []
         self.history: list[GenerationStats] = []
+        self._checkpoint_metadata: dict[str, Any] = {}
 
     def initialize(self) -> None:
         self.population = []
@@ -106,6 +107,21 @@ class GPPopulation:
         if not primitive_tuple:
             raise ValueError("a primitive profile must contain at least one primitive")
         self.builder = GPTreeBuilder(primitive_tuple, self.evaluator.terminals, self.rng)
+
+    def set_checkpoint_metadata(self, namespace: str, value: Mapping[str, Any]) -> None:
+        """Store JSON-only controller state beside an exact population checkpoint.
+
+        A curriculum is external to the generic GP engine, but its transition
+        history can affect future variation. Namespaced metadata lets a caller
+        persist that controller state without pickling a live controller.
+        """
+        if not namespace or not isinstance(value, Mapping):
+            raise ValueError("checkpoint metadata requires a namespace and mapping")
+        self._checkpoint_metadata[namespace] = json.loads(json.dumps(value, sort_keys=True))
+
+    def checkpoint_metadata(self, namespace: str) -> dict[str, Any] | None:
+        value = self._checkpoint_metadata.get(namespace)
+        return copy.deepcopy(value) if value is not None else None
 
     def step(self) -> GenerationStats:
         if not self.population:
@@ -172,6 +188,8 @@ class GPPopulation:
             },
             "rng_state": _json_safe_state(self.rng.getstate()),
             "primitive_profile": [primitive.name for primitive in self.builder.primitives],
+            "evaluator_state": self.evaluator.checkpoint_state(),
+            "metadata": copy.deepcopy(self._checkpoint_metadata),
             "generation": self.generation, "population": [organism.to_dict() for organism in self.population],
             "history": [stat.__dict__ for stat in self.history[-1000:]],
             "hall_of_fame": [organism.to_dict() for organism in self.hall_of_fame],
@@ -196,6 +214,14 @@ class GPPopulation:
         population.population = [population._organism_from_payload(item) for item in payload.get("population", [])]
         population.hall_of_fame = [population._organism_from_payload(item) for item in payload.get("hall_of_fame", [])][-population.HALL_OF_FAME_MAX:]
         population.history = [GenerationStats(**item) for item in payload.get("history", [])][-1000:]
+        evaluator_state = payload.get("evaluator_state", {})
+        if not isinstance(evaluator_state, Mapping):
+            raise ValueError("checkpoint evaluator_state must be a mapping")
+        evaluator.restore_checkpoint_state(evaluator_state)
+        metadata = payload.get("metadata", {})
+        if not isinstance(metadata, Mapping):
+            raise ValueError("checkpoint metadata must be a mapping")
+        population._checkpoint_metadata = json.loads(json.dumps(metadata, sort_keys=True))
         if "rng_state" in payload:
             population.rng.setstate(_restore_tuple_state(payload["rng_state"]))
         if version == 1 and population.population:

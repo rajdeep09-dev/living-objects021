@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import random
+from typing import Any, Mapping
 
 from evolution.fitness import SortingEvaluator
 from evolution.gp_engine import ARITHMETIC_PRIMITIVES, BOOLEAN_PRIMITIVES, GENERIC_LIST_CONTROL_PRIMITIVES, LIST_PRIMITIVES, Primitive
@@ -73,6 +74,14 @@ class CleanSortingEvaluator(SortingEvaluator):
         if not 0 <= stage_index < len(CURRICULUM_LENGTHS):
             raise ValueError("clean sorting stage index is out of range")
         self.stage_index = stage_index
+
+    def checkpoint_state(self) -> dict[str, Any]:
+        return {"profile": self.task_profile, "stage_index": self.stage_index}
+
+    def restore_checkpoint_state(self, state: Mapping[str, Any]) -> None:
+        if state.get("profile") != self.task_profile:
+            raise ValueError("checkpoint evaluator profile does not match clean sorting")
+        self.set_stage(int(state["stage_index"]))
 
     def generate_test_cases(self, seed: int, n: int = 20) -> list[tuple[list[int], list[int]]]:
         rng = random.Random(seed)

@@ -49,6 +49,20 @@ class FitnessEvaluator(ABC):
     def context_for(self, input_value: Any) -> dict[str, Any]:
         return {"x": input_value, "input": input_value, "data": input_value}
 
+    def checkpoint_state(self) -> dict[str, Any]:
+        """Return evaluator-owned JSON state needed for an exact population resume."""
+        return {}
+
+    def restore_checkpoint_state(self, state: Mapping[str, Any]) -> None:
+        """Restore a state emitted by :meth:`checkpoint_state`.
+
+        Stateless evaluators deliberately accept an empty mapping only. A stateful
+        evaluator must override both hooks rather than relying on source parsing
+        or implicit constructor defaults during a resume.
+        """
+        if state:
+            raise ValueError("this evaluator does not accept checkpoint state")
+
     def _eval_on_cases(self, genome: GPGenome, cases: Sequence[tuple[Any, Any]]) -> FitnessResult:
         passed = 0
         durations: list[float] = []

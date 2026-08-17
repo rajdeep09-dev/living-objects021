@@ -120,3 +120,13 @@
 - [x] Add contamination status and valid-result boundaries to the authenticated observatory using persisted artifacts only.
 - [x] Document unimplemented curriculum, persistent deployment, and advanced research directives as explicit gated work rather than completed features.
 - [x] Run complete release verification, save an observatory checkpoint, and push the v8 evidence release.
+- [x] Audit every v9 mandate against the verified v8 baseline and publish an evidence-first implementation/gate matrix.
+- [x] Provide and test a stable versioned `living_objects` SDK with bounded evolve, audit, reproduce, and safe export functions.
+- [x] Implement and test a five-stage clean sorting curriculum with measurable mastery gates, exact resume, and auditable cultural seeding.
+- [x] Implement and test a signed discovery publish/import MVP that locally verifies a result before admitting it to the memome.
+- [x] Add and test documented command-line entry points for bounded evolution, audit, report, publish, and import workflows.
+- [x] Strengthen production API contracts with deterministic validation, bounded result fallback, rate-limit policy tests, and explicit no-worker behavior.
+- [x] Publish an honest claims registry, an evidence-linked README, and a reproducible Manhattan paper manuscript with limitations.
+- [x] Expand targeted regressions and report the actual full-suite total without fabricating a 1,000-test completion claim.
+- [x] Preregister the 100,000-generation clean-sorting campaign and document the compute, scheduling, deployment, and authorization gates.
+- [ ] Run complete v9 verification, push the verified engine release, and retain all v8 retractions and negative results.

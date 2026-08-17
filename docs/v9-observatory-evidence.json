@@ -1,0 +1,218 @@
+{
+  "claim_boundary": "v9 implements bounded SDK, curriculum, exchange, API, and observatory contracts. It does not establish a clean-sorting success, a deployed federation, a persistent worker, a 100,000-generation result, or general intelligence.",
+  "curriculum": {
+    "explicitly_prohibited_names": [
+      "sort1",
+      "map_sq",
+      "filter_pos",
+      "unique",
+      "reverse1",
+      "sum1"
+    ],
+    "mastery_rule": {
+      "individual_correctness": 0.95,
+      "mean_correctness": 0.9,
+      "population_fraction": 0.95
+    },
+    "profile": "clean-sorting-v9-five-stage",
+    "stages": [
+      {
+        "id": "pairs",
+        "index": 0,
+        "length_range": [
+          2,
+          2
+        ],
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length"
+        ],
+        "purpose": "Learn list decomposition and pair reconstruction without comparison primitives.",
+        "title": "Pair ordering"
+      },
+      {
+        "id": "triples",
+        "index": 1,
+        "length_range": [
+          3,
+          3
+        ],
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length",
+          "add",
+          "sub",
+          "neg",
+          "min2",
+          "max2",
+          "gt",
+          "lt",
+          "eq",
+          "choose_list"
+        ],
+        "purpose": "Introduce generic numeric comparison and conditional list selection.",
+        "title": "Three-element ordering"
+      },
+      {
+        "id": "duplicates",
+        "index": 2,
+        "length_range": [
+          3,
+          5
+        ],
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length",
+          "add",
+          "sub",
+          "neg",
+          "min2",
+          "max2",
+          "gt",
+          "lt",
+          "eq",
+          "choose_list"
+        ],
+        "purpose": "Require sorting while retaining repeated values and list cardinality.",
+        "title": "Duplicate preservation"
+      },
+      {
+        "id": "negatives",
+        "index": 3,
+        "length_range": [
+          4,
+          6
+        ],
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length",
+          "add",
+          "sub",
+          "neg",
+          "min2",
+          "max2",
+          "gt",
+          "lt",
+          "eq",
+          "choose_list"
+        ],
+        "purpose": "Require ordering across negative, zero, and positive values.",
+        "title": "Negative-value ordering"
+      },
+      {
+        "id": "up-to-16",
+        "index": 4,
+        "length_range": [
+          2,
+          16
+        ],
+        "primitive_names": [
+          "head",
+          "tail",
+          "cons",
+          "length",
+          "add",
+          "sub",
+          "neg",
+          "min2",
+          "max2",
+          "gt",
+          "lt",
+          "eq",
+          "choose_list",
+          "concat_lists"
+        ],
+        "purpose": "Permit generic concatenation for larger compositional programs.",
+        "title": "Lists up to sixteen elements"
+      }
+    ]
+  },
+  "federation": {
+    "admission_rule": "A signature, fresh-record identity, and exact local persisted-artifact comparison are all required before memome admission.",
+    "generated_source_executed": false,
+    "network_transport": "not implemented by this local exchange MVP",
+    "schema": "beast-v9-signed-discovery-exchange-v1",
+    "verified_record_count": 5,
+    "verified_record_ids": [
+      "BEAST-V8-MANHATTAN-20260814",
+      "BEAST-V8-MANHATTAN-20260815",
+      "BEAST-V8-MANHATTAN-20260816",
+      "BEAST-V8-MANHATTAN-20260817",
+      "BEAST-V8-MANHATTAN-20260818"
+    ]
+  },
+  "measured_results": {
+    "clean_sorting": {
+      "claim_boundary": "No row marked retracted or negative may be presented as a successful algorithm-discovery benchmark.",
+      "status": "NEGATIVE_RESULT"
+    },
+    "manhattan": {
+      "eligible_records": [
+        {
+          "first_perfect_training_generation": 38,
+          "fresh_correctness": 1.0,
+          "record_id": "BEAST-V8-MANHATTAN-20260814",
+          "seed": 20260814
+        },
+        {
+          "first_perfect_training_generation": 35,
+          "fresh_correctness": 1.0,
+          "record_id": "BEAST-V8-MANHATTAN-20260815",
+          "seed": 20260815
+        },
+        {
+          "first_perfect_training_generation": 11,
+          "fresh_correctness": 1.0,
+          "record_id": "BEAST-V8-MANHATTAN-20260816",
+          "seed": 20260816
+        },
+        {
+          "first_perfect_training_generation": 76,
+          "fresh_correctness": 1.0,
+          "record_id": "BEAST-V8-MANHATTAN-20260817",
+          "seed": 20260817
+        },
+        {
+          "first_perfect_training_generation": 61,
+          "fresh_correctness": 1.0,
+          "record_id": "BEAST-V8-MANHATTAN-20260818",
+          "seed": 20260818
+        }
+      ],
+      "status": "VALID_COMPOSITIONAL_RESULT"
+    }
+  },
+  "schema": "beast-v9-observatory-evidence-v1",
+  "sdk": {
+    "generated_source_executed": false,
+    "generation_limit": 10000,
+    "run_schema": "living-objects-sdk-run-v1",
+    "runtime": "typed AST interpreter only",
+    "supported_tasks": [
+      "manhattan-distance",
+      "clean-sorting"
+    ],
+    "version": "0.2.0"
+  },
+  "service": {
+    "inline_generation_limit": 25,
+    "long_run_boundary": "Requests above the inline generation limit are returned as preregistered-campaign requirements, not queued as hidden work.",
+    "persistent_worker_configured": false
+  },
+  "sources": [
+    "living_objects/sdk.py",
+    "evolution/v9_sorting_curriculum.py",
+    "evolution/v9_federation.py",
+    "production/api/v9/routes.py",
+    "docs/v8-benchmark-ledger.json",
+    "docs/v8-discovery-log.json"
+  ]
+}

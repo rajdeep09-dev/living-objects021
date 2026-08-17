@@ -33,6 +33,7 @@ from production.api.v3.routes import router as v3_router, state as v3_state
 from production.api.v4.routes import router as v4_router, state as v4_state
 from production.api.v5.routes import router as v5_router, state as v5_state
 from production.api.v6.routes import router as v6_router, state as v6_state
+from production.api.v9.routes import router as v9_router, state as v9_state
 from production.middleware.cors import CORSConfig
 from production.middleware.rate_limit import configure_rate_limiter, rate_limit_dependency
 
@@ -171,6 +172,7 @@ app.include_router(v3_router, dependencies=[Depends(require_operator)])
 app.include_router(v4_router, dependencies=[Depends(require_operator)])
 app.include_router(v5_router, dependencies=[Depends(require_operator)])
 app.include_router(v6_router, dependencies=[Depends(require_operator)])
+app.include_router(v9_router, dependencies=[Depends(require_operator)])
 
 
 @app.get("/health")
