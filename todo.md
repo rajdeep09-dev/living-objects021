@@ -132,4 +132,4 @@
 - [x] Run complete v9 verification, push the verified engine release, and retain all v8 retractions and negative results.
 - [x] Audit the 473-test post-v9 baseline and map at least 527 meaningful new cases to real engine, API, SDK, artifact, and security behaviors.
 - [x] Add non-duplicative parameterized behavior and boundary regressions until the full engine suite collects and passes at least 1,000 tests.
-- [ ] Publish an exact 1,000-test verification record, correct any public text that labels the 473-test v9 release complete, and push the verified coverage release.
+- [x] Publish an exact 1,000-test verification record, correct any public text that labels the 473-test v9 release complete, and push the verified coverage release.
