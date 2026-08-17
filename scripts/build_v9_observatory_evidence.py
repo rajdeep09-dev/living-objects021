@@ -18,12 +18,34 @@ from production.api.v9.routes import INLINE_GENERATION_LIMIT
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs" / "v9-observatory-evidence.json"
 SCHEMA = "beast-v9-observatory-evidence-v1"
+INVENTORY = ROOT / "docs" / "v9-test-inventory.json"
+
+
+def coverage_evidence() -> dict[str, Any]:
+    try:
+        inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError("v9 observatory evidence requires a readable pytest inventory") from error
+    collected = inventory.get("collected_cases")
+    command = inventory.get("command")
+    if not isinstance(collected, int) or collected < 1_000:
+        raise ValueError("v9 observatory evidence requires a collected pytest inventory of at least 1,000 cases")
+    if not isinstance(command, str) or not command:
+        raise ValueError("v9 observatory evidence requires the inventory collection command")
+    return {
+        "collected_cases": collected,
+        "numerical_gate": "MET",
+        "threshold": 1_000,
+        "collection_command": command,
+        "claim_boundary": "This confirms a collected coverage threshold only; the separately recorded full-suite pass and experimental claims remain bounded by their own evidence artifacts.",
+    }
 
 
 def build_payload() -> dict[str, Any]:
     discoveries = available_discoveries()
     clean_sorting = audit("clean-sorting")
     manhattan = audit("manhattan-distance")
+    coverage = coverage_evidence()
     if len(discoveries) != 5:
         raise ValueError("v9 observatory evidence requires exactly five eligible persisted discovery records")
     if clean_sorting.status != "NEGATIVE_RESULT":
@@ -54,6 +76,7 @@ def build_payload() -> dict[str, Any]:
             "persistent_worker_configured": False,
             "long_run_boundary": "Requests above the inline generation limit are returned as preregistered-campaign requirements, not queued as hidden work.",
         },
+        "verification": coverage,
         "measured_results": {
             "clean_sorting": {
                 "status": clean_sorting.status,
@@ -80,6 +103,7 @@ def build_payload() -> dict[str, Any]:
             "production/api/v9/routes.py",
             "docs/v8-benchmark-ledger.json",
             "docs/v8-discovery-log.json",
+            "docs/v9-test-inventory.json",
         ],
     }
 

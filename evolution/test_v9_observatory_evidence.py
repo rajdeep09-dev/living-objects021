@@ -16,6 +16,9 @@ def test_v9_observatory_artifact_is_derived_from_contracts_and_keeps_v8_boundari
     assert payload["federation"]["verified_record_count"] == 5
     assert payload["federation"]["network_transport"] == "not implemented by this local exchange MVP"
     assert payload["service"]["persistent_worker_configured"] is False
+    assert payload["verification"]["collected_cases"] >= 1_000
+    assert payload["verification"]["numerical_gate"] == "MET"
+    assert payload["verification"]["threshold"] == 1_000
     assert payload["measured_results"]["clean_sorting"]["status"] == "NEGATIVE_RESULT"
     assert len(payload["measured_results"]["manhattan"]["eligible_records"]) == 5
 

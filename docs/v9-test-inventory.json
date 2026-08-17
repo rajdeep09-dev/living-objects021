@@ -1,0 +1,194 @@
+{
+  "command": "APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest --collect-only -q",
+  "collected_cases": 1731,
+  "modules": [
+    {
+      "path": "evolution/test_fitness_contract_matrix.py",
+      "cases": 946
+    },
+    {
+      "path": "evolution/test_gp_engine_contract_matrix.py",
+      "cases": 311
+    },
+    {
+      "path": "evolution/test_v3_contracts.py",
+      "cases": 74
+    },
+    {
+      "path": "evolution/test_v4.py",
+      "cases": 55
+    },
+    {
+      "path": "evolution/test_security_v4.py",
+      "cases": 28
+    },
+    {
+      "path": "evolution/test_security.py",
+      "cases": 26
+    },
+    {
+      "path": "production/test_contracts.py",
+      "cases": 26
+    },
+    {
+      "path": "evolution/test_beast_v2.py",
+      "cases": 25
+    },
+    {
+      "path": "production/test_api.py",
+      "cases": 25
+    },
+    {
+      "path": "production/test_scaling.py",
+      "cases": 18
+    },
+    {
+      "path": "production/test_docker.py",
+      "cases": 16
+    },
+    {
+      "path": "evolution/test_gp_engine.py",
+      "cases": 13
+    },
+    {
+      "path": "evolution/test_v2.py",
+      "cases": 12
+    },
+    {
+      "path": "evolution/test_v3.py",
+      "cases": 11
+    },
+    {
+      "path": "evolution/test_fitness.py",
+      "cases": 10
+    },
+    {
+      "path": "evolution/test_gp_population.py",
+      "cases": 10
+    },
+    {
+      "path": "evolution/test_cellular.py",
+      "cases": 9
+    },
+    {
+      "path": "evolution/test_v5.py",
+      "cases": 9
+    },
+    {
+      "path": "production/test_v2_api.py",
+      "cases": 9
+    },
+    {
+      "path": "production/test_v3_api.py",
+      "cases": 8
+    },
+    {
+      "path": "evolution/test_v9_sorting_curriculum.py",
+      "cases": 7
+    },
+    {
+      "path": "evolution/test_v9_documentation.py",
+      "cases": 6
+    },
+    {
+      "path": "tests/test_all.py",
+      "cases": 6
+    },
+    {
+      "path": "evolution/test_cumulative.py",
+      "cases": 5
+    },
+    {
+      "path": "evolution/test_gp_safety.py",
+      "cases": 5
+    },
+    {
+      "path": "evolution/test_lamarckian.py",
+      "cases": 5
+    },
+    {
+      "path": "evolution/test_proof_benchmark.py",
+      "cases": 5
+    },
+    {
+      "path": "evolution/test_v9_federation.py",
+      "cases": 5
+    },
+    {
+      "path": "production/test_v9_api.py",
+      "cases": 5
+    },
+    {
+      "path": "production/test_v4_api.py",
+      "cases": 4
+    },
+    {
+      "path": "evolution/test_bug_fixer.py",
+      "cases": 3
+    },
+    {
+      "path": "evolution/test_checkpoint_fidelity.py",
+      "cases": 3
+    },
+    {
+      "path": "evolution/test_clean_sorting.py",
+      "cases": 3
+    },
+    {
+      "path": "evolution/test_contamination_audit.py",
+      "cases": 3
+    },
+    {
+      "path": "evolution/test_program_market.py",
+      "cases": 3
+    },
+    {
+      "path": "evolution/test_security_v3.py",
+      "cases": 3
+    },
+    {
+      "path": "production/test_v5_api.py",
+      "cases": 3
+    },
+    {
+      "path": "production/test_v6_api.py",
+      "cases": 3
+    },
+    {
+      "path": "evolution/test_evolutionary_repair.py",
+      "cases": 2
+    },
+    {
+      "path": "evolution/test_polyglot_export.py",
+      "cases": 2
+    },
+    {
+      "path": "evolution/test_v9_campaign_launcher.py",
+      "cases": 2
+    },
+    {
+      "path": "evolution/test_v9_observatory_evidence.py",
+      "cases": 2
+    },
+    {
+      "path": "evolution/test_cellular_experiment.py",
+      "cases": 1
+    },
+    {
+      "path": "evolution/test_v6_benchmarks.py",
+      "cases": 1
+    },
+    {
+      "path": "evolution/test_v7_sorting_marathon.py",
+      "cases": 1
+    },
+    {
+      "path": "evolution/test_v8_evidence_ledger.py",
+      "cases": 1
+    },
+    {
+      "path": "evolution/test_v8_multiseed.py",
+      "cases": 1
+    }
+  ]
+}

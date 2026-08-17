@@ -59,13 +59,27 @@ def test_readme_uses_evidence_first_sdk_and_deployment_boundaries() -> None:
 def test_v9_verification_record_reports_actual_count_and_visible_target_gap() -> None:
     verification = _read("docs/v9-test-verification.md")
     for required_text in (
-        "**473 tests**",
-        "**473 tests** in **97.58 seconds**",
-        "527 below 1,000",
-        "**unmet aspirational coverage target**",
-        "473 passed, 12 warnings",
+        "**1,731 tests**",
+        "**1,731 tests** in **101.93 seconds**",
+        "731 above 1,000",
+        "**met numerical coverage gate**",
+        "1,731 passed, 12 warnings",
+        "does **not** change the scientific status",
     ):
         assert required_text in verification
+
+
+def test_v9_coverage_audit_records_the_observed_gate_without_scientific_overclaim() -> None:
+    audit = _read("docs/v9-1000-test-coverage-audit.md")
+    for required_text in (
+        "**Met numerical coverage gate.**",
+        "**1,731 collected cases**",
+        "**1,731 tests in 101.93 seconds**",
+        "test_gp_engine_contract_matrix.py",
+        "test_fitness_contract_matrix.py",
+        "does not promote a test-count result into a scientific discovery claim",
+    ):
+        assert required_text in audit
 
 
 def test_v9_long_run_and_external_operation_materials_remain_explicitly_gated() -> None:

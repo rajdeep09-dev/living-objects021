@@ -213,6 +213,14 @@
     "evolution/v9_federation.py",
     "production/api/v9/routes.py",
     "docs/v8-benchmark-ledger.json",
-    "docs/v8-discovery-log.json"
-  ]
+    "docs/v8-discovery-log.json",
+    "docs/v9-test-inventory.json"
+  ],
+  "verification": {
+    "claim_boundary": "This confirms a collected coverage threshold only; the separately recorded full-suite pass and experimental claims remain bounded by their own evidence artifacts.",
+    "collected_cases": 1731,
+    "collection_command": "APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest --collect-only -q",
+    "numerical_gate": "MET",
+    "threshold": 1000
+  }
 }
