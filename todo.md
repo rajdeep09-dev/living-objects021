@@ -139,4 +139,4 @@
 - [x] Assemble an arXiv-ready manuscript package and submission checklist without claiming an arXiv identifier before user-authorized submission.
 - [x] Build and test a minimal real-data observatory deployment package, preserving explicit no-live-URL and no-continuous-worker boundaries until deployment is authorized.
 - [x] Record the exact persistent-compute authorization and milestone gate for the unlaunched 100,000-generation clean-sorting campaign.
-- [ ] Run final v10 verification, revise the README and claims registry to exact reality, push verified engine changes, and retain all negative and retracted results.
+- [x] Run final v10 verification, revise the README and claims registry to exact reality, push verified engine changes, and retain all negative and retracted results.
