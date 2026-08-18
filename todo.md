@@ -144,4 +144,4 @@
 - [x] Repair and regression-test every validated GP, evaluator, checkpoint, curriculum, federation, and SDK defect without treating an unverified guide assertion as fact.
 - [x] Harden every validated API authorization, rate-limit, synchronous-execution, and artifact-isolation weakness while retaining an explicit local-research-service boundary.
 - [x] Document the no-lead-workflow boundary and the lawful authorization, source, privacy, provenance, and human-review gates required before any future lead-research implementation.
-- [ ] Run final v11 end-to-end verification, revise public claims and operational gates, checkpoint affected observatory work, and push the verified engine release.
+- [x] Run final v11 end-to-end verification, revise public claims and operational gates, checkpoint affected observatory work, and push the verified engine release.
