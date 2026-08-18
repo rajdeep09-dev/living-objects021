@@ -43,6 +43,7 @@ def main() -> int:
         crossover_rate=0.85,
         elitism_count=5,
         max_depth=8,
+        primitive_profile_name="task-specific",
     )
     curriculum = FiveStageSortingCurriculum()
     population.initialize()

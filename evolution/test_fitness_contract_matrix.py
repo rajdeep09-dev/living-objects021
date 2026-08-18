@@ -92,7 +92,7 @@ def test_absolute_difference_composition_is_exact_on_fixed_value_lattice(left: i
 EVALUATORS = (
     SortingEvaluator, PrimeEvaluator, FibonacciEvaluator, StringReverseEvaluator,
     MaxSubarrayEvaluator, AbsoluteDifferenceEvaluator, ManhattanDistanceEvaluator,
-    CompressionEvaluator, PathfindingEvaluator, GameStrategyEvaluator,
+    CompressionEvaluator, PathfindingEvaluator,
 )
 
 
@@ -106,7 +106,7 @@ def test_evaluator_case_generation_is_repeatable_for_fixed_seed_and_size(
     first = evaluator.generate_test_cases(seed=seed, n=size)
     second = evaluator.generate_test_cases(seed=seed, n=size)
     assert first == second
-    assert len(first) == size or evaluator_type is GameStrategyEvaluator
+    assert len(first) == size
 
 
 @pytest.mark.parametrize(

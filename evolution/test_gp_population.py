@@ -103,7 +103,10 @@ def test_fitness_seed_rotates_every_generation_but_is_consistent_within_one_gene
 
 
 def test_population_saves_and_loads_without_fitness_regression(tmp_path) -> None:
-    population = GPPopulation(SortingEvaluator(), primitives=ALL_REGISTERED_PRIMITIVES, population_size=8, seed=131)
+    population = GPPopulation(
+        SortingEvaluator(), primitives=ALL_REGISTERED_PRIMITIVES,
+        primitive_profile_name="legacy-artifact", population_size=8, seed=131,
+    )
     population.run(100)
     generation_100_fitness = population.champion.fitness
     checkpoint = tmp_path / "generation-100.json"

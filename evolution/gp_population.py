@@ -9,8 +9,10 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from evolution.evaluator_safety import require_evaluator_approval
 from evolution.fitness import FitnessEvaluator, FitnessResult
 from evolution.gp_engine import ALL_REGISTERED_PRIMITIVES, DEFAULT_PRIMITIVES, GPGenome, GPNode, GPTreeBuilder
+from evolution.primitive_registry import require_approved_primitives
 
 
 @dataclass
@@ -68,9 +70,10 @@ class GPPopulation:
     BLOAT_MAX_NODES = 64
     TRAIN_SEED_OFFSET = 17
 
-    def __init__(self, evaluator: FitnessEvaluator, primitives=None, terminals=None, population_size: int = 50, seed: int = 42, tournament_size: int = 5, crossover_rate: float = 0.8, mutation_rate: float = 0.15, elitism_count: int = 3, max_depth: int = 7, bloat_penalty: float = 0.001) -> None:
+    def __init__(self, evaluator: FitnessEvaluator, primitives=None, terminals=None, population_size: int = 50, seed: int = 42, tournament_size: int = 5, crossover_rate: float = 0.8, mutation_rate: float = 0.15, elitism_count: int = 3, max_depth: int = 7, bloat_penalty: float = 0.001, primitive_profile_name: str = "default") -> None:
         if not 2 <= population_size <= 512:
             raise ValueError("population_size must be in 2..512")
+        require_evaluator_approval(evaluator)
         self.evaluator = evaluator
         self.rng = random.Random(seed)
         self.population_size = population_size
@@ -80,7 +83,11 @@ class GPPopulation:
         self.elitism_count = max(1, min(elitism_count, population_size - 1))
         self.max_depth = max(1, min(max_depth, GPTreeBuilder.MAX_DEPTH))
         self.bloat_penalty = max(0.0, bloat_penalty)
-        self.builder = GPTreeBuilder(primitives or DEFAULT_PRIMITIVES, terminals or evaluator.terminals, self.rng)
+        approved_primitives = require_approved_primitives(
+            primitives or DEFAULT_PRIMITIVES, profile_name=primitive_profile_name,
+        )
+        self.primitive_profile_name = primitive_profile_name
+        self.builder = GPTreeBuilder(approved_primitives, terminals or evaluator.terminals, self.rng)
         self.generation = 0
         self.population: list[GPOrganism] = []
         self.hall_of_fame: list[GPOrganism] = []
@@ -96,16 +103,18 @@ class GPPopulation:
         self._apply_bloat_brake()
         self._evaluate_current()
 
-    def set_primitive_profile(self, primitives) -> None:
+    def set_primitive_profile(self, primitives, *, primitive_profile_name: str | None = None) -> None:
         """Apply a declared curriculum profile to future variation operations.
 
         Existing organisms remain immutable historical programs. The shared RNG
         is retained, so a profile transition does not reseed or otherwise hide
         deterministic population state.
         """
-        primitive_tuple = tuple(primitives)
+        profile_name = primitive_profile_name or self.primitive_profile_name
+        primitive_tuple = require_approved_primitives(primitives, profile_name=profile_name)
         if not primitive_tuple:
             raise ValueError("a primitive profile must contain at least one primitive")
+        self.primitive_profile_name = profile_name
         self.builder = GPTreeBuilder(primitive_tuple, self.evaluator.terminals, self.rng)
 
     def set_checkpoint_metadata(self, namespace: str, value: Mapping[str, Any]) -> None:
@@ -184,7 +193,7 @@ class GPPopulation:
                 "population_size": self.population_size, "tournament_size": self.tournament_size,
                 "crossover_rate": self.crossover_rate, "mutation_rate": self.mutation_rate,
                 "elitism_count": self.elitism_count, "max_depth": self.max_depth,
-                "bloat_penalty": self.bloat_penalty,
+                "bloat_penalty": self.bloat_penalty, "primitive_profile_name": self.primitive_profile_name,
             },
             "rng_state": _json_safe_state(self.rng.getstate()),
             "primitive_profile": [primitive.name for primitive in self.builder.primitives],
@@ -209,6 +218,14 @@ class GPPopulation:
             if missing:
                 raise ValueError(f"checkpoint primitive profile is unavailable: {', '.join(missing)}")
             primitives = tuple(known[name] for name in profile_names)
+            if "primitive_profile_name" not in config:
+                requested = frozenset(profile_names)
+                default_names = frozenset(primitive.name for primitive in DEFAULT_PRIMITIVES)
+                config["primitive_profile_name"] = (
+                    "default" if requested <= default_names
+                    else "legacy-artifact" if "sort1" in requested
+                    else "task-specific"
+                )
         population = cls(evaluator=evaluator, primitives=primitives, terminals=terminals, **config)
         population.generation = int(payload.get("generation", 0))
         population.population = [population._organism_from_payload(item) for item in payload.get("population", [])]

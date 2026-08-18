@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from evolution.fitness import (
     AbsoluteDifferenceEvaluator,
     CompressionEvaluator,
@@ -11,6 +13,7 @@ from evolution.fitness import (
     SortingEvaluator,
     StringReverseEvaluator,
 )
+from evolution.evaluator_safety import EvaluatorNotApprovedError
 from evolution.gp_engine import ARITHMETIC_PRIMITIVES, CONVENIENCE_PRIMITIVES, GPGenome, GPNode, LIST_PRIMITIVES, STRING_PRIMITIVES
 
 
@@ -86,18 +89,6 @@ def test_pathfinding_reference_is_geometric_distance() -> None:
     assert not evaluator._is_correct(0.0, 6.0)
 
 
-def test_game_strategy_evaluation_is_bounded_and_normalised() -> None:
-    evaluator = GameStrategyEvaluator()
-    genome = GPGenome(GPNode(terminal_value=1.0))
-    result = evaluator.evaluate(genome)
-    assert 0.0 <= result.score <= 1.0
-    assert result.test_cases_total == evaluator.OPPONENT_COUNT * evaluator.ROUNDS_PER_OPPONENT
-
-
-def test_game_strategy_population_path_uses_real_tournament_not_placeholder_none_case() -> None:
-    evaluator = GameStrategyEvaluator()
-    invalid = GPGenome(GPNode(terminal_name="missing_terminal", value_type="float"))
-    result = evaluator.batch_evaluate([invalid], seed=7, n=20)[0]
-    assert evaluator.generate_test_cases(seed=7, n=1) != [(None, None)]
-    assert result.test_cases_total == evaluator.OPPONENT_COUNT * evaluator.ROUNDS_PER_OPPONENT
-    assert 0.0 <= result.score < 1.0
+def test_game_strategy_evaluator_is_disabled_pending_safety_review() -> None:
+    with pytest.raises(EvaluatorNotApprovedError, match="disabled pending a task-specific evaluator safety review"):
+        GameStrategyEvaluator()

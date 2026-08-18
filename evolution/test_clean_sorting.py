@@ -15,7 +15,10 @@ def test_clean_sorting_profile_excludes_direct_and_near_complete_list_operators(
 
 def test_clean_sorting_audit_has_no_one_operation_solution_and_low_random_baseline() -> None:
     task = TaskDefinition("clean-sorting-v1", CleanSortingEvaluator)
-    record = audit_task(task, PHASES[-1].primitives, baseline_population_size=100, baseline_seed=2026)
+    record = audit_task(
+        task, PHASES[-1].primitives, baseline_population_size=100, baseline_seed=2026,
+        primitive_profile_name="task-specific",
+    )
     assert record["status"] == "NO_ONE_OPERATION_MATCH_OBSERVED"
     assert record["direct_solution_matches"] == []
     assert record["baseline"]["perfect_programs"] == 0
@@ -23,7 +26,10 @@ def test_clean_sorting_audit_has_no_one_operation_solution_and_low_random_baseli
 
 
 def test_clean_curriculum_changes_only_future_variation_profile_at_declared_boundaries() -> None:
-    population = GPPopulation(CleanSortingEvaluator(), primitives=PHASES[0].primitives, population_size=8, seed=141)
+    population = GPPopulation(
+        CleanSortingEvaluator(), primitives=PHASES[0].primitives,
+        population_size=8, seed=141, primitive_profile_name="task-specific",
+    )
     population.initialize()
     assert CleanSortingCurriculum.apply_to_population(population).name == "structural"
     assert {primitive.name for primitive in population.builder.primitives} == {primitive.name for primitive in PHASES[0].primitives}

@@ -16,7 +16,11 @@ from evolution.v9_sorting_curriculum import (
 
 
 def _population(seed: int = 31) -> GPPopulation:
-    return GPPopulation(V9CleanSortingEvaluator(), primitives=STAGES[0].primitives, population_size=12, seed=seed, max_depth=5)
+    return GPPopulation(
+        V9CleanSortingEvaluator(), primitives=STAGES[0].primitives,
+        population_size=12, seed=seed, max_depth=5,
+        primitive_profile_name="task-specific",
+    )
 
 
 def test_five_stage_evaluator_domains_are_deterministic_and_match_declared_lengths() -> None:

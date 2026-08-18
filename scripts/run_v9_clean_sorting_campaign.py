@@ -77,6 +77,7 @@ def _new_population(seed: int) -> tuple[GPPopulation, FiveStageSortingCurriculum
         evaluator=evaluator, primitives=STAGES[0].primitives, population_size=SPEC.population_size,
         seed=seed, max_depth=SPEC.max_depth, mutation_rate=SPEC.mutation_rate,
         crossover_rate=SPEC.crossover_rate, elitism_count=SPEC.elitism_count,
+        primitive_profile_name="task-specific",
     )
     population.initialize()
     curriculum = FiveStageSortingCurriculum()

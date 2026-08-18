@@ -15,7 +15,7 @@ from typing import Any, Callable, Iterable
 
 from evolution.fitness import (
     AbsoluteDifferenceEvaluator, CompressionEvaluator, FibonacciEvaluator,
-    FitnessEvaluator, GameStrategyEvaluator, ManhattanDistanceEvaluator,
+    FitnessEvaluator, ManhattanDistanceEvaluator,
     MaxSubarrayEvaluator, PathfindingEvaluator, PrimeEvaluator,
     SortingEvaluator, StringReverseEvaluator,
 )
@@ -46,10 +46,6 @@ IMPLEMENTED_TASKS: tuple[TaskDefinition, ...] = (
     TaskDefinition("manhattan-distance", ManhattanDistanceEvaluator),
     TaskDefinition("compression", CompressionEvaluator),
     TaskDefinition("pathfinding", PathfindingEvaluator),
-    # The evaluator overrides both single and population paths to use the same
-    # deterministic tournament. A no-one-operation-match result is still only
-    # an audit observation, never a general game-strategy benchmark claim.
-    TaskDefinition("game-strategy", GameStrategyEvaluator),
 )
 
 
@@ -95,11 +91,15 @@ def _is_direct_solution(evaluator: FitnessEvaluator, genome: GPGenome) -> bool:
     return True
 
 
-def _baseline(evaluator: FitnessEvaluator, primitives: tuple[Primitive, ...], population_size: int, seed: int) -> dict[str, Any]:
+def _baseline(
+    evaluator: FitnessEvaluator, primitives: tuple[Primitive, ...], population_size: int, seed: int,
+    *, primitive_profile_name: str,
+) -> dict[str, Any]:
     population = GPPopulation(
         evaluator=evaluator, primitives=primitives, population_size=population_size,
         seed=seed, max_depth=8, crossover_rate=0.85, mutation_rate=0.12,
         tournament_size=min(7, population_size), elitism_count=min(5, population_size - 1),
+        primitive_profile_name=primitive_profile_name,
     )
     population.initialize()
     scores = [organism.fitness for organism in population.population]
@@ -120,6 +120,7 @@ def audit_task(
     *,
     baseline_population_size: int = BASELINE_POPULATION_SIZE,
     baseline_seed: int = BASELINE_SEED,
+    primitive_profile_name: str = "default",
 ) -> dict[str, Any]:
     """Return a JSON-serializable contamination record for one actual evaluator."""
     primitive_tuple = tuple(primitives)
@@ -132,7 +133,10 @@ def audit_task(
                 "tree": genome.tree.to_dict(),
                 "node_count": genome.complexity(),
             })
-    baseline = _baseline(evaluator, primitive_tuple, baseline_population_size, baseline_seed)
+    baseline = _baseline(
+        evaluator, primitive_tuple, baseline_population_size, baseline_seed,
+        primitive_profile_name=primitive_profile_name,
+    )
     if not task.expected_batch_semantics:
         status = "INVALID_EVALUATOR_CONTRACT"
         decision = "Do not rank or evolve with this evaluator until batch_evaluate matches declared scoring semantics."
@@ -148,6 +152,7 @@ def audit_task(
         "status": status,
         "decision": decision,
         "profile": {
+            "primitive_profile_name": primitive_profile_name,
             "primitive_names": [primitive.name for primitive in primitive_tuple],
             "primitive_count": len(primitive_tuple),
             "terminal_count": len(evaluator.terminals),

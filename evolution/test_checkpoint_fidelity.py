@@ -37,6 +37,7 @@ def _population() -> GPPopulation:
     population = GPPopulation(
         CleanSortingEvaluator(), primitives=PHASES[-1].primitives,
         population_size=10, seed=844, tournament_size=4, max_depth=6,
+        primitive_profile_name="task-specific",
     )
     population.initialize()
     population.population[0].genome = GPGenome(tree=_custom_clean_tree())

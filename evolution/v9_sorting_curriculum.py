@@ -112,7 +112,10 @@ class FiveStageSortingCurriculum:
     def bind(self, population: GPPopulation) -> None:
         """Apply the evaluator's active primitive profile and checkpoint controller state."""
         evaluator = self._evaluator(population)
-        population.set_primitive_profile(STAGES[evaluator.stage_index].primitives)
+        population.set_primitive_profile(
+            STAGES[evaluator.stage_index].primitives,
+            primitive_profile_name="task-specific",
+        )
         population.set_checkpoint_metadata(CHECKPOINT_NAMESPACE, self.to_state())
 
     def to_state(self) -> dict[str, Any]:

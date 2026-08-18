@@ -145,3 +145,8 @@
 - [x] Harden every validated API authorization, rate-limit, synchronous-execution, and artifact-isolation weakness while retaining an explicit local-research-service boundary.
 - [x] Document the no-lead-workflow boundary and the lawful authorization, source, privacy, provenance, and human-review gates required before any future lead-research implementation.
 - [x] Run final v11 end-to-end verification, revise public claims and operational gates, checkpoint affected observatory work, and push the verified engine release.
+- [x] Audit all twelve v12 phases against the verified v11 baseline and publish a phase-by-phase evidence, safety, privacy, platform, and authorization matrix before adding capability.
+- [x] Build and regression-test the locally feasible containment interface, primitive approval registry, evaluator safety gate, and signed immutable audit-trail contract without falsely claiming unavailable kernel isolation.
+- [x] Implement and test bounded Tier 2 text and fixed-name approved-pattern processing through the approval registry, with synthetic semantic contracts, no arbitrary regex execution, and no claim of sandboxed Tier 3 organism execution.
+- [x] Document and enforce gates for real lead data, network access, persistent autonomy, multi-agent coordination, credentials, and external side effects; use no personal-data collection or unsolicited outreach.
+- [ ] Run final v12 verification, update all public claims and operational documentation, synchronize any affected observatory evidence, checkpoint, and push the verified release.

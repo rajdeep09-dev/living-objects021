@@ -119,6 +119,22 @@ Version 11 audited the v10 guide against the checked-out source, rather than ass
 
 See the [v11 foundation audit](docs/v11-foundation-audit.md) for the full defect classification, repaired/stale distinctions, safety limits, and lead-research boundary.
 
+## v12 safety foundation and bounded text work
+
+Version 12 adds locally testable controls before any expansion toward networked or autonomous behavior. The default GP profile now has explicit per-primitive approval metadata, the pending-review game-strategy evaluator fails closed, a local HMAC-linked audit trail detects modification, and a capability report distinguishes enforced local controls from unavailable kernel isolation. These are **local contracts**, not a production security certification or an immutable distributed ledger.
+
+The interpreter also provides forty bounded pure string transforms and a fourteen-name fixed-pattern helper registry. The registry rejects arbitrary regular-expression text. It does not ingest real leads, infer personal contact details, make requests, access a browser, read arbitrary files, or execute patterns as sandboxed organism primitives.
+
+| v12 item | Exact implementation status | Boundary and evidence |
+|---|---|---|
+| Containment and audit records | Locally implemented and regression-tested | AST/interpreter/subprocess controls remain host-dependent; the audit chain is local and tamper-evident, not an immutable ledger or kernel sandbox. [Foundation audit](docs/v12-foundation-audit.md) |
+| Primitive and evaluator approval | Locally implemented and regression-tested | The clean default profile is governed centrally; legacy profiles require explicit opt-in. `GameStrategyEvaluator` is disabled pending task-specific review. [Foundation tests](evolution/test_v12_foundations.py) |
+| Text and fixed patterns | Forty pure string operations and fourteen named patterns are locally implemented and regression-tested | No arbitrary regex, Tier 3 sandboxed organism pattern execution, real lead dataset, lead evaluator, or business-quality result. [Text-pattern safety](docs/v12-text-pattern-safety.md) |
+| Network, persistence, federation, and external action | Explicitly gated | No network organism primitive, persistent worker, scheduler, public API, external side effect, or multi-agent deployment. [Operational gate](docs/v12-operational-authorization-gate.md) |
+| Final v12 regression | **1,720 collected cases passed** in 124.91 seconds | Parameterized collection count, not a count of distinct test functions; 12 existing test/dependency configuration warnings remain visible. [Final verification](docs/v12-final-verification.md) |
+
+> The v12 roadmap is not a permission grant. External data, credentials, network access, persistent autonomy, public deployment, publishing, and campaign execution each remain owner-controlled and independently verifiable decisions.
+
 ## Repository map
 
 | Location | Purpose |
@@ -135,6 +151,10 @@ See the [v11 foundation audit](docs/v11-foundation-audit.md) for the full defect
 | [`docs/v10-campaign-launch-gate.md`](docs/v10-campaign-launch-gate.md) | Persistent-compute authorization, pilot, recovery, and milestone gate |
 | [`docs/v11-foundation-audit.md`](docs/v11-foundation-audit.md) | v11 code audit, measured local checks, and exact capability boundaries |
 | [`reports/v11/`](reports/v11/) | Committed bounded-run, replay, runtime-export, Stage 0, and capacity evidence |
+| [`docs/v12-foundation-audit.md`](docs/v12-foundation-audit.md) | v12 phase-by-phase safety, platform, privacy, and authorization audit |
+| [`docs/v12-operational-authorization-gate.md`](docs/v12-operational-authorization-gate.md) | Required gates for data, network, persistence, credentials, public service, and external action |
+| [`evolution/primitive_registry.py`](evolution/primitive_registry.py) | Per-primitive approval metadata and explicit profile governance |
+| [`evolution/approved_patterns.py`](evolution/approved_patterns.py) | Fixed-name bounded pattern registry; arbitrary regex strings are refused |
 
 ## Development verification
 

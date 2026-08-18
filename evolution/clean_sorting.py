@@ -103,7 +103,7 @@ class CleanSortingCurriculum:
     @classmethod
     def apply_to_population(cls, population) -> CurriculumPhase:
         phase = cls.phase_for_generation(population.generation)
-        population.set_primitive_profile(phase.primitives)
+        population.set_primitive_profile(phase.primitives, primitive_profile_name="task-specific")
         return phase
 
     @classmethod

@@ -10,6 +10,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Iterable, Sequence
 
+from evolution.evaluator_safety import require_evaluator_approval
 from evolution.gp_engine import BOOL, FLOAT, LIST, STRING, GPGenome, Terminal
 
 
@@ -290,13 +291,20 @@ class PathfindingEvaluator(FitnessEvaluator):
 
 
 class GameStrategyEvaluator(FitnessEvaluator):
-    """Finite, deterministic iterated-prisoner's-dilemma tournament."""
+    """Disabled pending a task-specific evaluator safety review.
+
+    The deterministic tournament implementation remains below for audit history,
+    but instances are blocked before they can score or rank a population.
+    """
 
     output_type = FLOAT
     terminals = (Terminal(name="x", value_type=FLOAT), Terminal(name="rnd", value_type=FLOAT), Terminal(value=0.0, value_type=FLOAT), Terminal(value=1.0, value_type=FLOAT))
 
     OPPONENT_COUNT = 5
     ROUNDS_PER_OPPONENT = 100
+
+    def __init__(self) -> None:
+        require_evaluator_approval(self)
 
     def generate_test_cases(self, seed: int, n: int = 1) -> list[tuple[float, float]]:
         """Expose a non-degenerate diagnostic schedule for the abstract interface.

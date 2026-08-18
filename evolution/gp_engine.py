@@ -25,6 +25,154 @@ FLOAT = "float"
 BOOL = "bool"
 LIST = "list"
 STRING = "str"
+TEXT_INPUT_LIMIT = 16_384
+TEXT_OUTPUT_LIMIT = 16_384
+
+
+def _bounded_text(value: Any, limit: int = TEXT_OUTPUT_LIMIT) -> str:
+    """Return a bounded string for pure Tier 2 text operations."""
+    return str(value)[: max(0, min(int(limit), TEXT_OUTPUT_LIMIT))]
+
+
+def _bounded_index(value: Any, upper: int = TEXT_OUTPUT_LIMIT) -> int:
+    try:
+        return max(0, min(int(float(value)), upper))
+    except (TypeError, ValueError, OverflowError):
+        return 0
+
+
+def _extract_between(text: Any, start: Any, end: Any) -> str:
+    source, first, last = _bounded_text(text), _bounded_text(start), _bounded_text(end)
+    if not first or not last:
+        return ""
+    start_at = source.find(first)
+    if start_at < 0:
+        return ""
+    content_at = start_at + len(first)
+    end_at = source.find(last, content_at)
+    return _bounded_text(source[content_at:end_at] if end_at >= 0 else "")
+
+
+def _extract_after(text: Any, marker: Any) -> str:
+    source, token = _bounded_text(text), _bounded_text(marker)
+    if not token:
+        return ""
+    at = source.find(token)
+    return _bounded_text(source[at + len(token):] if at >= 0 else "")
+
+
+def _extract_before(text: Any, marker: Any) -> str:
+    source, token = _bounded_text(text), _bounded_text(marker)
+    if not token:
+        return ""
+    at = source.find(token)
+    return _bounded_text(source[:at] if at >= 0 else "")
+
+
+def _nth_word(text: Any, index: Any) -> str:
+    words = _bounded_text(text).split()
+    position = _bounded_index(index, len(words))
+    return _bounded_text(words[position] if position < len(words) else "")
+
+
+def _nth_line(text: Any, index: Any) -> str:
+    lines = _bounded_text(text).splitlines()
+    position = _bounded_index(index, len(lines))
+    return _bounded_text(lines[position] if position < len(lines) else "")
+
+
+_EMAIL_FORMAT = re.compile(r"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]{1,64}@[A-Za-z0-9-]{1,63}(?:\.[A-Za-z0-9-]{1,63})+$")
+_HTML_TAG = re.compile(r"<[^>]{0,1024}>")
+_FIRST_NUMBER = re.compile(r"[0-9]+(?:\.[0-9]+)?")
+
+
+def _is_email(text: Any) -> bool:
+    return bool(_EMAIL_FORMAT.fullmatch(_bounded_text(text)))
+
+
+def _is_url(text: Any) -> bool:
+    value = _bounded_text(text)
+    return value.startswith(("http://", "https://")) and bool(_extract_domain(value) and "." in _extract_domain(value))
+
+
+def _is_phone(text: Any) -> bool:
+    digits = "".join(character for character in _bounded_text(text) if character.isdigit())
+    return 10 <= len(digits) <= 15
+
+
+def _is_numeric(text: Any) -> bool:
+    value = _bounded_text(text).strip()
+    try:
+        float(value)
+        return bool(value)
+    except ValueError:
+        return False
+
+
+def _remove_punctuation(text: Any) -> str:
+    return _bounded_text("".join(character for character in _bounded_text(text) if character.isalnum() or character.isspace() or character == "@"))
+
+
+def _collapse_whitespace(text: Any) -> str:
+    return _bounded_text(" ".join(_bounded_text(text).split()))
+
+
+def _remove_html_tags(text: Any) -> str:
+    # Static bounded pattern only; no evolved or user-supplied regex is accepted.
+    return _bounded_text(_HTML_TAG.sub("", _bounded_text(text)))
+
+
+def _decode_html_entities(text: Any) -> str:
+    value = _bounded_text(text)
+    for encoded, decoded in (("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", '"'), ("&#39;", "'")):
+        value = value.replace(encoded, decoded)
+    return _bounded_text(value)
+
+
+def _split_on(text: Any, delimiter: Any) -> list[str]:
+    value, token = _bounded_text(text), _bounded_text(delimiter)
+    return [_bounded_text(item) for item in (value.split(token) if token else [value])]
+
+
+def _pad(text: Any, width: Any, pad_character: Any, *, left: bool) -> str:
+    value = _bounded_text(text)
+    target_width = _bounded_index(width, 4_096)
+    pad = _bounded_text(pad_character)[:1] or " "
+    return _bounded_text(value.rjust(target_width, pad) if left else value.ljust(target_width, pad))
+
+
+def _extract_domain(url: Any) -> str:
+    value = _bounded_text(url)
+    after_protocol = value.split("://", 1)[1] if "://" in value else value
+    return _bounded_text(after_protocol.split("/", 1)[0].split("?", 1)[0].split("#", 1)[0])
+
+
+def _extract_email_domain(email: Any) -> str:
+    value = _bounded_text(email)
+    return _bounded_text(value.rsplit("@", 1)[1] if "@" in value else "")
+
+
+def _extract_tld(domain: Any) -> str:
+    value = _bounded_text(domain).rstrip(".")
+    return _bounded_text(value.rsplit(".", 1)[1] if "." in value else "")
+
+
+def _strip_protocol(url: Any) -> str:
+    value = _bounded_text(url)
+    return _bounded_text(value[8:] if value.startswith("https://") else value[7:] if value.startswith("http://") else value)
+
+
+def _normalise_company_name(text: Any) -> str:
+    value = _remove_punctuation(text).strip()
+    words = value.split()
+    if words and words[-1].lower() in {"inc", "llc", "ltd", "corp", "co", "gmbh"}:
+        words.pop()
+    return _bounded_text(" ".join(words))
+
+
+def _extract_first_number(text: Any) -> float:
+    match = _FIRST_NUMBER.search(_bounded_text(text))
+    return float(match.group(0)) if match else 0.0
 
 
 def _safe_div(left: float, right: float) -> float:
@@ -116,6 +264,37 @@ STRING_PRIMITIVES: tuple[Primitive, ...] = (
     Primitive("replace3", 3, lambda s, a, b: str(s).replace(str(a), str(b)), STRING, (STRING, STRING, STRING)),
     Primitive("len_str", 1, lambda value: float(len(str(value))), FLOAT, (STRING,)),
     Primitive("reverse1", 1, lambda value: str(value)[::-1], STRING, (STRING,)),
+    Primitive("extract_between", 3, _extract_between, STRING, (STRING, STRING, STRING)),
+    Primitive("extract_after", 2, _extract_after, STRING, (STRING, STRING)),
+    Primitive("extract_before", 2, _extract_before, STRING, (STRING, STRING)),
+    Primitive("nth_word", 2, _nth_word, STRING, (STRING, FLOAT)),
+    Primitive("nth_line", 2, _nth_line, STRING, (STRING, FLOAT)),
+    Primitive("is_email", 1, _is_email, BOOL, (STRING,)),
+    Primitive("is_url", 1, _is_url, BOOL, (STRING,)),
+    Primitive("is_phone", 1, _is_phone, BOOL, (STRING,)),
+    Primitive("is_numeric", 1, _is_numeric, BOOL, (STRING,)),
+    Primitive("contains_digit", 1, lambda value: any(character.isdigit() for character in _bounded_text(value)), BOOL, (STRING,)),
+    Primitive("contains_alpha", 1, lambda value: any(character.isalpha() for character in _bounded_text(value)), BOOL, (STRING,)),
+    Primitive("remove_punctuation", 1, _remove_punctuation, STRING, (STRING,)),
+    Primitive("collapse_whitespace", 1, _collapse_whitespace, STRING, (STRING,)),
+    Primitive("to_lowercase", 1, lambda value: _bounded_text(value).lower(), STRING, (STRING,)),
+    Primitive("to_titlecase", 1, lambda value: _bounded_text(value).title(), STRING, (STRING,)),
+    Primitive("remove_html_tags", 1, _remove_html_tags, STRING, (STRING,)),
+    Primitive("decode_html_entities", 1, _decode_html_entities, STRING, (STRING,)),
+    Primitive("count_occurrences", 2, lambda text, substring: float(_bounded_text(text).count(_bounded_text(substring))) if _bounded_text(substring) else 0.0, FLOAT, (STRING, STRING)),
+    Primitive("find_first", 2, lambda text, substring: float(_bounded_text(text).find(_bounded_text(substring))), FLOAT, (STRING, STRING)),
+    Primitive("find_last", 2, lambda text, substring: float(_bounded_text(text).rfind(_bounded_text(substring))), FLOAT, (STRING, STRING)),
+    Primitive("split_on", 2, _split_on, LIST, (STRING, STRING)),
+    Primitive("join_with", 2, lambda values, delimiter: _bounded_text(_bounded_text(delimiter).join(_bounded_text(value) for value in list(values)[:TEXT_INPUT_LIMIT])), STRING, (LIST, STRING)),
+    Primitive("pad_left", 3, lambda text, width, pad: _pad(text, width, pad, left=True), STRING, (STRING, FLOAT, STRING)),
+    Primitive("pad_right", 3, lambda text, width, pad: _pad(text, width, pad, left=False), STRING, (STRING, FLOAT, STRING)),
+    Primitive("truncate", 2, lambda text, length: _bounded_text(text, _bounded_index(length)), STRING, (STRING, FLOAT)),
+    Primitive("extract_domain", 1, _extract_domain, STRING, (STRING,)),
+    Primitive("extract_email_domain", 1, _extract_email_domain, STRING, (STRING,)),
+    Primitive("extract_tld", 1, _extract_tld, STRING, (STRING,)),
+    Primitive("strip_protocol", 1, _strip_protocol, STRING, (STRING,)),
+    Primitive("normalise_company_name", 1, _normalise_company_name, STRING, (STRING,)),
+    Primitive("extract_first_number", 1, _extract_first_number, FLOAT, (STRING,)),
 )
 
 DEFAULT_PRIMITIVES = ARITHMETIC_PRIMITIVES + BOOLEAN_PRIMITIVES + LIST_PRIMITIVES + STRING_PRIMITIVES
