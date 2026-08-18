@@ -295,10 +295,33 @@ class GameStrategyEvaluator(FitnessEvaluator):
     output_type = FLOAT
     terminals = (Terminal(name="x", value_type=FLOAT), Terminal(name="rnd", value_type=FLOAT), Terminal(value=0.0, value_type=FLOAT), Terminal(value=1.0, value_type=FLOAT))
 
-    def generate_test_cases(self, seed: int, n: int = 1) -> list[tuple[None, None]]:
-        return [(None, None)]
+    OPPONENT_COUNT = 5
+    ROUNDS_PER_OPPONENT = 100
+
+    def generate_test_cases(self, seed: int, n: int = 1) -> list[tuple[float, float]]:
+        """Expose a non-degenerate diagnostic schedule for the abstract interface.
+
+        Game programs are not scored by generic expected-value equality. They are
+        scored in :meth:`_tournament_result`; this schedule records deterministic
+        round identifiers only so no caller can mistake ``(None, None)`` for a
+        valid perfect-output case.
+        """
+        return [(float(round_number), 0.0) for round_number in range(max(1, n))]
 
     def evaluate(self, genome: GPGenome) -> FitnessResult:
+        return self._tournament_result(genome)
+
+    def batch_evaluate(self, genomes: Iterable[GPGenome], seed: int, n: int = 20) -> list[FitnessResult]:
+        """Evaluate every population member in the real tournament.
+
+        The base implementation compares outputs to `generate_test_cases`; using
+        it here would silently bypass game payoffs during population evolution.
+        The deterministic tournament has no random inputs, so ``seed`` and ``n``
+        are intentionally accepted for the common evaluator contract only.
+        """
+        return [self._tournament_result(genome) for genome in genomes]
+
+    def _tournament_result(self, genome: GPGenome) -> FitnessResult:
         opponents = (
             lambda history: 1, lambda history: 0,
             lambda history: history[-1] if history else 1,
@@ -310,15 +333,16 @@ class GameStrategyEvaluator(FitnessEvaluator):
         started = time.perf_counter()
         for opponent in opponents:
             history: list[int] = []
-            for round_number in range(100):
+            for round_number in range(self.ROUNDS_PER_OPPONENT):
                 raw = genome.execute({"x": float(history[-1] if history else 1), "rnd": float(round_number), "n": float(round_number)})
                 move = 1 if isinstance(raw, (int, float)) and float(raw) > 0.5 else 0
                 opponent_move = opponent(history)
                 total += payoffs[(move, opponent_move)]
                 history.append(opponent_move)
         elapsed = (time.perf_counter() - started) * 1000.0
-        score = total / (len(opponents) * 100 * 5)
-        return FitnessResult(score=score, correctness=score, efficiency=max(0.0, 1.0 - elapsed / 100.0), robustness=1.0, description_length=genome.description_length(), wall_time_ms=elapsed, test_cases_passed=int(score * 100), test_cases_total=100)
+        total_rounds = len(opponents) * self.ROUNDS_PER_OPPONENT
+        score = total / (total_rounds * 5)
+        return FitnessResult(score=score, correctness=score, efficiency=max(0.0, 1.0 - elapsed / 100.0), robustness=1.0, description_length=genome.description_length(), wall_time_ms=elapsed, test_cases_passed=round(score * total_rounds), test_cases_total=total_rounds)
 
 
 def _is_prime(value: int) -> bool:

@@ -5,7 +5,7 @@ from living_objects.core.reasoning import ReasoningEngine, MockReasoningEngine
 from living_objects.security.capability import CapabilityRegistry
 from living_objects.sdk import AuditResult, EvolutionResult, ReproductionResult, SafeExport, audit, evolve, export, reproduce
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 __all__ = [
     "LivingObject",

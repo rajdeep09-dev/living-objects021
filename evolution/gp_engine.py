@@ -15,6 +15,7 @@ import math
 import random
 import re
 import textwrap
+import time
 import zlib
 from dataclasses import dataclass, field
 from typing import Any, Callable, Iterable, Mapping, Sequence
@@ -78,11 +79,18 @@ LIST_PRIMITIVES: tuple[Primitive, ...] = (
     Primitive("tail", 1, lambda values: list(values[1:]) if len(values) > 1 else [], LIST, (LIST,)),
     Primitive("cons", 2, lambda value, values: [float(value), *list(values)], LIST, (FLOAT, LIST)),
     Primitive("length", 1, lambda values: float(len(values)), FLOAT, (LIST,)),
-    Primitive("sort1", 1, lambda values: sorted(list(values)), LIST, (LIST,)),
     Primitive("sum1", 1, lambda values: float(sum(values)) if values else 0.0, FLOAT, (LIST,)),
     Primitive("map_sq", 1, lambda values: [float(value) * float(value) for value in values], LIST, (LIST,)),
     Primitive("filter_pos", 1, lambda values: [value for value in values if float(value) > 0], LIST, (LIST,)),
     Primitive("unique", 1, lambda values: list(dict.fromkeys(values)), LIST, (LIST,)),
+)
+
+# Direct task-solution shortcuts are retained solely to decode historic artifacts
+# or support an explicitly declared convenience profile. They must not enter the
+# default grammar used for a new generic run: otherwise a sorting benchmark can
+# be solved by selecting its target operation rather than composing a program.
+CONVENIENCE_PRIMITIVES: tuple[Primitive, ...] = (
+    Primitive("sort1", 1, lambda values: sorted(list(values)), LIST, (LIST,)),
 )
 
 # Generic list controls are registered for lossless checkpoint decoding but are
@@ -111,7 +119,7 @@ STRING_PRIMITIVES: tuple[Primitive, ...] = (
 )
 
 DEFAULT_PRIMITIVES = ARITHMETIC_PRIMITIVES + BOOLEAN_PRIMITIVES + LIST_PRIMITIVES + STRING_PRIMITIVES
-ALL_REGISTERED_PRIMITIVES = DEFAULT_PRIMITIVES + GENERIC_LIST_CONTROL_PRIMITIVES
+ALL_REGISTERED_PRIMITIVES = DEFAULT_PRIMITIVES + GENERIC_LIST_CONTROL_PRIMITIVES + CONVENIENCE_PRIMITIVES
 
 
 @dataclass(frozen=True)
@@ -128,6 +136,10 @@ class Terminal:
 
 
 _EVALUATION_DEPTH: contextvars.ContextVar[int] = contextvars.ContextVar("gp_evaluation_depth", default=0)
+_EVALUATION_DEADLINE: contextvars.ContextVar[float | None] = contextvars.ContextVar(
+    "gp_evaluation_deadline", default=None
+)
+DEFAULT_EVALUATION_TIMEOUT_SECONDS = 0.5
 
 
 @dataclass
@@ -160,6 +172,9 @@ class GPNode:
         return {FLOAT: 0.0, BOOL: False, LIST: [], STRING: ""}.get(self.result_type, None)
 
     def evaluate(self, context: Mapping[str, Any]) -> Any:
+        deadline = _EVALUATION_DEADLINE.get()
+        if deadline is not None and time.monotonic() >= deadline:
+            return self.fallback()
         depth = _EVALUATION_DEPTH.get()
         if depth >= self.MAX_EVAL_DEPTH:
             return self.fallback()
@@ -172,6 +187,8 @@ class GPNode:
                 return self.fallback()
             values = [child.evaluate(context) for child in self.children]
             value = self.primitive.fn(*values)
+            if deadline is not None and time.monotonic() >= deadline:
+                return self.fallback()
             return self._normalise(value)
         except (ArithmeticError, OverflowError, TypeError, ValueError):
             return self.fallback()
@@ -445,8 +462,34 @@ class GPGenome:
             self.tree, func_name, exported_args, aliases=aliases,
         )
 
-    def execute(self, context: Mapping[str, Any]) -> Any:
-        return self.tree.evaluate(context)
+    def execute(
+        self,
+        context: Mapping[str, Any],
+        *,
+        max_elapsed_seconds: float | None = DEFAULT_EVALUATION_TIMEOUT_SECONDS,
+    ) -> Any:
+        """Interpret one candidate with a cooperative wall-clock deadline.
+
+        The admitted grammar contains only local typed primitives.  The deadline
+        is checked before and after every interpreter node, so oversized or
+        future recursive trees degrade to a type-correct fallback.  It is not a
+        pre-emptive kill mechanism for arbitrary user callables; such callables
+        are outside the admitted primitive boundary and require process-level
+        isolation before they could be accepted.
+        """
+        if max_elapsed_seconds is None:
+            return self.tree.evaluate(context)
+        if max_elapsed_seconds <= 0:
+            return self.tree.fallback()
+        parent_deadline = _EVALUATION_DEADLINE.get()
+        deadline = time.monotonic() + max_elapsed_seconds
+        if parent_deadline is not None:
+            deadline = min(deadline, parent_deadline)
+        token = _EVALUATION_DEADLINE.set(deadline)
+        try:
+            return self.tree.evaluate(context)
+        finally:
+            _EVALUATION_DEADLINE.reset(token)
 
     def description_length(self) -> int:
         return len(zlib.compress(self.to_python().encode("utf-8"), level=9))

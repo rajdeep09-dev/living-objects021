@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -253,6 +254,13 @@ def evolve(
         "result": result.to_dict(),
     }
     target.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    # Artifacts may contain program lineage and evaluation records.  The default
+    # run identifier is deterministic for reproducibility, so do not leave its
+    # JSON record readable by other local accounts when the filesystem supports
+    # POSIX permissions.  This does not turn a caller-supplied shared directory
+    # into a multi-tenant service; the production API remains operator-gated.
+    if os.name == "posix":
+        target.chmod(0o600)
     return EvolutionResult(**(result.to_dict() | {"artifact_path": str(target)}))
 
 

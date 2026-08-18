@@ -1,0 +1,541 @@
+{
+  "configuration": {
+    "generations": 50,
+    "population_size": 128,
+    "seed": 20260814,
+    "task": "manhattan-distance"
+  },
+  "result": {
+    "champion": {
+      "depth": 4,
+      "fresh": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 21250814
+      },
+      "generation": 50,
+      "nodes": 10,
+      "source_audit_export": "import math\n\ndef beast_50(x1, x2, y1, y2):\n    try:\n        pass\n        return (abs((y1 - y2)) + (math.sqrt((((x1 - x2)) * ((x1 - x2)))) if ((((x1 - x2)) * ((x1 - x2)))) >= 0 else 0.0))\n    except Exception:\n        return None",
+      "training_fitness": 1.0,
+      "tree": {
+        "evaluations": 320,
+        "fitness": 1.0,
+        "fitness_variance": 0.0,
+        "generation_created": 50,
+        "parent_ids": [
+          "gp-000048-839bb5c8a791"
+        ],
+        "primitives_used": [
+          "abs1",
+          "add",
+          "sq",
+          "sqrt",
+          "sub"
+        ],
+        "tree": {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y1",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    },
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y2",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "sub",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "abs1",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x1",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "sub",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "sq",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "sqrt",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "add",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        }
+      },
+      "tree_sha256": "ca2fb79cb40d06310dff6b76f9556518be5c62d0edf0fa0cb6407ab042ba353d"
+    },
+    "curriculum_events": [],
+    "execution_boundary": {
+      "generated_source_executed": false,
+      "llm_calls": 0,
+      "network_calls": 0,
+      "runtime": "typed AST interpreter only"
+    },
+    "generations": 50,
+    "history": [
+      {
+        "average_fitness": 0.5736865169959482,
+        "best_fitness": 0.7053333333333334,
+        "best_program_size": 8,
+        "generation": 0,
+        "median_fitness": 0.6108333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7087095305439309,
+        "best_fitness": 0.835,
+        "best_program_size": 10,
+        "generation": 1,
+        "median_fitness": 0.7433333333333334,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.6549675520540815,
+        "best_fitness": 0.7855000000000001,
+        "best_program_size": 7,
+        "generation": 2,
+        "median_fitness": 0.6625,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7266013588211684,
+        "best_fitness": 0.8674999999999999,
+        "best_program_size": 6,
+        "generation": 3,
+        "median_fitness": 0.7735,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.6820141935448917,
+        "best_fitness": 0.7943333333333333,
+        "best_program_size": 12,
+        "generation": 4,
+        "median_fitness": 0.7201666666666666,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7421900169727799,
+        "best_fitness": 0.8638333333333333,
+        "best_program_size": 11,
+        "generation": 5,
+        "median_fitness": 0.7853333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7384318887648196,
+        "best_fitness": 0.8696666666666667,
+        "best_program_size": 16,
+        "generation": 6,
+        "median_fitness": 0.7838333333333334,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7615575609274032,
+        "best_fitness": 0.8503333333333334,
+        "best_program_size": 14,
+        "generation": 7,
+        "median_fitness": 0.7929999999999999,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.762076948905044,
+        "best_fitness": 0.876,
+        "best_program_size": 9,
+        "generation": 8,
+        "median_fitness": 0.8023333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7336818734917201,
+        "best_fitness": 0.889,
+        "best_program_size": 10,
+        "generation": 9,
+        "median_fitness": 0.7816666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.749295459425717,
+        "best_fitness": 0.914,
+        "best_program_size": 10,
+        "generation": 10,
+        "median_fitness": 0.7925,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7218209901275829,
+        "best_fitness": 0.8896666666666666,
+        "best_program_size": 10,
+        "generation": 11,
+        "median_fitness": 0.7795,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7812828775757223,
+        "best_fitness": 0.9127731174155769,
+        "best_program_size": 35,
+        "generation": 12,
+        "median_fitness": 0.8545,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7841957390303489,
+        "best_fitness": 0.9015,
+        "best_program_size": 19,
+        "generation": 13,
+        "median_fitness": 0.8352064044293153,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7971154685145115,
+        "best_fitness": 0.9186666666666666,
+        "best_program_size": 13,
+        "generation": 14,
+        "median_fitness": 0.8346666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7775338320142509,
+        "best_fitness": 0.9000367991598927,
+        "best_program_size": 41,
+        "generation": 15,
+        "median_fitness": 0.8345,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7858456658779116,
+        "best_fitness": 0.9088333333333334,
+        "best_program_size": 13,
+        "generation": 16,
+        "median_fitness": 0.8391666666666666,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7957497099931216,
+        "best_fitness": 0.923,
+        "best_program_size": 21,
+        "generation": 17,
+        "median_fitness": 0.8633333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7486467886743625,
+        "best_fitness": 0.8889392772832364,
+        "best_program_size": 21,
+        "generation": 18,
+        "median_fitness": 0.8115,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7975479720441427,
+        "best_fitness": 0.947,
+        "best_program_size": 20,
+        "generation": 19,
+        "median_fitness": 0.8668333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8047239143121985,
+        "best_fitness": 0.9246448102239642,
+        "best_program_size": 20,
+        "generation": 20,
+        "median_fitness": 0.8561666666666666,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7904669136964173,
+        "best_fitness": 0.9261666666666667,
+        "best_program_size": 12,
+        "generation": 21,
+        "median_fitness": 0.8525053758393044,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8004849531693983,
+        "best_fitness": 0.9431666666666667,
+        "best_program_size": 23,
+        "generation": 22,
+        "median_fitness": 0.8596666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7941938174338367,
+        "best_fitness": 0.9525706335748341,
+        "best_program_size": 26,
+        "generation": 23,
+        "median_fitness": 0.8711615178963827,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7921221516228972,
+        "best_fitness": 0.9833333333333333,
+        "best_program_size": 17,
+        "generation": 24,
+        "median_fitness": 0.8829592513140361,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7831222592199435,
+        "best_fitness": 0.996,
+        "best_program_size": 17,
+        "generation": 25,
+        "median_fitness": 0.8763847577281232,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8229509679393352,
+        "best_fitness": 1.0,
+        "best_program_size": 43,
+        "generation": 26,
+        "median_fitness": 0.9005,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.828287892008748,
+        "best_fitness": 1.0,
+        "best_program_size": 17,
+        "generation": 27,
+        "median_fitness": 0.8835686843856817,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.855105047089466,
+        "best_fitness": 1.0,
+        "best_program_size": 34,
+        "generation": 28,
+        "median_fitness": 0.9021666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8113227557609046,
+        "best_fitness": 1.0,
+        "best_program_size": 14,
+        "generation": 29,
+        "median_fitness": 0.8705,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8019348141037735,
+        "best_fitness": 1.0,
+        "best_program_size": 14,
+        "generation": 30,
+        "median_fitness": 0.8851666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8070607888871716,
+        "best_fitness": 1.0,
+        "best_program_size": 12,
+        "generation": 31,
+        "median_fitness": 0.8818333333333334,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8293559580247105,
+        "best_fitness": 1.0,
+        "best_program_size": 12,
+        "generation": 32,
+        "median_fitness": 0.8809554820795763,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8083687748141133,
+        "best_fitness": 1.0,
+        "best_program_size": 12,
+        "generation": 33,
+        "median_fitness": 0.8705,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7735497896342252,
+        "best_fitness": 1.0,
+        "best_program_size": 12,
+        "generation": 34,
+        "median_fitness": 0.8463333333333334,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7614992182236187,
+        "best_fitness": 1.0,
+        "best_program_size": 12,
+        "generation": 35,
+        "median_fitness": 0.844319436574389,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8059566968780842,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 36,
+        "median_fitness": 0.8803333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.828988129600759,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 37,
+        "median_fitness": 0.8686666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8132574585409612,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 38,
+        "median_fitness": 0.8795,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7987390540103217,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 39,
+        "median_fitness": 0.8546666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.7984759253736353,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 40,
+        "median_fitness": 0.8519857676183407,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8041845689112025,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 41,
+        "median_fitness": 0.8818333333333334,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8176947726975169,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 42,
+        "median_fitness": 0.8823333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8256964906400056,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 43,
+        "median_fitness": 0.8694071017371025,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8360187233005932,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 44,
+        "median_fitness": 0.8740484082499673,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8124737768455446,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 45,
+        "median_fitness": 0.8581666666666667,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8288732733203172,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 46,
+        "median_fitness": 0.8742584798173625,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8018604116026511,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 47,
+        "median_fitness": 0.8618154284918045,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8262757801638806,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 48,
+        "median_fitness": 0.8763333333333333,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8615719597830043,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 49,
+        "median_fitness": 0.8836121166848687,
+        "population_size": 128
+      },
+      {
+        "average_fitness": 0.8311827410060452,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 50,
+        "median_fitness": 0.877,
+        "population_size": 128
+      }
+    ],
+    "initial_tree_contains_final": false,
+    "population_size": 128,
+    "run_id": "BEAST-SDK-V1-5312CD4D9BDDC82C",
+    "seed": 20260814,
+    "task": "manhattan-distance"
+  },
+  "schema": "living-objects-sdk-run-v1",
+  "sdk_version": "0.3.0"
+}

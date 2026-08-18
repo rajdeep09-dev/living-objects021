@@ -1,0 +1,47 @@
+{
+  "champion": {
+    "depth": 0,
+    "fitness": 0.55,
+    "generation": 5000,
+    "nodes": 1,
+    "tree_sha256": "b1aa27333e8b2a8a69961722cd2cd9b5c6979cb598157ffdded94ee94e21dc6a"
+  },
+  "checkpoint_path": "/home/ubuntu/living-objects021/reports/v11/artifacts/sorting-stage0-5000-checkpoint.json",
+  "claim_boundary": "One bounded Stage 0 seed does not demonstrate general sorting, later-stage mastery, the preregistered 100,000-generation campaign, or a persistent worker.",
+  "configuration": {
+    "generations": 5000,
+    "mastery_cases": 100,
+    "mastery_seed": 900042,
+    "population_size": 50,
+    "seed": 42,
+    "stage_held_during_evolution": "pairs"
+  },
+  "elapsed_seconds": 52.901834503005375,
+  "execution_boundary": {
+    "generated_source_executed": false,
+    "llm_calls": 0,
+    "network_calls": 0,
+    "runtime": "typed AST interpreter only"
+  },
+  "mastery_event": {
+    "advanced": false,
+    "cases": 100,
+    "culture": {
+      "injected": false,
+      "reason": "stage not advanced"
+    },
+    "generation": 5000,
+    "individual_mastery_threshold": 0.95,
+    "mean_correctness": 0.3956,
+    "mean_correctness_required": 0.9,
+    "population_mastery_fraction": 0.0,
+    "population_mastery_required": 0.95,
+    "seed": 900042,
+    "stage_id_after": "pairs",
+    "stage_id_before": "pairs",
+    "stage_index_after": 0,
+    "stage_index_before": 0
+  },
+  "schema": "beast-v11-clean-sorting-stage0-v1",
+  "status": "measured"
+}

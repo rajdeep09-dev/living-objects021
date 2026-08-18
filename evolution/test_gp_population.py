@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from evolution.fitness import FitnessEvaluator, SortingEvaluator
-from evolution.gp_engine import DEFAULT_PRIMITIVES, FLOAT, LIST, GPGenome, GPNode
+from evolution.gp_engine import ALL_REGISTERED_PRIMITIVES, CONVENIENCE_PRIMITIVES, DEFAULT_PRIMITIVES, FLOAT, LIST, GPGenome, GPNode
 from evolution.gp_population import GPPopulation
 
 
@@ -103,7 +103,7 @@ def test_fitness_seed_rotates_every_generation_but_is_consistent_within_one_gene
 
 
 def test_population_saves_and_loads_without_fitness_regression(tmp_path) -> None:
-    population = GPPopulation(SortingEvaluator(), population_size=8, seed=131)
+    population = GPPopulation(SortingEvaluator(), primitives=ALL_REGISTERED_PRIMITIVES, population_size=8, seed=131)
     population.run(100)
     generation_100_fitness = population.champion.fitness
     checkpoint = tmp_path / "generation-100.json"
@@ -120,7 +120,7 @@ def test_population_saves_and_loads_without_fitness_regression(tmp_path) -> None
 
 
 def test_python_audit_export_binds_sorting_input_alias_to_canonical_argument() -> None:
-    sort1 = next(primitive for primitive in DEFAULT_PRIMITIVES if primitive.name == "sort1")
+    sort1 = next(primitive for primitive in CONVENIENCE_PRIMITIVES if primitive.name == "sort1")
     genome = GPGenome(GPNode(
         primitive=sort1, value_type=LIST,
         children=[GPNode(terminal_name="input", value_type=LIST)],

@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import os
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
@@ -84,3 +88,36 @@ def test_v9_inline_run_rate_policy_allows_three_requests_per_minute_and_rejects_
 
     assert [allowed for allowed, _ in outcomes] == [True, True, True, False]
     assert outcomes[-1][1] >= 1
+
+
+def test_v9_snapshot_remains_available_while_bounded_run_waits_in_worker_thread(
+    client: TestClient, auth_headers: dict[str, str], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    started = threading.Event()
+    release = threading.Event()
+
+    def slow_evolve(*_args, **_kwargs):
+        started.set()
+        assert release.wait(timeout=2)
+        return SimpleNamespace(
+            artifact_path="/tmp/v11-inline-artifact.json",
+            to_dict=lambda: {"run_id": "BEAST-SDK-V1-0123456789ABCDEF"},
+        )
+
+    monkeypatch.setattr(v9_routes, "evolve", slow_evolve)
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        run = executor.submit(
+            client.post,
+            "/v9/runs",
+            headers=auth_headers,
+            json={"task": "manhattan-distance", "generations": 1, "population_size": 4, "seed": 92},
+        )
+        assert started.wait(timeout=1)
+        started_at = time.monotonic()
+        snapshot = client.get("/v9/snapshot", headers=auth_headers)
+        elapsed = time.monotonic() - started_at
+        assert snapshot.status_code == 200
+        assert elapsed < 0.5
+        assert not run.done()
+        release.set()
+        assert run.result(timeout=2).status_code == 201

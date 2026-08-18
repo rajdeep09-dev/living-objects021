@@ -46,10 +46,10 @@ IMPLEMENTED_TASKS: tuple[TaskDefinition, ...] = (
     TaskDefinition("manhattan-distance", ManhattanDistanceEvaluator),
     TaskDefinition("compression", CompressionEvaluator),
     TaskDefinition("pathfinding", PathfindingEvaluator),
-    # This evaluator intentionally has an evaluate() override, but the current
-    # GP population calls batch_evaluate(). It is therefore recorded as an
-    # evaluator-contract finding, not mislabelled as a clean benchmark.
-    TaskDefinition("game-strategy", GameStrategyEvaluator, expected_batch_semantics=False),
+    # The evaluator overrides both single and population paths to use the same
+    # deterministic tournament. A no-one-operation-match result is still only
+    # an audit observation, never a general game-strategy benchmark claim.
+    TaskDefinition("game-strategy", GameStrategyEvaluator),
 )
 
 

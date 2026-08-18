@@ -1,0 +1,339 @@
+{
+  "configuration": {
+    "generations": 25,
+    "population_size": 500,
+    "seed": 7300,
+    "task": "manhattan-distance"
+  },
+  "result": {
+    "champion": {
+      "depth": 4,
+      "fresh": {
+        "cases": 1000,
+        "correctness": 1.0,
+        "passed": 1000,
+        "seed": 997300
+      },
+      "generation": 25,
+      "nodes": 10,
+      "source_audit_export": "import math\n\ndef beast_25(x1, x2, y1, y2):\n    try:\n        pass\n        return (abs(abs((x1 - x2))) + abs((y2 - y1)))\n    except Exception:\n        return None",
+      "training_fitness": 1.0,
+      "tree": {
+        "evaluations": 60,
+        "fitness": 1.0,
+        "fitness_variance": 0.0,
+        "generation_created": 25,
+        "parent_ids": [
+          "gp-000023-519f4d24deec"
+        ],
+        "primitives_used": [
+          "abs1",
+          "add",
+          "sub"
+        ],
+        "tree": {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x1",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "sub",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "abs1",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "abs1",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y2",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    },
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y1",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "sub",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "abs1",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "add",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        }
+      },
+      "tree_sha256": "37a69d7d565a911d81a3c69f1d4bf2b506975624ebc4828c4e1bf36c74d9946c"
+    },
+    "curriculum_events": [],
+    "execution_boundary": {
+      "generated_source_executed": false,
+      "llm_calls": 0,
+      "network_calls": 0,
+      "runtime": "typed AST interpreter only"
+    },
+    "generations": 25,
+    "history": [
+      {
+        "average_fitness": 0.594020414273558,
+        "best_fitness": 0.7581666666666667,
+        "best_program_size": 7,
+        "generation": 0,
+        "median_fitness": 0.6108333333333333,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.728636504945546,
+        "best_fitness": 0.8336666666666667,
+        "best_program_size": 6,
+        "generation": 1,
+        "median_fitness": 0.7466666666666666,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.6555604042185883,
+        "best_fitness": 0.7773333333333333,
+        "best_program_size": 6,
+        "generation": 2,
+        "median_fitness": 0.6625,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7145624720090545,
+        "best_fitness": 0.9118333333333333,
+        "best_program_size": 15,
+        "generation": 3,
+        "median_fitness": 0.7411666666666666,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7001048322358546,
+        "best_fitness": 0.874572147302061,
+        "best_program_size": 30,
+        "generation": 4,
+        "median_fitness": 0.7353333333333334,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7421721435820149,
+        "best_fitness": 0.871,
+        "best_program_size": 16,
+        "generation": 5,
+        "median_fitness": 0.7853333333333333,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7604089539404876,
+        "best_fitness": 0.8981666666666667,
+        "best_program_size": 12,
+        "generation": 6,
+        "median_fitness": 0.7938333333333334,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7691278176275811,
+        "best_fitness": 0.8983333333333333,
+        "best_program_size": 22,
+        "generation": 7,
+        "median_fitness": 0.8033333333333333,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7660568904857029,
+        "best_fitness": 0.883,
+        "best_program_size": 11,
+        "generation": 8,
+        "median_fitness": 0.8045,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.7730544089206384,
+        "best_fitness": 0.9021666666666667,
+        "best_program_size": 24,
+        "generation": 9,
+        "median_fitness": 0.8325,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.773734197515091,
+        "best_fitness": 0.9226666666666666,
+        "best_program_size": 11,
+        "generation": 10,
+        "median_fitness": 0.7955,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.794334920720967,
+        "best_fitness": 0.954,
+        "best_program_size": 15,
+        "generation": 11,
+        "median_fitness": 0.8275,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.827417027014833,
+        "best_fitness": 0.9263333333333333,
+        "best_program_size": 14,
+        "generation": 12,
+        "median_fitness": 0.8523333333333334,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.799739359671575,
+        "best_fitness": 0.917,
+        "best_program_size": 18,
+        "generation": 13,
+        "median_fitness": 0.8303333333333334,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8129113889047191,
+        "best_fitness": 0.9485,
+        "best_program_size": 18,
+        "generation": 14,
+        "median_fitness": 0.8256666666666667,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8119017638144813,
+        "best_fitness": 0.9353333333333333,
+        "best_program_size": 12,
+        "generation": 15,
+        "median_fitness": 0.8413333333333333,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8220387661552682,
+        "best_fitness": 0.941854332020998,
+        "best_program_size": 16,
+        "generation": 16,
+        "median_fitness": 0.8486666666666667,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8266827978619237,
+        "best_fitness": 0.9556666666666667,
+        "best_program_size": 25,
+        "generation": 17,
+        "median_fitness": 0.8626666666666667,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8068096489773542,
+        "best_fitness": 1.0,
+        "best_program_size": 31,
+        "generation": 18,
+        "median_fitness": 0.8325,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.849845382915471,
+        "best_fitness": 1.0,
+        "best_program_size": 31,
+        "generation": 19,
+        "median_fitness": 0.8738333333333334,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8212034881492447,
+        "best_fitness": 1.0,
+        "best_program_size": 29,
+        "generation": 20,
+        "median_fitness": 0.846,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8489858581127016,
+        "best_fitness": 1.0,
+        "best_program_size": 18,
+        "generation": 21,
+        "median_fitness": 0.881,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8502720374758143,
+        "best_fitness": 1.0,
+        "best_program_size": 18,
+        "generation": 22,
+        "median_fitness": 0.8821666666666667,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8501567558982506,
+        "best_fitness": 1.0,
+        "best_program_size": 13,
+        "generation": 23,
+        "median_fitness": 0.8791666666666667,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.850188906620868,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 24,
+        "median_fitness": 0.8908333333333334,
+        "population_size": 500
+      },
+      {
+        "average_fitness": 0.8678604604816693,
+        "best_fitness": 1.0,
+        "best_program_size": 10,
+        "generation": 25,
+        "median_fitness": 0.8941666666666667,
+        "population_size": 500
+      }
+    ],
+    "initial_tree_contains_final": false,
+    "population_size": 500,
+    "run_id": "BEAST-SDK-V1-C697F942F3E66DEF",
+    "seed": 7300,
+    "task": "manhattan-distance"
+  },
+  "schema": "living-objects-sdk-run-v1",
+  "sdk_version": "0.3.0"
+}

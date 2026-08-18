@@ -1,0 +1,400 @@
+{
+  "configuration": {
+    "generations": 25,
+    "population_size": 50,
+    "seed": 7300,
+    "task": "manhattan-distance"
+  },
+  "result": {
+    "champion": {
+      "depth": 7,
+      "fresh": {
+        "cases": 1000,
+        "correctness": 0.457,
+        "passed": 457,
+        "seed": 997300
+      },
+      "generation": 25,
+      "nodes": 18,
+      "source_audit_export": "import math\n\ndef beast_25(x1, x2, y1, y2):\n    try:\n        pass\n        return abs(min(min(y1, ((y1 - abs((x1 - x2))) - y2)), (y2 - abs((x1 - x2)))))\n    except Exception:\n        return None",
+      "training_fitness": 0.9528333333333333,
+      "tree": {
+        "evaluations": 20,
+        "fitness": 0.9528333333333333,
+        "fitness_variance": 0.04716666666666669,
+        "generation_created": 25,
+        "parent_ids": [
+          "gp-000023-3f8f310e3864",
+          "gp-000023-84a0b3e722eb"
+        ],
+        "primitives_used": [
+          "abs1",
+          "min2",
+          "sub"
+        ],
+        "tree": {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y1",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "primitive": null,
+                              "terminal_name": "y1",
+                              "terminal_value": null,
+                              "value_type": "float"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [],
+                                      "primitive": null,
+                                      "terminal_name": "x1",
+                                      "terminal_value": null,
+                                      "value_type": "float"
+                                    },
+                                    {
+                                      "children": [],
+                                      "primitive": null,
+                                      "terminal_name": "x2",
+                                      "terminal_value": null,
+                                      "value_type": "float"
+                                    }
+                                  ],
+                                  "primitive": "sub",
+                                  "terminal_name": "",
+                                  "terminal_value": null,
+                                  "value_type": "float"
+                                }
+                              ],
+                              "primitive": "abs1",
+                              "terminal_name": "",
+                              "terminal_value": null,
+                              "value_type": "float"
+                            }
+                          ],
+                          "primitive": "sub",
+                          "terminal_name": "",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "y2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "sub",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "min2",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y2",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "primitive": null,
+                              "terminal_name": "x1",
+                              "terminal_value": null,
+                              "value_type": "float"
+                            },
+                            {
+                              "children": [],
+                              "primitive": null,
+                              "terminal_name": "x2",
+                              "terminal_value": null,
+                              "value_type": "float"
+                            }
+                          ],
+                          "primitive": "sub",
+                          "terminal_name": "",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "abs1",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "sub",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "min2",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "abs1",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        }
+      },
+      "tree_sha256": "ff1638bfd82de13390abe3beef19b854546dd8ecc5f2e171ac02eecc06a1d1bf"
+    },
+    "curriculum_events": [],
+    "execution_boundary": {
+      "generated_source_executed": false,
+      "llm_calls": 0,
+      "network_calls": 0,
+      "runtime": "typed AST interpreter only"
+    },
+    "generations": 25,
+    "history": [
+      {
+        "average_fitness": 0.5817394307070282,
+        "best_fitness": 0.7581666666666667,
+        "best_program_size": 7,
+        "generation": 0,
+        "median_fitness": 0.6108333333333333,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.747737893188807,
+        "best_fitness": 0.8325,
+        "best_program_size": 7,
+        "generation": 1,
+        "median_fitness": 0.7571666666666667,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.66676271014515,
+        "best_fitness": 0.755,
+        "best_program_size": 6,
+        "generation": 2,
+        "median_fitness": 0.7048333333333334,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.729280199613673,
+        "best_fitness": 0.8178333333333333,
+        "best_program_size": 12,
+        "generation": 3,
+        "median_fitness": 0.743559924670594,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.7075733333333334,
+        "best_fitness": 0.7901666666666667,
+        "best_program_size": 9,
+        "generation": 4,
+        "median_fitness": 0.7568333333333334,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.75506,
+        "best_fitness": 0.8298333333333333,
+        "best_program_size": 18,
+        "generation": 5,
+        "median_fitness": 0.782,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.76586,
+        "best_fitness": 0.8661666666666666,
+        "best_program_size": 18,
+        "generation": 6,
+        "median_fitness": 0.7811666666666667,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.7813633333333334,
+        "best_fitness": 0.8468333333333333,
+        "best_program_size": 21,
+        "generation": 7,
+        "median_fitness": 0.8033333333333333,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.7854304134432651,
+        "best_fitness": 0.8428333333333333,
+        "best_program_size": 17,
+        "generation": 8,
+        "median_fitness": 0.8009999999999999,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.7765966666666667,
+        "best_fitness": 0.8571666666666666,
+        "best_program_size": 18,
+        "generation": 9,
+        "median_fitness": 0.8133333333333334,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8395933333333333,
+        "best_fitness": 0.8983333333333333,
+        "best_program_size": 18,
+        "generation": 10,
+        "median_fitness": 0.859,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.7976533333333333,
+        "best_fitness": 0.8596666666666667,
+        "best_program_size": 16,
+        "generation": 11,
+        "median_fitness": 0.8181666666666667,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8390233333333333,
+        "best_fitness": 0.9168333333333334,
+        "best_program_size": 27,
+        "generation": 12,
+        "median_fitness": 0.8656666666666667,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8203350495561978,
+        "best_fitness": 0.8913333333333333,
+        "best_program_size": 24,
+        "generation": 13,
+        "median_fitness": 0.8475,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8159633333333334,
+        "best_fitness": 0.8856666666666667,
+        "best_program_size": 24,
+        "generation": 14,
+        "median_fitness": 0.8235,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.810592120648209,
+        "best_fitness": 0.9066666666666666,
+        "best_program_size": 26,
+        "generation": 15,
+        "median_fitness": 0.8534999999999999,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8303939348194217,
+        "best_fitness": 0.9025,
+        "best_program_size": 23,
+        "generation": 16,
+        "median_fitness": 0.8618333333333333,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8466499651599247,
+        "best_fitness": 0.9215,
+        "best_program_size": 21,
+        "generation": 17,
+        "median_fitness": 0.8781666666666667,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8333733333333333,
+        "best_fitness": 0.9158333333333333,
+        "best_program_size": 29,
+        "generation": 18,
+        "median_fitness": 0.8508333333333333,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.84627,
+        "best_fitness": 0.9366666666666666,
+        "best_program_size": 37,
+        "generation": 19,
+        "median_fitness": 0.885,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8496982555488661,
+        "best_fitness": 0.914,
+        "best_program_size": 29,
+        "generation": 20,
+        "median_fitness": 0.8891666666666667,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.84205151874785,
+        "best_fitness": 0.9138333333333333,
+        "best_program_size": 37,
+        "generation": 21,
+        "median_fitness": 0.876,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.84863,
+        "best_fitness": 0.9183333333333333,
+        "best_program_size": 40,
+        "generation": 22,
+        "median_fitness": 0.8845000000000001,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8318599999999999,
+        "best_fitness": 0.9206666666666666,
+        "best_program_size": 23,
+        "generation": 23,
+        "median_fitness": 0.8883333333333333,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.8567066666666666,
+        "best_fitness": 0.9211666666666667,
+        "best_program_size": 18,
+        "generation": 24,
+        "median_fitness": 0.894,
+        "population_size": 50
+      },
+      {
+        "average_fitness": 0.86146368721995,
+        "best_fitness": 0.9528333333333333,
+        "best_program_size": 18,
+        "generation": 25,
+        "median_fitness": 0.9026666666666667,
+        "population_size": 50
+      }
+    ],
+    "initial_tree_contains_final": false,
+    "population_size": 50,
+    "run_id": "BEAST-SDK-V1-4FF7626741A9F640",
+    "seed": 7300,
+    "task": "manhattan-distance"
+  },
+  "schema": "living-objects-sdk-run-v1",
+  "sdk_version": "0.3.0"
+}

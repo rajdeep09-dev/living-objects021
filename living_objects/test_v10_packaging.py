@@ -4,6 +4,7 @@ from __future__ import annotations
 import tomllib
 from pathlib import Path
 
+from living_objects import __version__
 from living_objects.sdk import SDK_VERSION
 
 
@@ -17,7 +18,7 @@ def _metadata() -> dict[str, object]:
 def test_v10_distribution_version_matches_public_sdk() -> None:
     metadata = _metadata()
     assert metadata["name"] == "living-objects"
-    assert metadata["version"] == SDK_VERSION == "0.3.0"
+    assert metadata["version"] == SDK_VERSION == __version__ == "0.3.0"
     assert metadata["requires-python"] == ">=3.10"
 
 

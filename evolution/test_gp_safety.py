@@ -4,7 +4,7 @@ import random
 
 from evolution.fitness import SortingEvaluator
 from evolution.gp_control import GPRunController
-from evolution.gp_engine import DEFAULT_PRIMITIVES, FLOAT, GPGenome, GPNode, GPTreeBuilder, Terminal
+from evolution.gp_engine import CONVENIENCE_PRIMITIVES, DEFAULT_PRIMITIVES, FLOAT, GPGenome, GPNode, GPTreeBuilder, Terminal
 from evolution.gp_population import GPPopulation
 from evolution.program_validation import ProgramValidator
 from evolution.safe_improvement import SafeImprovementGate
@@ -28,13 +28,16 @@ def test_validator_rejects_blocked_source_and_malformed_tree() -> None:
 def test_improvement_gate_requires_real_holdout_gain() -> None:
     evaluator = SortingEvaluator()
     baseline = GPGenome(tree=GPNode(terminal_value=[], value_type="list"))
-    sort_primitive = next(primitive for primitive in DEFAULT_PRIMITIVES if primitive.name == "sort1")
+    sort_primitive = next(primitive for primitive in CONVENIENCE_PRIMITIVES if primitive.name == "sort1")
     candidate = GPGenome(tree=GPNode(
         primitive=sort_primitive,
         children=[GPNode(terminal_name="x", value_type="list")],
     ))
     decision = SafeImprovementGate(
-        evaluator, min_improvement=0.01, max_complexity_ratio=2.0
+        evaluator,
+        validator=ProgramValidator((*DEFAULT_PRIMITIVES, *CONVENIENCE_PRIMITIVES)),
+        min_improvement=0.01,
+        max_complexity_ratio=2.0,
     ).evaluate(baseline, candidate)
     assert decision.accepted
     assert decision.candidate_score > decision.baseline_score

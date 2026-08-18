@@ -140,3 +140,8 @@
 - [x] Build and test a minimal real-data observatory deployment package, preserving explicit no-live-URL and no-continuous-worker boundaries until deployment is authorized.
 - [x] Record the exact persistent-compute authorization and milestone gate for the unlaunched 100,000-generation clean-sorting campaign.
 - [x] Run final v10 verification, revise the README and claims registry to exact reality, push verified engine changes, and retain all negative and retracted results.
+- [x] Audit every v11 module-by-module defect, vulnerability, and real-world-test assertion against the current v10 code and publish an evidence matrix before applying repairs.
+- [x] Repair and regression-test every validated GP, evaluator, checkpoint, curriculum, federation, and SDK defect without treating an unverified guide assertion as fact.
+- [x] Harden every validated API authorization, rate-limit, synchronous-execution, and artifact-isolation weakness while retaining an explicit local-research-service boundary.
+- [x] Document the no-lead-workflow boundary and the lawful authorization, source, privacy, provenance, and human-review gates required before any future lead-research implementation.
+- [ ] Run final v11 end-to-end verification, revise public claims and operational gates, checkpoint affected observatory work, and push the verified engine release.

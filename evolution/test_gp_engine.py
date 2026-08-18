@@ -5,8 +5,10 @@ import random
 import pytest
 
 from evolution.gp_engine import (
+    ALL_REGISTERED_PRIMITIVES,
     ARITHMETIC_PRIMITIVES,
     BOOL,
+    DEFAULT_PRIMITIVES,
     FLOAT,
     GPGenome,
     GPNode,
@@ -24,6 +26,13 @@ def test_real_tree_executes_arithmetic_not_a_template_value() -> None:
     tree = GPNode(primitive=primitive("add"), children=[GPNode(terminal_name="x"), GPNode(terminal_value=2.0)])
     assert GPGenome(tree).execute({"x": 5.0}) == 7.0
     assert GPGenome(tree).execute({"x": -2.0}) == 0.0
+
+
+def test_default_grammar_excludes_direct_sorting_shortcut_but_registry_decodes_legacy_artifacts() -> None:
+    default_names = {item.name for item in DEFAULT_PRIMITIVES}
+    registered_names = {item.name for item in ALL_REGISTERED_PRIMITIVES}
+    assert "sort1" not in default_names
+    assert "sort1" in registered_names
 
 
 def test_depth_guard_returns_safe_default_on_corrupt_deep_tree() -> None:
@@ -89,3 +98,17 @@ def test_serialisation_round_trip_preserves_program_result() -> None:
 def test_parameterized_square_evaluation(value: float, expected: float) -> None:
     tree = GPNode(primitive=primitive("sq"), children=[GPNode(terminal_name="x")])
     assert GPGenome(tree).execute({"x": value}) == expected
+
+
+def test_execute_returns_typed_fallback_when_cooperative_deadline_is_exhausted(monkeypatch) -> None:
+    genome = GPGenome(GPNode(primitive=primitive("abs1"), children=[GPNode(terminal_value=-3.0)]))
+    monotonic_values = iter((10.0, 10.6))
+    monkeypatch.setattr("evolution.gp_engine.time.monotonic", lambda: next(monotonic_values))
+
+    assert genome.execute({}, max_elapsed_seconds=0.5) == 0.0
+
+
+def test_execute_rejects_non_positive_deadline_without_evaluating_tree() -> None:
+    genome = GPGenome(GPNode(primitive=primitive("abs1"), children=[GPNode(terminal_value=-3.0)]))
+
+    assert genome.execute({}, max_elapsed_seconds=0.0) == 0.0

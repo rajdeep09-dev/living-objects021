@@ -1,0 +1,16 @@
+{
+  "claim_boundary": "This verifies only the saved bounded configuration on this environment.",
+  "elapsed_seconds": 57.893685874994844,
+  "execution_boundary": {
+    "generated_source_executed": false,
+    "llm_calls": 0,
+    "network_calls": 0,
+    "runtime": "typed AST interpreter only"
+  },
+  "expected_tree_sha256": "04a3bf3e9308d91fc0f61ab25dff90801198cc8366a7ebb45011cb73c1699bc5",
+  "mismatches": [],
+  "reproduced_tree_sha256": "04a3bf3e9308d91fc0f61ab25dff90801198cc8366a7ebb45011cb73c1699bc5",
+  "run_id": "BEAST-SDK-V1-7A730FD3A21F5743",
+  "schema": "beast-v11-manhattan-reproduction-v1",
+  "status": "verified"
+}

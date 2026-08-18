@@ -1,0 +1,31 @@
+{
+  "artifact_path": "/home/ubuntu/living-objects021/reports/v11/artifacts/BEAST-SDK-V1-7A730FD3A21F5743.json",
+  "champion": {
+    "fresh": {
+      "cases": 1000,
+      "correctness": 1.0,
+      "passed": 1000,
+      "seed": 21250814
+    },
+    "generation": 300,
+    "training_fitness": 1.0,
+    "tree_sha256": "04a3bf3e9308d91fc0f61ab25dff90801198cc8366a7ebb45011cb73c1699bc5"
+  },
+  "claim_boundary": "This is one local deterministic run. It is not a fresh-machine, cloud-VM, multi-seed, production-readiness, or general-program-synthesis measurement.",
+  "configuration": {
+    "generations": 300,
+    "population_size": 128,
+    "seed": 20260814,
+    "task": "manhattan-distance"
+  },
+  "elapsed_seconds": 57.17012770600559,
+  "execution_boundary": {
+    "generated_source_executed": false,
+    "llm_calls": 0,
+    "network_calls": 0,
+    "runtime": "typed AST interpreter only"
+  },
+  "initial_tree_contains_final": false,
+  "schema": "beast-v11-real-world-manhattan-v1",
+  "status": "measured"
+}

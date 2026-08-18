@@ -1,0 +1,44 @@
+{
+  "claim_boundary": "These local bounded measurements do not establish clean-laptop setup time, standard cloud VM throughput, a 1 GB safe population maximum, or production service capacity.",
+  "environment_scope": "local sandbox process only",
+  "rows": [
+    {
+      "elapsed_seconds": 2.009973753010854,
+      "generations": 25,
+      "generations_per_second": 12.437973362861618,
+      "peak_rss_kib": 24640,
+      "population_size": 50,
+      "training_fitness": 0.9528333333333333,
+      "tree_sha256": "ff1638bfd82de13390abe3beef19b854546dd8ecc5f2e171ac02eecc06a1d1bf"
+    },
+    {
+      "elapsed_seconds": 2.9116998039971804,
+      "generations": 25,
+      "generations_per_second": 8.58604996493114,
+      "peak_rss_kib": 24924,
+      "population_size": 100,
+      "training_fitness": 0.914,
+      "tree_sha256": "c65b99f5fae2f26841e5f7b05304d5f035d685a50d599d7b087223162aba053d"
+    },
+    {
+      "elapsed_seconds": 6.02951412499533,
+      "generations": 25,
+      "generations_per_second": 4.146271072881741,
+      "peak_rss_kib": 26452,
+      "population_size": 200,
+      "training_fitness": 0.9453333333333334,
+      "tree_sha256": "eea46da0988c175ad3557f478795a15998a965c0c65e12baf7ac7945ef7a1bef"
+    },
+    {
+      "elapsed_seconds": 17.979750888000126,
+      "generations": 25,
+      "generations_per_second": 1.3904530800082031,
+      "peak_rss_kib": 35216,
+      "population_size": 500,
+      "training_fitness": 1.0,
+      "tree_sha256": "37a69d7d565a911d81a3c69f1d4bf2b506975624ebc4828c4e1bf36c74d9946c"
+    }
+  ],
+  "schema": "beast-v11-local-capacity-profile-v1",
+  "status": "measured"
+}

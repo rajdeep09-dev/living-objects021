@@ -17,6 +17,16 @@ def _tree() -> GPNode:
     ])
 
 
+def _sqrt_tree() -> GPNode:
+    primitives = {item.name: item for item in DEFAULT_PRIMITIVES}
+    return GPNode(primitive=primitives["sqrt"], children=[
+        GPNode(primitive=primitives["sub"], children=[
+            GPNode(terminal_name="left", value_type=FLOAT),
+            GPNode(terminal_name="right", value_type=FLOAT),
+        ]),
+    ])
+
+
 def test_polyglot_export_serializes_numeric_tree_without_running_it() -> None:
     compiler = PolyglotCompiler()
     javascript = compiler.to_javascript(_tree(), "difference", ("left", "right"))
@@ -46,4 +56,25 @@ def test_javascript_export_matches_typed_python_interpreter_within_tolerance() -
     javascript_values = json.loads(process.stdout)
     python_values = [tree.evaluate({"left": left, "right": right}) for left, right in inputs]
     assert len(javascript_values) == len(python_values)
+    assert all(abs(float(javascript) - float(python)) <= 1e-6 for javascript, python in zip(javascript_values, python_values))
+
+
+def test_javascript_export_preserves_safe_sqrt_semantics() -> None:
+    tree = _sqrt_tree()
+    inputs = [(-13.5, 2.25), (0.0, 0.0), (4.125, -7.75)]
+    source = PolyglotCompiler().to_javascript(tree, "safe_root", ("left", "right"))
+    process = subprocess.run(
+        [
+            "node", "-e",
+            f"{source}\nconst inputs = {json.dumps(inputs)};\n"
+            "console.log(JSON.stringify(inputs.map(([left, right]) => safe_root(left, right))));",
+        ],
+        text=True,
+        capture_output=True,
+        check=False,
+        timeout=5,
+    )
+    assert process.returncode == 0, process.stderr
+    javascript_values = json.loads(process.stdout)
+    python_values = [tree.evaluate({"left": left, "right": right}) for left, right in inputs]
     assert all(abs(float(javascript) - float(python)) <= 1e-6 for javascript, python in zip(javascript_values, python_values))

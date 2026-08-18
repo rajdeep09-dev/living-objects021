@@ -1,0 +1,401 @@
+{
+  "configuration": {
+    "generations": 25,
+    "population_size": 200,
+    "seed": 7300,
+    "task": "manhattan-distance"
+  },
+  "result": {
+    "champion": {
+      "depth": 6,
+      "fresh": {
+        "cases": 1000,
+        "correctness": 0.513,
+        "passed": 513,
+        "seed": 997300
+      },
+      "generation": 25,
+      "nodes": 18,
+      "source_audit_export": "import math\n\ndef beast_25(x1, x2, y1, y2):\n    try:\n        pass\n        return max(y2, max((y1 - (x1 - x2)), ((abs((x2 - x1)) + abs(y1)) + abs(y2))))\n    except Exception:\n        return None",
+      "training_fitness": 0.9453333333333334,
+      "tree": {
+        "evaluations": 20,
+        "fitness": 0.9453333333333334,
+        "fitness_variance": 0.05466666666666664,
+        "generation_created": 25,
+        "parent_ids": [
+          "gp-000023-51a650c5e6f8",
+          "gp-000023-a19038ba6fc8"
+        ],
+        "primitives_used": [
+          "abs1",
+          "add",
+          "max2",
+          "sub"
+        ],
+        "tree": {
+          "children": [
+            {
+              "children": [],
+              "primitive": null,
+              "terminal_name": "y2",
+              "terminal_value": null,
+              "value_type": "float"
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "primitive": null,
+                      "terminal_name": "y1",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x1",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "x2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "sub",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "sub",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [],
+                                  "primitive": null,
+                                  "terminal_name": "x2",
+                                  "terminal_value": null,
+                                  "value_type": "float"
+                                },
+                                {
+                                  "children": [],
+                                  "primitive": null,
+                                  "terminal_name": "x1",
+                                  "terminal_value": null,
+                                  "value_type": "float"
+                                }
+                              ],
+                              "primitive": "sub",
+                              "terminal_name": "",
+                              "terminal_value": null,
+                              "value_type": "float"
+                            }
+                          ],
+                          "primitive": "abs1",
+                          "terminal_name": "",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "primitive": null,
+                              "terminal_name": "y1",
+                              "terminal_value": null,
+                              "value_type": "float"
+                            }
+                          ],
+                          "primitive": "abs1",
+                          "terminal_name": "",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "add",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "primitive": null,
+                          "terminal_name": "y2",
+                          "terminal_value": null,
+                          "value_type": "float"
+                        }
+                      ],
+                      "primitive": "abs1",
+                      "terminal_name": "",
+                      "terminal_value": null,
+                      "value_type": "float"
+                    }
+                  ],
+                  "primitive": "add",
+                  "terminal_name": "",
+                  "terminal_value": null,
+                  "value_type": "float"
+                }
+              ],
+              "primitive": "max2",
+              "terminal_name": "",
+              "terminal_value": null,
+              "value_type": "float"
+            }
+          ],
+          "primitive": "max2",
+          "terminal_name": "",
+          "terminal_value": null,
+          "value_type": "float"
+        }
+      },
+      "tree_sha256": "eea46da0988c175ad3557f478795a15998a965c0c65e12baf7ac7945ef7a1bef"
+    },
+    "curriculum_events": [],
+    "execution_boundary": {
+      "generated_source_executed": false,
+      "llm_calls": 0,
+      "network_calls": 0,
+      "runtime": "typed AST interpreter only"
+    },
+    "generations": 25,
+    "history": [
+      {
+        "average_fitness": 0.5917023757972918,
+        "best_fitness": 0.7581666666666667,
+        "best_program_size": 7,
+        "generation": 0,
+        "median_fitness": 0.6108333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7233702104490637,
+        "best_fitness": 0.8340000000000001,
+        "best_program_size": 4,
+        "generation": 1,
+        "median_fitness": 0.7466666666666666,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.6552400807431121,
+        "best_fitness": 0.7883333333333333,
+        "best_program_size": 6,
+        "generation": 2,
+        "median_fitness": 0.6625,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.6961787257716593,
+        "best_fitness": 0.861,
+        "best_program_size": 5,
+        "generation": 3,
+        "median_fitness": 0.7058333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.692755733916878,
+        "best_fitness": 0.8441666666666667,
+        "best_program_size": 7,
+        "generation": 4,
+        "median_fitness": 0.7353333333333334,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7352246482168612,
+        "best_fitness": 0.862,
+        "best_program_size": 15,
+        "generation": 5,
+        "median_fitness": 0.7819859484149599,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.759103713777547,
+        "best_fitness": 0.8815,
+        "best_program_size": 11,
+        "generation": 6,
+        "median_fitness": 0.7935,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7876700440180926,
+        "best_fitness": 0.889,
+        "best_program_size": 15,
+        "generation": 7,
+        "median_fitness": 0.8195,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7347146040355361,
+        "best_fitness": 0.8626666666666667,
+        "best_program_size": 15,
+        "generation": 8,
+        "median_fitness": 0.8026666666666666,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7774515002174076,
+        "best_fitness": 0.9061666666666667,
+        "best_program_size": 15,
+        "generation": 9,
+        "median_fitness": 0.8308333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7608286871898116,
+        "best_fitness": 0.8892880708377779,
+        "best_program_size": 19,
+        "generation": 10,
+        "median_fitness": 0.7943333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7625202469212382,
+        "best_fitness": 0.9115,
+        "best_program_size": 16,
+        "generation": 11,
+        "median_fitness": 0.8128333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.8008135204164732,
+        "best_fitness": 0.919,
+        "best_program_size": 7,
+        "generation": 12,
+        "median_fitness": 0.8388333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7653353911643318,
+        "best_fitness": 0.8876928654359448,
+        "best_program_size": 37,
+        "generation": 13,
+        "median_fitness": 0.8048333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7865677262774844,
+        "best_fitness": 0.9138510926355116,
+        "best_program_size": 34,
+        "generation": 14,
+        "median_fitness": 0.8246666666666667,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7925208893966628,
+        "best_fitness": 0.8731666666666666,
+        "best_program_size": 9,
+        "generation": 15,
+        "median_fitness": 0.8176666666666667,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7939547267755218,
+        "best_fitness": 0.8891521344463051,
+        "best_program_size": 48,
+        "generation": 16,
+        "median_fitness": 0.8286666666666667,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.793604352886478,
+        "best_fitness": 0.9078333333333334,
+        "best_program_size": 29,
+        "generation": 17,
+        "median_fitness": 0.8572683556061569,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7760557012460209,
+        "best_fitness": 0.9048333333333334,
+        "best_program_size": 16,
+        "generation": 18,
+        "median_fitness": 0.8111666666666667,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.8041991001376827,
+        "best_fitness": 0.9505,
+        "best_program_size": 16,
+        "generation": 19,
+        "median_fitness": 0.8351406244899124,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.7864779737698613,
+        "best_fitness": 0.9126666666666666,
+        "best_program_size": 16,
+        "generation": 20,
+        "median_fitness": 0.8235,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.810516832773261,
+        "best_fitness": 0.9573333333333334,
+        "best_program_size": 17,
+        "generation": 21,
+        "median_fitness": 0.8493333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.8203253790072942,
+        "best_fitness": 0.9346666666666666,
+        "best_program_size": 17,
+        "generation": 22,
+        "median_fitness": 0.8573333333333333,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.8121978715380063,
+        "best_fitness": 0.9511666666666667,
+        "best_program_size": 17,
+        "generation": 23,
+        "median_fitness": 0.8483333333333334,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.801103121567743,
+        "best_fitness": 0.9128333333333334,
+        "best_program_size": 15,
+        "generation": 24,
+        "median_fitness": 0.842,
+        "population_size": 200
+      },
+      {
+        "average_fitness": 0.8244903035260025,
+        "best_fitness": 0.9453333333333334,
+        "best_program_size": 18,
+        "generation": 25,
+        "median_fitness": 0.858,
+        "population_size": 200
+      }
+    ],
+    "initial_tree_contains_final": false,
+    "population_size": 200,
+    "run_id": "BEAST-SDK-V1-7AF6FBD73511076C",
+    "seed": 7300,
+    "task": "manhattan-distance"
+  },
+  "schema": "living-objects-sdk-run-v1",
+  "sdk_version": "0.3.0"
+}

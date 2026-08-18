@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 
 import pytest
 
@@ -24,6 +25,8 @@ def test_sdk_evolve_persists_real_bounded_run_and_declares_interpreter_boundary(
     assert result.artifact_path is not None
     persisted = json.loads((tmp_path / f"{result.run_id}.json").read_text(encoding="utf-8"))
     assert persisted["result"]["champion"]["tree_sha256"] == result.champion["tree_sha256"]
+    if os.name == "posix":
+        assert (tmp_path / f"{result.run_id}.json").stat().st_mode & 0o077 == 0
 
 
 def test_sdk_compatibility_accessors_remain_available_after_artifact_round_trip(tmp_path) -> None:

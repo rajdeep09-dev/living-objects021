@@ -11,11 +11,11 @@ from evolution.fitness import (
     SortingEvaluator,
     StringReverseEvaluator,
 )
-from evolution.gp_engine import ARITHMETIC_PRIMITIVES, GPGenome, GPNode, LIST_PRIMITIVES, STRING_PRIMITIVES
+from evolution.gp_engine import ARITHMETIC_PRIMITIVES, CONVENIENCE_PRIMITIVES, GPGenome, GPNode, LIST_PRIMITIVES, STRING_PRIMITIVES
 
 
 def list_primitive(name: str):
-    return next(item for item in LIST_PRIMITIVES if item.name == name)
+    return next(item for item in LIST_PRIMITIVES + CONVENIENCE_PRIMITIVES if item.name == name)
 
 
 def string_primitive(name: str):
@@ -87,7 +87,17 @@ def test_pathfinding_reference_is_geometric_distance() -> None:
 
 
 def test_game_strategy_evaluation_is_bounded_and_normalised() -> None:
+    evaluator = GameStrategyEvaluator()
     genome = GPGenome(GPNode(terminal_value=1.0))
-    result = GameStrategyEvaluator().evaluate(genome)
+    result = evaluator.evaluate(genome)
     assert 0.0 <= result.score <= 1.0
-    assert result.test_cases_total == 100
+    assert result.test_cases_total == evaluator.OPPONENT_COUNT * evaluator.ROUNDS_PER_OPPONENT
+
+
+def test_game_strategy_population_path_uses_real_tournament_not_placeholder_none_case() -> None:
+    evaluator = GameStrategyEvaluator()
+    invalid = GPGenome(GPNode(terminal_name="missing_terminal", value_type="float"))
+    result = evaluator.batch_evaluate([invalid], seed=7, n=20)[0]
+    assert evaluator.generate_test_cases(seed=7, n=1) != [(None, None)]
+    assert result.test_cases_total == evaluator.OPPONENT_COUNT * evaluator.ROUNDS_PER_OPPONENT
+    assert 0.0 <= result.score < 1.0

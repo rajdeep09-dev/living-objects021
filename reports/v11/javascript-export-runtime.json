@@ -1,0 +1,71 @@
+{
+  "champion_tree_sha256": "ca2fb79cb40d06310dff6b76f9556518be5c62d0edf0fa0cb6407ab042ba353d",
+  "claim_boundary": "Five fixed inputs verify this export only; they do not certify every primitive or target runtime.",
+  "comparisons": [
+    {
+      "inputs": [
+        0.0,
+        0.0,
+        3.0,
+        4.0
+      ],
+      "match": true,
+      "node_javascript": 7,
+      "typed_interpreter": 7.0
+    },
+    {
+      "inputs": [
+        -2.0,
+        5.0,
+        7.0,
+        -1.0
+      ],
+      "match": true,
+      "node_javascript": 15,
+      "typed_interpreter": 15.0
+    },
+    {
+      "inputs": [
+        1.25,
+        -3.5,
+        1.25,
+        -3.5
+      ],
+      "match": true,
+      "node_javascript": 0,
+      "typed_interpreter": 0.0
+    },
+    {
+      "inputs": [
+        10.0,
+        20.0,
+        -10.0,
+        -20.0
+      ],
+      "match": true,
+      "node_javascript": 60,
+      "typed_interpreter": 60.0
+    },
+    {
+      "inputs": [
+        -0.5,
+        0.25,
+        0.75,
+        -1.5
+      ],
+      "match": true,
+      "node_javascript": 3,
+      "typed_interpreter": 3.0
+    }
+  ],
+  "configuration": {
+    "generations": 50,
+    "population_size": 128,
+    "seed": 20260814,
+    "task": "manhattan-distance"
+  },
+  "execution_boundary": "The typed AST interpreter remained the evolution runtime. This one-off verification executed only the generated JavaScript export in Node.js; it did not execute generated Python source.",
+  "javascript_source": "function beast_export(x1, y1, x2, y2) { return (Math.abs((y1 - y2)) + Math.sqrt(Math.max(0, ((x1 - x2) * (x1 - x2))))); }",
+  "schema": "beast-v11-javascript-export-runtime-v1",
+  "status": "verified"
+}

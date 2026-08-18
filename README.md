@@ -18,6 +18,7 @@ The current evidence answers **yes for one bounded Manhattan-distance synthesis 
 | v10 SDK and local package artifacts | **Implemented, locally built, and tested** | Version `0.3.0` wheel/source artifacts were locally smoke-tested on Python 3.10–3.12; no PyPI project has been uploaded | [package release record](docs/v10-package-release.md), [`living_objects.sdk`](living_objects/sdk.py) |
 | Five-stage sorting curriculum | **Implemented and tested, not yet measured in the planned long campaign** | No 100,000-generation result or expected success rate has been claimed | [curriculum module](evolution/v9_sorting_curriculum.py), [research roadmap](docs/v9-advanced-research-roadmap.md) |
 | Signed discovery exchange | **Local verification MVP implemented and tested** | It signs and verifies persisted evidence locally; it is not a deployed federation or transport network | [federation module](evolution/v9_federation.py) |
+| v11 bounded local checks | **Measured:** a 300-generation Manhattan run reached 1,000/1,000 held-out correctness; a 5,000-generation clean-sorting Stage 0 run did not advance | One local configuration and one negative single-seed curriculum measurement; neither establishes cloud capacity, production readiness, or the 100,000-generation campaign outcome | [v11 audit](docs/v11-foundation-audit.md), [`reports/v11/`](reports/v11/) |
 
 ## Install and run bounded workflows
 
@@ -88,6 +89,7 @@ Timing telemetry is host-dependent and excluded from deterministic artifact comp
 - **No live-service claim:** the observatory is locally/preview verified and **not a public deployment**; publishing it and operating a continuous worker require a separate authorization and operations decision.
 - **No long-run claim:** the clean-sorting 100,000-generation campaign is pre-execution work gated on declared hardware, durable checkpoints, compute budget, and operator oversight.
 - **No publication claim:** the LaTeX manuscript bundle is locally compiled review material, **not submitted** and not peer reviewed; the `0.3.0` package is locally built, **not uploaded to PyPI**.
+- **No lead-research claim:** the evolutionary interpreter has no network, browser, file-read, database, or external-API primitive. It does not scrape, enrich, bypass websites, or process private contact data.
 
 ## v10 readiness record
 
@@ -103,6 +105,20 @@ Version 10 repairs the SDK’s top-level `EvolutionResult.fitness` and `Evolutio
 
 > No arXiv identifier, PyPI package URL, public Observatory URL, continuous worker, or 100,000-generation campaign result exists at this release point.
 
+## v11 measured checks and hardening
+
+Version 11 audited the v10 guide against the checked-out source, rather than assuming historic findings were still present. It removes `sort1` from the default grammar, gives the game evaluator a deterministic tournament, adds a cooperative interpreter deadline, tightens local artifact permissions, synchronizes the package export version, and validates portable `sqrt` JavaScript output in Node.js. The bounded API remains authenticated, rate-limited, limited to 25 inline generations, and explicitly worker-free.
+
+| v11 item | Exact result | Boundary and evidence |
+|---|---|---|
+| Manhattan end-to-end | 300 generations, seed `20260814`, population 128, **1,000/1,000** held-out correct in 57.170 s; exact replay matched the champion hash | One local configuration; [run record](reports/v11/manhattan-real-world-test.json), [replay record](reports/v11/manhattan-reproduction.json) |
+| JavaScript export runtime | A 50-generation Manhattan champion with `sqrt` matched the typed interpreter on five fixed Node.js inputs | One target and five cases only; [runtime record](reports/v11/javascript-export-runtime.json) |
+| Clean-sorting Stage 0 | **Negative:** 5,000 generations, seed 42, population 50; mean correctness `0.3956`, no final organism met individual mastery | Does not prove impossibility or complete the campaign; [measurement](reports/v11/sorting-stage0-5000.json) |
+| Local capacity observation | 12.44, 8.59, 4.15, and 1.39 generations/s for populations 50, 100, 200, and 500 | Sandbox observations only, not cloud or production capacity; [profile](reports/v11/local-capacity-profile.json) |
+| Bounded API isolation | An authenticated `/v9/snapshot` completed in under 0.5 s while an authenticated inline run waited in a worker thread | In-process regression only; no durable queue, public HTTP latency, or multi-instance claim; [`production/test_v9_api.py`](production/test_v9_api.py) |
+
+See the [v11 foundation audit](docs/v11-foundation-audit.md) for the full defect classification, repaired/stale distinctions, safety limits, and lead-research boundary.
+
 ## Repository map
 
 | Location | Purpose |
@@ -117,6 +133,8 @@ Version 10 repairs the SDK’s top-level `EvolutionResult.fitness` and `Evolutio
 | [`docs/v10-package-release.md`](docs/v10-package-release.md) | Local distribution evidence and PyPI handoff gate |
 | [`docs/v10-observatory-deployment-package.md`](docs/v10-observatory-deployment-package.md) | Real-data observatory path and no-live-operation boundary |
 | [`docs/v10-campaign-launch-gate.md`](docs/v10-campaign-launch-gate.md) | Persistent-compute authorization, pilot, recovery, and milestone gate |
+| [`docs/v11-foundation-audit.md`](docs/v11-foundation-audit.md) | v11 code audit, measured local checks, and exact capability boundaries |
+| [`reports/v11/`](reports/v11/) | Committed bounded-run, replay, runtime-export, Stage 0, and capacity evidence |
 
 ## Development verification
 
@@ -124,7 +142,7 @@ Version 10 repairs the SDK’s top-level `EvolutionResult.fitness` and `Evolutio
 APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest -q
 ```
 
-The exact collected/passed count is recorded for each release verification. The v10 release record must describe the **1,731 collected parameterized cases** as a collection count, not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
+The exact collected/passed count is recorded for each release verification. The v11 verification passed **1,737 collected cases**; this is a parameterized collection count, not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
 
 ## License
 
