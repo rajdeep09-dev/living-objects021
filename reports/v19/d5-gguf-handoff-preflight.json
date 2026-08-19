@@ -1,0 +1,22 @@
+{
+  "claim_boundary": "A preflight cannot establish GGUF compatibility, adapter quality, or a release until all inputs and an independently recorded validation exist.",
+  "execution_boundary": {
+    "binary_published": false,
+    "conversion_started": false,
+    "gguf_created": false,
+    "network_calls": 0
+  },
+  "paths": {
+    "adapter_directory": "/home/ubuntu/living-objects021/agnes_brain/adapter_student",
+    "converter_path": "/home/ubuntu/living-objects021/agnes_brain/convert_hf_to_gguf.py",
+    "validation_artifact": "reports/v19/d4-student-evaluation-empty-submission-corrected.json"
+  },
+  "reasons": [
+    "trained_adapter_missing",
+    "converter_missing",
+    "task_correct_evaluation_not_passed",
+    "explicit_release_confirmation_missing"
+  ],
+  "schema_version": "beast-brain-d5-gguf-handoff-v1",
+  "status": "blocked"
+}

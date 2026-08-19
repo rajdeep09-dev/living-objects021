@@ -1,0 +1,33 @@
+{
+  "claim_boundary": "This one-prompt raw local API check is not a reasoning, coding, instruction-following, or controller-admission benchmark.",
+  "decoder": {
+    "format_parameter_used": false,
+    "mode": "raw",
+    "temperature": 0.0
+  },
+  "execution_boundary": {
+    "generated_text_executed": false,
+    "local_loopback_http_calls_only": true,
+    "primitive_selected_for_evolution": false
+  },
+  "metrics": {
+    "name_present": false,
+    "snake_case_name": false,
+    "valid_json": false
+  },
+  "model": {
+    "available": true,
+    "identifier": "qwen2.5-coder:1.5b",
+    "reason": "available"
+  },
+  "prompt_sha256": "26909bb3616e36aa4345368e468a9bc96ccfffb021e3587d9c454739dc0ac769",
+  "response": {
+    "available": true,
+    "persisted_raw_text": false,
+    "raw_bytes": 89,
+    "raw_sha256": "5fb7f6bcabb8e9c4876708c598406c17d707f89467e6732733f66e63fa62a025",
+    "reason": "ok"
+  },
+  "schema_version": "beast-brain-d1-teacher-baseline-v1",
+  "status": "completed"
+}

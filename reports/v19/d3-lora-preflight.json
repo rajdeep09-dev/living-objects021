@@ -1,0 +1,25 @@
+{
+  "claim_boundary": "A ready preflight is not a trained adapter, model improvement, or GGUF conversion result.",
+  "execution_boundary": {
+    "adapter_exported": false,
+    "checkpoint_published": false,
+    "model_downloaded": false,
+    "training_started": false
+  },
+  "paths": {
+    "adapter_output_directory": "/home/ubuntu/living-objects021/agnes_brain/adapter_student",
+    "base_model_directory": "/home/ubuntu/living-objects021/agnes_brain",
+    "corpus_manifest_path": null,
+    "teacher_data_path": "/home/ubuntu/living-objects021/agnes_brain/training_data/teacher_generated.jsonl"
+  },
+  "reasons": [
+    "local_model_config_missing",
+    "teacher_data_missing",
+    "corpus_manifest_missing",
+    "dependency_missing:transformers",
+    "dependency_missing:peft",
+    "dependency_missing:trl"
+  ],
+  "schema_version": "beast-brain-d3-lora-preflight-v1",
+  "status": "blocked"
+}

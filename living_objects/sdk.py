@@ -19,6 +19,11 @@ from evolution.gp_engine import GPGenome
 from evolution.gp_population import GPPopulation
 from evolution.polyglot_export import PolyglotCompiler
 from evolution.v9_sorting_curriculum import FiveStageSortingCurriculum, STAGES, V9CleanSortingEvaluator
+try:
+    from agnes_brain.client import AgnesBrainClient as _AgnesBrainClient
+except ImportError:  # Optional local explanations must never break GP use.
+    _AgnesBrainClient = None
+from living_objects.ollama_explanations import ExplanationResult, request_local_explanation
 
 
 SDK_VERSION = "0.3.0"
@@ -226,6 +231,10 @@ def evolve(
     seed: int,
     population_size: int | None = None,
     artifact_dir: str | Path | None = None,
+    enable_local_explanation: bool = False,
+    explanation_evidence_path: str | Path | None = None,
+    explanation_model: str | None = None,
+    explanation_client: Any | None = None,
 ) -> EvolutionResult:
     """Run one bounded local task and persist a JSON record for ``reproduce``.
 
@@ -240,6 +249,19 @@ def evolve(
     if not 2 <= selected_population <= 512:
         raise ValueError("population_size must be in 2..512")
     result = _execute(canonical, generations=generations, seed=int(seed), population_size=selected_population)
+    # This block is deliberately after selection, fitness measurement, and all
+    # mutation/curriculum operations.  Text is untrusted and never re-enters GP.
+    if enable_local_explanation and explanation_evidence_path is not None and explanation_model and _AgnesBrainClient is not None:
+        brain = _AgnesBrainClient(evidence_path=explanation_evidence_path, model=explanation_model, client=explanation_client)
+        if brain.is_available():
+            explanation = brain.explain(result.source_code, canonical, result.fitness)
+            result.execution_boundary["post_selection_explanation_calls"] = int(explanation.available)
+            if explanation.available and explanation.text is not None:
+                result.champion["brain_explanation"] = {
+                    "text": explanation.text,
+                    "source": "optional_local_model_untrusted_explanation",
+                    "execution_boundary": explanation.execution_boundary,
+                }
     target = _run_directory(artifact_dir) / f"{result.run_id}.json"
     target.parent.mkdir(parents=True, exist_ok=True)
     payload = {
@@ -358,8 +380,10 @@ __all__ = [
     "AuditResult",
     "ReproductionResult",
     "SafeExport",
+    "ExplanationResult",
     "evolve",
     "audit",
     "reproduce",
     "export",
+    "request_local_explanation",
 ]

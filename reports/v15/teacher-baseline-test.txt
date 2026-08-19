@@ -1,0 +1,8 @@
+```json
+{
+  "name": "example_primitive",
+  "inputs": ["float"],
+  "output": "float"
+}
+```
+INVALID

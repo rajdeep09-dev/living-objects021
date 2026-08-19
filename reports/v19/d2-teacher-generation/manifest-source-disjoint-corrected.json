@@ -1,0 +1,34 @@
+{
+  "base_records": {
+    "path": "/home/ubuntu/living-objects021/agnes_brain/training_data/primitives/from_codebase.jsonl",
+    "sha256": "2d498cb706337b38db6fa944fa53125bcd84fc62081af55e3e425d19972d1704"
+  },
+  "claim_boundary": "Rows, if retained, are unverified model-generated teaching data. They are not measured BEAST experience, approved new primitives, or evidence of reasoning/coding capability.",
+  "counts": {
+    "prompts": 56,
+    "requested_variations": 280,
+    "responses_available": 0,
+    "retained_rows": 0,
+    "schema_valid_responses": 0,
+    "source_records": 56
+  },
+  "execution_boundary": {
+    "fitness_measured": false,
+    "generated_text_executed": false,
+    "loopback_calls_only": false,
+    "model_downloaded": false,
+    "registry_mutated": false
+  },
+  "model": {
+    "availability_reason": "dry_run",
+    "identifier": "qwen2.5-coder:1.5b"
+  },
+  "output_path": "/home/ubuntu/living-objects021/agnes_brain/training_data/teacher_generated.jsonl",
+  "schema_version": "beast-brain-d2-teacher-generation-manifest-v1",
+  "split": {
+    "heldout_sources_reserved_for_d4": true,
+    "method": "existing v15 sha256(source_record_id) modulo 5 split",
+    "training_source_records_only": true
+  },
+  "status": "dry_run"
+}
