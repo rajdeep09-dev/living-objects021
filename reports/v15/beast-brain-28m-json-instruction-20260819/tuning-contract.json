@@ -1,0 +1,37 @@
+{
+  "base_checkpoint_sha256": "db191def3b98c0a32fbb0059e884509a89bac750c85fbb7a2fb6fe64672f99f7",
+  "claim_boundary": "Schema validity is not evidence of reasoning, coding, general ability, or BEAST benchmark improvement.",
+  "execution_boundary": {
+    "external_dataset_downloaded": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "json_data_manifest": {
+    "holdout_bytes": 13164,
+    "holdout_path": "reports/v15/json-instruction-data/holdout.jsonl",
+    "holdout_record_digest": "b2c1a7bb29dc820ba6879e28e5bb672cf12d11e8e1f62bc91754757f46ab1411",
+    "holdout_records": 10,
+    "holdout_sha256": "0702f9689ce7933503811bb5993aec38e43fb5a6406e0e0cc9e6f42e6a56dd68",
+    "train_bytes": 73449,
+    "train_path": "reports/v15/json-instruction-data/train.jsonl",
+    "train_record_digest": "eecd9aaf9d7b9785d4e423dbfc0394b58bda8dce855ed8e63c02582cf1714dab",
+    "train_records": 56,
+    "train_sha256": "53dca71985fd55375afdfbbc03d9567752127ee9a4e28c439bfe64d976b94c8e"
+  },
+  "model_parameter_count": 28864544,
+  "schema_version": "beast-brain-json-instruction-tuning-contract-v1",
+  "tuning_config": {
+    "batch_size": 2,
+    "checkpoint_interval_steps": 100,
+    "cpu_threads": 3,
+    "evaluation_batches": 10,
+    "generation_max_bytes": 512,
+    "learning_rate": 8e-05,
+    "max_steps": 1000,
+    "max_wall_seconds": 1200,
+    "seed": 20260820,
+    "weight_decay": 0.01
+  }
+}

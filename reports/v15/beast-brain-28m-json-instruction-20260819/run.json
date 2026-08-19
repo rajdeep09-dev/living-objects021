@@ -1,0 +1,85 @@
+{
+  "base_checkpoint": {
+    "overwritten": false,
+    "path": "reports/v14/beast-brain-28m-local-attempt-20260819/checkpoint-latest.pt",
+    "sha256": "db191def3b98c0a32fbb0059e884509a89bac750c85fbb7a2fb6fe64672f99f7"
+  },
+  "claim_boundary": {
+    "beast_benchmark_improvement_claim": false,
+    "coding_capability_claim": false,
+    "general_reasoning_claim": false,
+    "is_ollama_or_gguf": false,
+    "meaning": "This is a finite native-checkpoint JSON-syntax tuning measurement only.",
+    "parent_model_weight_transfer": false
+  },
+  "completion_reason": "max_steps_reached",
+  "execution_boundary": {
+    "external_dataset_downloaded": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "json_data": {
+    "holdout_bytes": 13164,
+    "holdout_path": "reports/v15/json-instruction-data/holdout.jsonl",
+    "holdout_record_digest": "b2c1a7bb29dc820ba6879e28e5bb672cf12d11e8e1f62bc91754757f46ab1411",
+    "holdout_records": 10,
+    "holdout_sha256": "0702f9689ce7933503811bb5993aec38e43fb5a6406e0e0cc9e6f42e6a56dd68",
+    "train_bytes": 73449,
+    "train_path": "reports/v15/json-instruction-data/train.jsonl",
+    "train_record_digest": "eecd9aaf9d7b9785d4e423dbfc0394b58bda8dce855ed8e63c02582cf1714dab",
+    "train_records": 56,
+    "train_sha256": "53dca71985fd55375afdfbbc03d9567752127ee9a4e28c439bfe64d976b94c8e"
+  },
+  "metrics": {
+    "final_heldout_nll": 0.09642775356769562,
+    "initial_heldout_nll": 2.4711449086666106,
+    "last_train_nll": 0.07632793486118317
+  },
+  "model": {
+    "parameter_count": 28864544,
+    "runtime": "native PyTorch checkpoint only"
+  },
+  "run": {
+    "batch_size": 2,
+    "checkpoint_interval_steps": 100,
+    "checkpoint_path": "reports/v15/beast-brain-28m-json-instruction-20260819/checkpoint-latest.pt",
+    "checkpoint_sha256": "0f187b864ffd02cc0ea8432521c4b15af11bbeee3e7ae7950b70a33798f9464b",
+    "contract_path": "reports/v15/beast-brain-28m-json-instruction-20260819/tuning-contract.json",
+    "contract_sha256": "61dc2b94e55f7fd04eca498ec175a5b0799c1d3a0c6168419553c1a777906c1c",
+    "cpu_threads": 3,
+    "elapsed_seconds": 352.29705279599875,
+    "evaluation_batches": 10,
+    "generation_max_bytes": 512,
+    "learning_rate": 8e-05,
+    "max_steps": 1000,
+    "max_wall_seconds": 1200,
+    "metrics_path": "reports/v15/beast-brain-28m-json-instruction-20260819/metrics.jsonl",
+    "metrics_sha256": "6fce4753501274d0f830e9cf195db90a7b68452bc42db9e5258e86bd406598ef",
+    "resumed": false,
+    "seed": 20260820,
+    "steps_completed": 1000,
+    "weight_decay": 0.01
+  },
+  "schema_evaluation": {
+    "controller_admission_rate": 0.0,
+    "controller_reason_counts": {
+      "invalid_json": 1
+    },
+    "decoder": {
+      "format_prefix": "{",
+      "max_new_bytes": 512,
+      "method": "greedy"
+    },
+    "evaluation_examples": 1,
+    "exact_controller_schema_rate": 0.0,
+    "generated_text_persisted": false,
+    "generation_bytes": 513,
+    "generation_sha256": "baa576ce18a0b2aedb23dc54a69aa3bdef0aaf4a7d4e7a7a9e5d00bb2cd2f8fe",
+    "task_correctness_measured": false,
+    "valid_json_rate": 0.0
+  },
+  "schema_version": "beast-brain-json-instruction-tuning-v1",
+  "status": "completed_finite_local_instruction_tuning"
+}

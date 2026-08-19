@@ -68,3 +68,6 @@ web/dist/
 # digests; GitHub source releases contain the reproducible code and evidence,
 # not binary weights exceeding hosted-repository file limits.
 reports/v14/*/checkpoint-latest.pt
+# The v15 native instruction-tuning checkpoint is likewise local-only; its
+# source, manifests, metric records, and documented size remain publishable.
+reports/v15/*/checkpoint-latest.pt

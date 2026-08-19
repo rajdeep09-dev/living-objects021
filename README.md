@@ -163,6 +163,18 @@ This is evidence that the declared local training/checkpoint/evaluation pipeline
 | Post-training controller check | **Rejected untrusted continuation** | The continuation failed exact JSON admission. No grammar change, source execution, benchmark assistance, or improvement claim followed. [Evaluation boundary](docs/v14-28m-evaluation-boundary.md) |
 | Ollama, parent-weight transfer, internet, cloud inference, persistent autonomy, publication, deployment | **Inactive and gated** | No model service, network action, external weight/data, persistent agent, PyPI upload, arXiv submission, or public observatory exists. [V14 final verification](docs/v14-final-verification.md) |
 
+## v15 native JSON instruction-tuning attempt
+
+Version 15 instruction-tuned the native 28,864,544-parameter v14 byte transformer on **56** provenance-labelled, default-profile primitive JSON records and evaluated it on **10** source-disjoint records. The finite local run completed 1,000 steps in 352.30 seconds and reduced declared held-out byte NLL from **2.471145** to **0.096428**.
+
+This is a narrowly measured byte-prediction result, **not** Claude-like reasoning, useful code generation, or usable BEAST guidance. The deterministic generated continuation had **0%** valid JSON, exact controller schema, default-profile compliance, and controller admission; it was rejected as `invalid_json` and never executed. The custom native byte transformer is not GGUF/Ollama compatible under the documented import path, so native checkpoint inference remains the only supported runtime and no `.gguf` exists to publish.
+
+| v15 item | Exact observed status | Boundary and evidence |
+|---|---|---|
+| Native JSON instruction tuning | **Measured locally** | One finite 1,000-step CPU run over 56/10 source-disjoint local records; held-out byte NLL only. [Final verification](docs/v15-final-verification.md) |
+| Structured output and controller check | **Negative result** | The one bounded deterministic continuation was invalid JSON and controller admission was 0%; no primitive or program was admitted. [JSON results](docs/v15-json-instruction-results.md) |
+| GGUF and Ollama runtime | **Not supported** | The custom byte-transformer layout does not meet the documented import-path compatibility conditions; no fake export is supplied. [Feasibility audit](docs/v15-gguf-ollama-feasibility-audit.md) |
+
 ## Repository map
 
 | Location | Purpose |
@@ -186,6 +198,7 @@ This is evidence that the declared local training/checkpoint/evaluation pipeline
 | [`agnes_brain/transformer_28m.py`](agnes_brain/transformer_28m.py) | Exact 28,864,544-parameter local byte-transformer specification; no downloaded weights |
 | [`reports/v14/`](reports/v14/) | Persisted finite 28.9M training, calibration, checkpoint, and post-training evaluation evidence |
 | [`docs/v14-final-verification.md`](docs/v14-final-verification.md) | Exact finite-run metrics and non-capability boundaries |
+| [`docs/v15-final-verification.md`](docs/v15-final-verification.md) | Exact native JSON-tuning metrics, zero-admission result, and native-only runtime boundary |
 
 ## Development verification
 
@@ -193,7 +206,7 @@ This is evidence that the declared local training/checkpoint/evaluation pipeline
 APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest -q
 ```
 
-The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; this is a parameterized collection count, not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
+The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; the v15 verification passed **1,772 collected cases** in 127.98 seconds, with 12 retained warnings. A parameterized collection count is not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
 
 ## License
 

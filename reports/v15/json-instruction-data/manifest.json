@@ -1,0 +1,29 @@
+{
+  "claim_boundary": "This corpus teaches exact controller syntax for existing primitive metadata; it is not evidence of reasoning, coding, or general language ability.",
+  "execution_boundary": {
+    "generated_text_executed": false,
+    "model_calls": 0,
+    "network_calls": 0
+  },
+  "response_schema": {
+    "json_only": true,
+    "required_keys": [
+      "name",
+      "description",
+      "input_types",
+      "output_type",
+      "rationale"
+    ]
+  },
+  "schema_version": "beast-brain-json-instruction-manifest-v1",
+  "source": {
+    "path": "agnes_brain/training_data/primitives/from_codebase.jsonl",
+    "policy": "approved checked-in local primitive records only; no model-generated explanations or synthetic targets"
+  },
+  "split": {
+    "holdout_examples": 10,
+    "method": "sha256(source_record_id) modulo 5",
+    "source_disjoint_primitive_names": true,
+    "train_examples": 56
+  }
+}
