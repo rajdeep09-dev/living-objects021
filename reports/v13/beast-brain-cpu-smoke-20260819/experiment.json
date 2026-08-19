@@ -1,0 +1,49 @@
+{
+  "claim_boundary": {
+    "benchmark_claim": "none",
+    "is_fine_tuned_model": false,
+    "is_llm": false,
+    "is_ollama_model": false,
+    "meaning": "The experiment verifies bounded data/model/checkpoint plumbing, not language reasoning, primitive discovery, benchmark superiority, or autonomous improvement."
+  },
+  "dataset": {
+    "holdout_records": 12,
+    "path": "agnes_brain/training_data/dataset.jsonl",
+    "records": 78,
+    "sha256": "c40bdde37a02a5fb177ef3a06faa614db517641c460f21fe30c2a73e49a8f36f",
+    "train_records": 66
+  },
+  "execution_boundary": {
+    "generated_source_executed": false,
+    "llm_calls": 0,
+    "network_calls": 0,
+    "persistent_worker_started": false,
+    "runtime": "local NumPy CPU byte-bigram only"
+  },
+  "generated_preview": {
+    "interpretation": "Unconstrained byte continuation for serialization testing only; it is not a valid instruction answer or a BEAST candidate.",
+    "max_new_bytes": 96,
+    "prompt": "{\"instruction\":",
+    "seed": 20260819,
+    "text": "{\"instruction\":\\\"P\ufffd\ufffd\u0331\ufffd\ufffd\ufffdnt_r\\\"boute4,\\\",\u001fot plaisy\ufffd\u059d<overeve_foume\\\",\\\"'\ufffd\ufffd_wh_nt_ngtatlisunutin\ufffd\ufffd\ufffducctrkining"
+  },
+  "metrics": {
+    "heldout_nll": 2.176271544762893,
+    "heldout_tokens": 19995,
+    "reload_heldout_nll": 2.176271544762893,
+    "train_nll": 2.231350251820352,
+    "train_tokens": 104195,
+    "uniform_byte_baseline_nll": 5.545177444479562
+  },
+  "model": {
+    "alpha": 0.5,
+    "checkpoint_format": "numpy_npz_allow_pickle_false",
+    "checkpoint_path": "reports/v13/beast-brain-cpu-smoke-20260819/byte_bigram_model.npz",
+    "checkpoint_sha256": "a524e726442230dcd6a8345da7b519314277c078c9c666c6baf6698277caaa0c",
+    "model_version": "beast-brain-byte-bigram-v1",
+    "type": "smoothed_byte_bigram",
+    "vocabulary_size": 256
+  },
+  "schema_version": "beast-brain-cpu-smoke-experiment-v1",
+  "status": "completed_local_cpu_smoke"
+}

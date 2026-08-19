@@ -135,6 +135,22 @@ The interpreter also provides forty bounded pure string transforms and a fourtee
 
 > The v12 roadmap is not a permission grant. External data, credentials, network access, persistent autonomy, public deployment, publishing, and campaign execution each remain owner-controlled and independently verifiable decisions.
 
+## v13 local BEAST-BRAIN research foundation
+
+Version 13 adds a **local, provenance-preserving research scaffold**, not a live AI service. The checked-in dataset has **78 complete local records** (69 approved primitive records and 9 deterministic evaluator-pattern records); a separate 513-record corpus clearly labels 345 template variants as synthetic and 90 evaluator reruns as zero-candidate diagnostics. The 16 report-derived champion records retain `FILL` explanations and are excluded from instruction data until separately reviewed.
+
+The CPU smoke experiment is a small byte-bigram table trained only over the local base data. On its fixed 66/12 split it recorded held-out negative log likelihood **2.176272** versus **5.545177** for a uniform-byte baseline. This is a text-compression sanity check, **not** a downloaded, pre-trained, or fine-tuned LLM result.
+
+| v13 item | Exact observed status | Boundary and evidence |
+|---|---|---|
+| Local data and provenance contracts | **Implemented and locally tested** | Source labels, artifact digests, create-once output, and incomplete-explanation exclusion are checked locally; there is no cloud explanation call or external dataset. [Data contract](docs/beast-brain-data-contract.md) |
+| CPU smoke model | **Measured locally** | A custom byte-bigram table on a 66/12 split improved held-out NLL over a uniform-byte baseline; it is not an LLM, model download, or capability benchmark. [Smoke record](docs/beast-brain-cpu-smoke.md) |
+| Controller admission gate | **Implemented and locally tested** | Untrusted generated text may name only existing approved primitives under an explicit profile; it cannot alter grammar or execute source. [Controller boundary](docs/beast-brain-controller-boundary.md) |
+| Clean-sorting comparison | **Neutral negative control** | The CPU preview was invalid JSON and rejected; frozen-grammar baseline and guidance arms both scored **0.58** held-out correctness. No BEAST-BRAIN assistance result is claimed. [Negative control](docs/beast-brain-negative-control.md) |
+| Ollama, cloud inference, internet, external data, workers, publishing, deployment | **Inactive and gated** | No local model service, network primitive, lead-data workflow, persistent autonomy, PyPI release, arXiv submission, or public observatory exists. [v13 audit](docs/v13-beast-brain-architecture-audit.md) |
+
+See the exact release evidence and reproduction boundary in the [v13 final verification record](docs/v13-final-verification.md).
+
 ## Repository map
 
 | Location | Purpose |

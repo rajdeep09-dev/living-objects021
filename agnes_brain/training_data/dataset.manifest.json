@@ -1,0 +1,11 @@
+{
+  "provenance_note": "Dataset contains only declared local records. Incomplete FILL explanations are excluded, not imputed.",
+  "schema_version": "agnes-brain-dataset-manifest-v1",
+  "source_counts": {
+    "complete_explanation": 0,
+    "excluded_incomplete_explanation": 16,
+    "primitive": 69,
+    "test_case": 9
+  },
+  "total_examples": 78
+}

@@ -1,0 +1,10 @@
+{
+  "base_examples": 78,
+  "complete_explanation_variants": 0,
+  "deterministic_evaluator_reruns": 90,
+  "evaluator_rerun_provenance": "approved local deterministic evaluator cases; candidate programs executed: 0",
+  "schema_version": "agnes-brain-augmentation-manifest-v1",
+  "synthetic_template_variants": 345,
+  "template_variant_provenance": "synthetic_template_variation; not a new measured BEAST run",
+  "total_examples": 513
+}

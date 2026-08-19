@@ -67,7 +67,7 @@ Issues = "https://github.com/rajdeep09-dev/living-objects/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["living_objects*", "production*", "evolution*"]
+include = ["living_objects*", "production*", "evolution*", "agnes_brain*"]
 
 [tool.black]
 line-length = 100
@@ -85,6 +85,7 @@ disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "production", "evolution"]
+pythonpath = ["."]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]

@@ -1,0 +1,73 @@
+{
+  "baseline": {
+    "best_train_fitness": 0.55,
+    "champion_complexity": 1,
+    "generations": 12,
+    "heldout_cases": 50,
+    "heldout_correctness": 0.58,
+    "heldout_score": 0.58
+  },
+  "cpu_smoke_input": {
+    "model_type": "smoothed_byte_bigram",
+    "path": "reports/v13/beast-brain-cpu-smoke-20260819/experiment.json",
+    "sha256": "6f61a07cfd56a9c48221879f09994f06689f2ecbeabd10eae23dbdc481f6c73c"
+  },
+  "execution_boundary": {
+    "candidate_program_execution": "bounded interpreter only through the existing clean-sorting evaluator",
+    "generated_source_executed": false,
+    "llm_calls": 0,
+    "local_model_rerun": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "guidance_arm": {
+    "best_train_fitness": 0.55,
+    "champion_complexity": 1,
+    "generations": 12,
+    "heldout_cases": 50,
+    "heldout_correctness": 0.58,
+    "heldout_score": 0.58
+  },
+  "guidance_decision": {
+    "accepted": false,
+    "approval": null,
+    "execution_boundary": {
+      "candidate_program_executed": false,
+      "global_registry_mutated": false,
+      "model_output_executed": false,
+      "network_calls": 0
+    },
+    "primitive_name": null,
+    "profile_name": "default",
+    "raw_bytes": 133,
+    "raw_sha256": "003d90db276097f506adebbd24e8fb6dbc7d6156f85c88ccd2a449f239da4a2b",
+    "reason": "invalid_json",
+    "schema_version": "beast-brain-guidance-decision-v1"
+  },
+  "guidance_effect": "no_op_rejected_guidance",
+  "preregistration": {
+    "decision_rule": "If guidance fails the controller contract, the guidance arm must use identical configuration and seed to baseline; any result is a neutral negative control, not model assistance.",
+    "frozen_grammar_rule": "Controller guidance cannot add or remove clean-sorting primitives in this preregistered benchmark.",
+    "generations": 12,
+    "holdout_cases": 50,
+    "holdout_seed": 920260819,
+    "population_size": 24,
+    "primitive_profile_name": "task-specific",
+    "schema_version": "beast-brain-negative-control-preregistration-v1",
+    "seed": 20260819,
+    "stage_index": 0,
+    "task_profile": "clean-sorting-v1"
+  },
+  "result_interpretation": {
+    "claim": "No BEAST-BRAIN-assisted benchmark improvement was measured. The controller rejected or ignored the local CPU preview while the clean grammar remained frozen.",
+    "not_established": [
+      "model-guided primitive selection",
+      "benchmark improvement",
+      "general program synthesis",
+      "autonomous self-improvement"
+    ],
+    "outcome": "neutral_negative_control"
+  },
+  "schema_version": "beast-brain-clean-sorting-negative-control-v1",
+  "status": "completed_local_negative_control"
+}
