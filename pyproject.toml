@@ -42,8 +42,11 @@ llm = [
     "litellm>=1.0",
     "openai>=1.0",
 ]
+training = [
+    "torch>=2.13,<2.14",
+]
 all = [
-    "living-objects[dev,llm]",
+    "living-objects[dev,llm,training]",
 ]
 production = [
     "fastapi>=0.115,<1.0",

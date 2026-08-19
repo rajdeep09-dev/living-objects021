@@ -1,0 +1,62 @@
+{
+  "claim_boundary": {
+    "beast_benchmark_improvement_claim": false,
+    "general_language_capability_claim": false,
+    "is_ollama_service": false,
+    "meaning": "This records only a time-bounded local next-byte-loss attempt on a 78-record corpus.",
+    "parent_model_weight_transfer": false
+  },
+  "completion_reason": "max_steps_reached",
+  "dataset": {
+    "dataset_path": "/home/ubuntu/living-objects021/agnes_brain/training_data/dataset.jsonl",
+    "dataset_sha256": "c40bdde37a02a5fb177ef3a06faa614db517641c460f21fe30c2a73e49a8f36f",
+    "holdout_bytes": 20007,
+    "holdout_records": 12,
+    "record_digest": "2c9874ede5891742631bff03cad98a1350586a92447996bcc07a9ab7a2b0599c",
+    "source_policy": "approved local base records only; synthetic augmentation excluded",
+    "total_records": 78,
+    "train_bytes": 104261,
+    "train_records": 66
+  },
+  "execution_boundary": {
+    "external_dataset_downloaded": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false,
+    "runtime": "finite local CPU PyTorch process"
+  },
+  "metrics": {
+    "final_heldout_nll": 0.31110308909167844,
+    "initial_heldout_nll": 325.01721954345703,
+    "last_train_nll": 0.7181450128555298,
+    "uniform_byte_baseline_nll": 5.545177444479562
+  },
+  "model": {
+    "architecture": "tied-embedding causal byte transformer",
+    "model_version": "beast-brain-transformer-28m-v1",
+    "parameter_count": 28864544
+  },
+  "run": {
+    "batch_size": 1,
+    "checkpoint_interval_steps": 20,
+    "checkpoint_path": "reports/v14/beast-brain-28m-local-attempt-20260819/checkpoint-latest.pt",
+    "checkpoint_sha256": "db191def3b98c0a32fbb0059e884509a89bac750c85fbb7a2fb6fe64672f99f7",
+    "cpu_threads": 3,
+    "elapsed_seconds": 2197.5384266030014,
+    "evaluation_batches": 12,
+    "learning_rate": 0.0003,
+    "max_steps": 10000,
+    "max_wall_seconds": 3000,
+    "metrics_path": "reports/v14/beast-brain-28m-local-attempt-20260819/metrics.jsonl",
+    "metrics_sha256": "ce50c70ec76980083819517353e91a9378f145017ac0541d373c1fed177188e4",
+    "resumed": false,
+    "seed": 20260819,
+    "steps_completed": 10000,
+    "training_contract_path": "reports/v14/beast-brain-28m-local-attempt-20260819/training-contract.json",
+    "training_contract_sha256": "8cc79f52aeb2e9e5563ccca970bf056b3d071ff4d2f87e09de163f09d9134741",
+    "weight_decay": 0.01
+  },
+  "schema_version": "beast-brain-transformer-local-run-v1",
+  "status": "completed_finite_local_attempt"
+}

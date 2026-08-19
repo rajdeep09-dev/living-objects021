@@ -1,0 +1,34 @@
+{
+  "claim_boundary": "A local loss measurement is not evidence of a useful LLM, parent-model transfer, general intelligence, or BEAST benchmark improvement.",
+  "dataset": {
+    "dataset_path": "/home/ubuntu/living-objects021/agnes_brain/training_data/dataset.jsonl",
+    "dataset_sha256": "c40bdde37a02a5fb177ef3a06faa614db517641c460f21fe30c2a73e49a8f36f",
+    "holdout_bytes": 20007,
+    "holdout_records": 12,
+    "record_digest": "2c9874ede5891742631bff03cad98a1350586a92447996bcc07a9ab7a2b0599c",
+    "source_policy": "approved local base records only; synthetic augmentation excluded",
+    "total_records": 78,
+    "train_bytes": 104261,
+    "train_records": 66
+  },
+  "execution_boundary": {
+    "external_dataset_downloaded": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "model": {
+    "architecture": "tied-embedding causal byte transformer",
+    "attention_heads": 8,
+    "block_size": 128,
+    "embedding_size": 512,
+    "feedforward_size": 2080,
+    "layer_count": 9,
+    "parameter_count": 28864544,
+    "seed": 20260819,
+    "vocabulary_size": 256
+  },
+  "model_version": "beast-brain-transformer-28m-v1",
+  "schema_version": "beast-brain-transformer-training-contract-v1"
+}

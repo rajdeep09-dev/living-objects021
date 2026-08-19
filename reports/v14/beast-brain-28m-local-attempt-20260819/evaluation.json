@@ -1,0 +1,51 @@
+{
+  "claim_boundary": {
+    "accepted_guidance_is_benchmark_assistance": false,
+    "general_language_capability_claim": false,
+    "meaning": "The outcome tests only a frozen controller admission contract after local next-byte training."
+  },
+  "controller_decision": {
+    "accepted": false,
+    "approval": null,
+    "execution_boundary": {
+      "candidate_program_executed": false,
+      "global_registry_mutated": false,
+      "model_output_executed": false,
+      "network_calls": 0
+    },
+    "primitive_name": null,
+    "profile_name": "default",
+    "raw_bytes": 201,
+    "raw_sha256": "609048dd6223fd4a19107d70500866f70ec463be25f5cbb9685e0d122bd8140a",
+    "reason": "invalid_json",
+    "schema_version": "beast-brain-guidance-decision-v1"
+  },
+  "execution_boundary": {
+    "candidate_program_executed": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "generated_continuation": {
+    "bytes": 201,
+    "interpretation": "A deterministic untrusted byte continuation for controller-contract testing; it is not a program, primitive, or answer.",
+    "persisted_raw_text": false,
+    "prompt_bytes": 9,
+    "sha256": "609048dd6223fd4a19107d70500866f70ec463be25f5cbb9685e0d122bd8140a"
+  },
+  "input_run": {
+    "checkpoint_path": "reports/v14/beast-brain-28m-local-attempt-20260819/checkpoint-latest.pt",
+    "checkpoint_sha256": "db191def3b98c0a32fbb0059e884509a89bac750c85fbb7a2fb6fe64672f99f7",
+    "path": "reports/v14/beast-brain-28m-local-attempt-20260819/run.json",
+    "sha256": "bcfef8ec1ea6ef8474a62290883f2641f80f45bb09743da61201a548e784ab93",
+    "training_final_heldout_nll": 0.31110308909167844
+  },
+  "recomputed_local_metric": {
+    "heldout_nll": 0.31110308909167844,
+    "matches_training_artifact": true,
+    "tolerance_to_training_artifact": 1e-06
+  },
+  "schema_version": "beast-brain-transformer-local-evaluation-v1",
+  "status": "completed_local_post_training_evaluation"
+}

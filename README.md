@@ -151,6 +151,18 @@ The CPU smoke experiment is a small byte-bigram table trained only over the loca
 
 See the exact release evidence and reproduction boundary in the [v13 final verification record](docs/v13-final-verification.md).
 
+## v14 finite 28.9M local transformer attempt
+
+Version 14 records one finite, from-scratch CPU training attempt for a **28,864,544-parameter** byte-level causal transformer. It used only the existing 78-record, provenance-labelled local base corpus, random initialization, a deterministic 66/12 split, and a 3,000-second time cap. It completed 10,000 steps in 2,197.54 seconds and reduced the declared held-out next-byte NLL from **325.017220** to **0.311103**.
+
+This is evidence that the declared local training/checkpoint/evaluation pipeline ran. It is **not** evidence of a useful general LLM, a parent-model transfer from Manus or this assistant, language understanding, code generation, BEAST assistance, or autonomous self-improvement. A deterministic continuation was treated as untrusted controller input and rejected as `invalid_json`; no primitive was admitted or executed.
+
+| v14 item | Exact observed status | Boundary and evidence |
+|---|---|---|
+| Finite local transformer attempt | **Measured locally** | One 28,864,544-parameter architecture, one small fixed corpus, one local CPU environment, and next-byte NLL only; it is not a downloaded, pre-trained, or general-purpose model. [Final verification](docs/v14-final-verification.md) |
+| Post-training controller check | **Rejected untrusted continuation** | The continuation failed exact JSON admission. No grammar change, source execution, benchmark assistance, or improvement claim followed. [Evaluation boundary](docs/v14-28m-evaluation-boundary.md) |
+| Ollama, parent-weight transfer, internet, cloud inference, persistent autonomy, publication, deployment | **Inactive and gated** | No model service, network action, external weight/data, persistent agent, PyPI upload, arXiv submission, or public observatory exists. [V14 final verification](docs/v14-final-verification.md) |
+
 ## Repository map
 
 | Location | Purpose |
@@ -171,6 +183,9 @@ See the exact release evidence and reproduction boundary in the [v13 final verif
 | [`docs/v12-operational-authorization-gate.md`](docs/v12-operational-authorization-gate.md) | Required gates for data, network, persistence, credentials, public service, and external action |
 | [`evolution/primitive_registry.py`](evolution/primitive_registry.py) | Per-primitive approval metadata and explicit profile governance |
 | [`evolution/approved_patterns.py`](evolution/approved_patterns.py) | Fixed-name bounded pattern registry; arbitrary regex strings are refused |
+| [`agnes_brain/transformer_28m.py`](agnes_brain/transformer_28m.py) | Exact 28,864,544-parameter local byte-transformer specification; no downloaded weights |
+| [`reports/v14/`](reports/v14/) | Persisted finite 28.9M training, calibration, checkpoint, and post-training evaluation evidence |
+| [`docs/v14-final-verification.md`](docs/v14-final-verification.md) | Exact finite-run metrics and non-capability boundaries |
 
 ## Development verification
 
@@ -178,7 +193,7 @@ See the exact release evidence and reproduction boundary in the [v13 final verif
 APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest -q
 ```
 
-The exact collected/passed count is recorded for each release verification. The v11 verification passed **1,737 collected cases**; this is a parameterized collection count, not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
+The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; this is a parameterized collection count, not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
 
 ## License
 

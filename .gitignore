@@ -63,3 +63,8 @@ research/*.pdf
 research/*.png
 web/node_modules/
 web/dist/
+
+# Large local-only model checkpoints are retained by the v14 run metadata and
+# digests; GitHub source releases contain the reproducible code and evidence,
+# not binary weights exceeding hosted-repository file limits.
+reports/v14/*/checkpoint-latest.pt
