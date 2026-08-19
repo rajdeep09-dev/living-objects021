@@ -1,0 +1,24 @@
+{
+  "evaluation": {
+    "claim_boundary": "Name-conditioned metadata recovery is not evidence of reasoning, coding, or BEAST task improvement.",
+    "controller_admission": true,
+    "exact_name_recovery": true,
+    "semantic_task_selection": false
+  },
+  "execution_boundary": {
+    "generated_text_executed": false,
+    "model_calls": 0,
+    "network_calls": 0
+  },
+  "schema_version": "beast-brain-lexical-controller-manifest-v1",
+  "source": {
+    "path": "agnes_brain/training_data/primitives/from_codebase.jsonl",
+    "policy": "approved checked-in local primitive records only; no model-generated examples or labels"
+  },
+  "split": {
+    "holdout_examples": 10,
+    "method": "sha256(source_record_id) modulo 5",
+    "source_disjoint_primitive_names": true,
+    "train_examples": 56
+  }
+}

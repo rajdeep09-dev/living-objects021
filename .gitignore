@@ -74,3 +74,6 @@ reports/v15/*/checkpoint-latest.pt
 # The v16 prompt-conditioned follow-up follows the same source-only release
 # boundary; retain its compact metrics and digests but never add native weights.
 reports/v16/*/checkpoint-latest.pt
+# The v17 lexical-controller baseline and candidate use the same native-only
+# boundary; source, manifests, metrics, and digests are publishable, not weights.
+reports/v17/*/checkpoint-latest.pt

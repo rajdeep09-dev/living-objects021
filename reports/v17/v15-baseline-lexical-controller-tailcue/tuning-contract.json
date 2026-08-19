@@ -1,0 +1,43 @@
+{
+  "base_checkpoint_sha256": "0f187b864ffd02cc0ea8432521c4b15af11bbeee3e7ae7950b70a33798f9464b",
+  "claim_boundary": "Schema validity is not evidence of reasoning, coding, general ability, or BEAST benchmark improvement.",
+  "execution_boundary": {
+    "external_dataset_downloaded": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "json_data_manifest": {
+    "holdout_bytes": 5548,
+    "holdout_path": "reports/v17/lexical-controller-data/holdout.jsonl",
+    "holdout_record_digest": "b2c1a7bb29dc820ba6879e28e5bb672cf12d11e8e1f62bc91754757f46ab1411",
+    "holdout_records": 10,
+    "holdout_sha256": "fc3d607c443cf200ffbddee571b815c9c8ac4b108e301a00fa06756f65696c50",
+    "train_bytes": 30507,
+    "train_path": "reports/v17/lexical-controller-data/train.jsonl",
+    "train_record_digest": "eecd9aaf9d7b9785d4e423dbfc0394b58bda8dce855ed8e63c02582cf1714dab",
+    "train_records": 56,
+    "train_sha256": "5aeda0d44fbabbc62de59e79903d6f333ffb66c7f6925ff0c0c5d08c7d492203"
+  },
+  "model_parameter_count": 28864544,
+  "schema_version": "beast-brain-json-instruction-tuning-contract-v2",
+  "supervision": {
+    "mode": "target_only",
+    "prompt_context_bytes": 32,
+    "prompt_loss_labels": "ignored",
+    "target_only_ignore_index": -100
+  },
+  "tuning_config": {
+    "batch_size": 2,
+    "checkpoint_interval_steps": 25,
+    "cpu_threads": 3,
+    "evaluation_batches": 10,
+    "generation_max_bytes": 256,
+    "learning_rate": 8e-05,
+    "max_steps": 0,
+    "max_wall_seconds": 1800,
+    "seed": 20260820,
+    "weight_decay": 0.01
+  }
+}

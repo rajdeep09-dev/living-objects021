@@ -1,0 +1,233 @@
+{
+  "base_checkpoint": {
+    "overwritten": false,
+    "path": "reports/v15/beast-brain-28m-json-instruction-20260819/checkpoint-latest.pt",
+    "sha256": "0f187b864ffd02cc0ea8432521c4b15af11bbeee3e7ae7950b70a33798f9464b"
+  },
+  "baseline_schema_evaluation": {
+    "controller_admission_rate": 0.0,
+    "controller_reason_counts": {
+      "invalid_json": 10
+    },
+    "decoder": {
+      "format_prefix": null,
+      "grammar_masking": false,
+      "max_new_bytes": 256,
+      "method": "raw_greedy_prompt_conditioned",
+      "prompt_source": "declared held-out instruction/input plus controller_json delimiter"
+    },
+    "evaluation_examples": 10,
+    "exact_controller_schema_rate": 0.0,
+    "exact_target_name_count": 0,
+    "exact_target_name_measured": true,
+    "exact_target_name_rate": 0.0,
+    "generated_text_persisted": false,
+    "generation_digests": [
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "323d67fc9a12be8ba7151b3b9a709446c45dd9207428b4811e7fee5939a5a1c6",
+        "source_record_id": "4fc8e4d24f95e2e2b248d4e416b83ceee1f0630a057bd24bbd494da71ecd18ab"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "923587e067296dfd3c3f4666a90217ed2a8e6eb39c7cfecd45fe6faf5b4fa304",
+        "source_record_id": "2ffe76fa914ec02a7b6f01dabcc0724e0ba5ac3d08b0bfa52b7191e779656e21"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "eae29781405268f16c51234ec155a5ce73adf6058ef2d9e3c47ef8d88599725d",
+        "source_record_id": "af062d010f744929561501ea77f9eaa3cec651e30c076804cbb8d05d0a47ae0d"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "e8e8048e5f569104dd12776d6d51b77cc1a997efde351956ba151bf255580d76",
+        "source_record_id": "e175119ceed7672e7f954531d4c7c6bd53b6677ce4fecc4ea4dfca85108b90c4"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "55a9a72c9f06440cb0023077bf6b98518700bc8f0d8c24f5d182fa1d9c0cbaee",
+        "source_record_id": "d2ad48c863d38aab386b9ebbbe7b1d69e8f91517c08e314bc07572fe5512dc2b"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "64d829731576e64a6b5969f379f60986b37beb1423b292df7d4259fce90153de",
+        "source_record_id": "9599299fb1929ee7a83bda1c683abe674c2ffaf8988da8c3d844f051a8a9edab"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "789ba8a508c57153c667f7d20461dd386ef2229760013e6cf2fc62c3fb52fbe3",
+        "source_record_id": "1c11061e1030506fde4d42a2953afea8c16dc8d348fe6fae7ddaa78a20454e0e"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "e0801191fc4ccffc5b1e1dbd59b402a85fefef242bcaf7de13b11bf780a34618",
+        "source_record_id": "29a025807315b035fd90e1a1253a767c27a058232c3cbac4df078a7f74f5ed62"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "339110a65e416e8adde65c35bf97c6664eaffaa8ec7e105529c11917982d4076",
+        "source_record_id": "6300e4d7d5206bfd9fbed05e2aa87b2b7723251ccc247c85c87d7e28572dd7b4"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "861531cd3fd9cec3cc2ef66fea4186f50dc7bac6600a32d3778f58767fa06f1c",
+        "source_record_id": "5b974595da602c45ea2b450eb2d56bba98c8ccb5c4ce7d366f0c0af66ddcfd59"
+      }
+    ],
+    "task_correctness_measured": false,
+    "valid_json_rate": 0.0
+  },
+  "claim_boundary": {
+    "beast_benchmark_improvement_claim": false,
+    "coding_capability_claim": false,
+    "general_reasoning_claim": false,
+    "is_ollama_or_gguf": false,
+    "meaning": "This is a finite native-checkpoint prompt-conditioned JSON-syntax measurement only.",
+    "parent_model_weight_transfer": false
+  },
+  "completion_reason": "wall_clock_deadline_reached",
+  "execution_boundary": {
+    "external_dataset_downloaded": false,
+    "generated_text_executed": false,
+    "model_weights_downloaded": false,
+    "network_calls": 0,
+    "persistent_worker_started": false
+  },
+  "json_data": {
+    "holdout_bytes": 5548,
+    "holdout_path": "reports/v17/lexical-controller-data/holdout.jsonl",
+    "holdout_record_digest": "b2c1a7bb29dc820ba6879e28e5bb672cf12d11e8e1f62bc91754757f46ab1411",
+    "holdout_records": 10,
+    "holdout_sha256": "fc3d607c443cf200ffbddee571b815c9c8ac4b108e301a00fa06756f65696c50",
+    "train_bytes": 30507,
+    "train_path": "reports/v17/lexical-controller-data/train.jsonl",
+    "train_record_digest": "eecd9aaf9d7b9785d4e423dbfc0394b58bda8dce855ed8e63c02582cf1714dab",
+    "train_records": 56,
+    "train_sha256": "5aeda0d44fbabbc62de59e79903d6f333ffb66c7f6925ff0c0c5d08c7d492203"
+  },
+  "metrics": {
+    "final_heldout_target_nll": 0.2141949012875557,
+    "initial_heldout_target_nll": 0.19098232723772526,
+    "last_train_nll": 0.0684569701552391
+  },
+  "model": {
+    "parameter_count": 28864544,
+    "runtime": "native PyTorch checkpoint only"
+  },
+  "run": {
+    "batch_size": 2,
+    "checkpoint_interval_steps": 25,
+    "checkpoint_path": "reports/v17/lexical-controller-tailcue-tuning/checkpoint-latest.pt",
+    "checkpoint_sha256": "e503d8edc306691b7a80d3d0a33270b3a63eb8ee51222d3a94b56679f2026451",
+    "contract_path": "reports/v17/lexical-controller-tailcue-tuning/tuning-contract.json",
+    "contract_sha256": "6f34648d9169a62ce6a2912fe8709a42d070001d33282399f48948af3042e68c",
+    "cpu_threads": 3,
+    "elapsed_seconds": 1800.3252754909918,
+    "evaluation_batches": 10,
+    "generation_max_bytes": 256,
+    "learning_rate": 8e-05,
+    "max_steps": 6000,
+    "max_wall_seconds": 1800,
+    "metrics_path": "reports/v17/lexical-controller-tailcue-tuning/metrics.jsonl",
+    "metrics_sha256": "9b524e5e88168ec60488edf8f1eeaec4c8c73368b9bf663f2cbfd72540243460",
+    "resumed": false,
+    "seed": 20260820,
+    "steps_completed": 3396,
+    "weight_decay": 0.01
+  },
+  "schema_evaluation": {
+    "controller_admission_rate": 0.0,
+    "controller_reason_counts": {
+      "invalid_json": 10
+    },
+    "decoder": {
+      "format_prefix": null,
+      "grammar_masking": false,
+      "max_new_bytes": 256,
+      "method": "raw_greedy_prompt_conditioned",
+      "prompt_source": "declared held-out instruction/input plus controller_json delimiter"
+    },
+    "evaluation_examples": 10,
+    "exact_controller_schema_rate": 0.0,
+    "exact_target_name_count": 0,
+    "exact_target_name_measured": true,
+    "exact_target_name_rate": 0.0,
+    "generated_text_persisted": false,
+    "generation_digests": [
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "9c11fd779cb3628ab877858b9bf5453d3d4b223fbc61cb0e2df0310af38a5c31",
+        "source_record_id": "4fc8e4d24f95e2e2b248d4e416b83ceee1f0630a057bd24bbd494da71ecd18ab"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "1922c2a6b102bac328ca26edfa4f8eb3f3fa06930d2baf5fc805dbd9c9253bc0",
+        "source_record_id": "2ffe76fa914ec02a7b6f01dabcc0724e0ba5ac3d08b0bfa52b7191e779656e21"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "4ff26b72ab71794d1b09f4111ba9f67cad03b61a3eb91cad95bab793848f3e8d",
+        "source_record_id": "af062d010f744929561501ea77f9eaa3cec651e30c076804cbb8d05d0a47ae0d"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "43d940c5ebe102bf68118b550da3782eac3054bca1c873b103f78819a14f191a",
+        "source_record_id": "e175119ceed7672e7f954531d4c7c6bd53b6677ce4fecc4ea4dfca85108b90c4"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "9b56856b96459d4e435127ba53b062c3a3c3319565a3cc449c7a1c9c8106f539",
+        "source_record_id": "d2ad48c863d38aab386b9ebbbe7b1d69e8f91517c08e314bc07572fe5512dc2b"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "4908e77ccc072a7bd02beeecf9b0f1ee412825d60dd37bcd2f06ff9dea101c75",
+        "source_record_id": "9599299fb1929ee7a83bda1c683abe674c2ffaf8988da8c3d844f051a8a9edab"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "58c832dd93260a350f2b8f79bb0b597b9dd93e493ff64e997c9831391f387dca",
+        "source_record_id": "1c11061e1030506fde4d42a2953afea8c16dc8d348fe6fae7ddaa78a20454e0e"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "749914bf63ee148a367a78962674e1b3bf6d89f47190ab8a2d0b628a1116662b",
+        "source_record_id": "29a025807315b035fd90e1a1253a767c27a058232c3cbac4df078a7f74f5ed62"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "905be392ff10be2bca627ef2d16496169479638653e4049f085e13846d138b30",
+        "source_record_id": "6300e4d7d5206bfd9fbed05e2aa87b2b7723251ccc247c85c87d7e28572dd7b4"
+      },
+      {
+        "bytes": 256,
+        "controller_reason": "invalid_json",
+        "sha256": "270fc113edf71996f28945b6fb04b0efd24b49861f76ee54d4473b272be5ecba",
+        "source_record_id": "5b974595da602c45ea2b450eb2d56bba98c8ccb5c4ce7d366f0c0af66ddcfd59"
+      }
+    ],
+    "task_correctness_measured": false,
+    "valid_json_rate": 0.0
+  },
+  "schema_version": "beast-brain-json-instruction-tuning-v2",
+  "status": "completed_finite_local_instruction_tuning"
+}

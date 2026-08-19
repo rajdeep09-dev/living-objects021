@@ -197,6 +197,30 @@ code generation, BEAST improvement, or a usable model runtime.
 | Per-prompt structured output and controller check | **Negative result** | Ten held-out prompts produced 0% valid JSON, exact schema, and admission; all were rejected as `invalid_json`. [Result record](docs/v16-prompt-conditioned-json-results.md) |
 | GGUF/Ollama and general capability | **Not supported / not measured** | The runtime remains custom native PyTorch only; no conversion, service, general reasoning, coding, or benchmark claim is supplied. [v15 feasibility audit](docs/v15-gguf-ollama-feasibility-audit.md) |
 
+## v17 source-disjoint lexical controller quality probe
+
+Version 17 first audited why v16 could not establish a semantic result: its
+records were uniformly labelled `general` and deliberately omitted the target
+primitive, so byte NLL could not establish task selection. The follow-up
+therefore measured a much narrower, source-backed **lexical recovery** probe:
+given only an approved primitive name written with spaces, produce its existing
+controller JSON. The cue was repeated immediately before the delimiter to fit
+the audited 32-byte local prompt context. This is not a reasoning, coding, or
+task-selection benchmark.
+
+The corrected v15-checkpoint baseline recorded **0/10** valid JSON, exact
+schema, exact target names, and controller admissions. A single finite native
+candidate ran **3,396** steps to its **1,800-second** deadline and worsened
+held-out target NLL from **0.1909823272** to **0.2141949013**. It again
+recorded **0/10** for every structured-output, exact-name, and admission
+measure; all candidates were `invalid_json` and none was admitted or executed.
+
+| v17 item | Exact observed status | Boundary and evidence |
+|---|---|---|
+| Lexical controller probe | **Measured local negative result** | One 56/10 primitive-name-disjoint metadata-recovery probe; it does not measure semantic primitive selection, reasoning, coding, or BEAST improvement. [Result record](docs/v17-lexical-controller-results.md) |
+| Raw structured output and controller check | **Negative result** | Raw greedy decoding had no opening-byte seed or grammar mask; baseline and candidate both produced 0/10 valid JSON, exact schema, exact target names, and admissions. [Result record](docs/v17-lexical-controller-results.md) |
+| Runtime and capability boundary | **Native-only / not supported or measured** | No GGUF/Ollama artifact, parent-weight transfer, external data/weights, network call, generated-text execution, persistent worker, reasoning, coding, or benchmark claim is supplied. [Quality audit](docs/v17-native-quality-audit.md) |
+
 ## Repository map
 
 | Location | Purpose |
@@ -222,6 +246,8 @@ code generation, BEAST improvement, or a usable model runtime.
 | [`docs/v14-final-verification.md`](docs/v14-final-verification.md) | Exact finite-run metrics and non-capability boundaries |
 | [`docs/v15-final-verification.md`](docs/v15-final-verification.md) | Exact native JSON-tuning metrics, zero-admission result, and native-only runtime boundary |
 | [`docs/v16-prompt-conditioned-json-results.md`](docs/v16-prompt-conditioned-json-results.md) | Target-only prompt-conditioned follow-up, ten-prompt zero-admission result, and retained negative outcome |
+| [`docs/v17-native-quality-audit.md`](docs/v17-native-quality-audit.md) | v17 failure-mode audit, narrow lexical-probe preregistration, and promotion criteria |
+| [`docs/v17-lexical-controller-results.md`](docs/v17-lexical-controller-results.md) | v17 corrected-baseline comparison and zero-admission negative result |
 
 ## Development verification
 
@@ -229,7 +255,7 @@ code generation, BEAST improvement, or a usable model runtime.
 APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest -q
 ```
 
-The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; the v15 verification passed **1,772 collected cases** in 127.98 seconds; and the v16 verification passed **1,774 tests** in **204.81 seconds**, each with 12 retained warnings. A parameterized collection count is not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
+The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; the v15 verification passed **1,772 collected cases** in 127.98 seconds; the v16 verification passed **1,774 tests** in **204.81 seconds**; and the v17 verification passed **1,777 tests** in **172.81 seconds**, each with 12 retained warnings. A parameterized collection count is not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
 
 ## License
 

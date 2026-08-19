@@ -16,6 +16,7 @@ from agnes_brain.instruction_tune_28m import (
     build_json_data_manifest,
     load_instruction_tuning_checkpoint,
 )
+from agnes_brain.lexical_controller_data import write_lexical_controller_split
 
 
 def test_instruction_tuning_budget_refuses_unbounded_or_oversized_configuration() -> None:
@@ -77,3 +78,15 @@ def test_target_only_batch_uses_declared_prompt_but_scores_only_controller_json_
     assert tuple(targets.shape) == (2, 128)
     assert any(value == TARGET_IGNORE_INDEX for value in targets.flatten().tolist())
     assert any(value != TARGET_IGNORE_INDEX for value in targets.flatten().tolist())
+
+
+def test_native_manifest_accepts_the_source_backed_lexical_controller_probe(tmp_path) -> None:
+    write_lexical_controller_split(tmp_path / "lexical")
+    manifest, _, _, train_rows, holdout_rows = build_json_data_manifest(tmp_path / "lexical")
+    assert manifest.train_records == 56
+    assert manifest.holdout_records == 10
+    example = _prompt_target_example(holdout_rows[0])
+    assert b"candidate_name_words" in example.prompt
+    target_name_words = json.loads(holdout_rows[0]["input"])["candidate_name_words"].encode("utf-8")
+    assert target_name_words in example.prompt[-32:]
+    assert example.target.startswith(b"{")

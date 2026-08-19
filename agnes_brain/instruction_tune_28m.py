@@ -31,6 +31,7 @@ if __package__ in {None, ""}:
 from agnes_brain.controller import resolve_guidance
 from agnes_brain.cpu_smoke import display_path, sha256_file
 from agnes_brain.json_instruction_data import DEFAULT_OUTPUT_DIRECTORY as DEFAULT_JSON_DATA_DIRECTORY
+from agnes_brain.lexical_controller_data import SCHEMA_VERSION as LEXICAL_CONTROLLER_DATA_SCHEMA_VERSION
 from agnes_brain.train_transformer_28m import (
     DEFAULT_OUTPUT_DIRECTORY as DEFAULT_BASE_RUN_DIRECTORY,
     TrainingRunConfig,
@@ -49,6 +50,7 @@ DEFAULT_TUNING_DIRECTORY = REPOSITORY_ROOT / "reports" / "v16" / "prompt-conditi
 TUNING_SCHEMA_VERSION = "beast-brain-json-instruction-tuning-v2"
 LEGACY_TUNING_SCHEMA_VERSION = "beast-brain-json-instruction-tuning-v1"
 JSON_DATA_SCHEMA_VERSION = "beast-brain-json-instruction-v1"
+SUPPORTED_JSON_DATA_SCHEMA_VERSIONS = frozenset({JSON_DATA_SCHEMA_VERSION, LEXICAL_CONTROLLER_DATA_SCHEMA_VERSION})
 MAX_GENERATION_BYTES = 768
 TARGET_IGNORE_INDEX = -100
 PROMPT_CONTEXT_BYTES = 32
@@ -67,7 +69,7 @@ class InstructionTuningConfig:
     evaluation_batches: int = 10
     cpu_threads: int = 3
     seed: int = 20260820
-    generation_max_bytes: int = 512
+    generation_max_bytes: int = 256
 
     def validate(self) -> None:
         if not 1 <= self.max_wall_seconds <= 3_600:
@@ -122,7 +124,7 @@ class PromptTargetExample:
 def _canonical_row_bytes(rows: Iterable[dict[str, Any]]) -> bytes:
     chunks: list[bytes] = []
     for row in rows:
-        if row.get("schema_version") != JSON_DATA_SCHEMA_VERSION:
+        if row.get("schema_version") not in SUPPORTED_JSON_DATA_SCHEMA_VERSIONS:
             raise ValueError("JSON tuning row does not match the checked-in corpus schema")
         if not isinstance(row.get("source_record_id"), str) or not isinstance(row.get("input"), str):
             raise ValueError("JSON tuning row lacks source identity or input")
@@ -144,7 +146,17 @@ def _prompt_target_example(row: dict[str, Any]) -> PromptTargetExample:
 
     _canonical_row_bytes((row,))
     source_record_id = row["source_record_id"]
-    prompt = f"{row['instruction']}\n{row['input']}\ncontroller_json:\n".encode("utf-8")
+    input_payload = json.loads(row["input"])
+    lexical_tail = ""
+    if row.get("schema_version") == LEXICAL_CONTROLLER_DATA_SCHEMA_VERSION:
+        candidate_name_words = input_payload.get("candidate_name_words")
+        if not isinstance(candidate_name_words, str) or not candidate_name_words:
+            raise ValueError("lexical controller row lacks its declared candidate-name cue")
+        # The model's block-local training windows preserve only 32 prompt bytes.
+        # Repeat the approved lexical cue immediately before the delimiter so the
+        # narrow probe can actually measure name-conditioned reconstruction.
+        lexical_tail = f"candidate_name_words:{candidate_name_words}\n"
+    prompt = f"{row['instruction']}\n{row['input']}\n{lexical_tail}controller_json:\n".encode("utf-8")
     target = row["output"].encode("utf-8")
     if not target.startswith(b"{"):
         raise ValueError("controller JSON target must begin with an opening brace")
@@ -350,15 +362,15 @@ def _next_greedy_byte(model: ByteTransformer28M, context: bytes) -> int:
 def constrained_json_completion(
     model: ByteTransformer28M, prompt: bytes = b"", max_new_bytes: int = 512
 ) -> str:
-    """Greedily complete a prompt-conditioned JSON object without executing it.
+    """Greedily complete a prompt without syntax masking or executing its text.
 
-    The opening brace is the sole formatting constraint.  The supplied prompt is
-    a checked-in corpus instruction and input, never a hidden target answer.
+    The supplied prompt is a checked-in corpus instruction and input, never a
+    hidden target answer. No byte is seeded or masked to force JSON form.
     """
 
     if not 8 <= max_new_bytes <= MAX_GENERATION_BYTES:
         raise ValueError("generation budget is outside the local safety limit")
-    candidate = bytearray(b"{")
+    candidate = bytearray()
     for _ in range(max_new_bytes):
         candidate.append(_next_greedy_byte(model, prompt + bytes(candidate)))
         try:
@@ -372,11 +384,12 @@ def constrained_json_completion(
 
 
 def _evaluate_schema(model: ByteTransformer28M, holdout_rows: tuple[dict[str, Any], ...], max_new_bytes: int) -> dict[str, Any]:
-    """Measure every held-out prompt for strict syntax/admission; never score task correctness."""
+    """Measure raw held-out completions for syntax, schema, admission, and exact target-name recovery."""
 
     valid_json = 0
     exact_schema = 0
     admitted = 0
+    exact_name = 0
     reason_counts: Counter[str] = Counter()
     generations: list[dict[str, Any]] = []
     for row in holdout_rows:
@@ -385,6 +398,7 @@ def _evaluate_schema(model: ByteTransformer28M, holdout_rows: tuple[dict[str, An
         decision = resolve_guidance(raw, profile_name="default")
         json_is_valid = False
         schema_is_valid = False
+        parsed: Any | None = None
         try:
             parsed = json.loads(raw)
             json_is_valid = isinstance(parsed, dict)
@@ -396,6 +410,8 @@ def _evaluate_schema(model: ByteTransformer28M, holdout_rows: tuple[dict[str, An
         valid_json += int(json_is_valid)
         exact_schema += int(schema_is_valid)
         admitted += int(decision.accepted)
+        expected_name = json.loads(row["output"])["name"]
+        exact_name += int(json_is_valid and parsed.get("name") == expected_name)
         reason_counts[decision.reason] += 1
         raw_bytes = raw.encode("utf-8", errors="strict")
         generations.append(
@@ -412,17 +428,21 @@ def _evaluate_schema(model: ByteTransformer28M, holdout_rows: tuple[dict[str, An
     return {
         "evaluation_examples": count,
         "decoder": {
-            "method": "greedy_prompt_conditioned",
-            "format_prefix": "{",
+            "method": "raw_greedy_prompt_conditioned",
+            "format_prefix": None,
+            "grammar_masking": False,
             "prompt_source": "declared held-out instruction/input plus controller_json delimiter",
             "max_new_bytes": max_new_bytes,
         },
         "valid_json_rate": valid_json / count,
         "exact_controller_schema_rate": exact_schema / count,
         "controller_admission_rate": admitted / count,
+        "exact_target_name_rate": exact_name / count,
+        "exact_target_name_count": exact_name,
         "controller_reason_counts": dict(sorted(reason_counts.items())),
         "generation_digests": generations,
         "generated_text_persisted": False,
+        "exact_target_name_measured": True,
         "task_correctness_measured": False,
     }
 
@@ -496,6 +516,7 @@ def run_instruction_tuning_attempt(
         prior_elapsed = float(prior["elapsed_seconds"])
 
     initial_holdout_nll = _heldout_target_nll(model, holdout_rows, block_size=model_config.block_size)
+    baseline_schema_evaluation = _evaluate_schema(model, holdout_rows, tuning_config.generation_max_bytes)
     rng = random.Random(tuning_config.seed + step)
     started = time.monotonic()
     last_train_nll: float | None = None
@@ -560,6 +581,7 @@ def run_instruction_tuning_attempt(
             "final_heldout_target_nll": final_holdout_nll,
             "last_train_nll": last_train_nll,
         },
+        "baseline_schema_evaluation": baseline_schema_evaluation,
         "schema_evaluation": _evaluate_schema(model, holdout_rows, tuning_config.generation_max_bytes),
         "execution_boundary": {
             "network_calls": 0,
@@ -608,8 +630,8 @@ def main() -> None:
         resume=args.resume,
     )
     print(
-        f"Finite JSON tuning completed after {result['run']['steps_completed']} steps; held-out NLL "
-        f"{result['metrics']['initial_heldout_nll']:.6f} -> {result['metrics']['final_heldout_nll']:.6f}; "
+        f"Finite JSON tuning completed after {result['run']['steps_completed']} steps; held-out target NLL "
+        f"{result['metrics']['initial_heldout_target_nll']:.6f} -> {result['metrics']['final_heldout_target_nll']:.6f}; "
         f"controller admission {result['schema_evaluation']['controller_admission_rate']:.0%}."
     )
 
