@@ -1,0 +1,387 @@
+{
+  "benchmark": {
+    "cases": 10,
+    "raw_decoding": {
+      "format_parameter_used": false,
+      "system_prompt_sha256": "833b369e387fe5db8cc2d213212aaf0733e2822b1f4e30f7d7c0471976c6df46",
+      "temperature": 0.0
+    },
+    "source": "v15 checked-in primitive metadata; deterministic held-out source records",
+    "source_disjoint_from_v15_training": true,
+    "task": "metadata-to-controller translation with raw local decoding"
+  },
+  "claim_boundary": "This measures ten source-backed metadata-to-controller translations under raw local decoding. It is not evidence of reasoning, coding, general language ability, native-model improvement, or frontier-model equivalence.",
+  "execution_boundary": {
+    "candidate_program_executed": false,
+    "generated_text_executed": false,
+    "global_registry_mutated": false,
+    "local_loopback_http_calls_only": true,
+    "model_downloaded_by_evaluator": false,
+    "primitive_selected_for_evolution": false
+  },
+  "metrics": {
+    "controller_admitted": 0,
+    "exact_name": 0,
+    "raw_json_valid": 0,
+    "required_contract_valid": 0
+  },
+  "model": {
+    "availability_reason": "available",
+    "available": true,
+    "identifier": "qwen2.5-coder:1.5b"
+  },
+  "records": [
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 245,
+        "raw_sha256": "036ce2dd8b0f99f7772b878ec36e2a3c1abca5140f78e3b2919e0c33889d4e91",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-1893fcc79691aae5a8524592",
+      "expected_name_sha256": "ade506b158db946a1f46b33993d317d2ac5654ee3be8683a6bc18717d6872106",
+      "prompt_sha256": "b10994734c5a8ac3952ac787df033895afa8c4093ebfc29d4642122ce4f41398",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 8.644656577002024,
+        "persisted_raw_text": false,
+        "raw_bytes": 245,
+        "raw_sha256": "036ce2dd8b0f99f7772b878ec36e2a3c1abca5140f78e3b2919e0c33889d4e91",
+        "reason": "ok",
+        "request_bytes": 1616
+      },
+      "source_record_id": "9599299fb1929ee7a83bda1c683abe674c2ffaf8988da8c3d844f051a8a9edab"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 297,
+        "raw_sha256": "4488e4a4d69efacb64208f632a8f51b72fee44ca047ce35387416a0f60fc62d1",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-230f2af164134ebdff40b4d8",
+      "expected_name_sha256": "4d32c3ae3fee2d74c8d284f48b927c56225d2940fe3f6be2ac82a6cc74beeef4",
+      "prompt_sha256": "fe52c206211af5ac737bc98f05549439d29c3400a4a432f05053c91ea0a9f668",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 7.014823816003627,
+        "persisted_raw_text": false,
+        "raw_bytes": 297,
+        "raw_sha256": "4488e4a4d69efacb64208f632a8f51b72fee44ca047ce35387416a0f60fc62d1",
+        "reason": "ok",
+        "request_bytes": 1661
+      },
+      "source_record_id": "4fc8e4d24f95e2e2b248d4e416b83ceee1f0630a057bd24bbd494da71ecd18ab"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 314,
+        "raw_sha256": "9a422a5b79424d50badd196af72e6bd3e3b02ed2f2b46bb2be828d66de1bb6a9",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-405be84189d24db862476e42",
+      "expected_name_sha256": "0c62f876ef1dea830de9f32c2f4b46dd6d74d50d15896e09ef5a2fcd4ac7e1d7",
+      "prompt_sha256": "19ecf8b94e6c742fbc2d1ca924c422ee02b82999577c1c53f5608405bbca10d6",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 7.910058574998402,
+        "persisted_raw_text": false,
+        "raw_bytes": 314,
+        "raw_sha256": "9a422a5b79424d50badd196af72e6bd3e3b02ed2f2b46bb2be828d66de1bb6a9",
+        "reason": "ok",
+        "request_bytes": 1626
+      },
+      "source_record_id": "e175119ceed7672e7f954531d4c7c6bd53b6677ce4fecc4ea4dfca85108b90c4"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-57b8df90f5e3f68a352e72aa",
+      "expected_name_sha256": "a6c786c2787d37f4c04d7f916a94b4d7fa6c2d991eff61733d03d70711cd1ba9",
+      "prompt_sha256": "489a64c692ab5f741debe762e0b4efef3826752b347a80c8a48cb41048ce6605",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 5.491223179997178,
+        "persisted_raw_text": false,
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "ok",
+        "request_bytes": 1615
+      },
+      "source_record_id": "1c11061e1030506fde4d42a2953afea8c16dc8d348fe6fae7ddaa78a20454e0e"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 245,
+        "raw_sha256": "036ce2dd8b0f99f7772b878ec36e2a3c1abca5140f78e3b2919e0c33889d4e91",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-5b085639b075ab5fe855a2ac",
+      "expected_name_sha256": "8959a07ae827fd3f9e78faad4a66a652aadc3ac1c2d0800cda759e06ec6aaf22",
+      "prompt_sha256": "091672f9588e0235808f3e163b1d0347fbacbaa520560f49ef77cf8798aa389c",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 5.232342775998404,
+        "persisted_raw_text": false,
+        "raw_bytes": 245,
+        "raw_sha256": "036ce2dd8b0f99f7772b878ec36e2a3c1abca5140f78e3b2919e0c33889d4e91",
+        "reason": "ok",
+        "request_bytes": 1618
+      },
+      "source_record_id": "29a025807315b035fd90e1a1253a767c27a058232c3cbac4df078a7f74f5ed62"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 290,
+        "raw_sha256": "baff544aba337a0e3ba190109d23b755248ab7a1c425d0d767a2a9c46bc3d836",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-64766c00cba768a3c9d5fc8a",
+      "expected_name_sha256": "836ff184e7b41b1e13cb5fd89fa1de98dbbab99e9d2918913ff43b86a5c7c213",
+      "prompt_sha256": "cd5d74fafeb364ecc353774205c1002f9c303ca1b29cf574fd3f3117dbbca697",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 6.84920623099606,
+        "persisted_raw_text": false,
+        "raw_bytes": 290,
+        "raw_sha256": "baff544aba337a0e3ba190109d23b755248ab7a1c425d0d767a2a9c46bc3d836",
+        "reason": "ok",
+        "request_bytes": 1645
+      },
+      "source_record_id": "2ffe76fa914ec02a7b6f01dabcc0724e0ba5ac3d08b0bfa52b7191e779656e21"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-7a6545b036daa2145dcdb83f",
+      "expected_name_sha256": "d59a4589a8cb7e4bb526a782f6cc06aa2e8d830974afb920955c8f9a230f79f8",
+      "prompt_sha256": "9ccfc917452ca977f3d1fde0e230a0f84c3c811a18a5950be8b300cac102f279",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 5.5543222240085015,
+        "persisted_raw_text": false,
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "ok",
+        "request_bytes": 1614
+      },
+      "source_record_id": "5b974595da602c45ea2b450eb2d56bba98c8ccb5c4ce7d366f0c0af66ddcfd59"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 313,
+        "raw_sha256": "390d54a19f85f3d864c00909b53f981a9a725f5cc63b1fd0f6176d12bc1ad188",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-c1a7093ddd98255e95de7603",
+      "expected_name_sha256": "a37d4a2a9cc79b2c56ae65bc9bf95a98c0a26aaa0ed1e088942105402b3cb78c",
+      "prompt_sha256": "f3123a631c21687a93a255d09c234fc83732bcfa14893671d15c28d5ce92f58c",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 7.275561725007719,
+        "persisted_raw_text": false,
+        "raw_bytes": 313,
+        "raw_sha256": "390d54a19f85f3d864c00909b53f981a9a725f5cc63b1fd0f6176d12bc1ad188",
+        "reason": "ok",
+        "request_bytes": 1676
+      },
+      "source_record_id": "af062d010f744929561501ea77f9eaa3cec651e30c076804cbb8d05d0a47ae0d"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-f5d3f32902bd7f95fb60e142",
+      "expected_name_sha256": "369aff74e6583883b962d30502ab68fae011e91ca9a5113bddb87ac40a6463aa",
+      "prompt_sha256": "ec6d00747803d17fe156ae9e47e9392a1bc58986ca64d83145fe5898cb49ab2b",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 5.7133417570003076,
+        "persisted_raw_text": false,
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "ok",
+        "request_bytes": 1643
+      },
+      "source_record_id": "d2ad48c863d38aab386b9ebbbe7b1d69e8f91517c08e314bc07572fe5512dc2b"
+    },
+    {
+      "controller_admitted": false,
+      "controller_decision": {
+        "accepted": false,
+        "approval": null,
+        "execution_boundary": {
+          "candidate_program_executed": false,
+          "global_registry_mutated": false,
+          "model_output_executed": false,
+          "network_calls": 0
+        },
+        "primitive_name": null,
+        "profile_name": "default",
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "invalid_json",
+        "schema_version": "beast-brain-guidance-decision-v1"
+      },
+      "exact_name": false,
+      "example_id": "json-instruction-fde9ece40f4eca84671583c6",
+      "expected_name_sha256": "3b10e3339700ee878ca861dfbb3410273f7a38d6acec959556c8d001aee418b5",
+      "prompt_sha256": "c23ba1d91dee0c73d91ceb1ecb03f399207662b4a173453ccbe6124ed5147eab",
+      "raw_json_valid": false,
+      "required_contract_valid": false,
+      "response": {
+        "available": true,
+        "elapsed_seconds": 5.110032117998344,
+        "persisted_raw_text": false,
+        "raw_bytes": 239,
+        "raw_sha256": "3d8ab84f86e83c0ce14399262ea6698aa4651e6e35fd72edd4da26187fe23a72",
+        "reason": "ok",
+        "request_bytes": 1655
+      },
+      "source_record_id": "6300e4d7d5206bfd9fbed05e2aa87b2b7723251ccc247c85c87d7e28572dd7b4"
+    }
+  ],
+  "schema_version": "beast-brain-ollama-controller-baseline-v1",
+  "status": "completed"
+}

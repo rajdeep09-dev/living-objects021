@@ -221,6 +221,16 @@ measure; all candidates were `invalid_json` and none was admitted or executed.
 | Raw structured output and controller check | **Negative result** | Raw greedy decoding had no opening-byte seed or grammar mask; baseline and candidate both produced 0/10 valid JSON, exact schema, exact target names, and admissions. [Result record](docs/v17-lexical-controller-results.md) |
 | Runtime and capability boundary | **Native-only / not supported or measured** | No GGUF/Ollama artifact, parent-weight transfer, external data/weights, network call, generated-text execution, persistent worker, reasoning, coding, or benchmark claim is supplied. [Quality audit](docs/v17-native-quality-audit.md) |
 
+## v18 local Ollama controller-form diagnostic
+
+Version 18 separately measured a temporary local downloaded `qwen2.5-coder:1.5b` model on ten source-backed records held out from the v15 instruction-training split. Raw local decoding at `temperature=0` produced **0/10** valid JSON, required controller contracts, exact expected names, and accepted controller decisions. A separately labelled Ollama provider-side JSON Schema diagnostic produced **10/10** JSON and required-field records, but **0/10** exact expected primitive names and **0/10** records that were both exact and controller-accepted. Two responses were controller-accepted only because they named a different already registered primitive; neither passed the task-correctness gate.
+
+| v18 item | Exact observed status | Boundary and evidence |
+|---|---|---|
+| Raw local instruction-tuned model output | **Measured negative result** | Ten records, one temporary local model, raw decoding; 0/10 JSON, contract, exact-name, and controller-acceptance outcomes. No generated text was executed. [Result record](docs/v18-ollama-controller-results.md) |
+| Provider-constrained JSON form | **Measured form-only result; task gate failed** | Ollama JSON Schema produced 10/10 valid-form responses but 0/10 exact names and 0/10 exact-name-and-controller-accepted records. It is not raw model capability, reasoning, coding, or an evolution-assistance result. [Result record](docs/v18-ollama-controller-results.md) |
+| SDK, evolution, and deployment | **Not enabled** | The exact-name-and-admission gate failed. There is no Ollama SDK guidance call, evolution integration, deployed service, persistent worker, tracked model weight, GGUF conversion of the native byte transformer, or frontier-model claim. [Result record](docs/v18-ollama-controller-results.md) |
+
 ## Repository map
 
 | Location | Purpose |
@@ -248,6 +258,7 @@ measure; all candidates were `invalid_json` and none was admitted or executed.
 | [`docs/v16-prompt-conditioned-json-results.md`](docs/v16-prompt-conditioned-json-results.md) | Target-only prompt-conditioned follow-up, ten-prompt zero-admission result, and retained negative outcome |
 | [`docs/v17-native-quality-audit.md`](docs/v17-native-quality-audit.md) | v17 failure-mode audit, narrow lexical-probe preregistration, and promotion criteria |
 | [`docs/v17-lexical-controller-results.md`](docs/v17-lexical-controller-results.md) | v17 corrected-baseline comparison and zero-admission negative result |
+| [`docs/v18-ollama-controller-results.md`](docs/v18-ollama-controller-results.md) | v18 local instruction-tuned raw and provider-constrained controller-form measurements |
 
 ## Development verification
 
