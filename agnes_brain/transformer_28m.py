@@ -229,7 +229,12 @@ if TORCH_AVAILABLE:
             if targets is not None:
                 if targets.shape != token_ids.shape:
                     raise ValueError("targets must match token_ids shape")
-                loss = torch_functional.cross_entropy(logits.reshape(-1, logits.size(-1)), targets.reshape(-1))
+                # ``-100`` is PyTorch's documented cross-entropy ignore index.  It
+                # lets instruction tuning score response bytes without treating the
+                # supplied prompt as a prediction target.
+                loss = torch_functional.cross_entropy(
+                    logits.reshape(-1, logits.size(-1)), targets.reshape(-1), ignore_index=-100
+                )
             return logits, loss
 
 

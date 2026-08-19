@@ -33,6 +33,15 @@ def test_transformer_forward_contract_preserves_local_byte_vocabulary() -> None:
     assert float(loss.detach()) > 0.0
 
 
+def test_transformer_forward_ignores_declared_prompt_labels_for_target_only_loss() -> None:
+    model = ByteTransformer28M(DEFAULT_CONFIG)
+    tokens = torch.tensor([[1, 2, 3, 4, 5, 6, 7, 8]], dtype=torch.long)
+    targets = torch.tensor([[-100, -100, -100, 5, 6, 7, 8, 9]], dtype=torch.long)
+    _, loss = model(tokens, targets)
+    assert loss is not None
+    assert float(loss.detach()) > 0.0
+
+
 def test_manifest_is_stable_and_excludes_synthetic_augmentation() -> None:
     first, train_bytes, holdout_bytes = build_local_data_manifest()
     second, _, _ = build_local_data_manifest()

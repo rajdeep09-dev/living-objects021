@@ -71,3 +71,6 @@ reports/v14/*/checkpoint-latest.pt
 # The v15 native instruction-tuning checkpoint is likewise local-only; its
 # source, manifests, metric records, and documented size remain publishable.
 reports/v15/*/checkpoint-latest.pt
+# The v16 prompt-conditioned follow-up follows the same source-only release
+# boundary; retain its compact metrics and digests but never add native weights.
+reports/v16/*/checkpoint-latest.pt

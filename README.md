@@ -175,6 +175,28 @@ This is a narrowly measured byte-prediction result, **not** Claude-like reasonin
 | Structured output and controller check | **Negative result** | The one bounded deterministic continuation was invalid JSON and controller admission was 0%; no primitive or program was admitted. [JSON results](docs/v15-json-instruction-results.md) |
 | GGUF and Ollama runtime | **Not supported** | The custom byte-transformer layout does not meet the documented import-path compatibility conditions; no fake export is supplied. [Feasibility audit](docs/v15-gguf-ollama-feasibility-audit.md) |
 
+## v16 prompt-conditioned native JSON follow-up
+
+Version 16 tested a single objective correction to the v15 JSON protocol: a
+target-only loss over controller-JSON bytes while each declared holdout
+instruction and input conditioned greedy decoding.  It started from the
+read-only local v15 checkpoint, used the same **56 / 10** source-disjoint local
+records, and stopped at its declared 1,800-second wall-clock limit after 3,248
+steps.
+
+The result remains negative.  Held-out target NLL **worsened** from
+**0.2009989224** to **0.2654667787**.  Across all ten held-out prompts, valid
+JSON, exact schema, and controller admission were **0%**; every candidate was
+`invalid_json`, no primitive was admitted or executed, and task correctness
+was not measured.  This is not evidence of prompt understanding, reasoning,
+code generation, BEAST improvement, or a usable model runtime.
+
+| v16 item | Exact observed status | Boundary and evidence |
+|---|---|---|
+| Prompt-conditioned target-only tuning | **Measured local negative result** | One 3,248-step finite CPU attempt over the local 56/10 split worsened held-out target NLL. [Result record](docs/v16-prompt-conditioned-json-results.md) |
+| Per-prompt structured output and controller check | **Negative result** | Ten held-out prompts produced 0% valid JSON, exact schema, and admission; all were rejected as `invalid_json`. [Result record](docs/v16-prompt-conditioned-json-results.md) |
+| GGUF/Ollama and general capability | **Not supported / not measured** | The runtime remains custom native PyTorch only; no conversion, service, general reasoning, coding, or benchmark claim is supplied. [v15 feasibility audit](docs/v15-gguf-ollama-feasibility-audit.md) |
+
 ## Repository map
 
 | Location | Purpose |
@@ -199,6 +221,7 @@ This is a narrowly measured byte-prediction result, **not** Claude-like reasonin
 | [`reports/v14/`](reports/v14/) | Persisted finite 28.9M training, calibration, checkpoint, and post-training evaluation evidence |
 | [`docs/v14-final-verification.md`](docs/v14-final-verification.md) | Exact finite-run metrics and non-capability boundaries |
 | [`docs/v15-final-verification.md`](docs/v15-final-verification.md) | Exact native JSON-tuning metrics, zero-admission result, and native-only runtime boundary |
+| [`docs/v16-prompt-conditioned-json-results.md`](docs/v16-prompt-conditioned-json-results.md) | Target-only prompt-conditioned follow-up, ten-prompt zero-admission result, and retained negative outcome |
 
 ## Development verification
 
@@ -206,7 +229,7 @@ This is a narrowly measured byte-prediction result, **not** Claude-like reasonin
 APP_ENV=dev JWT_SECRET='v7-local-test-secret' pytest -q
 ```
 
-The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; the v15 verification passed **1,772 collected cases** in 127.98 seconds, with 12 retained warnings. A parameterized collection count is not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
+The exact collected/passed count is recorded for each release verification. The v14 verification passed **1,765 collected cases** in 100.40 seconds; the v15 verification passed **1,772 collected cases** in 127.98 seconds; and the v16 verification passed **1,774 tests** in **204.81 seconds**, each with 12 retained warnings. A parameterized collection count is not a count of distinct test functions. Do not substitute a badge or a historical count for a fresh test run.
 
 ## License
 

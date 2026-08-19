@@ -45,10 +45,13 @@ from agnes_brain.transformer_28m import ByteTransformer28M, Transformer28MConfig
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE_CHECKPOINT = DEFAULT_BASE_RUN_DIRECTORY / "checkpoint-latest.pt"
-DEFAULT_TUNING_DIRECTORY = REPOSITORY_ROOT / "reports" / "v15" / "json-instruction-tuning-28m-local"
-TUNING_SCHEMA_VERSION = "beast-brain-json-instruction-tuning-v1"
+DEFAULT_TUNING_DIRECTORY = REPOSITORY_ROOT / "reports" / "v16" / "prompt-conditioned-json-instruction-tuning-28m-local"
+TUNING_SCHEMA_VERSION = "beast-brain-json-instruction-tuning-v2"
+LEGACY_TUNING_SCHEMA_VERSION = "beast-brain-json-instruction-tuning-v1"
 JSON_DATA_SCHEMA_VERSION = "beast-brain-json-instruction-v1"
 MAX_GENERATION_BYTES = 768
+TARGET_IGNORE_INDEX = -100
+PROMPT_CONTEXT_BYTES = 32
 
 
 @dataclass(frozen=True)
@@ -103,6 +106,19 @@ class JsonDataManifest:
         return asdict(self)
 
 
+@dataclass(frozen=True)
+class PromptTargetExample:
+    """One approved prompt and controller-JSON target used without text execution."""
+
+    source_record_id: str
+    prompt: bytes
+    target: bytes
+
+    @property
+    def sequence(self) -> bytes:
+        return self.prompt + self.target + b"\n"
+
+
 def _canonical_row_bytes(rows: Iterable[dict[str, Any]]) -> bytes:
     chunks: list[bytes] = []
     for row in rows:
@@ -123,6 +139,20 @@ def _canonical_row_bytes(rows: Iterable[dict[str, Any]]) -> bytes:
     return b"".join(chunks)
 
 
+def _prompt_target_example(row: dict[str, Any]) -> PromptTargetExample:
+    """Validate and serialize one local row into a declared prompt/target pair."""
+
+    _canonical_row_bytes((row,))
+    source_record_id = row["source_record_id"]
+    prompt = f"{row['instruction']}\n{row['input']}\ncontroller_json:\n".encode("utf-8")
+    target = row["output"].encode("utf-8")
+    if not target.startswith(b"{"):
+        raise ValueError("controller JSON target must begin with an opening brace")
+    if len(prompt) < PROMPT_CONTEXT_BYTES:
+        raise ValueError("declared instruction prompt is unexpectedly short")
+    return PromptTargetExample(source_record_id=source_record_id, prompt=prompt, target=target)
+
+
 def _load_jsonl(path: str | Path) -> tuple[dict[str, Any], ...]:
     rows: list[dict[str, Any]] = []
     with Path(path).open(encoding="utf-8") as handle:
@@ -141,7 +171,7 @@ def _load_jsonl(path: str | Path) -> tuple[dict[str, Any], ...]:
 
 def build_json_data_manifest(
     data_directory: str | Path = DEFAULT_JSON_DATA_DIRECTORY,
-) -> tuple[JsonDataManifest, bytes, bytes, tuple[dict[str, Any], ...]]:
+) -> tuple[JsonDataManifest, bytes, bytes, tuple[dict[str, Any], ...], tuple[dict[str, Any], ...]]:
     """Load only the materialized local JSON instruction train/holdout split."""
 
     directory = Path(data_directory)
@@ -170,11 +200,17 @@ def build_json_data_manifest(
         train_bytes=len(train_bytes),
         holdout_bytes=len(holdout_bytes),
     )
-    return manifest, train_bytes, holdout_bytes, holdout_rows
+    return manifest, train_bytes, holdout_bytes, train_rows, holdout_rows
 
 
 def _load_base_model(base_checkpoint: str | Path) -> tuple[ByteTransformer28M, Transformer28MConfig]:
-    base = load_local_checkpoint(base_checkpoint)
+    try:
+        base = load_local_checkpoint(base_checkpoint)
+    except ValueError:
+        # A previously completed local instruction-tuning checkpoint remains a
+        # native project artifact.  It is accepted only through its own strict
+        # schema loader, never as an arbitrary Torch dictionary.
+        base = load_instruction_tuning_checkpoint(base_checkpoint)
     config = Transformer28MConfig(**base["model_config"])
     config.validate()
     model = ByteTransformer28M(config)
@@ -184,6 +220,82 @@ def _load_base_model(base_checkpoint: str | Path) -> tuple[ByteTransformer28M, T
     del base
     gc.collect()
     return model, config
+
+
+def _make_target_only_batch(
+    rows: tuple[dict[str, Any], ...],
+    *,
+    block_size: int,
+    batch_size: int,
+    rng: random.Random,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Sample fixed windows whose loss labels cover only declared JSON target bytes."""
+
+    if not rows:
+        raise ValueError("cannot create a target-only batch from empty rows")
+    token_rows: list[list[int]] = []
+    target_rows: list[list[int]] = []
+    for _ in range(batch_size):
+        example = _prompt_target_example(rows[rng.randrange(len(rows))])
+        sequence = example.sequence
+        target_start = len(example.prompt)
+        max_start = len(sequence) - block_size - 1
+        if max_start < 0:
+            raise ValueError("instruction prompt/target sequence is shorter than one local window")
+        offset = rng.randrange(len(example.target))
+        start = min(max_start, max(0, target_start - PROMPT_CONTEXT_BYTES + offset))
+        window = sequence[start : start + block_size + 1]
+        if len(window) != block_size + 1:
+            raise RuntimeError("target-only batch window length drifted")
+        token_rows.append(list(window[:-1]))
+        labels: list[int] = []
+        for relative_index, byte in enumerate(window[1:], start=1):
+            source_index = start + relative_index
+            is_target_byte = target_start <= source_index < target_start + len(example.target)
+            labels.append(byte if is_target_byte else TARGET_IGNORE_INDEX)
+        if all(label == TARGET_IGNORE_INDEX for label in labels):
+            raise RuntimeError("target-only batch contains no supervised controller bytes")
+        target_rows.append(labels)
+    return torch.tensor(token_rows, dtype=torch.long), torch.tensor(target_rows, dtype=torch.long)
+
+
+def _heldout_target_nll(
+    model: ByteTransformer28M,
+    rows: tuple[dict[str, Any], ...],
+    *,
+    block_size: int,
+) -> float:
+    """Compute deterministic source-disjoint NLL on the first prompt-conditioned target window per row."""
+
+    losses: list[float] = []
+    model.eval()
+    with torch.no_grad():
+        for row in rows:
+            example = _prompt_target_example(row)
+            sequence = example.sequence
+            target_start = len(example.prompt)
+            max_start = len(sequence) - block_size - 1
+            if max_start < 0:
+                raise ValueError("held-out prompt/target sequence is shorter than one local window")
+            start = min(max_start, max(0, target_start - PROMPT_CONTEXT_BYTES))
+            window = sequence[start : start + block_size + 1]
+            token_ids = torch.tensor([list(window[:-1])], dtype=torch.long)
+            labels = torch.tensor(
+                [[
+                    byte
+                    if target_start <= start + relative_index < target_start + len(example.target)
+                    else TARGET_IGNORE_INDEX
+                    for relative_index, byte in enumerate(window[1:], start=1)
+                ]],
+                dtype=torch.long,
+            )
+            _, loss = model(token_ids, labels)
+            if loss is None:
+                raise RuntimeError("held-out target-only evaluation did not produce loss")
+            losses.append(float(loss))
+    if not losses:
+        raise ValueError("cannot evaluate an empty held-out partition")
+    return float(sum(losses) / len(losses))
 
 
 def _tuning_checkpoint_payload(
@@ -217,7 +329,10 @@ def load_instruction_tuning_checkpoint(path: str | Path) -> dict[str, Any]:
     if not checkpoint.is_file():
         raise FileNotFoundError(checkpoint)
     payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
-    if not isinstance(payload, dict) or payload.get("schema_version") != TUNING_SCHEMA_VERSION:
+    if not isinstance(payload, dict) or payload.get("schema_version") not in {
+        LEGACY_TUNING_SCHEMA_VERSION,
+        TUNING_SCHEMA_VERSION,
+    }:
         raise ValueError("checkpoint is not a BEAST-BRAIN JSON instruction-tuning checkpoint")
     return payload
 
@@ -232,19 +347,20 @@ def _next_greedy_byte(model: ByteTransformer28M, context: bytes) -> int:
     return int(torch.argmax(logits[0, -1]).item())
 
 
-def constrained_json_completion(model: ByteTransformer28M, max_new_bytes: int = 512) -> str:
-    """Greedily complete one prefix-constrained JSON object without executing it.
+def constrained_json_completion(
+    model: ByteTransformer28M, prompt: bytes = b"", max_new_bytes: int = 512
+) -> str:
+    """Greedily complete a prompt-conditioned JSON object without executing it.
 
-    The opening brace is an explicit formatting constraint.  It does not add a
-    primitive name, signature, or target answer.  The returned text is passed
-    unchanged to the strict controller validator.
+    The opening brace is the sole formatting constraint.  The supplied prompt is
+    a checked-in corpus instruction and input, never a hidden target answer.
     """
 
     if not 8 <= max_new_bytes <= MAX_GENERATION_BYTES:
         raise ValueError("generation budget is outside the local safety limit")
     candidate = bytearray(b"{")
     for _ in range(max_new_bytes):
-        candidate.append(_next_greedy_byte(model, bytes(candidate)))
+        candidate.append(_next_greedy_byte(model, prompt + bytes(candidate)))
         try:
             decoded = candidate.decode("utf-8")
             parsed = json.loads(decoded)
@@ -256,31 +372,56 @@ def constrained_json_completion(model: ByteTransformer28M, max_new_bytes: int = 
 
 
 def _evaluate_schema(model: ByteTransformer28M, holdout_rows: tuple[dict[str, Any], ...], max_new_bytes: int) -> dict[str, Any]:
-    """Measure strict controller syntax/admission only; never score task correctness."""
+    """Measure every held-out prompt for strict syntax/admission; never score task correctness."""
 
-    del holdout_rows  # Source-disjoint rows define the held-out language distribution, not test prompts.
-    raw = constrained_json_completion(model, max_new_bytes=max_new_bytes)
-    decision = resolve_guidance(raw, profile_name="default")
-    json_valid = False
-    exact_schema_valid = False
-    try:
-        parsed = json.loads(raw)
-        json_valid = isinstance(parsed, dict)
-        exact_schema_valid = json_valid and set(parsed) == {
-            "name", "description", "input_types", "output_type", "rationale"
-        }
-    except json.JSONDecodeError:
-        pass
-    raw_bytes = raw.encode("utf-8", errors="strict")
+    valid_json = 0
+    exact_schema = 0
+    admitted = 0
+    reason_counts: Counter[str] = Counter()
+    generations: list[dict[str, Any]] = []
+    for row in holdout_rows:
+        example = _prompt_target_example(row)
+        raw = constrained_json_completion(model, prompt=example.prompt, max_new_bytes=max_new_bytes)
+        decision = resolve_guidance(raw, profile_name="default")
+        json_is_valid = False
+        schema_is_valid = False
+        try:
+            parsed = json.loads(raw)
+            json_is_valid = isinstance(parsed, dict)
+            schema_is_valid = json_is_valid and set(parsed) == {
+                "name", "description", "input_types", "output_type", "rationale"
+            }
+        except json.JSONDecodeError:
+            pass
+        valid_json += int(json_is_valid)
+        exact_schema += int(schema_is_valid)
+        admitted += int(decision.accepted)
+        reason_counts[decision.reason] += 1
+        raw_bytes = raw.encode("utf-8", errors="strict")
+        generations.append(
+            {
+                "source_record_id": example.source_record_id,
+                "sha256": hashlib.sha256(raw_bytes).hexdigest(),
+                "bytes": len(raw_bytes),
+                "controller_reason": decision.reason,
+            }
+        )
+    count = len(holdout_rows)
+    if count == 0:
+        raise ValueError("cannot evaluate an empty held-out partition")
     return {
-        "evaluation_examples": 1,
-        "decoder": {"method": "greedy", "format_prefix": "{", "max_new_bytes": max_new_bytes},
-        "valid_json_rate": float(json_valid),
-        "exact_controller_schema_rate": float(exact_schema_valid),
-        "controller_admission_rate": float(decision.accepted),
-        "controller_reason_counts": {decision.reason: 1},
-        "generation_sha256": hashlib.sha256(raw_bytes).hexdigest(),
-        "generation_bytes": len(raw_bytes),
+        "evaluation_examples": count,
+        "decoder": {
+            "method": "greedy_prompt_conditioned",
+            "format_prefix": "{",
+            "prompt_source": "declared held-out instruction/input plus controller_json delimiter",
+            "max_new_bytes": max_new_bytes,
+        },
+        "valid_json_rate": valid_json / count,
+        "exact_controller_schema_rate": exact_schema / count,
+        "controller_admission_rate": admitted / count,
+        "controller_reason_counts": dict(sorted(reason_counts.items())),
+        "generation_digests": generations,
         "generated_text_persisted": False,
         "task_correctness_measured": False,
     }
@@ -310,7 +451,7 @@ def run_instruction_tuning_attempt(
     if not base_path.is_file():
         raise FileNotFoundError(base_path)
 
-    data, train_bytes, holdout_bytes, holdout_rows = build_json_data_manifest(data_directory)
+    data, train_bytes, holdout_bytes, train_rows, holdout_rows = build_json_data_manifest(data_directory)
     _set_deterministic_seed(tuning_config.seed, tuning_config.cpu_threads)
     model, model_config = _load_base_model(base_path)
     optimizer = torch.optim.AdamW(model.parameters(), lr=tuning_config.learning_rate, weight_decay=tuning_config.weight_decay)
@@ -318,7 +459,7 @@ def run_instruction_tuning_attempt(
     output.mkdir(parents=True, exist_ok=True)
     if not contract_path.exists():
         contract = {
-            "schema_version": "beast-brain-json-instruction-tuning-contract-v1",
+                "schema_version": "beast-brain-json-instruction-tuning-contract-v2",
             "base_checkpoint_sha256": base_digest,
             "model_parameter_count": parameter_count(model),
             "json_data_manifest": data.as_dict(),
@@ -331,6 +472,12 @@ def run_instruction_tuning_attempt(
                 "generated_text_executed": False,
             },
             "claim_boundary": "Schema validity is not evidence of reasoning, coding, general ability, or BEAST benchmark improvement.",
+            "supervision": {
+                "mode": "target_only",
+                "prompt_loss_labels": "ignored",
+                "prompt_context_bytes": PROMPT_CONTEXT_BYTES,
+                "target_only_ignore_index": TARGET_IGNORE_INDEX,
+            },
         }
         with contract_path.open("x", encoding="utf-8") as handle:
             json.dump(contract, handle, sort_keys=True, indent=2)
@@ -348,7 +495,7 @@ def run_instruction_tuning_attempt(
         step = int(prior["step"])
         prior_elapsed = float(prior["elapsed_seconds"])
 
-    initial_holdout_nll = _heldout_loss(model, holdout_bytes, model_config, tuning_config.evaluation_batches)
+    initial_holdout_nll = _heldout_target_nll(model, holdout_rows, block_size=model_config.block_size)
     rng = random.Random(tuning_config.seed + step)
     started = time.monotonic()
     last_train_nll: float | None = None
@@ -361,7 +508,12 @@ def run_instruction_tuning_attempt(
                 completion_reason = "wall_clock_deadline_reached"
                 break
             model.train()
-            token_ids, targets = _make_batch(train_bytes, model_config.block_size, tuning_config.batch_size, rng)
+            token_ids, targets = _make_target_only_batch(
+                train_rows,
+                block_size=model_config.block_size,
+                batch_size=tuning_config.batch_size,
+                rng=rng,
+            )
             _, loss = model(token_ids, targets)
             if loss is None:
                 raise RuntimeError("JSON instruction-tuning step did not produce loss")
@@ -380,7 +532,7 @@ def run_instruction_tuning_attempt(
                     checkpoint_path,
                 )
     elapsed = prior_elapsed + (time.monotonic() - started)
-    final_holdout_nll = _heldout_loss(model, holdout_bytes, model_config, tuning_config.evaluation_batches)
+    final_holdout_nll = _heldout_target_nll(model, holdout_rows, block_size=model_config.block_size)
     checkpoint = atomic_torch_save(
         _tuning_checkpoint_payload(model, optimizer, model_config, data, tuning_config, base_digest, step, elapsed), checkpoint_path
     )
@@ -404,8 +556,8 @@ def run_instruction_tuning_attempt(
             "contract_sha256": sha256_file(contract_path),
         },
         "metrics": {
-            "initial_heldout_nll": initial_holdout_nll,
-            "final_heldout_nll": final_holdout_nll,
+            "initial_heldout_target_nll": initial_holdout_nll,
+            "final_heldout_target_nll": final_holdout_nll,
             "last_train_nll": last_train_nll,
         },
         "schema_evaluation": _evaluate_schema(model, holdout_rows, tuning_config.generation_max_bytes),
@@ -422,7 +574,7 @@ def run_instruction_tuning_attempt(
             "general_reasoning_claim": False,
             "coding_capability_claim": False,
             "beast_benchmark_improvement_claim": False,
-            "meaning": "This is a finite native-checkpoint JSON-syntax tuning measurement only.",
+            "meaning": "This is a finite native-checkpoint prompt-conditioned JSON-syntax measurement only.",
         },
     }
     with artifact_path.open("x", encoding="utf-8") as handle:
